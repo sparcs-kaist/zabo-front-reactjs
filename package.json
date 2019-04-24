@@ -35,11 +35,18 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "@storybook/react": "^5.0.10",
-    "@storybook/addon-actions": "^5.0.10",
-    "@storybook/addon-links": "^5.0.10",
-    "@storybook/addons": "^5.0.10",
     "@babel/core": "^7.4.3",
-    "babel-loader": "^8.0.5"
+    "@storybook/addon-actions": "^5.0.10",
+    "@storybook/addon-console": "^1.1.0",
+    "@storybook/addon-info": "^5.0.10",
+    "@storybook/addon-knobs": "^5.0.10",
+    "@storybook/addon-links": "^5.0.10",
+    "@storybook/addon-notes": "^5.0.10",
+    "@storybook/addon-storyshots": "^5.0.10",
+    "@storybook/addon-viewport": "^5.0.10",
+    "@storybook/addons": "^5.0.10",
+    "@storybook/react": "^5.0.10",
+    "babel-loader": "^8.0.5",
+    "require-context.macro": "^1.0.4"
   }
 }
