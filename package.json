@@ -9,7 +9,9 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "postbuild": "./tools/moveBuildFolder.sh",
+    "generate": "python tools/generate-component.py"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -34,7 +36,6 @@
     "react-scripts": "3.0.0",
     "styled-components": "^4.2.0"
   },
-  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@storybook/addon-actions": "^5.0.10",
@@ -49,5 +50,6 @@
     "@storybook/react": "^5.0.10",
     "babel-loader": "^8.0.5",
     "require-context.macro": "^1.0.4"
-  }
+  },
+  "license": "MIT"
 }
