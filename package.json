@@ -11,7 +11,14 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "postbuild": "./tools/moveBuildFolder.sh",
-    "generate": "python tools/generate-component.py"
+    "generate": "python tools/generate-component.py",
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --config .prettierrc --write",
+      "git add"
+    ]
   },
   "eslintConfig": {
     "extends": "react-app"
