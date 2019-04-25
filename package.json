@@ -30,6 +30,7 @@
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-player": "^1.11.0",
     "react-scripts": "3.0.0",
     "styled-components": "^4.2.0"
   },
