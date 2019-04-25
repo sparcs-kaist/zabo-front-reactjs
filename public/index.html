@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <!--
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
       Only files inside the `public` folder can be referenced from the HTML.
@@ -19,14 +20,166 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <script type="text/javascript" src="https://connect.soundcloud.com/sdk.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
-    <title>ZABO - 자보</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
+  <script type="text/javascript" src="https://connect.soundcloud.com/sdk.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
+  <title>ZABO - 자보</title>
+  <meta name="description" content="자보입니다" />
+  <meta name="keywords" content="자보, 카이스트, 스팍스" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="자보" />
+  <meta property="og:site_name" content="ZABO" />
+  <meta property="og:description" content="자보입니다." />
+  <style>
+    @import url('https://fonts.googleapis.com/css?family=Just+Another+Hand');
+
+    body {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Just Another Hand', cursive;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      font-size: 10em;
+      display: flex;
+    }
+
+    ul li {
+      list-style: none;
+      transition: 0.5s;
+    }
+
+    ul li span {
+      display: inline-block;
+    }
+
+    @keyframes rt1 {
+      0% {
+        transform: rotate(0);
+      }
+
+      16.6666% {
+        transform: rotate(180deg);
+      }
+
+      33.3333% {
+        transform: rotate(180deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      66.6666% {
+        transform: rotate(180deg);
+      }
+
+      83.3333% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    @keyframes rt2 {
+      0% {
+        transform: rotate(0);
+      }
+
+      16.6666% {
+        transform: rotate(0);
+      }
+
+      33.3333% {
+        transform: rotate(180deg);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      66.6666% {
+        transform: rotate(180deg);
+      }
+
+      83.3333% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    @keyframes rt3 {
+      0% {
+        transform: rotate(0);
+      }
+
+      16.6666% {
+        transform: rotate(0);
+      }
+
+      33.3333% {
+        transform: rotate(0);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      66.6666% {
+        transform: rotate(180deg);
+      }
+
+      83.3333% {
+        transform: rotate(0);
+      }
+
+      100% {
+        transform: rotate(0);
+      }
+    }
+
+    ul li:first-child {
+      animation-name: rt1;
+      animation-duration: 4s;
+      animation-delay: 0.75s;
+      animation-iteration-count: infinite;
+    }
+
+    ul li:last-child span:nth-child(1) {
+      animation-name: rt2;
+      animation-duration: 4s;
+      animation-delay: 0.75s;
+      animation-iteration-count: infinite;
+    }
+
+    ul li:last-child span:nth-child(2) {
+      animation-name: rt3;
+      animation-duration: 4s;
+      animation-delay: 0.75s;
+      animation-iteration-count: infinite;
+    }
+  </style>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+  <div id="root">
+    <ul>
+      <li>za</li>
+      <li><span>b</span><span>o</span></li>
+    </ul>
+  </div>
+  <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
 
@@ -36,5 +189,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  </body>
+</body>
+
 </html>
