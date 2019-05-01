@@ -36,10 +36,13 @@
     ]
   },
   "dependencies": {
+    "i18next": "^15.1.0",
+    "i18next-browser-languagedetector": "^3.0.1",
     "lodash.get": "^4.4.2",
     "node-sass": "^4.11.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-i18next": "^10.9.0",
     "react-loadable": "^5.5.0",
     "react-player": "^1.11.0",
     "react-redux": "^7.0.2",
