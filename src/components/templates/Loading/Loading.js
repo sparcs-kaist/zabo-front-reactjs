@@ -6,7 +6,7 @@ import LoadingWrapper from "./Loading.styled"
 class Loading extends PureComponent {
 	render() {
 		return (
-			<LoadingWrapper>
+			<LoadingWrapper className="pre-loading">
 				<ul>
 					<li>za</li>
 					<li><span>b</span><span>o</span></li>
