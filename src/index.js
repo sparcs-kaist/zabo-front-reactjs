@@ -2,6 +2,7 @@ import React from "react"
 import ReactDOM from "react-dom"
 import { BrowserRouter as Router } from "react-router-dom"
 import { Provider } from "react-redux"
+import { ThemeProvider } from "styled-components"
 
 import "./index.scss"
 
@@ -13,9 +14,11 @@ import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
 	<Provider store={store}>
-		<Router>
-			<App />
-		</Router>
+		<ThemeProvider theme={{ mode: "light" }}>
+			<Router>
+				<App />
+			</Router>
+		</ThemeProvider>
 	</Provider>,
 	document.getElementById("root")
 )
