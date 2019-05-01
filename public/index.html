@@ -32,7 +32,8 @@
   <style>
     @import url('https://fonts.googleapis.com/css?family=Just+Another+Hand');
 
-    body {
+
+    .pre-loading {
       margin: 0;
       padding: 0;
       display: flex;
@@ -42,19 +43,19 @@
       font-family: 'Just Another Hand', cursive;
     }
 
-    ul {
+    .pre-loading ul {
       margin: 0;
       padding: 0;
       font-size: 10em;
       display: flex;
     }
 
-    ul li {
+    .pre-loading ul li {
       list-style: none;
       transition: 0.5s;
     }
 
-    ul li span {
+    .pre-loading ul li span {
       display: inline-block;
     }
 
@@ -148,21 +149,21 @@
       }
     }
 
-    ul li:first-child {
+    .pre-loading ul li:first-child {
       animation-name: rt1;
       animation-duration: 4s;
       animation-delay: 0.75s;
       animation-iteration-count: infinite;
     }
 
-    ul li:last-child span:nth-child(1) {
+    .pre-loading ul li:last-child span:nth-child(1) {
       animation-name: rt2;
       animation-duration: 4s;
       animation-delay: 0.75s;
       animation-iteration-count: infinite;
     }
 
-    ul li:last-child span:nth-child(2) {
+    .pre-loading ul li:last-child span:nth-child(2) {
       animation-name: rt3;
       animation-duration: 4s;
       animation-delay: 0.75s;
@@ -174,10 +175,12 @@
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root">
-    <ul>
-      <li>za</li>
-      <li><span>b</span><span>o</span></li>
-    </ul>
+    <div class="pre-loading">
+      <ul>
+        <li>za</li>
+        <li><span>b</span><span>o</span></li>
+      </ul>
+    </div>
   </div>
   <!--
       This HTML file is a template.

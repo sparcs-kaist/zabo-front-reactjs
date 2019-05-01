@@ -10,6 +10,8 @@ import store from "./store"
 
 import App from "./App"
 
+import boot from "./boot"
+
 import * as serviceWorker from "./serviceWorker"
 
 ReactDOM.render(
