@@ -5,6 +5,8 @@ import get from "lodash.get"
 
 import TodoList from "./TodoList"
 
+import toJS from "hoc/toJS"
+
 import * as todoActions from "store/reducers/todo"
 
 class TodoListContainer extends React.Component {
@@ -17,9 +19,10 @@ class TodoListContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-	console.log("map ", state.todo.todos)
+	console.log("map ", state.getIn(["todo", "todos"]))
 	return {
-		todos: get(state, ["todo", "todos"])
+		//todos: get(state, ["todo", "todos"])
+		todos: state.getIn(["todo", "todos"])
 	}
 }
 
@@ -32,4 +35,4 @@ const mapDispatchToProps = (dispatch) => {
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(TodoListContainer)
+)(toJS(TodoListContainer))
