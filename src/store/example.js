@@ -27,12 +27,19 @@ const reducer = (state = { /* Prev State */ }, action) => {
 
 /*
 {
-	todos: []
+	app: {
+
+	},
+	todo: {
+
+	}
 }
 
 ADD_TODO : 아이템을 추가
 DELETE_TODO : 아이템을 삭제
 UPDATE_TODO : 아이템을 업데이트
 
+SHOW_TEXT: 텍스트를 보이게 한다
+HIDE_TEXT: 텍스트를 감춘다.
 
 */
