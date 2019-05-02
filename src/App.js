@@ -3,8 +3,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import Header from "templates/Header"
-// import { HomePage } from "./components/pages"
-import { HomePage } from "components/pages"
+import { HomePage, MainPage } from "components/pages"
 
 import AppWrapper from "./App.styled"
 
@@ -14,6 +13,7 @@ function App() {
 			<Route path="/:route?" component={Header} />
 			<Switch>
 				<Route path="/home" component={HomePage} />
+				<Route path="/main" component={MainPage} />
 			</Switch>
 		</AppWrapper>
 	)
