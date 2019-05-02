@@ -8,6 +8,9 @@ let nextId = 3
 const ADD_TODO = "todo/ADD_TODO"
 const TOGGLE_TODO = "todo/TOGGLE_TODO"
 
+const SHOW_TEXT = "todo/SHOW_TEXT"
+const HIDE_TEXT = "todo/HIDE_TEXT"
+
 //action creators
 export const addTodo = createAction(
 	ADD_TODO, (text) => {
@@ -22,6 +25,9 @@ export const toggleTodo = createAction(
 	TOGGLE_TODO,
 	x => x,
 )
+
+export const showText = createAction(SHOW_TEXT)
+export const hideText = createAction(HIDE_TEXT)
 
 // initial state
 const initialState = Map({
@@ -42,6 +48,7 @@ const initialState = Map({
 				completed: false,
 			}],
 	),
+	showText: false
 })
 
 // reducer
@@ -74,4 +81,10 @@ export default handleActions({
 		//	})),
 		//}
 	},
+	[SHOW_TEXT]: (state, action) => {
+		return state.set("showText", true)
+	},
+	[HIDE_TEXT]: (state, action) => {
+		return state.set("showText", false)
+	}
 }, initialState)
