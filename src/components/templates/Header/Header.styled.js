@@ -86,7 +86,7 @@ const HeaderWrapper = styled.header`
         left: calc(50% - 150px);
         width: 300px;
         height: 300px;
-        background-color: rgba(255, 255, 255, 0.6);
+        background-color: rgba(255, 255, 255, 1);
         opacity: 1;
         transition: opacity 1s linear;
         transition: 1s;
