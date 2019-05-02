@@ -6,7 +6,11 @@ import Header from "./Header"
 storiesOf("templates/Header", module).add(
 	"Default",
 	() => (
-		<Header />
+		<Header match={{
+			params: {
+				route: undefined
+			}
+		}}/>
 	), {
 		notes: ""
 	}

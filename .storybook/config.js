@@ -14,21 +14,21 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { ThemeProvider } from "styled-components"
 
 import store from "../src/store"
-import theme from "../src/theme"
 
 import '../src/index.scss'
 
 const Decorator = (storyFn) => (
 	<Provider store={store}>
 		<Router>
-			<ThemeProvider theme={theme}>
+			<ThemeProvider theme={{ mode: "light" }}>
 				{storyFn()}
 			</ThemeProvider>
 		</Router>
 	</Provider>
 )
 
-// addDecorator(Decorator)
+
+addDecorator(Decorator)
 addDecorator(withNotes)
 addDecorator((storyFn, context) => withConsole()(storyFn)(context))
 //addDecorator(withInfo)
