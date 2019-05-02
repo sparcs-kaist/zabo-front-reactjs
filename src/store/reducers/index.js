@@ -1,5 +1,5 @@
 import { penderReducer } from "redux-pender"
-import { combineReducers } from "redux";
+import { combineReducers } from "redux-immutable"
 
 // import all files except index.js
 const req = require.context(".", true, /^(?!.\/index).*.js$/)

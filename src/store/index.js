@@ -1,6 +1,7 @@
 import { applyMiddleware, compose, createStore } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
 import penderMiddleware from "redux-pender"
+import { Map } from "immutable"
 
 import rootReducer from "./reducers"
 
@@ -18,7 +19,7 @@ const composeEnhancers =
 
 const store = createStore(
 	rootReducer,
-	{}, // initial state
+	Map(), // Initial state
 	composeEnhancers(applyMiddleware(penderMiddleware()))
 )
 

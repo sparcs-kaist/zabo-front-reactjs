@@ -1,4 +1,5 @@
 import { createAction, handleActions } from "redux-actions"
+import { Map } from "immutable"
 import { pender } from "redux-pender"
 import get from "lodash.get"
 
@@ -7,9 +8,9 @@ import get from "lodash.get"
 //action creators
 
 // initial state
-const initialState = {
+const initialState = Map({
 
-}
+})
 
 // reducer
 export default handleActions({
