@@ -77,6 +77,7 @@ const HeaderWrapper = styled.header`
     transition: 1s;
     box-sizing: border-box;
     padding: 0 100px;
+    z-index: 1000;
 
     .center-box {
         visibility: visible;

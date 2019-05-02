@@ -7,3 +7,8 @@ export const HomePage = Loadable({
     loader: () => import("./HomePage"),
     loading: Loading
 })
+
+export const MainPage = Loadable({
+    loader: () => import("./MainPage"),
+    loading: Loading
+})

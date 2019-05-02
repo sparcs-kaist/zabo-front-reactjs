@@ -1,6 +1,16 @@
 import styled from "styled-components"
 
 const LoadingWrapper = styled.div`
+		margin: 0;
+		padding: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-family: 'Just Another Hand', cursive;
+		
+		height: ${props => props.height || "100vh"};
+
+		
     ul {
       margin: 0;
       padding: 0;
