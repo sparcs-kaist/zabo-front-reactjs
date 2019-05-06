@@ -4,7 +4,6 @@ import PropTypes from "prop-types"
 import HomePageWrapper, { SCWrapper } from "./HomePage.styled"
 
 import i18n from "lib/i18n"
-import { translate } from "react-i18next"
 
 import koHome from "locales/ko/Home.json"
 import enHome from "locales/en/Home.json"
@@ -118,4 +117,4 @@ HomePage.propTypes = {}
 
 HomePage.defaultProps = {}
 
-export default translate("HomePage")(HomePage)
+export default (HomePage)

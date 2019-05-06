@@ -1,5 +1,5 @@
 const createStore = (reducer) => {
-	let state
+	let state = {}
 	let listeners = []
 	const getState = () => state
 	const dispatch = (action) => {
@@ -24,9 +24,9 @@ const reducer = (state = { /* Prev State */ }, action) => {
 	}
 }
 
-
 /*
 {
+	showVisualText: false,
 	app: {
 
 	},
