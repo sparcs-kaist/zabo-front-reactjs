@@ -13,7 +13,8 @@ const HIDE_TEXT = "todo/HIDE_TEXT"
 
 //action creators
 export const addTodo = createAction(
-	ADD_TODO, (text) => {
+	ADD_TODO,
+	(text) => {
 		return {
 			id: nextId++,
 			text,
