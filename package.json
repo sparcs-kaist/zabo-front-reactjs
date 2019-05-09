@@ -5,7 +5,7 @@
   "private": false,
   "scripts": {
     "env:storybook": "cross-env NODE_PATH=src:src/components",
-    "start": "react-scripts start",
+    "start": "$npm_execpath run env:storybook react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
