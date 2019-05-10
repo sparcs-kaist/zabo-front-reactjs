@@ -13,7 +13,7 @@ class Hubo_ZaboPagesContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
 	return {
-
+		showText: state.getIn(["showHide", "showText"]),
 	}
 }
 

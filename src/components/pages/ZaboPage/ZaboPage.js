@@ -3,7 +3,6 @@ import PropTypes from "prop-types"
 
 import ZaboPageWrapper from "./ZaboPage.styled"
 
-import Buttons from "templates/Buttons"
 import Card from "../../templates/Card"
 
 class ZaboPage extends PureComponent {
