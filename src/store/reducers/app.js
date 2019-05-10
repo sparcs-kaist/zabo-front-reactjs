@@ -38,6 +38,5 @@ export default handleActions({
 	},
 	[CHANGE_VISUAL_TEXT_COLOR]: (state, action) => {
 		return state.set("visualTextColor", action.payload.color)
-	}
-
+	},
 }, initialState)
