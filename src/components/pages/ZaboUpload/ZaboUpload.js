@@ -14,6 +14,7 @@ class ZaboUpload extends PureComponent {
 					<div id="informationUpload">
 						<div id="title">
 							Title of this Zabo
+
 						</div>
 						<div id="uploader">
 							<i class="fas fa-user-circle" />
