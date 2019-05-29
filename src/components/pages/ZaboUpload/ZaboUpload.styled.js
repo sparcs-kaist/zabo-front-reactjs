@@ -12,7 +12,7 @@ const ZaboUploadWrapper = styled.div`
    // }
   
   /* ===== Main Section ===== */
-  #zaboUploadWrapper {
+  .zaboUploadWrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
