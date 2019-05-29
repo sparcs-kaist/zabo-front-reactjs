@@ -14,6 +14,7 @@ const ZaboUploadWrapper = styled.div`
   /* ===== Main Section ===== */
   #zaboUploadWrapper {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     
@@ -32,6 +33,7 @@ const ZaboUploadWrapper = styled.div`
     width: 1024px;
     height: 650px;
     padding: 30px;
+    border-radius: 10px;
   }
   #imageUpload {
     width: 400px;
@@ -53,8 +55,7 @@ const ZaboUploadWrapper = styled.div`
   
   /* ===== Submit Section ===== */
   #submitSection {
-    width: 1024px;
-    height: 100px;
+    width: 100%;
   }
 `;
 
