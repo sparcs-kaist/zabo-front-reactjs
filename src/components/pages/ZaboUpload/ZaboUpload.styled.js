@@ -1,19 +1,16 @@
 import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
-  
-  
-  .zaboUploadWrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    width: 100%;
-    height: 100%;
-    background-color: #efefef;
-  }
-  
+  margin: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  background-color: #efefef;
   
   #uploadSection {
     display: flex;
