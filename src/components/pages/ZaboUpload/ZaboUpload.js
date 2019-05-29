@@ -6,7 +6,7 @@ import ZaboUploadWrapper from "./ZaboUpload.styled"
 class ZaboUpload extends PureComponent {
 	render() {
 		return (
-			<ZaboUploadWrapper id="zaboUploadWrapper">
+			<ZaboUploadWrapper className="zaboUploadWrapper">
 				<div id="uploadSection">
 					<div id="imageUpload">
 						Upload Image Here
