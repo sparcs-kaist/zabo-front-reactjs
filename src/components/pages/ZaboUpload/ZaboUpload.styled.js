@@ -1,10 +1,8 @@
 import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
-  * {
-    margin: 0;
-    padding: 0;
-   }
+   margin: 0;
+   padding: 0;
    
    // @font-face {
    //  font-family: ~~;
