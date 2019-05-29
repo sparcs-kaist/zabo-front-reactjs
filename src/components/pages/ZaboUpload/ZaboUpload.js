@@ -8,41 +8,22 @@ import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
 import { KeyboardDatePicker } from '@material-ui/pickers';
 
-const useStyles = makeStyles(theme => ({
-	button: {
-		margin: theme.spacing(1),
-	},
-	rightIcon: {
-		marginLeft: theme.spacing(1),
-	},
-	input: {
-		display: 'none',
-	},
-	// textField: {
-	// 	marginLeft: theme.spacing(1),
-	// 	marginRight: theme.spacing(1),
-	// },
-}));
-
 class ZaboUpload extends PureComponent {
 	render() {
-		const classes = useStyles();
-
 		return (
 			<ZaboUploadWrapper>
 				<div id="uploadSection">
 					<div id="imageUpload">
 						<input
 							accept="image/*"
-							className={classes.input}
 							id="imageUploadInput"
 							multiple
 							type="file"
 						/>
 						<label htmlFor="imageUploadInput">
-							<Button variant="contained" size="large" color="default" className={classes.button}>
+							<Button variant="contained" size="large" color="default" className="spacing">
 								Upload Image Here
-								<CloudUploadIcon className={classes.rightIcon} />
+								<CloudUploadIcon className="spacing"/>
 							</Button>
 						</label>
 					</div>

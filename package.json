@@ -43,6 +43,7 @@
     "@material-ui/pickers": "^3.0.0",
     "axios": "^0.18.0",
     "bricks.js": "^1.8.0",
+    "browserslist": "^4.6.1",
     "cross-env": "^5.2.0",
     "i18next": "^15.1.0",
     "i18next-browser-languagedetector": "^3.0.1",

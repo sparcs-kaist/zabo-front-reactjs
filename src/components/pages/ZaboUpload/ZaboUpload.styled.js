@@ -34,6 +34,12 @@ const ZaboUploadWrapper = styled.div`
     border: 1px dotted black;
     border-radius: 10px;
   }
+  #imageUploadInput {
+    display: none;
+  }
+  .spacing {
+    margin: 1px;
+  }
   #informationUpload {
     display: flex;
     flex-direction: column;
