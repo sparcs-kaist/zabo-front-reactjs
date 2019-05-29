@@ -1,7 +1,7 @@
 import styled from "styled-components"
 
 const HomePageWrapper = styled.div `
-`
+`;
 
 export const SCWrapper = styled.div `
     transition: all 500ms ease;
@@ -125,6 +125,6 @@ export const SCWrapper = styled.div `
     100% {
         transform: rotateZ(360deg);
     }
-`
+`;
 
 export default HomePageWrapper
