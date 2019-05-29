@@ -6,7 +6,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
-import { KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+	MuiPickersUtilsProvider,
+	KeyboardDatePicker
+} from '@material-ui/pickers';
 
 class ZaboUpload extends PureComponent {
 	render() {
@@ -53,12 +57,14 @@ class ZaboUpload extends PureComponent {
 							/>
 						</div>
 						<div id="expiration">
-							<KeyboardDatePicker
-								margin="normal"
-								label="Expiration Date"
-								// value={selectedDate}
-								// onChange={handleDateChange}
-							/>
+							<MuiPickersUtilsProvider utils={DateFnsUtils}>
+								<KeyboardDatePicker
+									margin="normal"
+									label="Expiration Date"
+									// value={selectedDate}
+									// onChange={handleDateChange}
+								/>
+							</MuiPickersUtilsProvider>
 						</div>
 					</div>
 				</div>
