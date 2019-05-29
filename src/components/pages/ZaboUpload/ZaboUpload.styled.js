@@ -1,10 +1,8 @@
 import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
-   margin: 0;
-   padding: 0;
   
-  /* ===== Main Section ===== */
+  
   .zaboUploadWrapper {
     display: flex;
     flex-direction: column;
@@ -16,7 +14,7 @@ const ZaboUploadWrapper = styled.div`
     background-color: #efefef;
   }
   
-  /* ===== Upload Section ===== */
+  
   #uploadSection {
     display: flex;
     flex-direction: row;
@@ -46,7 +44,7 @@ const ZaboUploadWrapper = styled.div`
     border: 1px solid gray;
   }
   
-  /* ===== Submit Section ===== */
+  
   #submitSection {
     width: 100%;
   }
