@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 
 import ZaboUploadWrapper from "./ZaboUpload.styled"
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
 import TextField from '@material-ui/core/TextField';
@@ -13,7 +12,20 @@ import {
 } from '@material-ui/pickers';
 
 class ZaboUpload extends PureComponent {
+	state = {
+		selectedDate: new Date('2019-05-30T21:11:54'),
+		uploadedImages: [],
+	};
+
+	handleDateChange = (e) => {
+		console.log(e)
+		this.state.selectedDate = e;
+		console.log(this.state.selectedDate);
+	};
+
 	render() {
+		const state = this.state;
+
 		return (
 			<ZaboUploadWrapper>
 				<div id="uploadSection">
@@ -24,12 +36,11 @@ class ZaboUpload extends PureComponent {
 							multiple
 							type="file"
 						/>
-						<label htmlFor="imageUploadInput">
-							<Button variant="contained" size="large" color="default" className="spacing">
-								Upload Image Here
-								<CloudUploadIcon className="spacing"/>
-							</Button>
-						</label>
+						<div id="imageUploadText">
+							{}
+							<CloudUploadIcon />
+							Upload Image Here
+						</div>
 					</div>
 					<div id="informationUpload">
 						<div id="title">
@@ -38,6 +49,7 @@ class ZaboUpload extends PureComponent {
 									required
 									label="Title of this Zabo"
 									margin="normal"
+									fullWidth={true}
 								/>
 							</form>
 						</div>
@@ -47,13 +59,12 @@ class ZaboUpload extends PureComponent {
 						</div>
 						<div id="description">
 							<TextField
-								// id="afsd"
+								id="descriptionTextField"
 								label="Description"
 								multiline
-								// rowsMax="4"
-								// value={values.multiline}
-								// onChange={handleChange('multiline')}
+								rows="10"
 								margin="normal"
+								fullWidth={true}
 							/>
 						</div>
 						<div id="expiration">
@@ -61,15 +72,15 @@ class ZaboUpload extends PureComponent {
 								<KeyboardDatePicker
 									margin="normal"
 									label="Expiration Date"
-									// value={selectedDate}
-									// onChange={handleDateChange}
+									value={state.selectedDate}
+									onChange={this.handleDateChange}
 								/>
 							</MuiPickersUtilsProvider>
 						</div>
 					</div>
 				</div>
 				<div id="submitSection">
-					<Button color="secondary">
+					<Button variant="contained" size="large" color="secondary">
 						제출하기
 					</Button>
 				</div>
@@ -79,9 +90,9 @@ class ZaboUpload extends PureComponent {
 }
 
 ZaboUpload.propTypes = {
-}
+};
 
 ZaboUpload.defaultProps = {
-}
+};
 
 export default ZaboUpload;
