@@ -7,8 +7,8 @@ class HomePage extends PureComponent {
 	render() {
 		return (
 			<HomePageWrapper>
-				{this.props.children}
 				HomePage
+				{this.props.children}
 			</HomePageWrapper>
 		)
 	}
