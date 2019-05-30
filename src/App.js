@@ -3,7 +3,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import Header from "templates/Header"
-import { HomePage, MainPage, ZaboPage } from "components/pages"
+import { HomePage, MainPage, ZaboPage, MyPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 
 import AppWrapper from "./App.styled"
@@ -17,6 +17,7 @@ function App() {
 				<Route path="/home" component={HomePage} />
 				<Route path="/main" component={MainPage} />
 				<Route path="/upload" component={ZaboPage} />
+				<Route path="/mypage" component={MyPage} />
 			</Switch>
 		</AppWrapper>
 	)
