@@ -1,12 +1,9 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-
 import VisualTextToggleButtonWrapper from "./VisualTextToggleButton.styled"
 
 class VisualTextToggleButton extends PureComponent {
 	render() {
 		const { AppActions } = this.props
-
 
 		const changeToRed = () => AppActions.changeVisualTextColor("red")
 		const changeToBlue = () => AppActions.changeVisualTextColor("blue")
