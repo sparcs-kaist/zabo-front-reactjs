@@ -1,6 +1,4 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-
 import DummyParentWrapper from "./DummyParent.styled"
 import VisualText from "../VisualText"
 import VisualTextToggleButton from "../VisualTextToggleButton"
