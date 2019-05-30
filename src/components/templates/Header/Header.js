@@ -13,6 +13,7 @@ class Header extends PureComponent {
 				<NavLink to="/" exact>Home</NavLink>
 				<NavLink to="/main">Main</NavLink>
 				<NavLink to="/upload">Upload</NavLink>
+				<a href='#' onClick={this.props.logout}>Logout</a>
 			</HeaderWrapper>
 		)
 	}
