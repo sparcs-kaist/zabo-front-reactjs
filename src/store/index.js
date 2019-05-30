@@ -1,13 +1,12 @@
 import { applyMiddleware, compose, createStore } from "redux"
-import { composeWithDevTools } from "redux-devtools-extension/developmentOnly"
+import { composeWithDevTools } from "redux-devtools-extension"
 import penderMiddleware from "redux-pender"
+import { Map } from "immutable"
 
 import rootReducer from "./reducers"
 
 const composeEnhancers =
-	process.env.NODE_ENV === "production"
-		? compose
-		: composeWithDevTools({
+		composeWithDevTools({
 				actionBlacklist: [
 					"@@redux-pender/SUCCESS",
 					"@@redux-pender/FAILURE",
@@ -18,7 +17,7 @@ const composeEnhancers =
 
 const store = createStore(
 	rootReducer,
-	{}, // initial state
+	Map(), // Initial state
 	composeEnhancers(applyMiddleware(penderMiddleware()))
 )
 

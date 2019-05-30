@@ -3,6 +3,14 @@ import PropTypes from "prop-types"
 
 import HomePageWrapper, { SCWrapper } from "./HomePage.styled"
 
+import i18n from "lib/i18n"
+
+import koHome from "locales/ko/Home.json"
+import enHome from "locales/en/Home.json"
+
+i18n.addResourceBundle("ko", "Home", koHome, true, false)
+i18n.addResourceBundle("en", "Home", enHome, true, false)
+
 // SC settings
 const clientId = "853fdb79a14a9ed748ec9fe482e859dd"
 const trackId = "120912535"
@@ -61,6 +69,7 @@ class SCPlayer extends PureComponent {
 	}
 
 	render() {
+		const { t } = this.props
 		return (
 			<SCWrapper className={this.state.isPLayingClass}>
 				<img
@@ -83,6 +92,7 @@ class SCPlayer extends PureComponent {
 						/>
 					</div>
 				</div>
+				{t("zabo")}
 			</SCWrapper>
 		)
 	}
@@ -107,4 +117,4 @@ HomePage.propTypes = {}
 
 HomePage.defaultProps = {}
 
-export default HomePage
+export default (HomePage)
