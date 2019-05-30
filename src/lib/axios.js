@@ -15,12 +15,10 @@ class Axios {
 				},
 			},
 			timeout: 30000,
-			baseURL: "http://localhost:3001/v1",
+			baseURL: "http://ssal.sparcs.org:10001/api",
 		})
 		this._interceptor = null
 		this.token = ""
-
-		this._proxyRequest()
 	}
 
 	static get instance() {
@@ -43,23 +41,21 @@ class Axios {
 			this.session.interceptors.request.eject(this._interceptor)
 			this._interceptor = null
 		}
+
 		if (!token || typeof token === 'undefined' || token === '') return
 
 		this._interceptor = this.session.interceptors.request.use(config => {
-			if (
-				config.url[0] === "/" ||
-				config.url.indexOf(`${process.env.REACT_APP_PROD_HOST}/`) !== -1
-			)
+			if (config.url[0] === "/")
 				Object.assign(config, {
 					headers: {
-						Authorization: `${this.token}`,
+						Authorization: `Bearer ${this.token}`,
 						...config["headers"],
 					},
 				})
 			return config
 		})
     }
-    
+
 	get = (...params) => this.session.get(...params)
 	post = (...params) => this.session.post(...params)
 	put = (...params) => this.session.put(...params)
