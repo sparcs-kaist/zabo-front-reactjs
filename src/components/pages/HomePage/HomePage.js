@@ -69,7 +69,7 @@ class SCPlayer extends PureComponent {
 	}
 
 	render() {
-		const { t } = this.props;
+		const { t } = this.props
 		return (
 			<SCWrapper className={this.state.isPLayingClass}>
 				<img
@@ -107,14 +107,17 @@ class HomePage extends PureComponent {
 	render() {
 		return (
 			<HomePageWrapper>
-				<SCPlayer clientId={clientId} trackId={trackId} />
+				{this.props.children}
+				HomePage
 			</HomePageWrapper>
 		)
 	}
 }
 
-HomePage.propTypes = {}
+HomePage.propTypes = {
+}
 
-HomePage.defaultProps = {}
+HomePage.defaultProps = {
+}
 
-export default (HomePage)
+export default HomePage

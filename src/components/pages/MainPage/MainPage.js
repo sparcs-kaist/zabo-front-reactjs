@@ -5,8 +5,6 @@ import MainPageWrapper from "./MainPage.styled"
 import Masonry, { GridItem } from "templates/Masonry"
 
 import { getEntries } from "../../../lib/api/mock"
-import Test from "../../templates/Test"
-import ReactBricks from "../../templates/Test/ReactBricks"
 
 class MainPage extends PureComponent {
 	state = {
