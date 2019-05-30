@@ -8,13 +8,16 @@ class HomePage extends PureComponent {
 		return (
 			<HomePageWrapper>
 				HomePage
+				{this.props.children}
 			</HomePageWrapper>
 		)
 	}
 }
 
-HomePage.propTypes = {}
+HomePage.propTypes = {
+}
 
-HomePage.defaultProps = {}
+HomePage.defaultProps = {
+}
 
-export default (HomePage)
+export default HomePage
