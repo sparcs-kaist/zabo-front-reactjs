@@ -1,12 +1,12 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import VisualText from "./VisualText"
+import AuthCallback from "./AuthCallback"
 
-storiesOf("organisms/VisualText", module).add(
+storiesOf("organisms/AuthCallback", module).add(
 	"Default",
 	() => (
-		<VisualText />
+		<AuthCallback />
 	), {
 		notes: ""
 	}
