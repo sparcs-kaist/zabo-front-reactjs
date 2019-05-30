@@ -20,6 +20,7 @@ class ZaboUpload extends PureComponent {
 	handleDateChange = (e) => {
 		console.log(e)
 		this.state.selectedDate = e;
+		console.log(this.state.selectedDate);
 	};
 
 	render() {
@@ -47,7 +48,6 @@ class ZaboUpload extends PureComponent {
 								<TextField
 									required
 									label="Title of this Zabo"
-									size="2700px"
 									margin="normal"
 									fullWidth={true}
 								/>
