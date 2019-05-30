@@ -5,6 +5,8 @@ import InfiniteScroll from 'react-infinite-scroller'
 
 import Loading from "templates/Loading"
 
+import SearchBar from 'templates/SearchBar'
+
 import MasonryWrapper from "./Masonry.styled"
 
 export const GridItem = (props) => {
@@ -92,7 +94,6 @@ class ReactBricks extends React.Component {
 
 	render() {
 		const { loadMore, loader, useWindowForScroll, containerId, style, bricks, hasMoreBricks } = this.props
-
 		return (
 				<InfiniteScroll className="masonry-class"
 												pageStart={0}
@@ -100,6 +101,7 @@ class ReactBricks extends React.Component {
 												loader={loader}
 												hasMore={hasMoreBricks}
 												useWindow={useWindowForScroll}>
+          <SearchBar/>
 					<MasonryWrapper className="bricks-container"
 									 id={containerId}
 									 style={style}>
