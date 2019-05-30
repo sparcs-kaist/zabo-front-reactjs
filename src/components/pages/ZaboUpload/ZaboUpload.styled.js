@@ -17,28 +17,48 @@ const ZaboUploadWrapper = styled.div`
   #uploadSection {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
   
     width: 1024px;
     height: 650px;
+    margin: 30px;
     padding: 40px;
     border-radius: 10px;
     background-color: white;
   }
   #imageUpload {
-    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  
+    width: 400px;
+    height: 590px;
+    padding: 20px;
+    
+    background-color: #efefef;
+    border-radius: 20px;
+  }
+  #imageUploadInput {
+    opacity: 0;
+    
     width: 360px;
     height: 550px;
     
-    border: 1px dotted black;
-    border-radius: 10px;
+    position: absolute;
   }
-  #imageUploadInput {
-    display: none;
-  }
-  .spacing {
-    margin: 1px;
+  #imageUploadText {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+    width: 360px;
+    height: 550px;
+    
+    border: 2px dashed #2255;
+    border-radius: 20px;
   }
   #informationUpload {
     display: flex;
@@ -46,9 +66,15 @@ const ZaboUploadWrapper = styled.div`
     justify-content: space-around;
     align-items: center;
     
-    margin: 20px;
-    width: 460px;
-    height: 550px;
+    width: 500px;
+    height: 590px;
+  }
+  #title, #uploader, #description, #expiration {
+    width: 100%;
+    
+  }
+  #title {
+    height: 50px;
   }
   
   /* ===== Submit Section ====== */
@@ -58,6 +84,7 @@ const ZaboUploadWrapper = styled.div`
     justify-content: center;
     align-items: center;
     
+    margin-bottom: 30px;
     width: 100%;
   }
 `;
