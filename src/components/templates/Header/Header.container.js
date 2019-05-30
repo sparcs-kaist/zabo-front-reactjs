@@ -1,6 +1,8 @@
 import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 
+import { logout } from "../../../store/reducers/auth"
+
 import Header from "./Header"
 
 class HeaderContainer extends PureComponent {
@@ -17,10 +19,8 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = {
+	logout
 }
 
 export default connect(

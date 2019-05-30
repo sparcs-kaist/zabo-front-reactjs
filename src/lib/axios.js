@@ -41,6 +41,7 @@ class Axios {
 			this.session.interceptors.request.eject(this._interceptor)
 			this._interceptor = null
 		}
+
 		if (!token || typeof token === 'undefined' || token === '') return
 
 		this._interceptor = this.session.interceptors.request.use(config => {
