@@ -69,7 +69,7 @@ class SCPlayer extends PureComponent {
 	}
 
 	render() {
-		const { t } = this.props
+		const { t } = this.props;
 		return (
 			<SCWrapper className={this.state.isPLayingClass}>
 				<img
