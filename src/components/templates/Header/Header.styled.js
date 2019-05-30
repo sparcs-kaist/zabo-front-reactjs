@@ -5,7 +5,7 @@ const HeaderWrapper = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 70px;
     background: #000;
     transition: 1s;
     padding: 0 100px;
