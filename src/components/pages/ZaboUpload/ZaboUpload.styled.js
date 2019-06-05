@@ -1,4 +1,5 @@
 import styled from "styled-components"
+import "./ZaboUpload.scss"
 
 const ZaboUploadWrapper = styled.div`
   /* ====== body ====== */
