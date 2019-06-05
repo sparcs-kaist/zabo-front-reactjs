@@ -33,6 +33,13 @@ code {
 	box-sizing: border-box;
 }
 
+a, a:hover, a:visited, a:focus {
+	border: none;
+	outline: none;
+	text-decoration: none;
+	color: inherit;
+}
+
 #root {
 
 }
