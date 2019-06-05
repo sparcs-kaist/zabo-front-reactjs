@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react"
 
 import ZaboUpload from "./ZaboUpload"
 
-storiesOf("pages/ZaboUpload", module).add(
+storiesOf("pages/ZaboUploadPage", module).add(
 	"Default",
 	() => (
 		<ZaboUpload />
