@@ -7,7 +7,7 @@ const HeaderWrapper = styled.header`
     width: 100%;
     height: 70px;
     background: #fff;
-    transition: 1s;
+    transition: 0.4s;
     z-index: 1000;
     
     display: flex;

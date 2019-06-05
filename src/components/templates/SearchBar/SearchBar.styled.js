@@ -2,7 +2,7 @@ import styled from "styled-components"
 
 const SearchBarWrapper = styled.div`
 
-width: 50%;
+width: 100%;
 
 .search {
   height: 50px;
