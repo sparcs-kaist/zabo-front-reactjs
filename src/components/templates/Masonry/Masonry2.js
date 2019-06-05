@@ -101,7 +101,6 @@ class ReactBricks extends React.Component {
 												loader={loader}
 												hasMore={hasMoreBricks}
 												useWindow={useWindowForScroll}>
-          <SearchBar/>
 					<MasonryWrapper className="bricks-container"
 									 id={containerId}
 									 style={style}>

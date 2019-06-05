@@ -38,6 +38,12 @@ a, a:hover, a:visited, a:focus {
 	outline: none;
 	text-decoration: none;
 	color: inherit;
+	cursor: pointer;
+}
+
+button, button:focus, button:active {
+	outline: none;
+	cursor: pointer;
 }
 
 #root {
