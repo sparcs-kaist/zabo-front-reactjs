@@ -2,25 +2,25 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import { Link } from "react-router-dom"
 
-import HomePageWrapper, { AddButton } from "./HomePage.styled"
+import HomePageWrapper, { Header } from "./HomePage.styled"
 import SearchBar from 'templates/SearchBar'
 import SVG from "../../atoms/SVG"
 
 class HomePage extends PureComponent {
 	render() {
 		return (
-			<HomePageWrapper>
+			<HomePageWrapper className="animated fadeIn">
 				<div className="container">
-					<div className="header">
-						<div className="search">
+					<Header>
+						<Header.Search>
 							<SearchBar/>
-						</div>
+						</Header.Search>
 						<Link to="/zabo/upload">
-						<AddButton>
-							<SVG icon={'plus'} color="white" size="lg" />
-						</AddButton>
+							<Header.AddButton>
+								<SVG icon={'plus'} color="white" size="lg" />
+							</Header.AddButton>
 						</Link>
-					</div>
+					</Header>
 				</div>
 			</HomePageWrapper>
 		)

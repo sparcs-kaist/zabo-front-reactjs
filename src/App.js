@@ -17,7 +17,7 @@ function App() {
 				<Route path="/" exact component={HomePage} />
 				<Route path="/main" component={MainPage} />
 				<Route path="/zabo/upload" component={ZaboUploadPage} />
-				<Route path="/mypage" component={MyPage} />
+				<Route path="/my-page" component={MyPage} />
 			</Switch>
 		</AppWrapper>
 	)
