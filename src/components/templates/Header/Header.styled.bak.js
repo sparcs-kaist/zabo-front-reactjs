@@ -21,7 +21,6 @@ const Scrolled = css`
         left: 0;
         display: flex;
         align-items: center;
-        text-decoration: none;
         width: 200px;
         color: #12397d;
 
@@ -164,7 +163,6 @@ const HeaderWrapper = styled.header`
                 a {
                     color: #fff;
                     padding: 10px 15px;
-                    text-decoration: none;
                 }
             }
         }

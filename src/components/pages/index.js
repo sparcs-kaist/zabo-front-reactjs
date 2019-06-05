@@ -13,7 +13,7 @@ export const MainPage = Loadable({
     loading: Loading
 });
 
-export const ZaboPage = Loadable({
+export const ZaboUploadPage = Loadable({
     loader: () => import("./ZaboUpload"),
     loading: Loading
 });

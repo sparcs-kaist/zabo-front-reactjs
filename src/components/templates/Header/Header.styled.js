@@ -6,10 +6,17 @@ const HeaderWrapper = styled.header`
     left: 0;
     width: 100%;
     height: 70px;
-    background: #000;
-    transition: 1s;
-    padding: 0 100px;
+    background: #fff;
+    transition: 0.4s;
     z-index: 1000;
+    border-top: 6px solid rgb(27, 50, 65);
+    
+    .container {
+			display: flex;
+			padding: 16px;
+			justify-content: space-between;
+			align-items: center;
+    }
 `
 
 export default HeaderWrapper
