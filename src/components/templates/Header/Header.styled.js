@@ -6,10 +6,15 @@ const HeaderWrapper = styled.header`
     left: 0;
     width: 100%;
     height: 70px;
-    background: #000;
+    background: #fff;
     transition: 1s;
-    padding: 0 100px;
     z-index: 1000;
+    
+    display: flex;
+    padding: 24px;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 6px solid rgb(27, 50, 65);
 `
 
 export default HeaderWrapper
