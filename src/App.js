@@ -14,7 +14,7 @@ function App() {
 			<Route path="/:route?" component={Header} />
 			<Route path="/" exact component={AuthCallback} />
 			<Switch>
-				<Route path="/home" component={HomePage} />
+				<Route path="/" component={HomePage} />
 				<Route path="/main" component={MainPage} />
 				<Route path="/upload" component={ZaboPage} />
 				<Route path="/mypage" component={MyPage} />
