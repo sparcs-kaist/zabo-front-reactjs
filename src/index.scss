@@ -2,27 +2,12 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
 body {
-	margin: 0;
+	margin: 70px 0 0 0;
 	padding: 0;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
 		"Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-
-	/* FOR Mobile first UI development Only */
-	#root {
-		box-sizing: content-box;
-		border: 1px solid  black;
-		width: 360px;
-		margin: 40px auto;
-		height: 90vh;
-		overflow: scroll;
-		header {
-			width: 360px;
-			margin: 0 auto;
-			position: inherit;
-		}
-	}
 }
 
 code {
