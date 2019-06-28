@@ -4,6 +4,7 @@ import PropTypes from "prop-types"
 import ZaboUploadWrapper from "./ZaboUpload.styled"
 import Button from '@material-ui/core/Button';
 import CloudUploadIcon from '@material-ui/icons/CloudUpload';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 import TextField from '@material-ui/core/TextField';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -12,15 +13,25 @@ import {
 } from '@material-ui/pickers';
 
 class ZaboUpload extends PureComponent {
+	constructor(props) {
+		super(props);
+		this.uploadImages = React.createRef();
+	}
+
 	state = {
-		selectedDate: new Date('2019-05-30T21:11:54'),
-		uploadedImages: [],
+		selectedDate: new Date(),
 	};
 
-	handleDateChange = (e) => {
-		console.log(e)
-		this.state.selectedDate = e;
+	_handleDateChange = (e) => {
+		this.setState({ selectedDate: e });
+	};
+
+	_handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("handleSubmit");
 		console.log(this.state.selectedDate);
+		console.log(e);
+		console.log(e.target);
 	};
 
 	render() {
@@ -28,62 +39,66 @@ class ZaboUpload extends PureComponent {
 
 		return (
 			<ZaboUploadWrapper>
-				<div id="uploadSection">
-					<div id="imageUpload">
-						<input
-							accept="image/*"
-							id="imageUploadInput"
-							multiple
-							type="file"
-						/>
-						<div id="imageUploadText">
-							{}
-							<CloudUploadIcon />
-							Upload Image Here
+				<form onSubmit={this._handleSubmit}>
+					<div id="uploadSection">
+						<div id="imageUpload">
+							<input
+								accept="image/*"
+								id="imageUploadInput"
+								multiple
+								type="file"
+								ref={this.uploadImages}
+							/>
+							<div id="imageUploadText">
+								<CloudUploadIcon />
+								Upload Image Here
+							</div>
 						</div>
-					</div>
-					<div id="informationUpload">
-						<div id="title">
-							<form autoComplete="off">
+						<div id="informationUpload">
+							<div id="title">
 								<TextField
 									required
+									autoFocus={true}
+									inputStyle={{ fontSize: '200px' }}
 									label="Title of this Zabo"
 									margin="normal"
 									fullWidth={true}
 								/>
-							</form>
-						</div>
-						<div id="uploader">
-							<i class="fas fa-user-circle" />
-							SPARCS
-						</div>
-						<div id="description">
-							<TextField
-								id="descriptionTextField"
-								label="Description"
-								multiline
-								rows="10"
-								margin="normal"
-								fullWidth={true}
-							/>
-						</div>
-						<div id="expiration">
-							<MuiPickersUtilsProvider utils={DateFnsUtils}>
-								<KeyboardDatePicker
+							</div>
+							<div id="uploader">
+								<AccountCircle />
+								SPARCS
+							</div>
+							<div id="description">
+								<TextField
+									required
+									id="descriptionTextField"
+									label="Description"
+									multiline
+									rows="12"
 									margin="normal"
-									label="Expiration Date"
-									value={state.selectedDate}
-									onChange={this.handleDateChange}
+									fullWidth={true}
 								/>
-							</MuiPickersUtilsProvider>
+							</div>
+							<div id="expiration">
+								<MuiPickersUtilsProvider utils={DateFnsUtils}>
+									<KeyboardDatePicker
+										required
+										margin="normal"
+										label="Expiration Date"
+										value={state.selectedDate}
+										onChange={this._handleDateChange}
+									/>
+								</MuiPickersUtilsProvider>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div id="submitSection">
-					<Button variant="contained" size="large" color="secondary">
-						제출하기
-					</Button>
-				</div>
+					<div id="submitSection">
+						<Button type="submit" variant="contained" size="large" color="secondary">
+							제출하기
+						</Button>
+					</div>
+				</form>
 			</ZaboUploadWrapper>
 		)
 	}
