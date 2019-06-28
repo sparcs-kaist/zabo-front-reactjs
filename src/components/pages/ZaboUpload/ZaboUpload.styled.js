@@ -69,12 +69,23 @@ const ZaboUploadWrapper = styled.div`
     width: 500px;
     height: 590px;
   }
-  #title, #uploader, #description, #expiration {
+  #title {
     width: 100%;
+    height: 50px;
+  }
+  #title > .MuiInputBase-root {
+    font-size: 50px !important;
     
   }
-  #title {
-    height: 50px;
+  #uploader {
+    width: 100%;
+    font-size: 30px;
+  }
+  #description {
+    width: 100%;
+  }
+  #expiration {
+    width: 100%;
   }
   
   /* ===== Submit Section ====== */
