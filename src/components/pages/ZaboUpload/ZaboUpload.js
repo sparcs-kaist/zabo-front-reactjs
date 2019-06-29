@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 
 import ZaboUploadWrapper from "./ZaboUpload.styled"
-import Button from '@material-ui/core/Button';
 import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import chevron from "../../../static/images/chevron_left.svg";
@@ -19,6 +18,7 @@ class ZaboUpload extends PureComponent {
 
 	state = {
 		selectedDate: new Date(),
+		tagClicked: [false, false, false, false, false],
 	};
 
 	_handleDateChange = (e) => {
@@ -33,13 +33,22 @@ class ZaboUpload extends PureComponent {
 		console.log(e.target);
 	};
 
-	_onTagClick = (e) => {
-		console.log(e.target.textContent.slice(1));
+	_onTagClick = (e, i) => {
+		console.log(e.target.textContent.slice(1) + ' clicked');
+		const modifiedArray = this.state.tagClicked.slice();
+		modifiedArray[i] = !modifiedArray[i];
+		this.setState({tagClicked: modifiedArray});
 
+		console.log(this.state.tagClicked[i]);
 	};
 
 	render() {
 		const state = this.state;
+		let tag0_className = state.tagClicked[0] ? `tag selected` : `tag default`;
+		let tag1_className = state.tagClicked[1] ? `tag selected` : `tag default`;
+		let tag2_className = state.tagClicked[2] ? `tag selected` : `tag default`;
+		let tag3_className = state.tagClicked[3] ? `tag selected` : `tag default`;
+		let tag4_className = state.tagClicked[4] ? `tag selected` : `tag default`;
 
 		return (
 			<ZaboUploadWrapper>
@@ -78,7 +87,7 @@ class ZaboUpload extends PureComponent {
 								<InputBase
 									required
 									className="container"
-									placeholder="Please type your poster explanation"
+									placeholder="Please type your poster explanation."
 									multiline
 									rows="12"
 									fullWidth={true} />
@@ -93,6 +102,9 @@ class ZaboUpload extends PureComponent {
 											required
 											value={state.selectedDate}
 											onChange={this._handleDateChange}
+											InputProps={{
+												disableUnderline: true,
+											}}
 											fullWidth={true} />
 									</MuiPickersUtilsProvider>
 								</div>
@@ -102,11 +114,11 @@ class ZaboUpload extends PureComponent {
 									Keyword
 								</div>
 								<div id="tags">
-									<div onClick={this._onTagClick} className="tag">#Advertisement</div>
-									<div onClick={this._onTagClick} className="tag">#Club</div>
-									<div onClick={this._onTagClick} className="tag">#Event</div>
-									<div onClick={this._onTagClick} className="tag">#Recruiting</div>
-									<div onClick={this._onTagClick} className="tag">#Student Council</div>
+									<div onClick={(e) => this._onTagClick(e,0)} className={tag0_className}>#Advertisement</div>
+									<div onClick={(e) => this._onTagClick(e,1)} className={tag1_className}>#Club</div>
+									<div onClick={(e) => this._onTagClick(e,2)} className={tag2_className}>#Event</div>
+									<div onClick={(e) => this._onTagClick(e,3)} className={tag3_className}>#Recruiting</div>
+									<div onClick={(e) => this._onTagClick(e,4)} className={tag4_className}>#Student Council</div>
 								</div>
 							</section>
 						</div>
