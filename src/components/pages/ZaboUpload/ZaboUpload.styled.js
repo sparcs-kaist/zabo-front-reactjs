@@ -1,6 +1,11 @@
 import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
+  @font-face {
+    font-family: "Nanum Square";
+    src: url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
+  }
+
   /* ====== body ====== */
   margin: 0;
   padding: 0;
@@ -8,6 +13,7 @@ const ZaboUploadWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  font-family: 'Nanum Square';
   
   /* ====== common styles ====== */
   section {
@@ -25,10 +31,17 @@ const ZaboUploadWrapper = styled.div`
     margin: 6px 6px 0px 0px;
     padding: 5px 10px;
     border-radius: 3px;
-    
-    color: #C5C5C5;
-    background-color: #F4F4F4;
   }
+    // tag colors
+    .default {
+      color: #C5C5C5;
+      background-color: #F4F4F4;
+    }
+    .selected {
+      color: white;
+      background-color: #143441;
+    }
+  
   
   .container {
     margin: 5px 0px;
@@ -69,20 +82,15 @@ const ZaboUploadWrapper = styled.div`
   }
   
   /* ====== inputs ====== */
-  #inputs {
-    
-  }
-  
   #zaboContainer {
     height: 485px;
-    
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
   #keywords {
-    height: 100px;
+    margin-bottom: 30px;
   }
   
   #tags {
@@ -91,20 +99,23 @@ const ZaboUploadWrapper = styled.div`
     flex-flow: row wrap;
   }
   
+  #explanation > div > textarea,
+  #title > div > textarea {
+    font-family: 'Nanum Square';
+  }
+  
+  /* ====== submit ====== */
   #submit > button {
     margin: 0px 10px 20px 10px;
     width: 340px;
     height: 40px;
     font-size: 16px;
+    font-family: 'Nanum Square';
     border-radius: 4px;
     color: white;
     background-color: #143441;
     box-shadow: 0px 3px 6px;
-    
   }
-  
-  /* ====== submit ====== */
-  
 `;
 
 export default ZaboUploadWrapper;
