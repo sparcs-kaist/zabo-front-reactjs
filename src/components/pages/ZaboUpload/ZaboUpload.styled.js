@@ -4,100 +4,107 @@ const ZaboUploadWrapper = styled.div`
   /* ====== body ====== */
   margin: 0;
   padding: 0;
-
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   
-  width: 100%;
-  background-color: #efefef;
+  /* ====== common styles ====== */
+  section {
+    margin: 0px 10px;
+  }
   
-  /* ====== Upload Section ====== */
-  #uploadSection {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
+  .label {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #8F8F8F;
+  }
   
-    width: 1024px;
-    height: 650px;
-    margin: 30px;
-    padding: 40px;
-    border-radius: 10px;
-    background-color: white;
+  .tag {
+    font-size: 14px;
+    margin: 6px 6px 0px 0px;
+    padding: 5px 10px;
+    border-radius: 3px;
+    
+    color: #C5C5C5;
+    background-color: #F4F4F4;
   }
-  #imageUpload {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   
-    width: 400px;
-    height: 590px;
-    padding: 20px;
+  .container {
+    margin: 5px 0px;
+    padding: 9px 10px;
+    border-radius: 4px;
     
-    background-color: #efefef;
-    border-radius: 20px;
+    width: 340px;
+    background-color: #F4F4F4;
   }
-  #imageUploadInput {
-    opacity: 0;
-    
-    width: 360px;
-    height: 550px;
-    
-    position: absolute;
+  // adjustment of container width/padding
+  #expiration > .container, #zaboContainer {
+    width: 320px;
+    padding: 6px 10px;
   }
-  #imageUploadText {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  
+  /* ====== top ====== */
+  #topline {
+    margin-bottom: 10px;
     
-    width: 360px;
-    height: 550px;
-    
-    border: 2px dashed #2255;
-    border-radius: 20px;
-  }
-  #informationUpload {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    
-    width: 500px;
-    height: 590px;
-  }
-  #title {
     width: 100%;
-    height: 50px;
+    height: 5px;
+    background-color: #143441;
   }
-  #title > .MuiInputBase-root {
-    font-size: 50px !important;
+  
+  #header {
+    width: 340px;
     
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
   }
-  #uploader {
-    width: 100%;
+  
+  #upload_your_poster {
+    margin: 10px 0px;
     font-size: 30px;
-  }
-  #description {
-    width: 100%;
-  }
-  #expiration {
-    width: 100%;
+    font-weight: bold;
+    color: #143441;
   }
   
-  /* ===== Submit Section ====== */
-  #submitSection {
+  /* ====== inputs ====== */
+  #inputs {
+    
+  }
+  
+  #zaboContainer {
+    height: 485px;
+    
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    
-    margin-bottom: 30px;
-    width: 100%;
   }
+  
+  #keywords {
+    height: 100px;
+  }
+  
+  #tags {
+    width: 340px;
+    display: flex;
+    flex-flow: row wrap;
+  }
+  
+  #submit > button {
+    margin: 0px 10px 20px 10px;
+    width: 340px;
+    height: 40px;
+    font-size: 16px;
+    border-radius: 4px;
+    color: white;
+    background-color: #143441;
+    box-shadow: 0px 3px 6px;
+    
+  }
+  
+  /* ====== submit ====== */
+  
 `;
 
 export default ZaboUploadWrapper;
