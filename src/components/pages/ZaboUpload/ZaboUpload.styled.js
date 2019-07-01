@@ -52,13 +52,13 @@ const ZaboUploadWrapper = styled.div`
     background-color: #F4F4F4;
   }
   // adjustment of container width/padding
-  #expiration > .container, #zaboContainer {
+  .zabo-expiration > .container, .posterContainer {
     width: 320px;
     padding: 6px 10px;
   }
   
   /* ====== top ====== */
-  #topline {
+  .topline {
     margin-bottom: 10px;
     
     width: 100%;
@@ -66,7 +66,7 @@ const ZaboUploadWrapper = styled.div`
     background-color: #143441;
   }
   
-  #header {
+  .header {
     width: 340px;
     
     display: flex;
@@ -74,7 +74,7 @@ const ZaboUploadWrapper = styled.div`
     align-items: flex-start;
   }
   
-  #upload_your_poster {
+  .upload_your_poster {
     margin: 10px 0px;
     font-size: 30px;
     font-weight: bold;
@@ -82,30 +82,30 @@ const ZaboUploadWrapper = styled.div`
   }
   
   /* ====== inputs ====== */
-  #zaboContainer {
+  .posterContainer {
     height: 485px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
   
-  #keywords {
+  .keywords {
     margin-bottom: 30px;
   }
   
-  #tags {
+  .tags {
     width: 340px;
     display: flex;
     flex-flow: row wrap;
   }
   
-  #explanation > div > textarea,
-  #title > div > textarea {
+  .zabo-explanation > div > textarea,
+  .zabo-title > div > textarea {
     font-family: 'Nanum Square';
   }
   
   /* ====== submit ====== */
-  #submit > button {
+  .submit > button {
     margin: 0px 10px 20px 10px;
     width: 340px;
     height: 40px;

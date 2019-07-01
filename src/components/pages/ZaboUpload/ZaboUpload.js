@@ -18,7 +18,28 @@ class ZaboUpload extends PureComponent {
 
 	state = {
 		selectedDate: new Date(),
-		tagClicked: [false, false, false, false, false],
+		tags: [
+			{
+				tag: "#Advertisement",
+				clicked: false,
+			},
+			{
+				tag: "#Club",
+				clicked: false,
+			},
+			{
+				tag: "#Event",
+				clicked: false,
+			},
+			{
+				tag: "#Recruiting",
+				clicked: false,
+			},
+			{
+				tag: "#Student Council",
+				clicked: false,
+			},
+		],
 	};
 
 	_handleDateChange = (e) => {
@@ -27,50 +48,40 @@ class ZaboUpload extends PureComponent {
 
 	_handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("handleSubmit");
-		console.log(this.state.selectedDate);
-		console.log(e);
+		// console.log(this.state.selectedDate);
 		console.log(e.target);
 	};
 
-	_onTagClick = (e, i) => {
-		console.log(e.target.textContent.slice(1) + ' clicked');
-		const modifiedArray = this.state.tagClicked.slice();
-		modifiedArray[i] = !modifiedArray[i];
-		this.setState({tagClicked: modifiedArray});
-
-		console.log(this.state.tagClicked[i]);
+	_onTagClick = (e) => {
+		console.log(e.target.textContent + ' clicked');
+		const modifiedArray = this.state.tags.map(item => item.tag == e.target.textContent ? { tag: item.tag, clicked: !item.clicked } : item)
+		this.setState({tags: modifiedArray});
 	};
 
 	render() {
 		const state = this.state;
-		let tag0_className = state.tagClicked[0] ? `tag selected` : `tag default`;
-		let tag1_className = state.tagClicked[1] ? `tag selected` : `tag default`;
-		let tag2_className = state.tagClicked[2] ? `tag selected` : `tag default`;
-		let tag3_className = state.tagClicked[3] ? `tag selected` : `tag default`;
-		let tag4_className = state.tagClicked[4] ? `tag selected` : `tag default`;
 
 		return (
 			<ZaboUploadWrapper>
-				<div id="topline" />
-				<div id="header">
+				<div className="topline" />
+				<div className="header">
 					<img src={chevron} alt="chevron_left" />
-					<div id="upload_your_poster">
+					<div className="upload_your_poster">
 						Upload Your Poster
 					</div>
 				</div>
 				<form onSubmit={this._handleSubmit}>
-					<div id="inputs">
-						<section id="zabo">
+					<div className="inputs">
+						<section className="zabo-poster">
 							<div className="label">
 								Poster *
 							</div>
-							<div id="zaboContainer" className="container">
-								<img src={add} alt="add zabo" />
+							<div className="posterContainer container">
+								<img src={add} alt="add poster" />
 							</div>
 						</section>
-						<div id="zaboInfo">
-							<section id="title">
+						<div className="info">
+							<section className="zabo-title">
 								<div className="label">
 									Title *
 								</div>
@@ -80,7 +91,7 @@ class ZaboUpload extends PureComponent {
 									placeholder="Please type your poster title"
 									multiline />
 							</section>
-							<section id="explanation">
+							<section className="zabo-explanation">
 								<div className="label">
 									Explanation *
 								</div>
@@ -92,7 +103,7 @@ class ZaboUpload extends PureComponent {
 									rows="12"
 									fullWidth={true} />
 							</section>
-							<section id="expiration">
+							<section className="zabo-expiration">
 								<div className="label">
 									Expiration Date *
 								</div>
@@ -109,24 +120,21 @@ class ZaboUpload extends PureComponent {
 									</MuiPickersUtilsProvider>
 								</div>
 							</section>
-							<section id="keywords">
+							<section className="keywords">
 								<div className="label">
 									Keyword
 								</div>
-								<div id="tags">
-									<div onClick={(e) => this._onTagClick(e,0)} className={tag0_className}>#Advertisement</div>
-									<div onClick={(e) => this._onTagClick(e,1)} className={tag1_className}>#Club</div>
-									<div onClick={(e) => this._onTagClick(e,2)} className={tag2_className}>#Event</div>
-									<div onClick={(e) => this._onTagClick(e,3)} className={tag3_className}>#Recruiting</div>
-									<div onClick={(e) => this._onTagClick(e,4)} className={tag4_className}>#Student Council</div>
+								<div className="tags">
+									{state.tags.map(item =>
+										<div onClick={this._onTagClick} className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
 								</div>
 							</section>
 						</div>
 					</div>
-					<div id="submit">
-						<button type="submit">Sign In</button>
-					</div>
 				</form>
+				<div className="submit">
+					<button type="submit">Sign In</button>
+				</div>
 			</ZaboUploadWrapper>
 		)
 	}
