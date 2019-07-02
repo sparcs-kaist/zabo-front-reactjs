@@ -5,7 +5,7 @@
   "private": false,
   "scripts": {
     "env:path": "cross-env NODE_PATH=src:src/components",
-    "start": "$npm_execpath run env:path react-scripts start",
+    "start": "cross-env NODE_PATH=src:src/components react-scripts start",
     "build": "$npm_execpath run env:path react-scripts build",
     "test": "$npm_execpath run env:path react-scripts test",
     "eject": "react-scripts eject",
@@ -80,6 +80,7 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-immutable": "^4.0.0",
     "redux-pender": "^2.0.12",
+    "reselect": "^4.0.0",
     "styled-components": "^4.2.0",
     "styled-theming": "^2.2.0"
   },

@@ -49,7 +49,6 @@ export default handleActions({
 	[LOGOUT]: (state, action) => {
 		storage.removeItem('token')
 		axios.updateToken('')
-		window.location.reload()
 		return state
 			.set('jwt', initialState.get('jwt'))
 			.set('info', initialState.get('info'))
