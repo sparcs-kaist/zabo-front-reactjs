@@ -19,7 +19,7 @@ function App() {
 				<Route path="/" exact component={HomePage} />
 				<PublicRoute path="/auth" component={AuthPage} />
 				<Route path="/main" component={MainPage} />
-				<PrivateRoute path="/zabo/upload" component={ZaboUploadPage} />
+				<Route path="/zabo/upload" component={ZaboUploadPage} />
 				<PrivateRoute path="/my-page" component={MyPage} />
 			</Switch>
 		</AppWrapper>
