@@ -12,7 +12,18 @@ class MyPage extends PureComponent {
     /* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
     this.state = {
       username : props.name || 'No Name',
-      group : props.group || 'No group',
+      groups : props.group ||
+      [
+        {
+          "_id": "5d1b717803a21c0a2afd2c76",
+          "name": "HouTest"
+        },
+        {
+          "_id": "5d1b717803a21c0a2afd2c71234",
+          "name": "DJGod"
+        }
+      ],
+      selectedGroup : 'select',
       clicked : 0,
     }
   }
@@ -20,44 +31,47 @@ class MyPage extends PureComponent {
   onClick = (e) => {
     e.preventDefault();
     const { clicked } = this.state;
-      if ( !clicked ) {
-        this.setState({ clicked : 180});
-      } else {
-        this.setState({clicked : 0});
-      }
+    this.setState({ clicked : clicked ? 0 : 180 });
+  };
+
+  groupDropDown = () => {
+    /* if not  selected
+    group -> maps. List contents!
+    if selected
+    groupNames -> selected group
+    */
+    const { groups, clicked } = this.state;
+
+    return <div className="group-dropdown" style={{"display": clicked ? 'block' : 'none'}}> {
+      groups.map(entry =>
+        <div className="group-name">
+          {entry.name}
+        </div>)}
+      </div>
+      ;
   };
 
 
-
-	render() {
-    const { clicked, group } = this.state;
+  render() {
+    const { clicked, groups, selectedGroup } = this.state;
 
     let imgRotate = {
       transform: `rotate(${clicked}deg)`,
       transition: `all 0.3s ease-out`
     };
 
-    const groupNames = (
-      /* if not  selected
-      group -> maps. List contents!
-      if selected
-      groupNames -> selected group
-      */
-      <div></div>
-    );
-
 		return (
 			<MyPageWrapper className="animated fadeIn">
         <div className="page-title">My Page </div>
         <div className="user-name">{this.state.username}</div>
-        { group &&
+        { groups &&
           <div className="group-selector" onClick={this.onClick}>
-            <div className="selector"> select </div>
-            {groupNames}
-            <img src={require("static/images/baseline-expand_more-24px.svg")}
-              style={imgRotate}/>
+            <div className="selector"> {selectedGroup} </div>
+            <img src={require("static/icon/baseline-expand_more-24px.svg")}
+              style={imgRotate} />
           </div>
         }
+        {this.groupDropDown()}
         <SavedPosters />
 			</MyPageWrapper>
 		)
