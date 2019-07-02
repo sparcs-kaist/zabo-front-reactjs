@@ -5,6 +5,8 @@ import { logout } from "../../../store/reducers/auth"
 
 import Header from "./Header"
 
+import { isAuthenticated } from "../../../lib/utils"
+
 class HeaderContainer extends PureComponent {
 	render() {
 		return (
@@ -15,7 +17,7 @@ class HeaderContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
 	return {
-
+		isAuthenticated: isAuthenticated(state)
 	}
 }
 
