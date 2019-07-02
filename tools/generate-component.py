@@ -115,6 +115,7 @@ def container_template():
     lines.append('import { connect } from "react-redux"')
     lines.append('')
     lines.append('import %s from "./%s"' % (file_name, file_name))
+    lines.append('import toJS from "hoc/toJS"')
     lines.append('')
     lines.append('class %sContainer extends PureComponent {' % (file_name))
     lines.append('	render() {')
@@ -139,7 +140,7 @@ def container_template():
     lines.append('export default connect(')
     lines.append('	mapStateToProps,')
     lines.append('	mapDispatchToProps')
-    lines.append(')(%sContainer)' % (file_name))
+    lines.append(')(toJS(%sContainer))' % (file_name))
     return '\n'.join(lines)
 
 
