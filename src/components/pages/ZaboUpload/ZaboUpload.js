@@ -73,17 +73,24 @@ class ZaboUpload extends PureComponent {
 		}
 
 		// uploadZabo from this.props
-		this.props.uploadZabo(formData);
+		this.props.uploadZabo(formData)
+		.then((res) => console.log(res.data))
+		.catch(error => {
+			console.error(error);
+		});
 	};
 
 	_onTagClick = (e) => {
 		console.log(e.target.textContent + ' clicked');
-		const modifiedArray = this.state.tags.map(item => item.tag == e.target.textContent ? { tag: item.tag, clicked: !item.clicked } : item)
-		this.setState({tags: modifiedArray});
+		const clickedText = e.target.textContent;
+		this.setState((prevState) => {
+			const modifiedArray = prevState.tags.map(item => item.tag === clickedText ? { tag: item.tag, clicked: !item.clicked } : item)
+			return { tags: modifiedArray };
+		});
 	};
 
 	render() {
-		const { state } = this;
+		const { tags, selectedDate } = this.state;
 
 		return (
 			<ZaboUploadWrapper>
@@ -105,7 +112,7 @@ class ZaboUpload extends PureComponent {
 							</label>
 						</section>
 						<input
-							required // 이게 An invalid form control with name='' is not focusable. 에러를 뱉는다. 
+							required // 이게 An invalid form control with name='' is not focusable. 에러를 뱉는다.
 							id="posterInput"
 							type="file"
 							multiple
@@ -145,7 +152,7 @@ class ZaboUpload extends PureComponent {
 									<MuiPickersUtilsProvider utils={DateFnsUtils}>
 										<KeyboardDatePicker
 											required
-											value={state.selectedDate}
+											value={selectedDate}
 											onChange={this._onDateChange}
 											InputProps={{
 												disableUnderline: true,
@@ -159,10 +166,11 @@ class ZaboUpload extends PureComponent {
 									Keyword
 								</div>
 								<div className="tags">
-									{state.tags.map(item =>
+									{tags.map(item =>
 										<div
 											onKeyDown={e => console.log('key down', e)}
-											onClick={this._onTagClick} className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
+											onClick={this._onTagClick}
+											className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
 								</div>
 							</section>
 						</div>
