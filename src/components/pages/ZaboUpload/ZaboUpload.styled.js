@@ -48,14 +48,14 @@ const ZaboUploadWrapper = styled.div`
     padding: 9px 10px;
     border-radius: 4px;
     
-    width: 340px;
+    width: 320px;
     background-color: #F4F4F4;
   }
   // adjustment of container width/padding
-  .zabo-expiration > .container, .posterContainer {
-    width: 320px;
-    padding: 6px 10px;
-  }
+  //.zabo-expiration > .container, .posterContainer {
+  //  width: 320px;
+  //  padding: 6px 10px;
+  //}
   
   /* ====== top ====== */
   .topline {
@@ -67,7 +67,7 @@ const ZaboUploadWrapper = styled.div`
   }
   
   .header {
-    width: 340px;
+    width: 320px;
     
     display: flex;
     flex-direction: column;
@@ -98,7 +98,7 @@ const ZaboUploadWrapper = styled.div`
   }
   
   .tags {
-    width: 340px;
+    width: 320px;
     display: flex;
     flex-flow: row wrap;
   }
@@ -111,7 +111,7 @@ const ZaboUploadWrapper = styled.div`
   /* ====== submit ====== */
   .submit > button {
     margin: 0px 10px 20px 10px;
-    width: 340px;
+    width: 320px;
     height: 40px;
     font-size: 16px;
     font-family: 'Nanum Square';

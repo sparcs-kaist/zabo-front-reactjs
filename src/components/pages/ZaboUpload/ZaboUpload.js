@@ -12,11 +12,6 @@ import {
 } from '@material-ui/pickers';
 
 class ZaboUpload extends PureComponent {
-	constructor(props) {
-		super(props);
-		this._onSubmit = this._onSubmit.bind(this);
-	}
-
 	state = {
 		posters: null,
 		title: "",
@@ -47,31 +42,21 @@ class ZaboUpload extends PureComponent {
 	};
 
 	_onPosterChange = (e) => {
-		console.log("posters" + e.target.files);
 		this.setState({ posters: e.target.files });
 	};
 
-	_onTitleChange = (e) => {
-		this.setState({ title: e.target.value });
-	};
+	_handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
+	// (e) => {
+	// const { name, value } = e.target;
+	// this.setState({ [name]: value });
+	// };
 
-	_onDescriptionChange = (e) => {
-		this.setState({ description: e.target.value });
-	};
-
-	_onDateChange = (e) => {
-		this.setState({ selectedDate: e });
-	};
+	_onDateChange = (e) => this.setState({ selectedDate: e });
 
 	_onSubmit = (e) => {
 		e.preventDefault();
 
 		let formData = new FormData();
-		// check for poster input
-		if (this.state.posters == null) {
-			alert("no poster inputs!");
-			return;
-		}
 		formData.append("img", this.state.posters[0]);
 		formData.append("title", this.state.title);
 		formData.append("description", this.state.description);
@@ -80,7 +65,7 @@ class ZaboUpload extends PureComponent {
 		this.state.tags.map(tag => {
 			if (tag.clicked === true) uploadTags.push(tag.tag);
 		});
-		formData.append("keywords", uploadTags);
+		formData.append("tags", uploadTags);
 
 		console.log("uploading formData: ");
 		for (let key of formData.entries()) {
@@ -98,7 +83,7 @@ class ZaboUpload extends PureComponent {
 	};
 
 	render() {
-		const state = this.state;
+		const { state } = this;
 
 		return (
 			<ZaboUploadWrapper>
@@ -109,7 +94,7 @@ class ZaboUpload extends PureComponent {
 						Upload Your Poster
 					</div>
 				</div>
-				<form onSubmit={this._onSubmit} enctype="multipart/form-data">
+				<form onSubmit={this._onSubmit}>
 					<div className="inputs">
 						<section className="zabo-poster">
 							<div className="label">
@@ -120,7 +105,7 @@ class ZaboUpload extends PureComponent {
 							</label>
 						</section>
 						<input
-							required
+							required // 이게 An invalid form control with name='' is not focusable. 에러를 뱉는다. 
 							id="posterInput"
 							type="file"
 							multiple
@@ -135,7 +120,8 @@ class ZaboUpload extends PureComponent {
 									className="container"
 									placeholder="Please type your poster title"
 									multiline
-									onChange={this._onTitleChange} />
+									name="title"
+									onChange={this._handleChange} />
 							</section>
 							<section className="zabo-description">
 								<div className="label">
@@ -148,7 +134,8 @@ class ZaboUpload extends PureComponent {
 									multiline
 									rows="12"
 									fullWidth={true}
-									onChange={this._onDescriptionChange} />
+									name="description"
+									onChange={this._handleChange} />
 							</section>
 							<section className="zabo-expiration">
 								<div className="label">
