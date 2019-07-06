@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom"
 import { Provider } from "react-redux"
 import { ThemeProvider } from "styled-components"
 
+import "animate.css"
 import "./index.scss"
 
 import store from "./store"

@@ -6,8 +6,7 @@ import MyPageWrapper from "./MyPage.styled"
 class MyPage extends PureComponent {
 	render() {
 		return (
-			<MyPageWrapper>
-				{this.props.children}
+			<MyPageWrapper className="animated fadeIn">
 				MyPage Hello~
 			</MyPageWrapper>
 		)

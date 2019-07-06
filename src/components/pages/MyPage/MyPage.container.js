@@ -1,16 +1,16 @@
 import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 
-import { logout } from "../../../store/reducers/auth"
-
-import Header from "./Header"
+import MyPage from "./MyPage"
 
 import { isAuthenticated } from "../../../lib/utils"
 
-class HeaderContainer extends PureComponent {
+class MyPageContainer extends PureComponent {
 	render() {
+		console.log("my page container", this.props.isAuthenticated)
+
 		return (
-			<Header {...this.props} />
+			<MyPage {...this.props} />
 		)
 	}
 }
@@ -21,11 +21,13 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = {
-	logout
+const mapDispatchToProps = (dispatch) => {
+	return {
+
+	}
 }
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(HeaderContainer)
+)(MyPageContainer)

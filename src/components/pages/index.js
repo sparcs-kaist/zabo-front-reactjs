@@ -13,7 +13,22 @@ export const MainPage = Loadable({
     loading: Loading
 });
 
-export const ZaboPage = Loadable({
+export const ZaboUploadPage = Loadable({
     loader: () => import("./ZaboUpload"),
     loading: Loading
 });
+
+export const MyPage = Loadable({
+    loader: () => import("./MyPage"),
+    loading: Loading
+});
+
+export const AuthPage = Loadable({
+    loader: () => import("./AuthPage"),
+    loading: Loading
+})
+
+export const LoginPage = Loadable({
+    loader: () => import("./LoginPage"),
+    loading: Loading
+})

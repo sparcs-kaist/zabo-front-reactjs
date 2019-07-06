@@ -1,12 +1,12 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import ZaboUpload from "./ZaboUpload"
+import AuthPage from "./AuthPage"
 
-storiesOf("pages/ZaboUploadPage", module).add(
+storiesOf("pages/AuthPage", module).add(
 	"Default",
 	() => (
-		<ZaboUpload />
+		<AuthPage />
 	), {
 		notes: ""
 	}
