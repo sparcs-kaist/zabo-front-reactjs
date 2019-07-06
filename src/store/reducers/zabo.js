@@ -23,6 +23,7 @@ export default handleActions({
     onSuccess: (state, action) => {
       // const { zabo } = action.payload;
       console.log("Zabo successfully uploaded?");
+      return state;
     }
   }),
 }, initialState);

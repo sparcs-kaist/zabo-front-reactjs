@@ -9,5 +9,5 @@ export const uploadZabo = (formData) => {
   }).then((res) => res.data)
   .catch(error => {
     console.error(error);
-  })
+  });
 };
