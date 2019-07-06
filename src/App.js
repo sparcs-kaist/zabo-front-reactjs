@@ -3,10 +3,12 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import Header from "templates/Header"
-import { HomePage, MainPage, ZaboPage, MyPage } from "components/pages"
+import { HomePage, MainPage, ZaboUploadPage, MyPage, AuthPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 
 import AppWrapper from "./App.styled"
+
+import { PrivateRoute, PublicRoute } from "./hoc/AuthRoutes"
 
 function App() {
 	return (
@@ -14,10 +16,11 @@ function App() {
 			<Route path="/:route?" component={Header} />
 			<Route path="/" exact component={AuthCallback} />
 			<Switch>
-				<Route path="/home" component={HomePage} />
+				<Route path="/" exact component={HomePage} />
+				<PublicRoute path="/auth" component={AuthPage} />
 				<Route path="/main" component={MainPage} />
-				<Route path="/upload" component={ZaboPage} />
-				<Route path="/mypage" component={MyPage} />
+				<Route path="/zabo/upload" component={ZaboUploadPage} />
+				<PrivateRoute path="/my-page" component={MyPage} />
 			</Switch>
 		</AppWrapper>
 	)

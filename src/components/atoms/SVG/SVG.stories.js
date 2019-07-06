@@ -1,12 +1,12 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import ZaboUpload from "./ZaboUpload"
+import SVG from "./SVG"
 
-storiesOf("pages/ZaboUploadPage", module).add(
+storiesOf("atoms/SVG", module).add(
 	"Default",
 	() => (
-		<ZaboUpload />
+		<SVG />
 	), {
 		notes: ""
 	}

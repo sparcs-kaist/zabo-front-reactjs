@@ -2,10 +2,11 @@ import styled from "styled-components"
 
 const SearchBarWrapper = styled.div`
 
-width: 50%;
+width: 100%;
 
 .search {
   height: 50px;
+  position: relative;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -15,7 +16,6 @@ width: 50%;
 .search-Bar {
     width: 100%;
     border-radius: 10px;
-    margin: 5px 0px;
     outline: none;
     background-color: #efefef;
 }
@@ -34,8 +34,9 @@ width: 50%;
 }
 
 .search-icon {
-  margin : 0 0 0 -40px;
-  height: 40%;
+  position: absolute;
+  right: 20px;
+  height: 20px;
   display: block;
   align-self : center;
 } 
@@ -45,7 +46,6 @@ width: 50%;
   margin-left: 1rem;
   width: 100px;
   height: auto;
-  display : visible;
 }
 `
 
