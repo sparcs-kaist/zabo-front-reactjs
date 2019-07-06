@@ -6,7 +6,6 @@ import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import chevron from "../../../static/images/chevron_left.svg";
 import add from "../../../static/images/add.svg";
-import axios from 'lib/axios';
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker
@@ -21,7 +20,7 @@ class ZaboUpload extends PureComponent {
 	state = {
 		posters: null,
 		title: "",
-		explanation: "",
+		description: "",
 		selectedDate: new Date(),
 		tags: [
 			{
@@ -53,11 +52,11 @@ class ZaboUpload extends PureComponent {
 	};
 
 	_onTitleChange = (e) => {
-		// this.setState({ title: });
+		this.setState({ title: e.target.value });
 	};
 
-	_onExplanationChange = (e) => {
-		// this.setState({ explanation: });
+	_onDescriptionChange = (e) => {
+		this.setState({ description: e.target.value });
 	};
 
 	_onDateChange = (e) => {
@@ -68,39 +67,28 @@ class ZaboUpload extends PureComponent {
 		e.preventDefault();
 
 		let formData = new FormData();
+		// check for poster input
+		if (this.state.posters == null) {
+			alert("no poster inputs!");
+			return;
+		}
 		formData.append("img", this.state.posters[0]);
-		console.log("this.state.posters: ", this.state.posters);
-		console.log("this.state.posters[0]: ", this.state.posters[0]);
-		// formData.append("title", this.state.title);
-		// formData.append("explanation", this.state.explanation);
-		// formData.append("expirationDate", this.state.selectedDate);
-		// formData.append("keywords",
+		formData.append("title", this.state.title);
+		formData.append("description", this.state.description);
+		formData.append("expirationDate", this.state.selectedDate);
+		const uploadTags = [];
+		this.state.tags.map(tag => {
+			if (tag.clicked === true) uploadTags.push(tag.tag);
+		});
+		formData.append("keywords", uploadTags);
 
-		console.log("formData: ");
+		console.log("uploading formData: ");
 		for (let key of formData.entries()) {
 			console.log(key[0] + ', ' + key[1]);
 		}
 
-		// axios.post({
-		// 	url: "/api/zabo",
-		// 	data: {
-		// 		zabo: formData,
-		// 	},
-		// 	headers: {
-		// 		'Content-Type': 'multipart/form-data'
-		// 	}
-		// }).then((res) => res.data);
-
-		axios.post("/zabo/uploadimgtos3", formData, {
-			headers: {
-				'Content-Type': 'multipart/form-data'
-			}
-		}).then((res) => res.data)
-		.catch(error => {
-			console.error(error);
-		});
-
-		console.log(e.target);
+		// uploadZabo from this.props
+		this.props.uploadZabo(formData);
 	};
 
 	_onTagClick = (e) => {
@@ -131,7 +119,12 @@ class ZaboUpload extends PureComponent {
 								<img src={add} alt="add poster" />
 							</label>
 						</section>
-						<input type="file" id="posterInput" multiple onChange={this._onPosterChange} />
+						<input
+							required
+							id="posterInput"
+							type="file"
+							multiple
+							onChange={this._onPosterChange} />
 						<div className="info">
 							<section className="zabo-title">
 								<div className="label">
@@ -144,18 +137,18 @@ class ZaboUpload extends PureComponent {
 									multiline
 									onChange={this._onTitleChange} />
 							</section>
-							<section className="zabo-explanation">
+							<section className="zabo-description">
 								<div className="label">
-									Explanation *
+									Description *
 								</div>
 								<InputBase
 									required
 									className="container"
-									placeholder="Please type your poster explanation."
+									placeholder="Please type your poster description."
 									multiline
 									rows="12"
 									fullWidth={true}
-									onChange={this._onExplanationChange} />
+									onChange={this._onDescriptionChange} />
 							</section>
 							<section className="zabo-expiration">
 								<div className="label">
