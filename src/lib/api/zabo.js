@@ -6,8 +6,5 @@ export const uploadZabo = (formData) => {
     headers: {
       'Content-Type': 'multipart/form-data'
     }
-  }).then((res) => res.data)
-  .catch(error => {
-    console.error(error);
   });
 };

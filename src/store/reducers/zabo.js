@@ -21,8 +21,7 @@ export default handleActions({
   ...pender({
     type: UPLOAD_ZABO,
     onSuccess: (state, action) => {
-      // const { zabo } = action.payload;
-      console.log("Zabo successfully uploaded?");
+      // console.log("Zabo successfully uploaded");
       return state;
     }
   }),
