@@ -6,6 +6,7 @@ import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import chevron from "../../../static/images/chevron_left.svg";
 import add from "../../../static/images/add.svg";
+import axios from 'lib/axios';
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker
@@ -14,9 +15,13 @@ import {
 class ZaboUpload extends PureComponent {
 	constructor(props) {
 		super(props);
+		this._onSubmit = this._onSubmit.bind(this);
 	}
 
 	state = {
+		posters: null,
+		title: "",
+		explanation: "",
 		selectedDate: new Date(),
 		tags: [
 			{
@@ -42,13 +47,59 @@ class ZaboUpload extends PureComponent {
 		],
 	};
 
-	_handleDateChange = (e) => {
+	_onPosterChange = (e) => {
+		console.log("posters" + e.target.files);
+		this.setState({ posters: e.target.files });
+	};
+
+	_onTitleChange = (e) => {
+		// this.setState({ title: });
+	};
+
+	_onExplanationChange = (e) => {
+		// this.setState({ explanation: });
+	};
+
+	_onDateChange = (e) => {
 		this.setState({ selectedDate: e });
 	};
 
-	_handleSubmit = (e) => {
+	_onSubmit = (e) => {
 		e.preventDefault();
-		// console.log(this.state.selectedDate);
+
+		let formData = new FormData();
+		formData.append("img", this.state.posters[0]);
+		console.log("this.state.posters: ", this.state.posters);
+		console.log("this.state.posters[0]: ", this.state.posters[0]);
+		// formData.append("title", this.state.title);
+		// formData.append("explanation", this.state.explanation);
+		// formData.append("expirationDate", this.state.selectedDate);
+		// formData.append("keywords",
+
+		console.log("formData: ");
+		for (let key of formData.entries()) {
+			console.log(key[0] + ', ' + key[1]);
+		}
+
+		// axios.post({
+		// 	url: "/api/zabo",
+		// 	data: {
+		// 		zabo: formData,
+		// 	},
+		// 	headers: {
+		// 		'Content-Type': 'multipart/form-data'
+		// 	}
+		// }).then((res) => res.data);
+
+		axios.post("/zabo/uploadimgtos3", formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		}).then((res) => res.data)
+		.catch(error => {
+			console.error(error);
+		});
+
 		console.log(e.target);
 	};
 
@@ -70,16 +121,17 @@ class ZaboUpload extends PureComponent {
 						Upload Your Poster
 					</div>
 				</div>
-				<form onSubmit={this._handleSubmit}>
+				<form onSubmit={this._onSubmit} enctype="multipart/form-data">
 					<div className="inputs">
 						<section className="zabo-poster">
 							<div className="label">
 								Poster *
 							</div>
-							<div className="posterContainer container">
+							<label htmlFor="posterInput" className="posterContainer container">
 								<img src={add} alt="add poster" />
-							</div>
+							</label>
 						</section>
+						<input type="file" id="posterInput" multiple onChange={this._onPosterChange} />
 						<div className="info">
 							<section className="zabo-title">
 								<div className="label">
@@ -89,7 +141,8 @@ class ZaboUpload extends PureComponent {
 									required
 									className="container"
 									placeholder="Please type your poster title"
-									multiline />
+									multiline
+									onChange={this._onTitleChange} />
 							</section>
 							<section className="zabo-explanation">
 								<div className="label">
@@ -101,7 +154,8 @@ class ZaboUpload extends PureComponent {
 									placeholder="Please type your poster explanation."
 									multiline
 									rows="12"
-									fullWidth={true} />
+									fullWidth={true}
+									onChange={this._onExplanationChange} />
 							</section>
 							<section className="zabo-expiration">
 								<div className="label">
@@ -112,7 +166,7 @@ class ZaboUpload extends PureComponent {
 										<KeyboardDatePicker
 											required
 											value={state.selectedDate}
-											onChange={this._handleDateChange}
+											onChange={this._onDateChange}
 											InputProps={{
 												disableUnderline: true,
 											}}
@@ -126,15 +180,17 @@ class ZaboUpload extends PureComponent {
 								</div>
 								<div className="tags">
 									{state.tags.map(item =>
-										<div onClick={this._onTagClick} className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
+										<div
+											onKeyDown={e => console.log('key down', e)}
+											onClick={this._onTagClick} className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
 								</div>
 							</section>
 						</div>
 					</div>
+					<div className="submit">
+						<button type="submit">Sign In</button>
+					</div>
 				</form>
-				<div className="submit">
-					<button type="submit">Sign In</button>
-				</div>
 			</ZaboUploadWrapper>
 		)
 	}
