@@ -89,6 +89,10 @@ const ZaboUploadWrapper = styled.div`
     align-items: center;
   }
   
+  #posterInput {
+    display: none;
+  }
+  
   .keywords {
     margin-bottom: 30px;
   }
@@ -99,7 +103,7 @@ const ZaboUploadWrapper = styled.div`
     flex-flow: row wrap;
   }
   
-  .zabo-explanation > div > textarea,
+  .zabo-description > div > textarea,
   .zabo-title > div > textarea {
     font-family: 'Nanum Square';
   }

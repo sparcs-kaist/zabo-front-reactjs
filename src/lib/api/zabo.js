@@ -1,17 +1,13 @@
 import axios from "../axios";
 
-export const uploadZabo = () => {
-  // axios.post({
-  //   url: "",
-  //   data: {
-  //     zabo: formData,
-  //   },
-  //   headers: {
-  //     'Content-Type': 'multipart/form-data'
-  //   }
-  // }).then((res) => res.data);
+// 사용자는 추가 안해도 되나..? 누가 올린지 알아야지
+export const uploadZabo = (formData) => {
+  axios.post("/zabo/uploadimgtos3", formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data'
+    }
+  }).then((res) => res.data)
+  .catch(error => {
+    console.error(error);
+  })
 };
-
-
-// export const loginCallback = (code, state) => axios.post("/auth/login/callback", { code, state }).then(res => res.data)
-// export const checkAuth = () => axios.get('/auth').then(res => res.data)
