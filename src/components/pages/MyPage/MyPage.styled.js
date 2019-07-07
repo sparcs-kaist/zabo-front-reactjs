@@ -44,11 +44,17 @@ const MyPageWrapper = styled.div`
 	}
 	
 	.group-dropdown {
-	
+    font-family: NanumSquare;
+	  font-size: 16px;
+	  font-weight: bold;
+	  color: #8f8f8f;
+	  width : 100px;
+	  flex-flow: column;
+	  align-items: start;
 	}
 	
-	.group-name {
-	
+	.group-dropdown-name {
+	  margin : 5px 0;
 	}
 `;
 
