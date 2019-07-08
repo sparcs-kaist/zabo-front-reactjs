@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 
-import { load_saveposter } from "store/reducers/groups";
 
 import SavedPosters from "templates/SavedPosters";
 import MyPageWrapper from "./MyPage.styled"
@@ -14,17 +13,7 @@ class MyPage extends PureComponent {
     /* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
     this.state = {
       username : `${props.info.firstName} ${props.info.lastName}` || 'No Name',
-      groups : props.groups ||
-      [
-        {
-          "_id": "5d1b717803a21c0a2afd2c76",
-          "name": "HouTest"
-        },
-        {
-          "_id": "5d1b717803a21c0a2afd2c71234",
-          "name": "DJGod"
-        }
-      ],
+      groups : props.info.groups || [],
       selectedGroup : 'select',
       clicked : 0,
     }
@@ -36,23 +25,9 @@ class MyPage extends PureComponent {
     this.setState({ clicked : clicked ? 0 : 180 });
   };
 
-  componentDidMount() {
-    const { groups } = this.props;
-    const groupsId = this.props.info.groups;
-    console.log(groups, groupsId);
-
-    if ( !groups &&  groupsId) {
-      //call_group_names into state
-      console.log('call name');
-      console.log(this.props);
-      this.props.load_saveposter(groupsId[0])
-    }
-  }
 
   groupDropDown = () => {
     const { groups, clicked } = this.state;
-
-    console.log(groups);
 
     return <div className="group-dropdown" style={{"display": clicked ? 'flex' : 'none'}}> {
       groups.map(entry =>
