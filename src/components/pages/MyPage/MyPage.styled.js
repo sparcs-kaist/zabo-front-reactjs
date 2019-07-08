@@ -61,7 +61,7 @@ const MyPageWrapper = styled.div`
 	}
 	
 	.group-dropdown-name {
-	  margin : 5px 0;
+	  padding : 5px 0;
 	}
 `;
 
