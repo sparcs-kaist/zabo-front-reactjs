@@ -42,7 +42,6 @@ const ZaboUploadWrapper = styled.div`
       background-color: #143441;
     }
   
-  
   .container {
     margin: 5px 0px;
     padding: 9px 10px;
@@ -84,6 +83,12 @@ const ZaboUploadWrapper = styled.div`
   /* ====== inputs ====== */
   .posterContainer {
     height: 485px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .posterContainerResponsiveHeight {
+    padding: 0; // 위의 컨테이너보다 나중 선언되어 적용
     display: flex;
     justify-content: center;
     align-items: center;
