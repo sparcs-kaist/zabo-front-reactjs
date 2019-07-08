@@ -14,6 +14,7 @@ import {
 class ZaboUpload extends PureComponent {
 	state = {
 		posters: null,
+		postersPreviewURL: "",
 		title: "",
 		description: "",
 		selectedDate: new Date(),
@@ -42,7 +43,18 @@ class ZaboUpload extends PureComponent {
 	};
 
 	_onPosterChange = (e) => {
-		this.setState({ posters: e.target.files });
+		// 1 poster only for now
+		let reader = new FileReader();
+		let poster = e.target.files[0];
+
+		reader.onloadend = () => {
+			this.setState({
+				posters: poster,
+				postersPreviewURL: reader.result
+			});
+		};
+
+		reader.readAsDataURL(poster);
 	};
 
 	_handleChange = ({ target: { name, value } }) => this.setState({ [name]: value });
@@ -67,10 +79,10 @@ class ZaboUpload extends PureComponent {
 		});
 		formData.append("tags", uploadTags);
 
-		console.log("uploading formData: ");
-		for (let key of formData.entries()) {
-			console.log(key[0] + ', ' + key[1]);
-		}
+		// console.log("uploading formData: ");
+		// for (let key of formData.entries()) {
+		// 	console.log(key[0] + ', ' + key[1]);
+		// }
 
 		// uploadZabo from this.props
 		this.props.uploadZabo(formData)
@@ -90,7 +102,7 @@ class ZaboUpload extends PureComponent {
 	};
 
 	render() {
-		const { tags, selectedDate } = this.state;
+		const { posters, postersPreviewURL, tags, selectedDate } = this.state;
 
 		return (
 			<ZaboUploadWrapper>
@@ -107,8 +119,8 @@ class ZaboUpload extends PureComponent {
 							<div className="label">
 								Poster *
 							</div>
-							<label htmlFor="posterInput" className="posterContainer container">
-								<img src={add} alt="add poster" />
+							<label htmlFor="posterInput" className={ posters === null ? `posterContainer container` : `posterContainerResponsiveHeight container`} >
+								{ posters === null ? <img src={add} alt="add poster" /> : <img src={postersPreviewURL} width="320" /> }
 							</label>
 						</section>
 						<input
