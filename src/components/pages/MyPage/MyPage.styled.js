@@ -48,7 +48,7 @@ const MyPageWrapper = styled.div`
 	  font-size: 16px;
 	  font-weight: bold;
 	  color: #8f8f8f;
-	  width : 100px;
+	  width : fit-content;
 	  flex-flow: column;
 	  align-items: start;
 	}

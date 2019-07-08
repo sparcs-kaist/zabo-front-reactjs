@@ -4,7 +4,6 @@ import { connect } from "react-redux"
 import toJS from 'hoc/toJS'
 import MyPage from "./MyPage"
 
-import { load_saveposter } from "store/reducers/groups";
 
 import { isAuthenticated } from "../../../lib/utils"
 
@@ -23,11 +22,9 @@ const mapStateToProps = (state) => {
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-    load_saveposter
-  }
-}
+const mapDispatchToProps = {
+
+};
 
 export default connect(
 	mapStateToProps,
