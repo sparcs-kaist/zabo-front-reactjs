@@ -28,8 +28,8 @@ const MyPageWrapper = styled.div`
 	  font-weight: bold;
 	  color: #8f8f8f;
 	  display: flex;
-	  flex-flow: row;
-	  align-items: center;
+	  flex-flow: column;
+	  align-items: start;
 	  width: fit-content;
 	  cursor : pointer;
 	  :hover {
@@ -37,10 +37,16 @@ const MyPageWrapper = styled.div`
   	}
 	}
 	
+	.group-name {
+	  display: flex;
+	  align-items : center;
+	  flex-flow: row;
+	}
+	
 	.selector {
 	  margin-left : 2px;
 	  font-family: NanumSquare;
-	  width: 70px;
+	  width: fit-content;
 	}
 	
 	.group-dropdown {
@@ -48,6 +54,7 @@ const MyPageWrapper = styled.div`
 	  font-size: 16px;
 	  font-weight: bold;
 	  color: #8f8f8f;
+	  cursor : pointer;
 	  width : fit-content;
 	  flex-flow: column;
 	  align-items: start;
