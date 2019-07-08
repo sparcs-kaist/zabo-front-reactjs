@@ -14,7 +14,7 @@ class MyPage extends PureComponent {
     this.state = {
       username : `${props.info.firstName} ${props.info.lastName}` || 'No Name',
       groups : props.info.groups || [],
-      selectedGroup : 'select',
+      selectedGroup : props.info.select || 'select',
       clicked : 0,
     }
   }
@@ -31,12 +31,17 @@ class MyPage extends PureComponent {
 
     return <div className="group-dropdown" style={{"display": clicked ? 'flex' : 'none'}}> {
       groups.map(entry =>
-        <div className="group-dropdown-name">
+        <div className="group-dropdown-name"
+             onClick={(e) => this.dropDownClick(e,entry.name)}>
           {entry.name}
         </div>)}
       </div>
       ;
   };
+
+  dropDownClick = (event,name) => {
+    this.setState({selectedGroup : name});
+  }
 
 
   render() {
@@ -53,12 +58,14 @@ class MyPage extends PureComponent {
         <div className="user-name">{this.state.username}</div>
         { groups &&
           <div className="group-selector" onClick={this.onClick}>
-            <div className="selector"> {selectedGroup} </div>
-            <img src={require("static/icon/baseline-expand_more-24px.svg")}
+            <div className="group-name">
+              <div className="selector"> {selectedGroup} </div>
+              <img src={require("static/icon/baseline-expand_more-24px.svg")}
               style={imgRotate} />
+            </div>
+            {this.groupDropDown()}
           </div>
         }
-        {this.groupDropDown()}
         <SavedPosters />
 			</MyPageWrapper>
 		)
