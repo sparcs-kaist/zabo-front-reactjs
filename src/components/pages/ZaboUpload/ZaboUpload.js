@@ -6,6 +6,10 @@ import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import chevron from "../../../static/images/chevron_left.svg";
 import add from "../../../static/images/add.svg";
+import Carousel from "react-slick";
+// import GridContainer from "../../../../node_modules/material-kit-react/src/components/Grid/GridContainer.jsx";
+// import GridItem from "../../../../node_modules/material-kit-react/src/components/Grid/GridItem.jsx";
+// import Card from "../../../../node_modules/material-kit-react/src/components/Card/Card.jsx";
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker
@@ -103,6 +107,14 @@ class ZaboUpload extends PureComponent {
 
 	render() {
 		const { posters, postersPreviewURL, tags, selectedDate } = this.state;
+		const settings = {
+			dots: true,
+			infinite: true,
+			speed: 500,
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: true,
+		};
 
 		return (
 			<ZaboUploadWrapper>
@@ -120,7 +132,17 @@ class ZaboUpload extends PureComponent {
 								Poster *
 							</div>
 							<label htmlFor="posterInput" className={ posters === null ? `posterContainer container` : `posterContainerResponsiveHeight container`} >
-								{ posters === null ? <img src={add} alt="add poster" /> : <img src={postersPreviewURL} width="320" /> }
+								{
+									posters === null ? <img src={add} alt="add poster"/> :
+									<Carousel {...settings}>
+										<div>
+											<img
+											src={postersPreviewURL}
+											width="320"
+											className="slick-image" />
+										</div>
+									</Carousel>
+								}
 							</label>
 						</section>
 						<input
