@@ -1,8 +1,10 @@
 import styled from "styled-components"
 
 const SearchBarWrapper = styled.div`
-
+z-index: 1;
 width: 100%;
+display: flex;
+flex-direction: column;
 
 .search {
   height: 50px;
@@ -46,6 +48,19 @@ width: 100%;
   margin-left: 1rem;
   width: 100px;
   height: auto;
+}
+
+.search-result {
+  transition: 1s;
+  overflow: hidden;
+  &.show {
+    height: auto;
+    max-height: 1000px;
+  }
+  &.hide {
+    /* visibility: hidden; */
+    max-height: 0;
+  }
 }
 `
 
