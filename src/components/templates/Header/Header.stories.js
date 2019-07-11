@@ -1,7 +1,7 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import Header from "./Header"
+import Header from "./index"
 
 storiesOf("templates/Header", module).add(
 	"Default",

@@ -1,7 +1,7 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import Masonry from "./Masonry"
+import Masonry from "./index"
 
 storiesOf("templates/Masonry", module).add(
 	"Default",

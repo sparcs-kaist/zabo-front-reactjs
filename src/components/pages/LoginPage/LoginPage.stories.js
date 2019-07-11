@@ -1,7 +1,7 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import LoginPage from "./LoginPage"
+import LoginPage from "./index"
 
 storiesOf("pages/LoginPage", module).add(
 	"Default",
