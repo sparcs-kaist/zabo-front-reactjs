@@ -37,6 +37,7 @@ class SearchBar extends React.Component {
           {/*</div>*/}
         </div>
           <div className={`search-result ${isOpen ? 'show' : 'hide'}`}>
+          {/* <div className={`search-result`}> */}
             <h3>Title</h3>
             <ul>
               <li>Sparcs 2018 Spring Recruiting</li>
