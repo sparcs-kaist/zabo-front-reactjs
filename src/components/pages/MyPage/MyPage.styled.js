@@ -16,11 +16,11 @@ const MyPageWrapper = styled.div`
 	}
 	
 	.user-name {
-    font-size: 24px;
-    margin-top: 30px;
-    font-family: NanumSquare;
-    font-weight: bold;
-    color: #143441;
+	  font-size: 24px;
+	  margin-top: 30px;
+	  font-family: NanumSquare;
+	  font-weight: bold;
+	  color: #143441;
 	}
 	
 	.group-selector {
@@ -31,10 +31,10 @@ const MyPageWrapper = styled.div`
 	  flex-flow: column;
 	  align-items: start;
 	  width: fit-content;
-	  cursor : pointer;
-	  :hover {
+	  cursor: pointer;
+	    :hover {
 	    
-  	}
+	    }
 	}
 	
 	.group-name {
@@ -50,7 +50,7 @@ const MyPageWrapper = styled.div`
 	}
 	
 	.group-dropdown {
-    font-family: NanumSquare;
+	  font-family: NanumSquare;
 	  font-size: 16px;
 	  font-weight: bold;
 	  color: #8f8f8f;
