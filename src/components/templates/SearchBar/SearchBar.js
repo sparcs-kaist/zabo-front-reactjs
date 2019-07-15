@@ -40,20 +40,21 @@ class SearchBar extends React.Component {
           {/* <div className={`search-result`}> */}
             <h3>Title</h3>
             <ul>
-              <li>Sparcs 2018 Spring Recruiting</li>
-              <li>Sparcs 2019 Spring Recruiting</li>
-              <li>Sparcs 2020 Spring Recruiting</li>
+              <li>SPARCS 2018 Spring Recruiting</li>
+              <li>SPARCS 2019 Spring Recruiting</li>
+              <li>SPARCS 2020 Spring Recruiting</li>
             </ul>
             <h3>Uploader</h3>
             <ul>
-              <li>Sparcs</li>
+              <li>SPARCS</li>
             </ul>
             <h3>Keyword</h3>
-            <ul>
-              <li>Advertisment</li>
-              <li>Club</li>
-              <li>Event</li>
-              <li>Recruiting</li>
+            <ul className="keyword-result">
+              <li>#Advertisment</li>
+              <li>#Club</li>
+              <li>#Event</li>
+              <li>#Recruiting</li>
+              <li>#Student Concil</li>
             </ul>
           </div>
 			</SearchBarWrapper>
