@@ -12,11 +12,25 @@ class MyPage extends PureComponent {
 
     /* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
     this.state = {
-      username : `${props.info.firstName} ${props.info.lastName}` || 'No Name',
+      username : 'No Name',
       groups : props.info.groups || [],
-      selectedGroup : props.info.select || 'select',
+      selectedGroup : 'select',
       clicked : 0,
     }
+  }
+
+  componentDidMount() {
+    const { info } = this.props;
+
+    const username = (info.firstName && info.lastName) ? `${info.firstName} ${info.lastName}` : 'No Name';
+
+    this.setState({ username });
+
+    info.groups.filter(item => {
+      if( item._id === info.currentGroup) {
+        this.setState({ selectedGroup : item.name});
+      }
+    });
   }
 
   onClick = (e) => {
@@ -25,22 +39,21 @@ class MyPage extends PureComponent {
     this.setState({ clicked : clicked ? 0 : 180 });
   };
 
-
   groupDropDown = () => {
     const { groups, clicked } = this.state;
-
     return <div className="group-dropdown" style={{"display": clicked ? 'flex' : 'none'}}> {
       groups.map(entry =>
         <div className="group-dropdown-name"
-             onClick={(e) => this.dropDownClick(e,entry.name)}>
+             onClick={(e) => this.dropDownClick(e,entry)}>
           {entry.name}
         </div>)}
       </div>
       ;
   };
 
-  dropDownClick = (event,name) => {
-    this.setState({selectedGroup : name});
+  dropDownClick = (event,entry) => {
+    this.props.setCurrentGroup(entry._id);
+    this.setState({selectedGroup : entry.name});
   }
 
 
