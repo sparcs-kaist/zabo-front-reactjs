@@ -18,7 +18,7 @@ class MyPageContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
 	return {
-		isAuthenticated: isAuthenticated(state),
+    isAuthenticated: isAuthenticated(state),
     info : state.getIn(['auth', 'info']),
     currentGroup : state.getIn(['user','currentGroup']),
 	}
