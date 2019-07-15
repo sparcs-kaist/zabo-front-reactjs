@@ -19,8 +19,6 @@ export default handleActions({
     type: LOAD_SAVEZABO,
     onSuccess: (state, action) => {
       const { zabo } = action.payload;
-      console.log('this is zabo!!');
-      console.log(zabo);
       return state
     }
   })

@@ -4,6 +4,7 @@ import { connect } from "react-redux"
 import toJS from 'hoc/toJS'
 import MyPage from "./MyPage"
 
+import { setCurrentGroup } from "../../../store/reducers/user.js"
 
 import { isAuthenticated } from "../../../lib/utils"
 
@@ -19,11 +20,12 @@ const mapStateToProps = (state) => {
 	return {
 		isAuthenticated: isAuthenticated(state),
     info : state.getIn(['auth', 'info']),
+    currentGroup : state.getIn(['user','currentGroup']),
 	}
 }
 
 const mapDispatchToProps = {
-
+  setCurrentGroup
 };
 
 export default connect(
