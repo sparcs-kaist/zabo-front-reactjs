@@ -2,8 +2,9 @@ import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
   @font-face {
-    font-family: "Nanum Square";
+    font-family: 'NanumSquare';
     src: url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
+    //url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
   }
 
   /* ====== body ====== */
@@ -13,7 +14,7 @@ const ZaboUploadWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: 'Nanum Square';
+  font-family: 'NanumSquare';
   
   /* ====== common styles ====== */
   section {
@@ -50,11 +51,6 @@ const ZaboUploadWrapper = styled.div`
     width: 320px;
     background-color: #F4F4F4;
   }
-  // adjustment of container width/padding
-  //.zabo-expiration > .container, .posterContainer {
-  //  width: 320px;
-  //  padding: 6px 10px;
-  //}
   
   /* ====== top ====== */
   .topline {
@@ -66,8 +62,6 @@ const ZaboUploadWrapper = styled.div`
   }
   
   .header {
-    width: 320px;
-    
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -82,7 +76,7 @@ const ZaboUploadWrapper = styled.div`
   
   /* ====== inputs ====== */
   .posterContainer {
-    height: 524px;
+    height: 400px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -103,14 +97,6 @@ const ZaboUploadWrapper = styled.div`
     display: none;
   }
   
-  .slick-track {
-    width: 100px !important;
-    translate3d: none !important; 
-  }
-  .slick-slide {
-    width: 320px !important;
-  }
-  
   .keywords {
     margin-bottom: 30px;
   }
@@ -123,7 +109,7 @@ const ZaboUploadWrapper = styled.div`
   
   .zabo-description > div > textarea,
   .zabo-title > div > textarea {
-    font-family: 'Nanum Square';
+    font-family: 'NanumSquare';
   }
   
   /* ====== submit ====== */
@@ -132,11 +118,59 @@ const ZaboUploadWrapper = styled.div`
     width: 320px;
     height: 40px;
     font-size: 16px;
-    font-family: 'Nanum Square';
+    font-family: 'NanumSquare';
     border-radius: 4px;
     color: white;
     background-color: #143441;
     box-shadow: 0px 3px 6px;
+  }
+  
+  
+  /* ======================================== */
+  /* ============= Reactive CSS ============= */
+  /* ======================================== */
+  @media (max-width: 759px) {
+    /* ==== Common Styles ==== */
+    overflow: scroll;
+    .header, .inputs, .submit {
+      padding: 0px 20px;
+      width: 100%;
+    }
+    section {
+      margin: 0;
+      width: 100%;
+    }
+    
+    /* ==== adjust width ==== */
+    .container, .posterCarousel, .info, .tags {
+      width: 100%;
+    }
+    .submit > button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+  @media (min-width: 760px) {
+    /* ====== inputs ====== */
+    .inputs {
+      display: flex;
+      flex-direction: row;
+    }
+    .posterContainer {
+      height: 524px;
+    }
+    
+    .header {
+      width: 660px;
+    }
+   
+    // ==== ReactSwipe ==== //
+    .reactswipe {
+      height: 480px !important;
+    }
+    .reactswipe > div > div {
+      overflow: scroll;
+    }
   }
 `;
 
