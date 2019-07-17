@@ -11,6 +11,7 @@ class HomePage extends PureComponent {
 		return (
 			<HomePageWrapper className="animated fadeIn">
 				<div className="container">
+					hello
 					<Header>
 						<Header.Search>
 							<SearchBar/>
