@@ -1,9 +1,9 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import Todo from "./Todo"
+import Todo from "./index"
 
-storiesOf("molecules/Todo", module).add(
+storiesOf("atoms/Todo", module).add(
 	"Default",
 	() => (
 		<Todo />

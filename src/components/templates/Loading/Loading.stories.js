@@ -1,7 +1,7 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import Loading from "./Loading"
+import Loading from "./index"
 
 storiesOf("templates/Loading", module).add(
 	"Default",

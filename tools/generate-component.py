@@ -161,7 +161,7 @@ def story_template():
     lines.append('import React from "react"')
     lines.append('import { storiesOf } from "@storybook/react"')
     lines.append('')
-    lines.append('import %s from "./%s"' % (file_name, file_name))
+    lines.append('import %s from "./index"' % (file_name))
     lines.append('')
     lines.append('storiesOf("%s/%s", module).add(' % (outter_dir, file_name))
     lines.append('	"Default",')
