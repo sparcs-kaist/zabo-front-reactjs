@@ -1,10 +1,15 @@
 import styled from "styled-components"
-import { Link } from "react-router-dom"
 
 const HomePageWrapper = styled.div`
 	transition: 0.4s;
 	animation-duration: 0.3s;
+`;
 
+export const Header = styled.div`
+	min-height: 50px;
+	display: flex;
+	align-items: center;
+	
 	.blur {
 		transition: 0.5s;
 		position: absolute;
@@ -14,29 +19,24 @@ const HomePageWrapper = styled.div`
 		height: 0;
 		z-index: 1;
 		&.show {
+			border-top: 6px solid rgb(27, 50, 65);
 			height: 100%;
 			background-color: rgba(255, 255, 255);
 		}
 	}
-`
-
-export const Header = styled.div`
-	min-height: 50px;
-	display: flex;
-`
+`;
 
 Header.Search = styled.div`
 	flex: 1;
 	margin-right: 12px;
 	transition: 1s;
 	z-index: 2;
-	
-`
+`;
 
 Header.AddButton = styled.button`
 	width: 60px;
 	height: 40px;
 	background-color: rgb(27, 50, 65);
-`
+`;
 
-export default HomePageWrapper
+export default HomePageWrapper;

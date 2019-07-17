@@ -1,35 +1,43 @@
 import React, { PureComponent } from "react"
+import { Link } from "react-router-dom"  // do not refresh, but render on Link clicked
 import PropTypes from "prop-types"
-import { Link } from "react-router-dom"
 
-import HomePageWrapper, { Header } from "./HomePage.styled"
-import SearchBar from 'templates/SearchBar'
-import SVG from "../../atoms/SVG"
+import HomePageWrapper, { Header } from "./HomePage.styled";
+import SearchBar from 'templates/SearchBar';
+import SVG from "../../atoms/SVG";
 
 class HomePage extends PureComponent {
-	state = { searchBarFocussed: false }
-
-	onSearchFocus = (e) => {
-		this.setState({ searchBarFocussed: true })
+	constructor (props) {
+		super(props)
 	}
 
-	onSearchBlur = (e) => {
-		this.setState({ searchBarFocussed: false })
-	}
+	state = {
+		searchFocused: false,
+	};
+
+	_onSearchFocusBlur = (e) =>
+		this.setState(prevState => {
+			return {
+				searchFocused: !prevState.searchFocused
+			}
+		});
 
 	render() {
-		const { searchBarFocussed } = this.state
-		
+		const { searchFocused } = this.state;
+
 		return (
 			<HomePageWrapper className="animated fadeIn">
-				<div className={`blur animated fadeIn ${searchBarFocussed ? "show" : ""}`} />
 				<div className="container">
-					hello
 					<Header>
+						<div className={`blur animated fadeIn ${searchFocused ? "show" : ""}`} />
 						<Header.Search>
-							<SearchBar onFocus={this.onSearchFocus} onBlur={this.onSearchBlur} isOpen={searchBarFocussed} />
+							<SearchBar
+								onFocus={this._onSearchFocusBlur}
+								onBlur={this._onSearchFocusBlur}
+								isOpen={searchFocused} />
 						</Header.Search>
-						{searchBarFocussed || <Link to="/zabo/upload">
+						{ searchFocused ||
+						<Link to="/zabo/upload">
 							<Header.AddButton>
 								<SVG icon={'plus'} color="white" size="lg" />
 							</Header.AddButton>
@@ -43,9 +51,9 @@ class HomePage extends PureComponent {
 }
 
 HomePage.propTypes = {
-}
+};
 
 HomePage.defaultProps = {
-}
+};
 
 export default HomePage
