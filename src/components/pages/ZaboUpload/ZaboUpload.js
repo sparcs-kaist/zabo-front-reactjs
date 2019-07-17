@@ -18,10 +18,7 @@ import {
 } from '@material-ui/pickers'
 
 class ZaboUpload extends PureComponent {
-	constructor(props) {
-		super(props)
-		this.changePosters = React.createRef()
-	}
+	changePosters = React.createRef();
 
 	/*
 	 * state: below are the format of state variables
