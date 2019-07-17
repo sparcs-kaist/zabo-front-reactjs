@@ -82,7 +82,7 @@ const ZaboUploadWrapper = styled.div`
   
   /* ====== inputs ====== */
   .posterContainer {
-    height: 485px;
+    height: 524px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,8 +94,21 @@ const ZaboUploadWrapper = styled.div`
     align-items: center;
   }
   
+  .posterCarousel {
+    width: 320px;
+    text-align: center;
+  }
+  
   #posterInput {
     display: none;
+  }
+  
+  .slick-track {
+    width: 100px !important;
+    translate3d: none !important; 
+  }
+  .slick-slide {
+    width: 320px !important;
   }
   
   .keywords {
