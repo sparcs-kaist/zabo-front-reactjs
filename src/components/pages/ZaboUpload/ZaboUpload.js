@@ -174,20 +174,20 @@ class ZaboUpload extends PureComponent {
 												container: {
 													'overflow-x': 'hidden',
 													'overflow-y': 'scroll',
-													visibility: 'hidden',
-													position: 'relative',
-													margin: '5px 0px',
-													height: previews.length === 1 ? 'auto' : activeCarouselHeight,
+													'visibility': 'hidden',
+													'position': 'relative',
+													'margin': '5px 0px',
+													'height': previews.length === 1 ? 'auto' : activeCarouselHeight,
 												},
 												wrapper: {
-													overflow: 'hidden',
-													position: 'relative',
+													'overflow': 'hidden',
+													'position': 'relative',
 												},
 												child: {
-													float: 'left',
-													width: '100%',
-													position: 'relative',
-													transitionProperty: 'transform',
+													'float': 'left',
+													'width': '100%',
+													'position': 'relative',
+													'transitionProperty': 'transform',
 												}
 											}}
 											ref={el => (reactSwipeEl = el)}
@@ -273,17 +273,22 @@ class ZaboUpload extends PureComponent {
 								Keyword
 							</div>
 							<div className="tags">
-								{tags.map(item =>
-									<div
-										onKeyDown={e => console.log('key down', e)}
-										onClick={this._onTagClick}
-										className={item.clicked ? `tag selected` : `tag default`}>{item.tag}</div>)}
+								{
+									tags.map(item =>
+										<div
+											onKeyDown={e => console.log('key down', e)}
+											onClick={this._onTagClick}
+											className={item.clicked ? `tag selected` : `tag default`}>
+											{item.tag}
+										</div>
+									)
+								}
 							</div>
 						</section>
 					</div>
 				</div>
 				<div className="submit" onClick={this._onSubmit}>
-					<button>Sign In</button>
+					<button>Confirm</button>
 				</div>
 			</ZaboUploadWrapper>
 		)
