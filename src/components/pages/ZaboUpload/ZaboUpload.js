@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 
-import ZaboUploadWrapper from "./ZaboUpload.styled"
+import ZaboUploadWrapper from "./ZaboUpload.styled";
 import InputBase from '@material-ui/core/InputBase';
 import DateFnsUtils from '@date-io/date-fns';
 import chevron from "../../../static/images/chevron_left.svg";
