@@ -61,7 +61,6 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.get": "^4.4.2",
     "luxon": "^1.16.1",
-    "material-kit-react": "^1.7.0",
     "moment": "^2.24.0",
     "node-sass": "^4.11.0",
     "query-string": "^6.8.1",
@@ -76,7 +75,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-hash-link": "^1.2.1",
     "react-scripts": "3.0.0",
-    "react-slick": "^0.24.0",
+    "react-swipe": "^6.0.4",
     "redux": "^4.0.2",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",
@@ -84,7 +83,8 @@
     "redux-pender": "^2.0.12",
     "reselect": "^4.0.0",
     "styled-components": "^4.3.2",
-    "styled-theming": "^2.2.0"
+    "styled-theming": "^2.2.0",
+    "swipe-js-iso": "^2.1.5"
   },
   "devDependencies": {
     "@babel/core": "^7.5.0",
@@ -98,6 +98,7 @@
     "@storybook/addon-viewport": "^5.1.9",
     "@storybook/addons": "^5.1.9",
     "@storybook/react": "^5.1.9",
+    "babel-loader": "^8.0.5",
     "require-context.macro": "^1.0.4"
   },
   "license": "MIT"
