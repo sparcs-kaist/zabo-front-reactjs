@@ -13,25 +13,10 @@ class MyPage extends PureComponent {
     /* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
     this.state = {
       username : 'No Name',
-      groups : props.info.groups || [],
-      selectedGroup : 'select',
       clicked : 0,
     }
   }
 
-  componentDidMount() {
-    const { info } = this.props;
-
-    const username = (info.firstName && info.lastName) ? `${info.firstName} ${info.lastName}` : 'No Name';
-
-    this.setState({ username });
-
-    info.groups.filter(item => {
-      if( item._id === info.currentGroup) {
-        this.setState({ selectedGroup : item.name});
-      }
-    });
-  }
 
   onClick = (e) => {
     e.preventDefault();
@@ -40,7 +25,9 @@ class MyPage extends PureComponent {
   };
 
   groupDropDown = () => {
-    const { groups, clicked } = this.state;
+    const { clicked } = this.state;
+    const { groups } = this.props.info;
+
     return <div className="group-dropdown" style={{"display": clicked ? 'flex' : 'none'}}> {
       groups.map(entry =>
         <div className="group-dropdown-name"
@@ -53,12 +40,14 @@ class MyPage extends PureComponent {
 
   dropDownClick = (event,entry) => {
     this.props.setCurrentGroup(entry._id);
-    this.setState({selectedGroup : entry.name});
   }
 
 
   render() {
-    const { clicked, groups, selectedGroup } = this.state;
+    const { clicked } = this.state;
+    const { info, info: { groups } } = this.props;
+
+    const username = (info.firstName && info.lastName) ? `${info.firstName} ${info.lastName}` : 'No Name';
 
     let imgRotate = {
       transform: `rotate(${clicked}deg)`,
@@ -68,11 +57,11 @@ class MyPage extends PureComponent {
 		return (
 			<MyPageWrapper className="animated fadeIn">
         <div className="page-title">My Page </div>
-        <div className="user-name">{this.state.username}</div>
+        <div className="user-name">{username}</div>
         { groups &&
           <div className="group-selector" onClick={this.onClick}>
             <div className="group-name">
-              <div className="selector"> {selectedGroup} </div>
+              <div className="selector"> {info.currentGroup.name} </div>
               <img src={require("static/icon/baseline-expand_more-24px.svg")}
               style={imgRotate} />
             </div>
