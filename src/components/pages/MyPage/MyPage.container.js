@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import toJS from 'hoc/toJS'
 import MyPage from "./MyPage"
 
-import { setCurrentGroup } from "../../../store/reducers/user.js"
+import { setCurrentGroup } from "../../../store/reducers/auth.js"
 
 import { isAuthenticated } from "../../../lib/utils"
 
