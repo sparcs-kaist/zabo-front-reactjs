@@ -5,10 +5,12 @@ import PropTypes from "prop-types"
 import HomePageWrapper, { Header, ZaboList, Zabo } from "./HomePage.styled"
 import SearchBar from 'templates/SearchBar'
 import SVG from "../../atoms/SVG"
+import axios from "../../../lib/axios"
 
 class HomePage extends PureComponent {
 	state = {
 		searchFocused: false,
+		zaboList: [],
 	}
 
 	_onSearchFocusBlur = (e) =>
@@ -22,8 +24,29 @@ class HomePage extends PureComponent {
 	// 자보 요청 보내서 response => 순서대로 가장 길이 짧은 줄에 넣기.
 	//
 
+	/*
+	 * componentDidMount: 'mount' === return component
+	 */
+	componentDidMount() {
+		console.log("begin of componentDidMount");
+
+		/*
+		 * GET zabo list:
+		 */
+		axios.get('/zabo/list')
+			.then(res => {
+				const zaboWithPhotos = res.data.filter( item => item.photos[0] !== undefined );
+				this.setState({ zaboList: zaboWithPhotos })
+			})
+			.catch(error => {
+				console.log(error);
+			})
+		console.log("end of componentDidMount")
+	}
+
 	render() {
-		const { searchFocused } = this.state
+		const { zaboList, searchFocused } = this.state
+		console.log("render start");
 
 		return (
 			<HomePageWrapper className="animated fadeIn">
@@ -45,10 +68,32 @@ class HomePage extends PureComponent {
 						}
 					</Header>
 					<ZaboList>
+						{ console.log("render zabolist") }
+						{
+							zaboList.map( zabo =>
+								<Zabo>
+									<Zabo.Poster>
+										<img
+											width="100%"
+											//height={}
+											src={zabo.photos[0].url}
+										/>
+									</Zabo.Poster>
+									<Zabo.Writings>
+										<Zabo.Writings.Title>
+											{zabo.title}
+										</Zabo.Writings.Title>
+										<Zabo.Writings.Author>
+											{zabo.description}
+										</Zabo.Writings.Author>
+									</Zabo.Writings>
+								</Zabo>
+							)
+						}
 						<Zabo>
 							<Zabo.Poster>
 								<img
-									width="250px"
+									width="100%"
 									src="https://about.canva.com/wp-content/uploads/sites/3/2015/01/concert_poster-tb-220x0.png"
 								 />
 							</Zabo.Poster>
@@ -64,7 +109,7 @@ class HomePage extends PureComponent {
 						<Zabo>
 							<Zabo.Poster>
 								<img
-									width="250px"
+									width="100%"
 									src="https://piktochart.com/wp-content/uploads/2018/01/poster-conference.jpg"
 								 />
 							</Zabo.Poster>

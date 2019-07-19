@@ -13,6 +13,10 @@ const HomePageWrapper = styled.div`
 	
 	transition: 0.4s;
 	animation-duration: 0.3s;
+	
+	.container {
+		max-width: 1060px;
+	}
 `
 
 export default HomePageWrapper
@@ -57,9 +61,14 @@ export const ZaboList = styled.div`
 /* ============ Zabo ============ */
 export const Zabo = styled.div`
 	width: 250px;
-	//height: auto;
+	
+	@media (max-width: 600px) {
+		// 250 이 아닌 화면의 절반
+		// 600px 이상이면 250으로 고정하기. 최대 4줄
+	}
 `
-Zabo.Poster = styled.div`
+Zabo.Poster = styled.div`	
+	display: flex;
 	box-shadow: 0px 3px 6px #A9A9A9;
 `
 Zabo.Writings = styled.div`
