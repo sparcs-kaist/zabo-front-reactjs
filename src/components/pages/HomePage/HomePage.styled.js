@@ -2,15 +2,6 @@ import styled from "styled-components"
 
 /* ============ Wrapper ============ */
 const HomePageWrapper = styled.div`
-	@font-face {
-    font-family: 'NanumSquareRegular';
-    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
-  }
-	@font-face {
-    font-family: 'NanumSquareBold';
-    src: url(../../../lib/fonts/NanumSquareBold.ttf) format('truetype');
-  }
-	
 	transition: 0.4s;
 	animation-duration: 0.3s;
 	// 무슨 코드?
@@ -42,7 +33,6 @@ const HomePageWrapper = styled.div`
 		margin-top: 20px;
 		width: 100% !important;
 	}
-	
 `
 
 export default HomePageWrapper
@@ -81,6 +71,15 @@ Header.AddButton = styled.button`
 
 /* ============ Zabo ============ */
 export const Zabo = styled.div`
+	@font-face {
+    font-family: 'NanumSquareRegular';
+    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
+  }
+	@font-face {
+    font-family: 'NanumSquareBold';
+    src: url(../../../lib/fonts/NanumSquareBold.ttf) format('truetype');
+  }
+
 	// 600px 이상이면 240으로 고정하기. 최대 4줄
 	width: 240px;
 	
@@ -105,13 +104,15 @@ Zabo.Writings = styled.div`
 	padding: 15px 10px 20px 10px;
 	// TODO: 아래 패딩 10px 늘림 - 근용이 확인
 	font-color: #143441;
+	
+	.title {
+		font-family: "NanumSquareBold";
+ 		font-size: 14px;
+	}
+	.author {
+		margin-top: 5px;
+		font-family: "NanumSquareRegular";
+		font-size: 10px;
+	}
 `
-Zabo.Writings.Title = styled.div`
-	font-family: "NanumSquareBold";
- 	font-size: 14px;
-`
-Zabo.Writings.Author = styled.div`
-	margin-top: 5px;
-	font-family: "NanumSquareRegular";
-	font-size: 10px;
-`
+
