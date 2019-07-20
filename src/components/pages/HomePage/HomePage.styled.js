@@ -14,8 +14,33 @@ const HomePageWrapper = styled.div`
 	transition: 0.4s;
 	animation-duration: 0.3s;
 	
-	.container {
-		max-width: 1060px;
+	/* ====== body ====== */
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-family: 'NanumSquare';
+	
+	/* 
+	 * Poster Layout
+	 * poster = 240px, column space = 10px
+	 * .container padding = 0px 20px 
+	 * num of posters: total width
+	 * 1: 240px
+	 * 2: 490px   => 530 ~
+	 * 3: 740px    => 780 ~ 
+	 * 4: 990px    => 1030 ~
+	 */
+	@media (min-width: 0px) and (max-width: 540px) {
+		//.container
+	}
+	@media (min-width: 530px) and (max-width: 780px) {
+		.container { width: 530px; }
+	}
+	@media (min-width: 780px) and (max-width: 1030px) {
+		.container { width: 780px; }
+	}	
+	@media (min-width: 1030px) {
+		.container { width: 1030px; } 
 	}
 `
 
@@ -56,11 +81,32 @@ Header.AddButton = styled.button`
 /* ============ ZaboList ============ */
 export const ZaboList = styled.div`
 	margin-top: 20px;
+	overflow: hidden;
+  
+  @media (min-width: 0px) and (max-width: 500px) {
+   	background-color: lightgrey;
+  }
+  
+  @media (min-width: 500px) and (max-width: 750px) {
+  	width: 500px;
+  	:nth-child(2-n) {
+  		opacity: 0.2;
+  	}
+  }
+  
+  @media (min-width: 750px) and (max-width: 1000px) {
+  	width: 760px;
+  	
+  	:nth-child(3-n) {
+  		opacity: 0.2;
+  	}
+  }
 `
 
 /* ============ Zabo ============ */
 export const Zabo = styled.div`
-	width: 250px;
+	width: 240px;
+  //float: start;
 	
 	@media (max-width: 600px) {
 		// 250 이 아닌 화면의 절반
@@ -69,7 +115,15 @@ export const Zabo = styled.div`
 `
 Zabo.Poster = styled.div`	
 	display: flex;
+	background-color: lightgrey;
 	box-shadow: 0px 3px 6px #A9A9A9;
+	position: relative;
+	
+	img {	
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
 `
 Zabo.Writings = styled.div`
 	padding: 15px 10px 20px 10px;
