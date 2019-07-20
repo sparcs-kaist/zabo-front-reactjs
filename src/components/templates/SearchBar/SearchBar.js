@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import SearchBarWrapper from "./SearchBar.styled"
 import searchIcon from 'static/images/search-icon-navy.png'
 
-class SearchBar extends React.Component {
+class SearchBar extends PureComponent {
 	state = {
 		search: '',
 	}
@@ -19,7 +19,7 @@ class SearchBar extends React.Component {
 		return (
 			<SearchBarWrapper>
 				<div className="search">
-					<div className="search-Bar">
+					<div className="search-bar">
 						<input className="search-input" placeholder={'Search'} onChange={this._handleChange} {...props} />
 					</div>
 					<img className="search-icon" src={searchIcon}/>

@@ -122,13 +122,13 @@ class HomePage extends PureComponent {
 										/>
 									</Zabo.Poster>
 									<Zabo.Writings>
-										<Zabo.Writings.Title>
+										<div className="title">
 											{zabo.title}
-										</Zabo.Writings.Title>
-										<Zabo.Writings.Author>
+										</div>
+										<div className="author">
 											{zabo.description}
 											{/* TODO: change to author */}
-										</Zabo.Writings.Author>
+										</div>
 									</Zabo.Writings>
 								</Zabo>,
 							)
