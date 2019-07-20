@@ -24,7 +24,7 @@ const HomePageWrapper = styled.div`
 	}
 	@media (min-width: 780px) and (max-width: 1030px) {
 		.container { width: 780px; }
-	}	
+	}
 	@media (min-width: 1030px) {
 		.container { width: 1030px; } 
 	}
@@ -32,6 +32,54 @@ const HomePageWrapper = styled.div`
 	.masonry {
 		margin-top: 20px;
 		width: 100% !important;
+	}
+	
+	.loader {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		margin: 20px 0px 30px 0px;
+	}
+	
+	.expand {
+		display: inline-block;
+		color: #143441;
+		padding: 0 5px;
+		font-size: 25px;
+		animation: wave 1400ms linear infinite;
+	}
+	
+	//@for $i from 2 through 7 {
+	//	.expand:nth-child(#{$i}) {
+	//		animation-delay: $i*200ms;
+	//	}
+	//}
+	.expand:nth-child(2) {
+		animation-delay: 200ms;
+	}
+	.expand:nth-child(3) {
+		animation-delay: 400ms;
+	}
+	.expand:nth-child(4) {
+		animation-delay: 600ms;
+	}
+	.expand:nth-child(5) {
+		animation-delay: 800ms;
+	}
+	.expand:nth-child(6) {
+		animation-delay: 1000ms;
+	}
+	.expand:nth-child(7) {
+		animation-delay: 1200ms;
+	}
+	
+	@keyframes wave {
+		30% {
+			transform: translateY(-9px) scale(1.1, 1.1);
+		}
+		100% {
+			transform: initial;
+		}
 	}
 `
 
@@ -80,12 +128,10 @@ export const Zabo = styled.div`
     src: url(../../../lib/fonts/NanumSquareBold.ttf) format('truetype');
   }
 
-	// 600px 이상이면 240으로 고정하기. 최대 4줄
-	width: 240px;
+	width: 240px; // 530px 이상이면 240으로 고정하기. 최대 4줄
 	
 	@media (min-width: 0px) and (max-width: 530px) {
-		// 240 이 아닌 화면의 절반
-		width: calc(50% - 5px);
+		width: calc(50% - 5px); // 240 이 아닌 화면의 절반
 	}
 `
 Zabo.Poster = styled.div`	
@@ -102,17 +148,27 @@ Zabo.Poster = styled.div`
 `
 Zabo.Writings = styled.div`
 	padding: 15px 10px 20px 10px;
-	// TODO: 아래 패딩 10px 늘림 - 근용이 확인
-	font-color: #143441;
+	// TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인
+	color: #143441;
 	
 	.title {
 		font-family: "NanumSquareBold";
+		font-weight: 600;
  		font-size: 14px;
 	}
 	.author {
 		margin-top: 5px;
 		font-family: "NanumSquareRegular";
 		font-size: 10px;
+	}
+	
+	@media (min-width: 530px) {
+		.title {
+			font-size: 16px;
+		}
+		.author {
+			font-size: 13px;
+		}
 	}
 `
 

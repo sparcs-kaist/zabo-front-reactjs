@@ -18,6 +18,7 @@ const SearchBarWrapper = styled.div`
 	.search {
 		height: 40px;
 		display: flex;
+		position: relative;
 		cursor: text;
 	}
 	

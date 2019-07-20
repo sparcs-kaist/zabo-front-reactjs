@@ -74,7 +74,17 @@ class HomePage extends PureComponent {
 
 	render() {
 		const { zaboList, searchFocused } = this.state
-		const loader = (<div>Loading ...</div>)
+		const loader = (
+			<div className="loader">
+				<span className="expand">Z</span>
+				<span className="expand">A</span>
+				<span className="expand">B</span>
+				<span className="expand">O</span>
+				<span className="expand">.</span>
+				<span className="expand">.</span>
+				<span className="expand">.</span>
+			</div>
+		)
 		const sizes = [
 			{ columns: 2, gutter: 10 },
 			{ mq: '780px', columns: 3, gutter: 10 },
@@ -111,26 +121,33 @@ class HomePage extends PureComponent {
 					>
 						{
 							zaboList.map((zabo, i) =>
-								<Zabo key={i}>
-									<Zabo.Poster
-										style={{
-											paddingTop: `${zabo.photos[0].height / zabo.photos[0].width * 100}%`,
-										}}>
-										<img
-											width="100%"
-											src={zabo.photos[0].url}
-										/>
-									</Zabo.Poster>
-									<Zabo.Writings>
-										<div className="title">
-											{zabo.title}
-										</div>
-										<div className="author">
-											{zabo.description}
-											{/* TODO: change to author */}
-										</div>
-									</Zabo.Writings>
-								</Zabo>,
+									<Zabo key={i}>
+										<Link to="/zabo/upload">
+											<Zabo.Poster
+												style={{
+													paddingTop: `${zabo.photos[0].height / zabo.photos[0].width * 100}%`,
+												}}>
+												<img
+													width="100%"
+													src={zabo.photos[0].url}
+												/>
+											</Zabo.Poster>
+										</Link>
+										<Zabo.Writings>
+											<Link to="/zabo/upload">
+												<div className="title">
+													{zabo.title}
+												</div>
+											</Link>
+											<Link to="/zabo/upload">
+												<div className="author">
+													{zabo.description}
+													{/* TODO: change to author */}
+												</div>
+											</Link>
+										</Zabo.Writings>
+									</Zabo>
+								,
 							)
 						}
 					</MasonryZaboList>
