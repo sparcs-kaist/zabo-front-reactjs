@@ -13,25 +13,20 @@ const HomePageWrapper = styled.div`
 	
 	transition: 0.4s;
 	animation-duration: 0.3s;
-	
-	/* ====== body ====== */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  font-family: 'NanumSquare';
+	// 무슨 코드?
 	
 	/* 
 	 * Poster Layout
 	 * poster = 240px, column space = 10px
-	 * .container padding = 0px 20px 
+	 * .container padding = 0px 20px
 	 * num of posters: total width
 	 * 1: 240px
 	 * 2: 490px   => 530 ~
 	 * 3: 740px    => 780 ~ 
 	 * 4: 990px    => 1030 ~
 	 */
-	@media (min-width: 0px) and (max-width: 540px) {
-		//.container
+	@media (min-width: 0px) and (max-width: 530px) {
+		//.container width auto with padding
 	}
 	@media (min-width: 530px) and (max-width: 780px) {
 		.container { width: 530px; }
@@ -42,6 +37,12 @@ const HomePageWrapper = styled.div`
 	@media (min-width: 1030px) {
 		.container { width: 1030px; } 
 	}
+
+	.masonry {
+		margin-top: 20px;
+		width: 100% !important;
+	}
+	
 `
 
 export default HomePageWrapper
@@ -78,39 +79,14 @@ Header.AddButton = styled.button`
 	background-color: rgb(27, 50, 65);
 `
 
-/* ============ ZaboList ============ */
-export const ZaboList = styled.div`
-	margin-top: 20px;
-	overflow: hidden;
-  
-  @media (min-width: 0px) and (max-width: 500px) {
-   	background-color: lightgrey;
-  }
-  
-  @media (min-width: 500px) and (max-width: 750px) {
-  	width: 500px;
-  	:nth-child(2-n) {
-  		opacity: 0.2;
-  	}
-  }
-  
-  @media (min-width: 750px) and (max-width: 1000px) {
-  	width: 760px;
-  	
-  	:nth-child(3-n) {
-  		opacity: 0.2;
-  	}
-  }
-`
-
 /* ============ Zabo ============ */
 export const Zabo = styled.div`
+	// 600px 이상이면 240으로 고정하기. 최대 4줄
 	width: 240px;
-  //float: start;
 	
-	@media (max-width: 600px) {
-		// 250 이 아닌 화면의 절반
-		// 600px 이상이면 250으로 고정하기. 최대 4줄
+	@media (min-width: 0px) and (max-width: 530px) {
+		// 240 이 아닌 화면의 절반
+		width: calc(50% - 5px);
 	}
 `
 Zabo.Poster = styled.div`	
@@ -127,6 +103,7 @@ Zabo.Poster = styled.div`
 `
 Zabo.Writings = styled.div`
 	padding: 15px 10px 20px 10px;
+	// TODO: 아래 패딩 10px 늘림 - 근용이 확인
 	font-color: #143441;
 `
 Zabo.Writings.Title = styled.div`

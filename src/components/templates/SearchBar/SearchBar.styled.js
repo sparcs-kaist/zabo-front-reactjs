@@ -1,6 +1,17 @@
 import styled from "styled-components"
 
 const SearchBarWrapper = styled.div`
+	@font-face {
+    font-family: 'NanumSquareRegular';
+    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
+  }
+  @font-face {
+    font-family: 'NanumSquareBold';
+    src: url(../../../lib/fonts/NanumSquareBold.ttf) format('truetype');
+  }
+  
+  //font-family: 'NanumSquareRegular';
+
 z-index: 1;
 width: 100%;
 display: flex;

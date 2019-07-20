@@ -1,6 +1,6 @@
 import React, { PureComponent } from "react"
 import { Link } from "react-router-dom" // do not refresh, but render on Link clicked
-import MasonryInfiniteScroller from "react-masonry-infinite"
+import MasonryZaboList from "react-masonry-infinite"
 
 import HomePageWrapper, { Header, Zabo, ZaboList } from "./HomePage.styled"
 import SearchBar from 'templates/SearchBar'
@@ -16,10 +16,10 @@ class HomePage extends PureComponent {
 	state = {
 		searchFocused: false,
 		zaboList: [],
-		hasMoreZabo: true, // initial true
+		hasMoreZabo: true,
 	}
 
-	_onSearchFocusBlur = (e) =>
+	_onSearchFocusBlur = () =>
 		this.setState(prevState => {
 			return {
 				searchFocused: !prevState.searchFocused,
@@ -30,7 +30,7 @@ class HomePage extends PureComponent {
 	 * GET ZaboList:  @param - 0 for initial, 1 for next
 	 */
 	getZaboList = (call) => {
-		// Redux 로 만들기
+		// TODO: Redux 로 만들기
 
 		let url = "/zabo/list"
 		if (call === 1) { // call for next
@@ -60,20 +60,26 @@ class HomePage extends PureComponent {
 	 */
 	getNextZaboList = () => {
 		this.getZaboList(1)
-		// +) zabo 더 남아있는지 체크해서 hasMoreZabo == false 로 바꿔주기
+		// TODO: zabo 더 남아있는지 체크해서 hasMoreZabo == false 로 바꿔주기
 	}
 
 	/*
-	 * componentDidMount: 'mount' === render() component
+	 * componentDidMount: 'mount' === render()
 	 */
 	componentDidMount() {
 		// load initial zabo list
 		this.getZaboList(0)
 	}
 
+
 	render() {
 		const { zaboList, searchFocused } = this.state
 		const loader = (<div>Loading ...</div>)
+		const sizes = [
+			{ columns: 2, gutter: 10 },
+			{ mq: '780px', columns: 3, gutter: 10 },
+			{ mq: '1030px', columns: 4, gutter: 10 },
+		]
 
 		return (
 			<HomePageWrapper className="animated fadeIn">
@@ -94,9 +100,10 @@ class HomePage extends PureComponent {
 						</Link>
 						}
 					</Header>
-					<MasonryInfiniteScroller
+					<MasonryZaboList
 						className="masonry"
 						initialLoad={false}
+						sizes={sizes}
 						hasMore={this.state.hasMoreZabo}
 						loadMore={this.getNextZaboList} // called on useWindow (scrollLister)
 						loader={loader}
@@ -120,12 +127,13 @@ class HomePage extends PureComponent {
 										</Zabo.Writings.Title>
 										<Zabo.Writings.Author>
 											{zabo.description}
+											{/* TODO: change to author */}
 										</Zabo.Writings.Author>
 									</Zabo.Writings>
 								</Zabo>,
 							)
 						}
-					</MasonryInfiniteScroller>
+					</MasonryZaboList>
 				</div>
 			</HomePageWrapper>
 		)
