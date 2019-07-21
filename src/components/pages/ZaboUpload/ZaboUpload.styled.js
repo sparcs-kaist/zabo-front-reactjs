@@ -3,119 +3,154 @@ import styled from "styled-components"
 const ZaboUploadWrapper = styled.div`
   @font-face {
     font-family: 'NanumSquare';
-    src: url(//cdn.rawgit.com/hiun/NanumSquare/master/nanumsquare.css);
-    //url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
+    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
   }
 
-  /* ====== body ====== */
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-family: 'NanumSquare';
-  
-  /* ====== common styles ====== */
-  section {
-    margin: 0px 10px;
-  }
-  
-  .label {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #8F8F8F;
-  }
-  
-  .tag {
-    font-size: 14px;
-    margin: 6px 6px 0px 0px;
-    padding: 5px 10px;
-    border-radius: 3px;
-  }
-    // tag colors
-    .default {
-      color: #C5C5C5;
-      background-color: #F4F4F4;
-    }
-    .selected {
-      color: white;
-      background-color: #143441;
-    }
-  
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+
+  /* ======= CommonStyle ======= */
   .container {
-    margin: 5px 0px;
-    padding: 9px 10px;
-    border-radius: 4px;
-    
-    width: 320px;
-    background-color: #F4F4F4;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		font-family: 'NanumSquare';
+		max-width: 880px;
   }
+  	// label on all inputs
+  	.label {
+			margin-top: 20px;
+			font-size: 12px;
+			color: #8F8F8F;
+		}
+  	// container for all inputs
+		.inputContainer {
+			width: 100%;
+			margin: 5px 0px;
+			padding: 9px 10px;
+			border-radius: 4px;
+			background-color: #F4F4F4;
+		}
+
   
-  /* ====== top ====== */
-  .topline {
-    margin-bottom: 10px;
-    
-    width: 100%;
-    height: 5px;
-    background-color: #143441;
-  }
-  
+  /* ========= Header ========= */
   .header {
+  	width: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
   }
-  
-  .upload_your_poster {
+  .headerTitle {
     margin: 10px 0px;
     font-size: 30px;
     font-weight: bold;
     color: #143441;
   }
   
-  /* ====== inputs ====== */
-  .posterContainer {
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .posterContainerResponsiveHeight {
-    padding: 0; // 위의 컨테이너보다 나중 선언되어 적용
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
   
-  .posterCarousel {
-    width: 320px;
-    text-align: center;
+  /* ========= Inputs ========= */
+  .inputs {
+  	width: 100%;
   }
+		// section: .zabo-poster //
+		.zabo-poster > label > button {
+			width: 130px;
+			height: 30px;
+			font-size: 13px;
+			font-family: 'NanumSquare';
+			border-radius: 3px;
+		}
+		.posterCarousel {
+			width: 100%;
+			text-align: center;
+		}
+		.posterCarousel > div {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+		}
+		.reactswipe > div {
+			display: revert; // prevent inherit
+			position: relative; // to work in mobile(?)
+			// TODO: bug - not previewing properly on first reload env
+		}
+		.slick-image {
+			border: 5px solid #F4F4F4;
+			border-radius: 4px;
+		}
+		.reactswipe > div > div {
+			position: relative;
+		}
+		.poster-delete {
+			position: absolute;
+			top: 10px;
+			right: 10px;
+		}
+		.posterContainer {
+			padding-top: 100%;
+			position: relative;
+			display: flex;
+		}
+		.posterContainer > img {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+		.posterContainerResponsiveHeight {
+			padding: 0; // 위의 컨테이너보다 나중 선언되어 적용
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		#posterInput {
+			display: none;
+		}
+		
+		// div: .info //
+			// section: zabo-title, zabo-description
+  		.zabo-description > div > textarea,
+			.zabo-title > div > textarea {
+				font-family: 'NanumSquare';
+			}
+ 			// section: zabo-expiration
+			
+			// section: zabo-keywords
+  		.zabo-keywords {
+				margin-bottom: 30px;
+			}
+			.tags {
+				width: 100%;
+				display: flex;
+				flex-flow: row wrap;
+			}			
+			.tag {
+				font-size: 14px;
+				margin: 10px 10px 0px 0px;
+				padding: 4.5px 10px;
+				border-radius: 3px;
+			}
+				// tag colors
+				.default {
+					color: #C5C5C5;
+					background-color: #F4F4F4;
+				}
+				.selected {
+					color: white;
+					background-color: #143441;
+				}
+				
   
-  #posterInput {
-    display: none;
+  /* ========== Submit ========== */
+  .submit {
+  	width: 100%;
+  	margin-bottom: 20px;
+  	text-align: center;
   }
-  
-  .keywords {
-    margin-bottom: 30px;
-  }
-  
-  .tags {
-    width: 320px;
-    display: flex;
-    flex-flow: row wrap;
-  }
-  
-  .zabo-description > div > textarea,
-  .zabo-title > div > textarea {
-    font-family: 'NanumSquare';
-  }
-  
-  /* ====== submit ====== */
-  .submit > button {
-    margin: 0px 10px 20px 10px;
-    width: 320px;
+  .submit > button { 
+    width: 100%;
     height: 40px;
     font-size: 16px;
     font-family: 'NanumSquare';
@@ -123,54 +158,49 @@ const ZaboUploadWrapper = styled.div`
     color: white;
     background-color: #143441;
     box-shadow: 0px 3px 6px;
-  }
+  } // button 에는 margin-bottom 이 필요 없잖아. 
+  	// 컴포넌트는 그 자체로만. Layout 은 감싸는 div 가 해결. 
   
   
   /* ======================================== */
-  /* ============= Reactive CSS ============= */
+  /* ============ Responsive CSS ============ */
   /* ======================================== */
-  @media (max-width: 759px) {
-    /* ==== Common Styles ==== */
-    overflow: scroll;
-    .header, .inputs, .submit {
-      padding: 0px 20px;
-      width: 100%;
-    }
-    section {
-      margin: 0;
-      width: 100%;
-    }
-    
-    /* ==== adjust width ==== */
-    .container, .posterCarousel, .info, .tags {
-      width: 100%;
-    }
-    .submit > button {
-      width: 100%;
-      margin: 0;
+  @media (min-width: 0px) and (max-width: 800px) {
+  	.posterCarousel > div > button {
+    	// display: none; => only if touchable in mobile
     }
   }
-  @media (min-width: 760px) {
-    /* ====== inputs ====== */
+  @media (min-width: 800px) {
+  	/* ==== adjust position into two columns ==== */
     .inputs {
       display: flex;
       flex-direction: row;
+      justify-content: space-between;
+    }
+    section.zabo-poster, div.info, .submit > button {
+    	width: calc(50% - 10px);
     }
     .posterContainer {
       height: 524px;
     }
     
-    .header {
-      width: 660px;
-    }
-   
     // ==== ReactSwipe ==== //
     .reactswipe {
-      height: 480px !important;
+      height: 480px !important; 
+      // 320:480 = 2:3
+      // covers longer than most common poster size
+      // A2 size 420:600 = 2:2.86
     }
-    .reactswipe > div > div {
-      overflow: scroll;
-    }
+    .slick-image {
+			width: 320px;
+		}
+		.poster-delete {
+			position: absolute;
+			width: 320px;
+			left: 50%;
+			transform: translateX(-50%);
+			padding: 0px 10px 0px 286px;
+		}
   }
 `;
 
