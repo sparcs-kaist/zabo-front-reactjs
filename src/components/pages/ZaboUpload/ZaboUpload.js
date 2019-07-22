@@ -59,6 +59,7 @@ class ZaboUpload extends PureComponent {
 				clicked: false,
 			},
 		],
+		percentCompleted: 0,
 	}
 
 	_onPosterChange = (e) => {
@@ -114,13 +115,15 @@ class ZaboUpload extends PureComponent {
 		// TODO: author
 
 		// uploadZabo from this.props
-		this.props.uploadZabo(formData)
-			.then(res => {
-				//console.log(res.data)
-			})
-			.catch(err => {
-				console.error(err)
-			})
+		this.props.uploadZabo(formData, percentCompleted => this.setState({ percentCompleted }))
+			.then((res) => {
+				console.log(res.data)
+				this.props.history.push("/")
+			}) // TODO : Upload 후에 액션
+			.catch(error => {
+				console.error(error); // TODO : 에러 메시지
+				this.setState({ error, percentCompleted: 0 })
+			});
 	}
 
 	_onTagClick = (e) => {
@@ -148,7 +151,7 @@ class ZaboUpload extends PureComponent {
 	}
 
 	render() {
-		const { posters, postersPreviewURL, activeCarouselHeight, tags, selectedDate } = this.state
+		const { posters, postersPreviewURL, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
 		let reactSwipeEl
 		const previews = postersPreviewURL.sort(function (a, b) {
 			return a.index < b.index ? -1 : a.index > b.index ? 1 : 0
@@ -308,6 +311,15 @@ class ZaboUpload extends PureComponent {
 						<button>Confirm</button>
 						{/* TODO: explicitly warn if any inputs are empty (except keywords) */}
 					</div>
+				</div>
+				{error && <div className="error">{error.message}</div>}
+				{!!percentCompleted && <div className="loading-bar">
+					<div className="loading-active" style={{ width: `${percentCompleted}%` }}></div>
+					<div className="loading-inactive"></div>
+				</div>}
+				{percentCompleted === 100 && "성공"}
+				<div className="submit" onClick={this._onSubmit}>
+					<button>Confirm</button>
 				</div>
 			</ZaboUploadWrapper>
 		)
