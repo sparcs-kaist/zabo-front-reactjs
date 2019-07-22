@@ -10,6 +10,7 @@ import Chevron_Left from "../../../static/images/chevron_left.svg"
 import Chevron_Right from "../../../static/images/chevron_right.svg"
 import Delete from "../../../static/images/delete.svg"
 import Add from "../../../static/images/add.svg"
+import axios from "../../../lib/axios"
 import ReactSwipe from 'react-swipe'
 import ReactDOM from 'react-dom'
 import {
@@ -103,9 +104,8 @@ class ZaboUpload extends PureComponent {
 
 	_onSubmit = (e) => {
 		e.preventDefault()
-
 		let formData = new FormData()
-		formData.append("img", this.state.posters[0])
+		formData.append("img", this.state.posters)
 		formData.append("title", this.state.title)
 		formData.append("description", this.state.description)
 		formData.append("endAt", this.state.selectedDate)
@@ -119,7 +119,7 @@ class ZaboUpload extends PureComponent {
 		// uploadZabo from this.props
 		this.props.uploadZabo(formData)
 			.then(res => {
-				//console.log(res.data)
+				console.log(res.data)
 			})
 			.catch(err => {
 				console.error(err)
@@ -184,22 +184,22 @@ class ZaboUpload extends PureComponent {
 												className="reactswipe"
 												style={{
 													container: {
-														'overflow-x': 'hidden',
-														'overflow-y': 'scroll',
-														'visibility': 'hidden',
-														'position': 'relative',
-														'margin': '5px 0px',
-														'height': previews.length === 1 ? 'auto' : activeCarouselHeight,
+														overflowX: 'hidden',
+														overflowY: 'scroll',
+														visibility: 'hidden',
+														position: 'relative',
+														margin: '5px 0px',
+														height: previews.length === 1 ? 'auto' : activeCarouselHeight,
 													},
 													wrapper: {
-														'overflow': 'hidden',
-														'position': 'relative',
+														overflow: 'hidden',
+														position: 'relative',
 													},
 													child: {
-														'float': 'left',
-														'width': '100%',
-														'position': 'relative',
-														'transitionProperty': 'transform',
+														float: 'left',
+														width: '100%',
+														position: 'relative',
+														transitionProperty: 'transform',
 													},
 												}}
 												ref={el => (reactSwipeEl = el)}
