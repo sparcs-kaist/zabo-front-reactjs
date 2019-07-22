@@ -1,17 +1,17 @@
 import React, { PureComponent } from "react"
 import { connect } from "react-redux"
 
-import toJS from 'hoc/toJS'
-import MyPage from "./MyPage"
+import GroupPage from "./GroupPage"
+import toJS from "hoc/toJS"
 
-import { setCurrentGroup } from "../../../store/reducers/auth.js"
+import { removeGroupUser } from "../../../store/reducers/auth.js";
 
-import { isAuthenticated } from "../../../lib/utils"
+import {isAuthenticated} from "lib/utils";
 
-class MyPageContainer extends PureComponent {
+class GroupPageContainer extends PureComponent {
 	render() {
 		return (
-			<MyPage {...this.props} />
+			<GroupPage {...this.props} />
 		)
 	}
 }
@@ -24,10 +24,10 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = {
-  setCurrentGroup
+  removeGroupUser
 };
 
 export default connect(
 	mapStateToProps,
 	mapDispatchToProps
-)(toJS(MyPageContainer))
+)(toJS(GroupPageContainer))
