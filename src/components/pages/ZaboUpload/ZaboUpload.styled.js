@@ -161,6 +161,20 @@ const ZaboUploadWrapper = styled.div`
   } // button 에는 margin-bottom 이 필요 없잖아. 
   	// 컴포넌트는 그 자체로만. Layout 은 감싸는 div 가 해결. 
   
+  .loading-bar {
+  	margin: 24px 0;
+  	padding: 0 20px;
+  	width: 100%;
+  	display: flex;
+  	.loading-active {
+  		width: 0;
+  		border-top: 5px solid pink;
+  	}
+  	.loading-inactive {
+  		flex: 1;
+  		border-top: 5px solid gainsboro;
+  	}
+  }
   
   /* ======================================== */
   /* ============ Responsive CSS ============ */
@@ -191,6 +205,7 @@ const ZaboUploadWrapper = styled.div`
       // covers longer than most common poster size
       // A2 size 420:600 = 2:2.86
     }
+<<<<<<< HEAD
     .slick-image {
 			width: 320px;
 		}
@@ -201,6 +216,12 @@ const ZaboUploadWrapper = styled.div`
 			transform: translateX(-50%);
 			padding: 0px 10px 0px 286px;
 		}
+=======
+    .loading-bar {
+    	width: 640px;
+    	padding: 0;
+    }
+>>>>>>> feat(zabo): Zabo Upload loading bar
   }
 `;
 
