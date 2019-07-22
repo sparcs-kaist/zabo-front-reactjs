@@ -101,9 +101,8 @@ class ZaboUpload extends PureComponent {
 
 	_onSubmit = (e) => {
 		e.preventDefault()
-
 		let formData = new FormData()
-		formData.append("img", this.state.posters[0])
+		formData.append("img", this.state.posters)
 		formData.append("title", this.state.title)
 		formData.append("description", this.state.description)
 		formData.append("endAt", this.state.selectedDate)
@@ -184,22 +183,22 @@ class ZaboUpload extends PureComponent {
 												className="reactswipe"
 												style={{
 													container: {
-														'overflow-x': 'hidden',
-														'overflow-y': 'scroll',
-														'visibility': 'hidden',
-														'position': 'relative',
-														'margin': '5px 0px',
-														'height': previews.length === 1 ? 'auto' : activeCarouselHeight,
+														overflowX: 'hidden',
+														overflowY: 'scroll',
+														visibility: 'hidden',
+														position: 'relative',
+														margin: '5px 0px',
+														height: previews.length === 1 ? 'auto' : activeCarouselHeight,
 													},
 													wrapper: {
-														'overflow': 'hidden',
-														'position': 'relative',
+														overflow: 'hidden',
+														position: 'relative',
 													},
 													child: {
-														'float': 'left',
-														'width': '100%',
-														'position': 'relative',
-														'transitionProperty': 'transform',
+														float: 'left',
+														width: '100%',
+														position: 'relative',
+														transitionProperty: 'transform',
 													},
 												}}
 												ref={el => (reactSwipeEl = el)}
