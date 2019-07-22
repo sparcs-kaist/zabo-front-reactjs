@@ -3,7 +3,7 @@ import React from "react"
 import { Switch, Route } from "react-router-dom"
 
 import Header from "templates/Header"
-import { HomePage, MainPage, ZaboUploadPage, MyPage, AuthPage } from "components/pages"
+import { HomePage, MainPage, ZaboUploadPage, MyPage, AuthPage, ZaboPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 
 import AppWrapper from "./App.styled"
@@ -20,6 +20,7 @@ function App() {
 				<PublicRoute path="/auth" component={AuthPage} />
 				<Route path="/main" component={MainPage} />
 				<Route path="/zabo/upload" component={ZaboUploadPage} />
+				<Route path="/zabo" component={ZaboPage} />
 				<PrivateRoute path="/my-page" component={MyPage} />
 			</Switch>
 		</AppWrapper>

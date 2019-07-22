@@ -32,3 +32,8 @@ export const LoginPage = Loadable({
     loader: () => import("./LoginPage"),
     loading: Loading
 })
+
+export const ZaboPage = Loadable({
+    loader: () => import("./ZaboPage"),
+    loading: Loading
+})
