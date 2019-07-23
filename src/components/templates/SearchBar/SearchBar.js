@@ -4,7 +4,7 @@ import PropTypes from "prop-types"
 import SearchBarWrapper from "./SearchBar.styled"
 import searchIcon from 'static/images/search-icon-navy.png'
 
-class SearchBar extends PureComponent {
+class SearchBar extends React.Component {
 	state = {
 		search: '',
 	}
