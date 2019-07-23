@@ -267,7 +267,7 @@ class ZaboUpload extends PureComponent {
 											{
 												postersPreviewURL.map(url =>
 													<div key={url+"1234"}>
-														
+
 													</div>,
 												)
 											}
