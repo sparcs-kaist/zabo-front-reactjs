@@ -1,24 +1,26 @@
 import React, { PureComponent } from "react"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
-
-import ZaboUploadWrapper from "./ZaboUpload.styled"
-import InputBase from '@material-ui/core/InputBase'
-import DateFnsUtils from '@date-io/date-fns'
-import Chevron_Home from "../../../static/images/chevron_home.svg"
-import Chevron_Left from "../../../static/images/chevron_left.svg"
-import Chevron_Right from "../../../static/images/chevron_right.svg"
-import Delete from "../../../static/images/delete.svg"
-import Add from "../../../static/images/add.svg"
 import ReactSwipe from 'react-swipe'
 import ReactDOM from 'react-dom'
+import InputBase from '@material-ui/core/InputBase'
+import DateFnsUtils from '@date-io/date-fns'
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
 } from '@material-ui/pickers'
 
+import ZaboUploadWrapper from "./ZaboUpload.styled"
+
+import Chevron_Home from "../../../static/images/chevron_home.svg"
+import Chevron_Left from "../../../static/images/chevron_left.svg"
+import Chevron_Right from "../../../static/images/chevron_right.svg"
+import Delete from "../../../static/images/delete.svg"
+import Add from "../../../static/images/add.svg"
+
+
 class ZaboUpload extends PureComponent {
-	changePosters = React.createRef();
+	addPosters = React.createRef()
 
 	/*
 	 * state: below are the format of state variables
@@ -31,7 +33,7 @@ class ZaboUpload extends PureComponent {
 	// 	 }
 	// ];
 	state = {
-		posters: null,
+		posters: [],
 		postersPreviewURL: [],
 		activeCarouselHeight: 0,
 		title: "",
@@ -39,11 +41,15 @@ class ZaboUpload extends PureComponent {
 		selectedDate: new Date(),
 		tags: [ // TODO: export variables
 			{
-				tag: "#Advertisement",
+				tag: "#Recruit",
 				clicked: false,
 			},
 			{
-				tag: "#Club",
+				tag: "#Seminar",
+				clicked: false,
+			},
+			{
+				tag: "#Contest",
 				clicked: false,
 			},
 			{
@@ -51,49 +57,64 @@ class ZaboUpload extends PureComponent {
 				clicked: false,
 			},
 			{
-				tag: "#Recruiting",
+				tag: "#Show",
 				clicked: false,
 			},
 			{
-				tag: "#Student Council",
+				tag: "#Fair",
 				clicked: false,
 			},
 		],
 		percentCompleted: 0,
 	}
 
-	_onPosterChange = (e) => {
+	_handlePosterAdd = (e) => {
 		// preview posters and store them to state
 		const posters = e.target.files
 
-		let newURLs = [] // reset URL array
-		for (let i = 0; i < posters.length; i++) {
+		const callback = (postersURLs) => {
+			const sorted = postersURLs.sort(function (a, b) {
+				return a.index < b.index ? -1 : a.index > b.index ? 1 : 0
+			})
+			const extracted = sorted.map(item => item.url)
+
+			this.setState(prevState => {
+				const newPosters = [...prevState.posters, ...posters]
+				const newURLs = [...prevState.postersPreviewURL, ...extracted]
+				return {
+					posters: newPosters,
+					postersPreviewURL: newURLs,
+				}
+			})
+		}
+
+		let count = posters.length
+		let postersURLs = []
+		for (let i = 0; i < count; i++) {
 			const poster = posters[i]
 			const reader = new FileReader()
 
 			reader.onloadend = () => {
-				newURLs.push({
+				postersURLs.push({
 					index: i,
 					url: reader.result,
 				})
-
-				if (newURLs.length === posters.length) { // ith for-loop might not be the last
-					this.setState({
-						posters: posters,
-						postersPreviewURL: newURLs,
-					})
-				}
+				count -= 1
+				if (count === 0) callback(postersURLs)
 			}
 			reader.readAsDataURL(poster)
 		}
-		// this.setState({ posters: posters }); => NEVER
 	}
 
 	_handlePosterDelete = (e) => {
-		console.log("handlePosterDelete: ", e.target);
+		console.log("handlePosterDelete: ", e.target)
 	}
 
-	_handleSwipe = (index, elem) => this.setState({ activeCarouselHeight: elem.clientHeight })
+	_handleSwipe = (index, elem) => {
+		console.log("parent: ", elem.parentElement)
+		console.log("top: ", elem.parentElement.scrollTop)
+		this.setState({ activeCarouselHeight: elem.clientHeight })
+	}
 
 	_handleChange = ({ target: { name, value } }) => this.setState({ [name]: value })
 
@@ -102,27 +123,28 @@ class ZaboUpload extends PureComponent {
 	_onSubmit = (e) => {
 		e.preventDefault()
 		let formData = new FormData()
-		formData.append("img", this.state.posters)
+		Array.from(this.state.posters).forEach(file => { // FileList => Array 로
+			formData.append("img", file)
+		})
 		formData.append("title", this.state.title)
 		formData.append("description", this.state.description)
 		formData.append("endAt", this.state.selectedDate)
-		const uploadTags = []
+		let uploadTags = ""
 		this.state.tags.map(tag => {
-			if (tag.clicked === true) uploadTags.push(tag.tag)
+			if (tag.clicked === true) uploadTags = uploadTags.concat(tag.tag)
 		})
 		formData.append("category", uploadTags)
-		// TODO: author
 
 		// uploadZabo from this.props
 		this.props.uploadZabo(formData, percentCompleted => this.setState({ percentCompleted }))
-			.then((res) => {
+			.then(res => {
 				console.log(res.data)
 				this.props.history.push("/")
-			}) // TODO : Upload 후에 액션
-			.catch(error => {
-				console.error(error); // TODO : 에러 메시지
-				this.setState({ error, percentCompleted: 0 })
-			});
+			})
+			.catch(err => {
+				console.error(err)
+				this.setState({ err, percentCompleted: 0 })
+			})
 	}
 
 	_onTagClick = (e) => {
@@ -138,23 +160,21 @@ class ZaboUpload extends PureComponent {
 	}
 
 	componentDidUpdate(prevProps, prevState, snapshot) {
-		// Carousel 이 길고, postersPreviewURL 이 업데이트 되었을 때,
-		if ((this.state.postersPreviewURL.length >= 2) && (this.state.postersPreviewURL !== prevState.postersPreviewURL)) {
+		// bug fix: update first activeCarouselHeight
+		if ((!!this.state.postersPreviewURL[0] !== false) && (this.state.postersPreviewURL != prevState.postersPreviewURL)) {
 			const node = ReactDOM.findDOMNode(this)
 
 			if (node instanceof HTMLElement) {
-				const childHeight = node.querySelector(".reactswipe").firstChild.firstChild.offsetHeight
-				this.setState({ activeCarouselHeight: childHeight })
+				const element = node.querySelector(".reactswipe").firstChild.firstChild
+				this._handleSwipe(0, element)
 			}
 		}
 	}
 
 	render() {
 		const { posters, postersPreviewURL, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
+		const { windowWidth } = this.props
 		let reactSwipeEl
-		const previews = postersPreviewURL.sort(function (a, b) {
-			return a.index < b.index ? -1 : a.index > b.index ? 1 : 0
-		})
 
 		return (
 			<ZaboUploadWrapper>
@@ -174,21 +194,22 @@ class ZaboUpload extends PureComponent {
 							</div>
 							<div className="posterCarousel">
 								{
-									posters === null ? <div/> :
+									!!postersPreviewURL[0] === false ? <div/> :
 										<div>
 											<img src={Chevron_Left}
 													 onClick={() => reactSwipeEl.prev()}
 													 alt="carousel left"/>
 											<ReactSwipe
+												childCount={postersPreviewURL.length}
 												className="reactswipe"
 												style={{
 													container: {
 														overflowX: 'hidden',
-														overflowY: 'scroll',
+														overflowY: windowWidth < 800 ? 'hidden' : activeCarouselHeight >= 480 ? 'scroll' : 'hidden',
 														visibility: 'hidden',
 														position: 'relative',
 														margin: '5px 0px',
-														height: previews.length === 1 ? 'auto' : activeCarouselHeight,
+														height: postersPreviewURL.length === 1 ? 'auto' : activeCarouselHeight,
 													},
 													wrapper: {
 														overflow: 'hidden',
@@ -201,17 +222,17 @@ class ZaboUpload extends PureComponent {
 														transitionProperty: 'transform',
 													},
 												}}
-												ref={el => (reactSwipeEl = el)}
+												ref={el => {reactSwipeEl = el}}
 												swipeOptions={{
 													continuous: false,
-													callback: this._handleSwipe,
+													callback: this._handleSwipe, // 이거는 data 변경이 아니라, carousel 의 좌/우 이동할 때!
 												}}
 											>
 												{
-													previews.map(preview =>
-														<div>
+													postersPreviewURL.map(url =>
+														<div className="swipeItem" key={url}>
 															<img
-																src={preview.url}
+																src={url}
 																width="100%"
 																className="slick-image"/>
 															<img src={Delete}
@@ -221,8 +242,8 @@ class ZaboUpload extends PureComponent {
 														</div>,
 													)
 												}
+												{/*{ (() => {reactSwipeEl.swipe.setup()})() }*/}
 											</ReactSwipe>
-											{/* TODO: Change Poster 갯수가 적어지면 빈공간.. */}
 											<img src={Chevron_Right}
 													 onClick={() => reactSwipeEl.next()}
 													 alt="carousel right"/>
@@ -230,17 +251,17 @@ class ZaboUpload extends PureComponent {
 								}
 							</div>
 							<input
-								ref={this.changePosters}
+								ref={this.addPosters}
 								required // 이게 An invalid form control with name='' is not focusable. 에러를 뱉는다.s
 								id="posterInput"
 								type="file"
 								accept="image/*"
 								multiple
-								onChange={this._onPosterChange}/>
-							<label htmlFor={posters === null ? `posterInput` : ``}
-										 className={posters === null ? `posterContainer inputContainer` : `posterContainerResponsiveHeight`}>
-								{posters === null ? <img src={Add} alt="add poster"/> :
-									<button onClick={() => { this.changePosters.current.click() }}>Change Posters</button>}
+								onChange={this._handlePosterAdd}/>
+							<label htmlFor={posters[0] === undefined ? `posterInput` : ``}
+										 className={posters[0] === undefined ? `posterContainer inputContainer` : `posterContainerResponsiveHeight`}>
+								{posters[0] === undefined ? <img src={Add} alt="add poster"/> :
+									<button onClick={() => { this.addPosters.current.click() }}>Add Posters</button>}
 							</label>
 						</section>
 						<div className="info">
@@ -294,10 +315,10 @@ class ZaboUpload extends PureComponent {
 								<div className="tags">
 									{
 										tags.map(item =>
-											<div
-												onKeyDown={e => console.log('key down', e)} // TODO: animate
-												onClick={this._onTagClick}
-												className={item.clicked ? `tag selected` : `tag default`}>
+											<div key={item.tag}
+													 onKeyDown={e => console.log('key down', e)} // TODO: animate
+													 onClick={this._onTagClick}
+													 className={item.clicked ? `tag selected` : `tag default`}>
 												{item.tag}
 											</div>,
 										)
@@ -306,19 +327,16 @@ class ZaboUpload extends PureComponent {
 							</section>
 						</div>
 					</div>
-					<div className="submit" onClick={this._onSubmit}>
-						<button>Confirm</button>
+					{error && <div className="error">{error.message}</div>}
+					{!!percentCompleted && <div className="loading-bar">
+						<div className="loading-active" style={{ width: `${percentCompleted}%` }}></div>
+						<div className="loading-inactive"></div>
+					</div>}
+					{percentCompleted === 100 && "성공"}
+					<div className="submit">
+						<button onClick={this._onSubmit}>Confirm</button>
 						{/* TODO: explicitly warn if any inputs are empty (except keywords) */}
 					</div>
-				</div>
-				{error && <div className="error">{error.message}</div>}
-				{!!percentCompleted && <div className="loading-bar">
-					<div className="loading-active" style={{ width: `${percentCompleted}%` }}></div>
-					<div className="loading-inactive"></div>
-				</div>}
-				{percentCompleted === 100 && "성공"}
-				<div className="submit" onClick={this._onSubmit}>
-					<button>Confirm</button>
 				</div>
 			</ZaboUploadWrapper>
 		)

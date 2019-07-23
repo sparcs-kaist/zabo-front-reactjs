@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom"
 import Header from "templates/Header"
 import { HomePage, MainPage, ZaboUploadPage, MyPage, AuthPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
+import WindowResizeListener from "containers/WindowResizeListener"
 
 import AppWrapper from "./App.styled"
 
@@ -13,6 +14,7 @@ import { PrivateRoute, PublicRoute } from "./hoc/AuthRoutes"
 function App() {
 	return (
 		<AppWrapper>
+			<WindowResizeListener />
 			<Route path="/:route?" component={Header} />
 			<Route path="/" exact component={AuthCallback} />
 			<Switch>
