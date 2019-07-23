@@ -77,11 +77,6 @@ const ZaboUploadWrapper = styled.div`
   	div.reactswipe > div > div {
   		width: calc(100% - 50px); // bug fix: rendering small in mobile
   	}
-		//.reactswipe > div {
-		//	display: revert !important; // prevent inherit
-		//	position: relative; // to work in mobile(?)
-		//	// TODO: bug - not previewing properly on first reload env
-		//}
 		.slick-image {
 			border: 5px solid #F4F4F4;
 			border-radius: 4px;
@@ -91,6 +86,13 @@ const ZaboUploadWrapper = styled.div`
 			top: 10px;
 			right: 10px;
 		}
+		.carousel-navigation {
+			display: flex;
+			flex-direction: row;
+			justify-content: center;
+			align-items: center;
+		}
+		
 		.posterContainer {
 			padding-top: 100%;
 			position: relative;
@@ -134,6 +136,14 @@ const ZaboUploadWrapper = styled.div`
 				padding: 4.5px 10px;
 				border-radius: 3px;
 			}
+			.tag:hover {
+				color: white;
+				background-color: #143441;
+			}
+			.tag:active {
+				opacity: 0.8;
+				transform: translate3d(1px, 1px, 1px);
+			}
 				// tag colors
 				.default {
 					color: #C5C5C5;
@@ -162,6 +172,12 @@ const ZaboUploadWrapper = styled.div`
     box-shadow: 0px 3px 6px;
   } // button 에는 margin-bottom 이 필요 없잖아. 
   	// 컴포넌트는 그 자체로만. Layout 은 감싸는 div 가 해결. 
+  .submit > button:hover {
+  	opacity: 0.9;
+  }
+  .submit > button:active {
+  	transform: translate3d(1px, 1px, 1px);
+  }
   
   .loading-bar {
   	margin: 24px 0;
@@ -182,9 +198,6 @@ const ZaboUploadWrapper = styled.div`
   /* ============ Responsive CSS ============ */
   /* ======================================== */
   @media (min-width: 0px) and (max-width: 800px) {
-  	section.zabo-poster {
-  		//width: 100%;
-  	}
   	.posterCarousel > div > button {
     	// display: none; => only if touchable in mobile
     }

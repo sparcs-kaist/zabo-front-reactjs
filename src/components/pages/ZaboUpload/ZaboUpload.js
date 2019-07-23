@@ -68,9 +68,10 @@ class ZaboUpload extends PureComponent {
 		percentCompleted: 0,
 	}
 
-	_handlePosterAdd = (e) => {
+	_handlePosterAdd = (windowWidth, e) => {
 		// preview posters and store them to state
 		const posters = e.target.files
+		let firstCarouselHeight;
 
 		const callback = (postersURLs) => {
 			const sorted = postersURLs.sort(function (a, b) {
@@ -79,11 +80,15 @@ class ZaboUpload extends PureComponent {
 			const extracted = sorted.map(item => item.url)
 
 			this.setState(prevState => {
+				if (prevState.posters[0] !== undefined) {
+					firstCarouselHeight = prevState.activeCarouselHeight
+				}
 				const newPosters = [...prevState.posters, ...posters]
 				const newURLs = [...prevState.postersPreviewURL, ...extracted]
 				return {
 					posters: newPosters,
 					postersPreviewURL: newURLs,
+					activeCarouselHeight: firstCarouselHeight,
 				}
 			})
 		}
@@ -94,7 +99,19 @@ class ZaboUpload extends PureComponent {
 			const poster = posters[i]
 			const reader = new FileReader()
 
-			reader.onloadend = () => {
+			reader.onload = () => {
+				if (i === 0) {
+					let image = new Image()
+					image.src = reader.result
+
+					image.onload = () => {
+						if (windowWidth < 800) {
+							// on mobile
+							firstCarouselHeight = (windowWidth - 50) * image.height / image.width
+							//console.log("new first height: ", firstCarouselHeight)
+						}
+					}
+				}
 				postersURLs.push({
 					index: i,
 					url: reader.result,
@@ -110,11 +127,7 @@ class ZaboUpload extends PureComponent {
 		console.log("handlePosterDelete: ", e.target)
 	}
 
-	_handleSwipe = (index, elem) => {
-		console.log("parent: ", elem.parentElement)
-		console.log("top: ", elem.parentElement.scrollTop)
-		this.setState({ activeCarouselHeight: elem.clientHeight })
-	}
+	_handleSwipe = (index, elem) => this.setState({ activeCarouselHeight: elem.clientHeight })
 
 	_handleChange = ({ target: { name, value } }) => this.setState({ [name]: value })
 
@@ -147,8 +160,20 @@ class ZaboUpload extends PureComponent {
 			})
 	}
 
+	_onMouseUp = (e) => { // ignore hover when unselecting tag
+		const unactiveTag = (elem) => {
+			elem.style.color = "#C5C5C5"
+			elem.style.backgroundColor = "#F4F4F4"
+		}
+
+		const clickedText = e.target.textContent
+		this.state.tags.map(item => (item.tag === clickedText && item.clicked === true) ?
+			unactiveTag(e.target) : item,
+		)
+	}
+
 	_onTagClick = (e) => {
-		// console.log(e.target.textContent + ' clicked')
+		console.log(e.target.textContent + ' clicked')
 		const clickedText = e.target.textContent
 		this.setState((prevState) => {
 			const modifiedArray = prevState.tags.map(item => item.tag === clickedText ? {
@@ -157,18 +182,6 @@ class ZaboUpload extends PureComponent {
 			} : item)
 			return { tags: modifiedArray }
 		})
-	}
-
-	componentDidUpdate(prevProps, prevState, snapshot) {
-		// bug fix: update first activeCarouselHeight
-		if ((!!this.state.postersPreviewURL[0] !== false) && (this.state.postersPreviewURL != prevState.postersPreviewURL)) {
-			const node = ReactDOM.findDOMNode(this)
-
-			if (node instanceof HTMLElement) {
-				const element = node.querySelector(".reactswipe").firstChild.firstChild
-				this._handleSwipe(0, element)
-			}
-		}
 	}
 
 	render() {
@@ -242,11 +255,22 @@ class ZaboUpload extends PureComponent {
 														</div>,
 													)
 												}
-												{/*{ (() => {reactSwipeEl.swipe.setup()})() }*/}
 											</ReactSwipe>
 											<img src={Chevron_Right}
 													 onClick={() => reactSwipeEl.next()}
 													 alt="carousel right"/>
+										</div>
+								}
+								{
+									!!postersPreviewURL[0] === false ? <div/> :
+										<div className="carousel-navigation">
+											{
+												postersPreviewURL.map(url =>
+													<div key={url+"1234"}>
+														
+													</div>,
+												)
+											}
 										</div>
 								}
 							</div>
@@ -257,7 +281,7 @@ class ZaboUpload extends PureComponent {
 								type="file"
 								accept="image/*"
 								multiple
-								onChange={this._handlePosterAdd}/>
+								onChange={(e) => this._handlePosterAdd(windowWidth, e)}/>
 							<label htmlFor={posters[0] === undefined ? `posterInput` : ``}
 										 className={posters[0] === undefined ? `posterContainer inputContainer` : `posterContainerResponsiveHeight`}>
 								{posters[0] === undefined ? <img src={Add} alt="add poster"/> :
@@ -316,7 +340,7 @@ class ZaboUpload extends PureComponent {
 									{
 										tags.map(item =>
 											<div key={item.tag}
-													 onKeyDown={e => console.log('key down', e)} // TODO: animate
+													 onMouseUp={this._onMouseUp}
 													 onClick={this._onTagClick}
 													 className={item.clicked ? `tag selected` : `tag default`}>
 												{item.tag}
