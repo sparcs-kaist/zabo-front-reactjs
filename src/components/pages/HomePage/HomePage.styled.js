@@ -115,7 +115,7 @@ Header.AddButton = styled.button`
 	width: 60px;
 	height: 40px;
 	background-color: rgb(27, 50, 65);
-`
+`;
 
 /* ============ Zabo ============ */
 export const Zabo = styled.div`
@@ -171,4 +171,3 @@ Zabo.Writings = styled.div`
 		}
 	}
 `
-
