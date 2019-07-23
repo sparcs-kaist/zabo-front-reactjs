@@ -86,11 +86,26 @@ const ZaboUploadWrapper = styled.div`
 			top: 10px;
 			right: 10px;
 		}
-		.carousel-navigation {
+		.carousel-navigations {
+			margin: 5px 0px 10px 0px;
 			display: flex;
 			flex-direction: row;
 			justify-content: center;
 			align-items: center;
+		}
+		.navigation {
+			background-color: #F4F4F4;
+			width: 5px;
+			height: 5px;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+		.navigation-selected {
+			width: 11px;
+			height: 5px;
+			background-color: #143441;
+			border-radius: 2.5px;
+			margin-right: 5px;
 		}
 		
 		.posterContainer {
@@ -233,6 +248,20 @@ const ZaboUploadWrapper = styled.div`
 			transform: translateX(-50%);
 			padding: 0px 10px 0px 286px;
 		}
+		.navigation {
+			width: 6px;
+			height: 6px;
+			border-radius: 50%;
+			margin-right: 6px;
+		}
+		.navigation-selected {
+			width: 13px;
+			height: 6px;
+			border-radius: 3px;
+			margin-right: 6px;
+		}
+		
+		// === loading bar === //
     .loading-bar {
     	width: 640px;
     	padding: 0;
