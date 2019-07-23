@@ -15,7 +15,7 @@ class ZaboUploadContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
   return {
-
+    windowWidth: state.getIn(["app", "windowSize", "width"]),
   }
 };
 

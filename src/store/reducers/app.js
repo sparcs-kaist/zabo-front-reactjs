@@ -1,42 +1,27 @@
 import { createAction, handleActions } from "redux-actions"
-import { Map } from "immutable"
-import { pender } from "redux-pender"
-import get from "lodash.get"
+import { fromJS, Map } from "immutable"
 
 // action types
-const TOGGLE_VISUAL_TEXT = "app/TOGGLE_VISUAL_TEXT"
-const CHANGE_VISUAL_TEXT_COLOR = "app/CHANGE_VISUAL_TEXT_COLOR"
+const UPDATE_WINDOW_SIZE = "app/UPDATE_WINDOW_SIZE"
 
 //action creators
-export const toggleVisualText = createAction(TOGGLE_VISUAL_TEXT)
-export const changeVisualTextColor = createAction(
-	CHANGE_VISUAL_TEXT_COLOR,
-	(color) => {
-		switch (color) {
-			case "red":
-				return {
-					color: "#FF0000"
-				}
-			case "blue":
-				return {
-					color: "#0000FF"
-				}
-		}
-	}
-)
+export const setWindowSize = createAction(UPDATE_WINDOW_SIZE)
 
 // initial state
 const initialState = Map({
-	showVisualText: false,
-	visualTextColor: "#ffffff",
+	windowSize: Map({
+		width: window.innerWidth,
+		height: window.innerHeight,
+	})
 })
 
 // reducer
 export default handleActions({
-	[TOGGLE_VISUAL_TEXT]: (state, action) => {
-		return state.set("showVisualText", true)
-	},
-	[CHANGE_VISUAL_TEXT_COLOR]: (state, action) => {
-		return state.set("visualTextColor", action.payload.color)
-	},
+	[UPDATE_WINDOW_SIZE]: (state, action) => {
+		const { width, height } = action.payload
+		return state.set("windowSize", fromJS({
+			width,
+			height
+		}))
+	}
 }, initialState)

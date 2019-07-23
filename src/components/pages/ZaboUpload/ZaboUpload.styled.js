@@ -71,17 +71,20 @@ const ZaboUploadWrapper = styled.div`
 			justify-content: center;
 			align-items: center;
 		}
-		.reactswipe > div {
-			display: revert; // prevent inherit
-			position: relative; // to work in mobile(?)
-			// TODO: bug - not previewing properly on first reload env
-		}
+		div.reactswipe {
+  		width: calc(100% - 50px); // bug fix: rendering small in mobile
+  	}
+  	div.reactswipe > div > div {
+  		width: calc(100% - 50px); // bug fix: rendering small in mobile
+  	}
+		//.reactswipe > div {
+		//	display: revert !important; // prevent inherit
+		//	position: relative; // to work in mobile(?)
+		//	// TODO: bug - not previewing properly on first reload env
+		//}
 		.slick-image {
 			border: 5px solid #F4F4F4;
 			border-radius: 4px;
-		}
-		.reactswipe > div > div {
-			position: relative;
 		}
 		.poster-delete {
 			position: absolute;
@@ -110,13 +113,12 @@ const ZaboUploadWrapper = styled.div`
 		}
 		
 		// div: .info //
-			// section: zabo-title, zabo-description
+			// section: zabo-title, zabo-description, zabo-expiration
   		.zabo-description > div > textarea,
-			.zabo-title > div > textarea {
+			.zabo-title > div > textarea, 
+			.zabo-expiration > div > div > div > input {
 				font-family: 'NanumSquare';
 			}
- 			// section: zabo-expiration
-			
 			// section: zabo-keywords
   		.zabo-keywords {
 				margin-bottom: 30px;
@@ -180,6 +182,9 @@ const ZaboUploadWrapper = styled.div`
   /* ============ Responsive CSS ============ */
   /* ======================================== */
   @media (min-width: 0px) and (max-width: 800px) {
+  	section.zabo-poster {
+  		//width: 100%;
+  	}
   	.posterCarousel > div > button {
     	// display: none; => only if touchable in mobile
     }
@@ -200,12 +205,11 @@ const ZaboUploadWrapper = styled.div`
     
     // ==== ReactSwipe ==== //
     .reactswipe {
-      height: 480px !important; 
+      height: 480px !important;
       // 320:480 = 2:3
       // covers longer than most common poster size
       // A2 size 420:600 = 2:2.86
     }
-<<<<<<< HEAD
     .slick-image {
 			width: 320px;
 		}
@@ -216,12 +220,10 @@ const ZaboUploadWrapper = styled.div`
 			transform: translateX(-50%);
 			padding: 0px 10px 0px 286px;
 		}
-=======
     .loading-bar {
     	width: 640px;
     	padding: 0;
     }
->>>>>>> feat(zabo): Zabo Upload loading bar
   }
 `;
 
