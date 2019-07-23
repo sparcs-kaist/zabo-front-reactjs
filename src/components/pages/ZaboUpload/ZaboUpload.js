@@ -121,28 +121,18 @@ class ZaboUpload extends PureComponent {
 		}
 	}
 
-	_handlePosterDelete = (e) => {
-		e.preventDefault()
+	_handlePosterDelete = () =>
 		this.setState(prevState => {
 			const i = prevState.carouselPos
-			console.log(JSON.stringify(prevState))
-			console.log("delete: ", i)
-			let newPosters = [...prevState.posters]
+			let newPosters = [...prevState.posters] // [... ] 없으면 prevState 와 같은 객체를 참조 => 업뎃 안함.
 			let newPostersPreviewURLs = [...prevState.postersPreviewURLs]
 			newPosters.splice(i, 1)
 			newPostersPreviewURLs.splice(i, 1)
-			console.log({newPosters})
-			console.log({newPostersPreviewURLs})
 			return {
 				posters: newPosters,
 				postersPreviewURLs: newPostersPreviewURLs,
 			}
 		})
-	}
-
-	componentDidUpdate(prevState) {
-		console.log(prevState, this.state)
-	}
 
 	_handleSwipe = (index, elem) => {
 		this.setState({
@@ -195,7 +185,6 @@ class ZaboUpload extends PureComponent {
 	}
 
 	_onTagClick = (e) => {
-		console.log(e.target.textContent + ' clicked')
 		const clickedText = e.target.textContent
 		this.setState((prevState) => {
 			const modifiedArray = prevState.tags.map(item => item.tag === clickedText ? {
@@ -206,15 +195,10 @@ class ZaboUpload extends PureComponent {
 		})
 	}
 
-	//componentDidUpdate(prevProps, prevState, snapshot) {
-	//	console.log("activecarouselheight: ", this.state.activeCarouselHeight)
-	//}
-
 	render() {
 		const { posters, postersPreviewURLs, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
 		const { windowWidth } = this.props
 		let reactSwipeEl
-		console.log("render")
 
 		return (
 			<ZaboUploadWrapper>
