@@ -2,7 +2,6 @@ import React, { PureComponent } from "react"
 import { Link } from "react-router-dom"
 import PropTypes from "prop-types"
 import ReactSwipe from 'react-swipe'
-import ReactDOM from 'react-dom'
 import InputBase from '@material-ui/core/InputBase'
 import DateFnsUtils from '@date-io/date-fns'
 import {
@@ -26,7 +25,7 @@ class ZaboUpload extends PureComponent {
 	 * state: below are the format of state variables
 	 */
 	// posters : [ file1, file2, .. ]
-	// postersPreviewURL: [
+	// postersPreviewURLs: [
 	// 	 {
 	// 	 	 index: 0,
 	// 	 	 url: file1_url,
@@ -34,8 +33,9 @@ class ZaboUpload extends PureComponent {
 	// ];
 	state = {
 		posters: [],
-		postersPreviewURL: [],
+		postersPreviewURLs: [],
 		activeCarouselHeight: 0,
+		carouselPos: 0,
 		title: "",
 		description: "",
 		selectedDate: new Date(),
@@ -71,26 +71,35 @@ class ZaboUpload extends PureComponent {
 	_handlePosterAdd = (windowWidth, e) => {
 		// preview posters and store them to state
 		const posters = e.target.files
-		let firstCarouselHeight;
+		let firstCarouselHeight
 
 		const callback = (postersURLs) => {
-			const sorted = postersURLs.sort(function (a, b) {
+			const sorted = postersURLs.sort((a, b) => {
 				return a.index < b.index ? -1 : a.index > b.index ? 1 : 0
 			})
 			const extracted = sorted.map(item => item.url)
 
 			this.setState(prevState => {
-				if (prevState.posters[0] !== undefined) {
+				if (prevState.posters[0] !== undefined)
 					firstCarouselHeight = prevState.activeCarouselHeight
-				}
 				const newPosters = [...prevState.posters, ...posters]
-				const newURLs = [...prevState.postersPreviewURL, ...extracted]
+				const newURLs = [...prevState.postersPreviewURLs, ...extracted]
 				return {
 					posters: newPosters,
-					postersPreviewURL: newURLs,
+					postersPreviewURLs: newURLs,
 					activeCarouselHeight: firstCarouselHeight,
 				}
 			})
+		}
+
+		const getImageHeight = (result) => {
+			let image = new Image()
+			image.src = result
+			image.onload = () => {
+				if (windowWidth < 800)// on mobile
+					firstCarouselHeight = (windowWidth - 50) * image.height / image.width
+				else firstCarouselHeight = 320 * image.height / image.width
+			}
 		}
 
 		let count = posters.length
@@ -99,19 +108,8 @@ class ZaboUpload extends PureComponent {
 			const poster = posters[i]
 			const reader = new FileReader()
 
-			reader.onload = () => {
-				if (i === 0) {
-					let image = new Image()
-					image.src = reader.result
-
-					image.onload = () => {
-						if (windowWidth < 800) {
-							// on mobile
-							firstCarouselHeight = (windowWidth - 50) * image.height / image.width
-							//console.log("new first height: ", firstCarouselHeight)
-						}
-					}
-				}
+			reader.onloadend = async () => {
+				if (i === 0) await getImageHeight(reader.result)
 				postersURLs.push({
 					index: i,
 					url: reader.result,
@@ -124,10 +122,34 @@ class ZaboUpload extends PureComponent {
 	}
 
 	_handlePosterDelete = (e) => {
-		console.log("handlePosterDelete: ", e.target)
+		e.preventDefault()
+		this.setState(prevState => {
+			const i = prevState.carouselPos
+			console.log(JSON.stringify(prevState))
+			console.log("delete: ", i)
+			let newPosters = [...prevState.posters]
+			let newPostersPreviewURLs = [...prevState.postersPreviewURLs]
+			newPosters.splice(i, 1)
+			newPostersPreviewURLs.splice(i, 1)
+			console.log({newPosters})
+			console.log({newPostersPreviewURLs})
+			return {
+				posters: newPosters,
+				postersPreviewURLs: newPostersPreviewURLs,
+			}
+		})
 	}
 
-	_handleSwipe = (index, elem) => this.setState({ activeCarouselHeight: elem.clientHeight })
+	componentDidUpdate(prevState) {
+		console.log(prevState, this.state)
+	}
+
+	_handleSwipe = (index, elem) => {
+		this.setState({
+			activeCarouselHeight: elem.clientHeight,
+			carouselPos: index,
+		})
+	}
 
 	_handleChange = ({ target: { name, value } }) => this.setState({ [name]: value })
 
@@ -184,10 +206,15 @@ class ZaboUpload extends PureComponent {
 		})
 	}
 
+	//componentDidUpdate(prevProps, prevState, snapshot) {
+	//	console.log("activecarouselheight: ", this.state.activeCarouselHeight)
+	//}
+
 	render() {
-		const { posters, postersPreviewURL, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
+		const { posters, postersPreviewURLs, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
 		const { windowWidth } = this.props
 		let reactSwipeEl
+		console.log("render")
 
 		return (
 			<ZaboUploadWrapper>
@@ -207,13 +234,13 @@ class ZaboUpload extends PureComponent {
 							</div>
 							<div className="posterCarousel">
 								{
-									!!postersPreviewURL[0] === false ? <div/> :
+									!!postersPreviewURLs[0] === false ? <div/> :
 										<div>
 											<img src={Chevron_Left}
 													 onClick={() => reactSwipeEl.prev()}
 													 alt="carousel left"/>
 											<ReactSwipe
-												childCount={postersPreviewURL.length}
+												key={postersPreviewURLs.length}
 												className="reactswipe"
 												style={{
 													container: {
@@ -222,7 +249,7 @@ class ZaboUpload extends PureComponent {
 														visibility: 'hidden',
 														position: 'relative',
 														margin: '5px 0px',
-														height: postersPreviewURL.length === 1 ? 'auto' : activeCarouselHeight,
+														height: postersPreviewURLs.length === 1 ? 'auto' : activeCarouselHeight,
 													},
 													wrapper: {
 														overflow: 'hidden',
@@ -242,7 +269,7 @@ class ZaboUpload extends PureComponent {
 												}}
 											>
 												{
-													postersPreviewURL.map(url =>
+													postersPreviewURLs.map(url =>
 														<div className="swipeItem" key={url}>
 															<img
 																src={url}
@@ -262,12 +289,12 @@ class ZaboUpload extends PureComponent {
 										</div>
 								}
 								{
-									!!postersPreviewURL[0] === false ? <div/> :
-										<div className="carousel-navigation">
+									!!postersPreviewURLs[0] === false ? <div/> :
+										<div className="carousel-navigations">
 											{
-												postersPreviewURL.map(url =>
-													<div key={url+"1234"}>
-
+												postersPreviewURLs.map((url, index) =>
+													<div key={url + index}
+															 className={this.state.carouselPos === index ? 'navigation-selected' : 'navigation'}>
 													</div>,
 												)
 											}
