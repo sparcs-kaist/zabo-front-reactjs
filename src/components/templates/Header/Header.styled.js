@@ -8,7 +8,7 @@ const HeaderWrapper = styled.header`
     height: 70px;
     background: #fff;
     transition: 0.4s;
-    z-index: 0;
+    z-index: 1000;
     border-top: 6px solid rgb(27, 50, 65);
     
     .container {
