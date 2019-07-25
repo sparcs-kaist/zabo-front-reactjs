@@ -2,6 +2,7 @@ import React from "react"
 
 import { Switch, Route } from "react-router-dom"
 
+import PWAPrompt from "templates/PWAPrompt"
 import Header from "templates/Header"
 import { HomePage, MainPage, ZaboUploadPage, MyPage, AuthPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
@@ -15,6 +16,7 @@ function App() {
 	return (
 		<AppWrapper>
 			<WindowResizeListener />
+			<PWAPrompt />
 			<Route path="/:route?" component={Header} />
 			<Route path="/" exact component={AuthCallback} />
 			<Switch>
