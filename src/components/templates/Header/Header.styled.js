@@ -12,8 +12,8 @@ const HeaderWrapper = styled.header`
     border-top: 6px solid rgb(27, 50, 65);
     
     .container {
-			display: flex;
 			padding: 16px;
+			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
     }
