@@ -1,6 +1,6 @@
 {
   "short_name": "자보",
-  "name": "자보 어플리케이션",
+  "name": "ZABO - SPARCS KAIST",
   "icons": [
     {
       "src": "/images/icons-192.png",
@@ -16,5 +16,5 @@
   "start_url": "/?utm_source=pwa",
   "display": "standalone",
   "theme_color": "#12397d",
-  "background_color": "#12397d"
+  "background_color": "#fff"
 }
