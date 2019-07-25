@@ -1,1 +1,1 @@
-export { default } from "./ZaboUpload"
+export { default } from "./ZaboUpload.container"
