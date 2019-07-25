@@ -4,9 +4,9 @@ import { connect } from "react-redux"
 import GroupPage from "./GroupPage"
 import toJS from "hoc/toJS"
 
-import { removeGroupUser } from "../../../store/reducers/auth.js";
+import { removeGroupUser } from "../../../store/reducers/auth.js"
 
-import {isAuthenticated} from "lib/utils";
+import { isAuthenticated } from "lib/utils"
 
 class GroupPageContainer extends PureComponent {
 	render() {
@@ -18,16 +18,16 @@ class GroupPageContainer extends PureComponent {
 
 const mapStateToProps = (state) => {
 	return {
-    isAuthenticated: isAuthenticated(state),
-    info : state.getIn(['auth', 'info']),
+		isAuthenticated: isAuthenticated(state),
+		info: state.getIn(['auth', 'info']),
 	}
 }
 
 const mapDispatchToProps = {
-  removeGroupUser
-};
+	removeGroupUser,
+}
 
 export default connect(
 	mapStateToProps,
-	mapDispatchToProps
+	mapDispatchToProps,
 )(toJS(GroupPageContainer))
