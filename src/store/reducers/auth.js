@@ -12,10 +12,16 @@ const LOGIN_CALLBACK = 'auth/LOGIN_CALLBACK'
 const CHECK_AUTH = 'auth/CHECK_AUTH'
 const LOGOUT = 'auth/LOGOUT'
 
+const SET_CURRENT_GROUP = 'user/SET_CURRENT_GROUP'
+
+const REMOVE_GROUP_USER = 'group/REMOVE_GROUP_USER'
+
 // Action creator
 export const loginCallback = createAction(LOGIN_CALLBACK, AuthAPI.loginCallback)
 export const checkAuth = createAction(CHECK_AUTH, AuthAPI.checkAuth, meta => meta)
 export const logout = createAction(LOGOUT)
+export const setCurrentGroup = createAction(SET_CURRENT_GROUP,AuthAPI.setCurrentGroup);
+export const removeGroupUser = createAction(REMOVE_GROUP_USER, AuthAPI.removeGroupUser);
 
 const initialState = Map({
 	jwt: Map({}),
@@ -53,4 +59,18 @@ export default handleActions({
 			.set('jwt', initialState.get('jwt'))
 			.set('info', initialState.get('info'))
 	},
+  ...pender({
+    type: SET_CURRENT_GROUP,
+    onSuccess: (state, action) => {
+      const { currentGroup } = action.payload;
+      return state.setIn(['info', 'currentGroup'], fromJS(currentGroup))
+    },
+  }),
+  ...pender({
+    type: REMOVE_GROUP_USER,
+    onSuccess: (state, action) => {
+      const { members } = action.payload;
+      return state.setIn(['info', 'currentGroup', 'members'], fromJS(members))
+    }
+  }),
 }, initialState)

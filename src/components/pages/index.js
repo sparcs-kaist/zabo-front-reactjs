@@ -31,3 +31,13 @@ export const LoginPage = Loadable({
     loader: () => import("./LoginPage"),
     loading: Loading
 })
+
+export const GroupPage = Loadable({
+  loader: () => import("./GroupPage"),
+  loading: Loading
+})
+
+export const GroupAddPage = Loadable({
+  loader: () => import("./GroupAddPage"),
+  loading: Loading
+})

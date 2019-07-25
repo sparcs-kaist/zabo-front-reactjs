@@ -5,7 +5,7 @@
   "private": false,
   "scripts": {
     "env:path": "cross-env NODE_PATH=src:src/components",
-    "start": "$npm_execpath run env:path react-scripts start",
+    "start": "cross-env NODE_PATH=src:src/components react-scripts start",
     "build": "$npm_execpath run env:path react-scripts build",
     "test": "$npm_execpath run env:path react-scripts test",
     "eject": "react-scripts eject",
@@ -77,6 +77,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-hash-link": "^1.2.1",
     "react-scripts": "3.0.0",
+    "react-transition-group": "^4.2.1",
     "react-swipe": "^6.0.4",
     "redux": "^4.0.2",
     "redux-actions": "^2.6.5",

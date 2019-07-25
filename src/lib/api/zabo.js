@@ -1,4 +1,8 @@
-import axios from "../axios";
+import axios from "../axios"
+
+export const loadZaboAPI = () => {
+  return null;
+}
 
 export const uploadZabo = (formData, onUploadProgress = () => {}) =>
   axios.post("/zabo", formData, {
