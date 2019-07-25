@@ -56,7 +56,7 @@ class PWAPrompt extends PureComponent {
 						<img src={appIcon} alt="" className="logo"/>
 					<div className="texts">
 						<div className="title">ZABO (자보) : 모든 포스터를 한 곳에서 모아보세요</div>
-						<div className="desc">ZABO 어플리케이션 설치하기</div>
+						<div className="desc">ZABO 어플리케이션 설치하기 (데스크탑, 안드로이드 ,iOS)</div>
 					</div>
 					<button onClick={this.handleOpenClick}>설치</button>
 				</div>
