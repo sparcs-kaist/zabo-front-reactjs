@@ -116,3 +116,11 @@ Header.AddButton = styled.button`
 	height: 40px;
 	background-color: rgb(27, 50, 65);
 `;
+
+/* ============ Feedbacks ============ */
+export const Feedback = styled.div`
+	margin: 20px 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`
