@@ -19,7 +19,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-// 자보 업로드를 dispatch 를 써야 하나..?
 const mapDispatchToProps = {
   uploadZabo
 };
