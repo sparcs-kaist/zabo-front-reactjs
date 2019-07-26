@@ -20,18 +20,18 @@ class Header extends PureComponent {
 					</NavLink>
 					{
 						isAuthenticated ?
-							<React.Fragment>
-								<NavLink to="/my-page" style={{ marginRight: "4px"}} size="md">
+							<div>
+								<NavLink to="/my-page"
+												 size="md"
+												 className="user-icon">
 									<SVG icon={'user'} />
 								</NavLink>
+
 								<a href='#' onClick={this.props.logout}>Logout</a>
-							</React.Fragment>
+							</div>
 							:
 							<NavLink to="/auth/login">Login</NavLink>
 					}
-					{/*<a href="/api/auth/login">Login</a>*/}
-					{/*<NavLink to="/main">Main</NavLink>*/}
-					{/*<NavLink to="/upload">Upload</NavLink>*/}
 				</div>
 			</HeaderWrapper>
 		)

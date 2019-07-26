@@ -66,7 +66,7 @@ class SearchBar extends React.Component {
 						{
 							zaboSearch.map( zabo =>
 								<li>
-									<Link to="/">
+									<Link to={`/zabo/${zabo._id}`}>
 										{ zabo.title }
 									</Link>
 								</li>
@@ -81,7 +81,7 @@ class SearchBar extends React.Component {
 						{
 							uploaderSearch.map( uploader =>
 								<li>
-									<Link to="/">
+									<Link to={`/group/${uploader.name}`}>
 										{ uploader.name }
 									</Link>
 								</li>
