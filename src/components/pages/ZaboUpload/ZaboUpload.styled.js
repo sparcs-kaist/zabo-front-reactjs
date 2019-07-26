@@ -1,11 +1,6 @@
 import styled from "styled-components"
 
 const ZaboUploadWrapper = styled.div`
-  @font-face {
-    font-family: 'NanumSquare';
-    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format('truetype');
-  }
-
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
@@ -15,7 +10,6 @@ const ZaboUploadWrapper = styled.div`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		font-family: 'NanumSquare';
 		max-width: 880px;
   }
   	// label on all inputs
