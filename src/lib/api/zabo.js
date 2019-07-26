@@ -16,3 +16,5 @@ export const uploadZabo = (formData, onUploadProgress = () => {}) =>
       onUploadProgress(percentCompleted)
     }
   })
+
+export const getZabo = (id) => axios.get(`/zabo?id=${id}`).then(res =>res.data)
