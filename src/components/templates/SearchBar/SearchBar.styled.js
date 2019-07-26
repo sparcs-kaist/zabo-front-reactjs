@@ -39,10 +39,9 @@ const SearchBarWrapper = styled.div`
 		margin-left: 15px;
 		background-color: #f4f4f4;
 		font-size : 16px;
-		font-family: 'NanumSquareBold';
+		font-weight: bold;
 	} 
 	.search-input::placeholder {
-		font-family: 'NanumSquareRegular';
 		font-size : 16px;
 	}
 	
