@@ -41,3 +41,8 @@ export const GroupAddPage = Loadable({
   loader: () => import("./GroupAddPage"),
   loading: Loading
 })
+
+export const ZaboPage = Loadable({
+    loader: () => import("./ZaboPage"),
+    loading: Loading
+})
