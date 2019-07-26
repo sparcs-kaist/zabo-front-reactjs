@@ -34,7 +34,8 @@ const PWAPromptWrapper = styled.div`
 	
 	button {
 		background-color: transparent;
-		margin-left: 20px; 
+		border: none;
+		margin-left: 20px;
 		height: 25px;
 		padding: 0;
 		color: cornflowerblue;
