@@ -8,11 +8,6 @@ export const HomePage = Loadable({
     loading: Loading
 });
 
-export const MainPage = Loadable({
-    loader: () => import("./MainPage"),
-    loading: Loading
-});
-
 export const ZaboUploadPage = Loadable({
     loader: () => import("./ZaboUpload"),
     loading: Loading
