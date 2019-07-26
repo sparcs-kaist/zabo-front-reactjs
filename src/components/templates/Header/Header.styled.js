@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components"
+import styled from "styled-components"
 
 const HeaderWrapper = styled.header`
     position: fixed;
@@ -11,8 +11,13 @@ const HeaderWrapper = styled.header`
     z-index: 1000;
     border-top: 6px solid rgb(27, 50, 65);
     
+    a {
+    	margin-left: 2px;
+    	margin-right: 5px;
+    }
+    
     .container {
-			padding: 16px;
+			padding: 13px 20px;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;
@@ -20,3 +25,4 @@ const HeaderWrapper = styled.header`
 `
 
 export default HeaderWrapper
+
