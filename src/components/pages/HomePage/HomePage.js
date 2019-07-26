@@ -68,8 +68,11 @@ class HomePage extends PureComponent {
 		)
 		const sizes = [
 			{ columns: 2, gutter: 10 },
-			{ mq: '780px', columns: 3, gutter: 10 },
-			{ mq: '1030px', columns: 4, gutter: 10 },
+			...[...Array(68)].map((x, i) => ({
+				mq: `${200 + i*10}px`, columns: 2, gutter: 10
+			})),
+			{ mq: '800px', columns: 3, gutter: 20 },
+			{ mq: '1050px', columns: 4, gutter: 20 },
 		]
 
 		return (
