@@ -50,7 +50,7 @@ export default (Component) => {
 
 	StackMaster.propTypes = {
 		...Component.propTypes,
-		zaboId: PropTypes.string.isRequired,
+		zaboId: PropTypes.string,
 	}
 
 	return withLog(StackMaster)

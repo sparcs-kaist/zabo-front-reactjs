@@ -1,1 +1,1 @@
-export { default } from "./ZaboList"
+export { default } from "./ZaboList.container"
