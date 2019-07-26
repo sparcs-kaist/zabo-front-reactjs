@@ -2,10 +2,10 @@ import React, { PureComponent } from "react"
 import { Link } from "react-router-dom" // do not refresh, but render on Link clicked
 import MasonryZaboList from "react-masonry-infinite"
 
-import HomePageWrapper, { Header, Zabo, ZaboList } from "./HomePage.styled"
+import HomePageWrapper, { Header, Zabo } from "./HomePage.styled"
+
 import SearchBar from 'templates/SearchBar'
 import SVG from "../../atoms/SVG"
-import axios from "../../../lib/axios"
 
 class HomePage extends PureComponent {
 	constructor(props) {
@@ -15,7 +15,6 @@ class HomePage extends PureComponent {
 
 	state = {
 		searchFocused: false,
-		zaboList: [],
 		hasMoreZabo: true,
 	}
 
@@ -27,40 +26,21 @@ class HomePage extends PureComponent {
 		})
 
 	/*
-	 * GET ZaboList:  @param - 0 for initial, 1 for next
-	 */
-	getZaboList = (call) => {
-		// TODO: Redux 로 만들기
-
-		let url = "/zabo/list"
-		if (call === 1) { // call for next
-			const currentZaboList = this.state.zaboList
-			const lastId = `/next?id=${currentZaboList[currentZaboList.length - 1]._id}`
-			url += lastId
-		}
-
-		axios.get(url)
-			.then(res => {
-				// filter no longer needed, if all zabo MUST acquire photos
-				const zaboWithPhotos = res.data.filter(item => item.photos[0] !== undefined)
-				this.setState(prevState => {
-					const newZaboList = prevState.zaboList.concat(zaboWithPhotos)
-					return {
-						zaboList: newZaboList,
-					}
-				})
-			})
-			.catch(err => {
-				console.log(err)
-			})
-	}
-
-	/*
 	 * GET next ZaboList: only called when 'hasMoreZabo === true'
 	 */
 	getNextZaboList = () => {
-		this.getZaboList(1)
 		// TODO: zabo 더 남아있는지 체크해서 hasMoreZabo == false 로 바꿔주기
+		const currentZaboList = this.props.zaboList
+		const lastIdURL = `/zabo/list/next?id=${currentZaboList[currentZaboList.length - 1]._id}`
+
+		this.props.getZaboList(lastIdURL)
+			.then(res => {
+				console.log(res)
+				console.log(res.data)
+			})
+			.catch(err => {
+				console.error(err)
+			})
 	}
 
 	/*
@@ -68,12 +48,20 @@ class HomePage extends PureComponent {
 	 */
 	componentDidMount() {
 		// load initial zabo list
-		this.getZaboList(0)
+		this.props.getZaboList('/zabo/list')
+			.then(res => {
+				console.log(res)
+				console.log(res.data)
+			})
+			.catch(err => {
+				console.error(err)
+			})
 	}
 
 
 	render() {
-		const { zaboList, searchFocused } = this.state
+		const { searchFocused } = this.state
+		const { zaboList } = this.props
 		const loader = (
 			<div className="loader">
 				<span className="expand">Z</span>
