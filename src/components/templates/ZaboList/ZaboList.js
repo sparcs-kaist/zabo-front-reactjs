@@ -4,11 +4,10 @@ import MasonryZaboList from "react-masonry-infinite"
 
 import ZaboListWrapper from "./ZaboList.styled"
 
-import ZaboPage from "../../pages/ZaboPage"
+import ZaboCard from "../../organisms/ZaboCard"
+import Feedback from "organisms/Feedback"
 
 import withStackMaster from "./withStackMaster"
-
-import { ZaboCard } from "../../pages/ZaboPage/ZaboPage"
 
 const sizes = [
 	{ columns: 2, gutter: 10 },
@@ -34,8 +33,32 @@ const loader = (
 class ZaboList extends PureComponent {
 	masonry = React.createRef()
 
+	state = { hasNext: true }
+
+	fetch = (next) => {
+		const { type, getZaboList, getPins, relatedTo, zaboList } = this.props
+		const lastSeen = next ? zaboList[zaboList.length - 1]._id : undefined
+		const fetches = {
+			main: () => getZaboList({ lastSeen }),
+			related: () => getZaboList({ lastSeen, relatedTo }),
+			pins: () => getPins({ lastSeen }),
+		}
+		return fetches[type]()
+	}
+
+	componentDidMount() { this.fetch() }
+
+	fetchNext = () => {
+		this.fetch(true)
+			.then(zaboList => {
+				if (zaboList.length === 0) this.setState({ hasNext: false })
+			})
+	}
+
 	render() {
-		const { hasMoreZabo, getNextZaboList, zaboList } = this.props
+		const { zaboList } = this.props
+		const { hasNext } = this.state
+		const { fetchNext } = this
 
 		return (
 			<ZaboListWrapper>
@@ -43,10 +66,11 @@ class ZaboList extends PureComponent {
 					className="masonry"
 					initialLoad={false}
 					sizes={sizes}
-					hasMore={hasMoreZabo}
-					loadMore={getNextZaboList} // called on useWindow (scrollLister)
+					hasMore={hasNext}
+					loadMore={fetchNext} // called on useWindow (scrollLister)
 					loader={loader}
 					ref={this.masonry}
+					threshold={800}
 				>
 					{
 						zaboList.map((zabo, i) =>
@@ -54,14 +78,13 @@ class ZaboList extends PureComponent {
 						)
 					}
 				</MasonryZaboList>
+				{hasNext || <Feedback/>}
 			</ZaboListWrapper>
 		)
 	}
 }
 
 ZaboList.propTypes = {
-	hasMoreZabo: PropTypes.bool.isRequired,
-	getNextZaboList: PropTypes.func.isRequired,
 	zaboList: PropTypes.array.isRequired
 }
 
