@@ -99,7 +99,7 @@ class HomePage extends PureComponent {
 				mq: `${200 + i * 10}px`, columns: 2, gutter: 10,
 			})),
 			{ mq: '800px', columns: 3, gutter: 20 },
-			{ mq: '1050px', columns: 4, gutter: 20 },
+			{ mq: '1060px', columns: 4, gutter: 20 },
 		]
 
 		return (
