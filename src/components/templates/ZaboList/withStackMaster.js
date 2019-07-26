@@ -1,7 +1,6 @@
 import React from "react"
 import PropTypes from "prop-types"
 import storage from "../../../lib/storage"
-import withLog from "hoc/withLog"
 
 export default (Component) => {
 	class StackMaster extends React.Component {
@@ -53,5 +52,5 @@ export default (Component) => {
 		zaboId: PropTypes.string,
 	}
 
-	return withLog(StackMaster)
+	return StackMaster
 }
