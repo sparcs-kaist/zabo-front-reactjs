@@ -13,8 +13,8 @@ const HomePageWrapper = styled.div`
 	 * num of posters: total width
 	 * 1: 240px
 	 * 2: 490px   => 530 ~
-	 * 3: 740px    => 780 ~ 
-	 * 4: 990px    => 1030 ~
+	 * 3: 760px    => 800 ~ 
+	 * 4: 1020px    => 1060 ~
 	 */
 	@media (min-width: 0px) and (max-width: 530px) {
 		//.container width auto with padding
@@ -22,11 +22,11 @@ const HomePageWrapper = styled.div`
 	@media (min-width: 530px) and (max-width: 800px) {
 		.container { width: 530px; }
 	}
-	@media (min-width: 800px) and (max-width: 1050px) {
+	@media (min-width: 800px) and (max-width: 1060px) {
 		.container { width: 800px; }
 	}
-	@media (min-width: 1050px) {
-		.container { width: 1050px; } 
+	@media (min-width: 1060px) {
+		.container { width: 1060px; } 
 	}
 
 	.masonry {
