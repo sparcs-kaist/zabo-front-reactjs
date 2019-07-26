@@ -2,7 +2,40 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import MasonryZaboList from "react-masonry-infinite"
 
-import ZaboPageWrapper, { Zabo } from "./ZaboPage.styled"
+import ZaboPageWrapper, { Zabo, ZaboCard as StyledZaboCard } from "./ZaboPage.styled"
+import { Link } from "react-router-dom"
+
+export const ZaboCard = (props) => {
+	const { zabo } = props
+	return (
+		<StyledZaboCard>
+			<Link to={`/zabo/${zabo._id}`}>
+				<StyledZaboCard.Poster
+					style={{
+						paddingTop: `${zabo.photos[0].height / zabo.photos[0].width * 100}%`,
+					}}>
+					<img
+						width="100%"
+						src={zabo.photos[0].url}
+					/>
+				</StyledZaboCard.Poster>
+			</Link>
+			<StyledZaboCard.Writings>
+				<Link to={`/zabo/${zabo._id}`}>
+					<div className="title">
+						{zabo.title}
+					</div>
+				</Link>
+				<Link to="/zabo/upload">
+					<div className="author">
+						{zabo.description}
+						{/* TODO: change to author */}
+					</div>
+				</Link>
+			</StyledZaboCard.Writings>
+		</StyledZaboCard>
+	)
+}
 
 class ZaboPage extends PureComponent {
 	render() {
@@ -11,7 +44,7 @@ class ZaboPage extends PureComponent {
 				<div className="container">
 					<Zabo>
 						<Zabo.Poster>
-							<img 
+							<img
 								width="100%"
 								src="https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/1563636623412"
 							/>
@@ -34,9 +67,9 @@ class ZaboPage extends PureComponent {
 							</ul>
 						</Zabo.Writings>
 					</Zabo>
-					
+
 				</div>
-				
+
 			</ZaboPageWrapper>
 		)
 	}
