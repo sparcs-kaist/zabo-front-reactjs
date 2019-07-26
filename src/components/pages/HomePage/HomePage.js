@@ -2,7 +2,7 @@ import React, { PureComponent } from "react"
 import { Link } from "react-router-dom" // do not refresh, but render on Link clicked
 import MasonryZaboList from "react-masonry-infinite"
 
-import HomePageWrapper, { Header, Zabo } from "./HomePage.styled"
+import HomePageWrapper, { Header, Zabo, Feedback } from "./HomePage.styled"
 
 import SearchBar from 'templates/SearchBar'
 import SVG from "../../atoms/SVG"
@@ -29,14 +29,12 @@ class HomePage extends PureComponent {
 	 * GET next ZaboList: only called when 'hasMoreZabo === true'
 	 */
 	getNextZaboList = () => {
-		// TODO: zabo 더 남아있는지 체크해서 hasMoreZabo == false 로 바꿔주기
 		const currentZaboList = this.props.zaboList
 		const lastIdURL = `/zabo/list/next?id=${currentZaboList[currentZaboList.length - 1]._id}`
 
 		this.props.getZaboList(lastIdURL)
-			.then(res => {
-				console.log(res)
-				console.log(res.data)
+			.then(zaboList => {
+				if (zaboList.length === 0) this.setState({ hasMoreZabo: false })
 			})
 			.catch(err => {
 				console.error(err)
@@ -49,18 +47,13 @@ class HomePage extends PureComponent {
 	componentDidMount() {
 		// load initial zabo list
 		this.props.getZaboList('/zabo/list')
-			.then(res => {
-				console.log(res)
-				console.log(res.data)
-			})
 			.catch(err => {
 				console.error(err)
 			})
 	}
 
-
 	render() {
-		const { searchFocused } = this.state
+		const { searchFocused, hasMoreZabo } = this.state
 		const { zaboList } = this.props
 		const loader = (
 			<div className="loader">
@@ -139,6 +132,21 @@ class HomePage extends PureComponent {
 							)
 						}
 					</MasonryZaboList>
+					{
+						hasMoreZabo ||
+							<Feedback>
+								<div>
+									Zabo 는 Open Beta 서비스 입니다.
+									더 나아질 수 있도록, 거침없는 의견 부탁드립니다.
+								</div>
+								<div>
+									<input/>
+									<button>
+										Send
+									</button>
+								</div>
+							</Feedback>
+					}
 				</div>
 			</HomePageWrapper>
 		)

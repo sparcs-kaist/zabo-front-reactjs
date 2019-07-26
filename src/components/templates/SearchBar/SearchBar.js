@@ -13,6 +13,8 @@ class SearchBar extends React.Component {
 		this.setState({ search: e.target.value })
 	}
 
+	///search?query=
+
 	render() {
 		const { isOpen, ...props } = this.props
 
