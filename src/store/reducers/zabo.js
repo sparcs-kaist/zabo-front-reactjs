@@ -22,7 +22,7 @@ export const getZaboList = createAction(GET_ZABO_LIST, ZaboAPI.getZaboList)
 
 // 초기값 설정
 const initialState = Map({
-	zaboList: List([])
+	zaboList: List([]),
 })
 
 // Reducer 함수 : state, action 을 받아 다음 상태를 만들어서 반환.
@@ -38,10 +38,9 @@ export default handleActions({
 		onSuccess: (state, action) => {
 			const newZaboList = action.payload
 			// filter no longer needed, if all zabo MUST acquire photos
-			const zaboWithPhotos = newZaboList.filter(item => item.photos[0] !== undefined)
 			return state.update("zaboList", prevList => {
-				return prevList.merge(fromJS(zaboWithPhotos))
+				return prevList.merge(fromJS(newZaboList))
 			})
-		}
-	})
+		},
+	}),
 }, initialState)
