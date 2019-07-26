@@ -45,7 +45,7 @@ class SearchBar extends React.Component {
 				...prevState.searchResults,
 				[query]: res.data
 			},
-		})) // caching
+		}))
 	}
 
 	render() {
