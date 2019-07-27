@@ -2,11 +2,15 @@ import React, { PureComponent } from "react"
 
 import SavedPosters from "templates/SavedPosters"
 import MyPageWrapper from "./MyPage.styled"
+import { Redirect } from "react-router-dom"
 
 class MyPage extends PureComponent {
 	/* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
 
-	state = { username: 'No Name', clicked: 0 }
+	state = {
+		username: 'No Name',
+		clicked: 0,
+	}
 
 	onClick = (e) => {
 		e.preventDefault()
@@ -18,32 +22,35 @@ class MyPage extends PureComponent {
 		const { clicked } = this.state
 		const { groups } = this.props.info
 
-		return <div className="group-dropdown" style={{ "display": clicked ? 'flex' : 'none' }}> {
-			groups.map(entry =>
-				<div className="group-dropdown-name"
-						 onClick={(e) => this.dropDownClick(e, entry)}>
-					{entry.name}
-				</div>)}
-		</div>
-
+		return (
+			<div className="group-dropdown"
+					 style={{ "display": clicked ? 'flex' : 'none' }}>
+				{
+					groups.map(entry =>
+						<div className="group-dropdown-name"
+								 onClick={(e) => this.dropDownClick(e, entry)}>
+							{entry.name}
+						</div>,
+					)
+				}
+			</div>
+		)
 	}
 
 	dropDownClick = (event, entry) => {
 		this.props.setCurrentGroup(entry._id)
 	}
 
-
 	render() {
 		const { clicked } = this.state
 		const { groups, firstName, lastName, currentGroup = {} } = this.props.info
-
 		const username = (firstName && lastName) ? `${firstName} ${lastName}` : 'No Name'
-
 		let imgRotate = {
 			transform: `rotate(${clicked}deg)`,
 			transition: `all 0.3s ease-out`,
 		}
 
+		if (!this.props.isAuthenticated) return <Redirect to="/auth/login"/>
 		return (
 			<MyPageWrapper className="animated fadeIn">
 				<div className="page-title">My Page</div>
