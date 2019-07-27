@@ -20,13 +20,13 @@ const sizes = [
 
 const loader = (
 	<div className="loader">
-		<span className="expand">Z</span>
-		<span className="expand">A</span>
-		<span className="expand">B</span>
-		<span className="expand">O</span>
-		<span className="expand">.</span>
-		<span className="expand">.</span>
-		<span className="expand">.</span>
+		<span key="1" className="expand">Z</span>
+		<span key="2" className="expand">A</span>
+		<span key="3" className="expand">B</span>
+		<span key="4" className="expand">O</span>
+		<span key="5" className="expand">.</span>
+		<span key="6" className="expand">.</span>
+		<span key="7" className="expand">.</span>
 	</div>
 )
 

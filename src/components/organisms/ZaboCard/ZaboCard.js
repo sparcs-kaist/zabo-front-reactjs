@@ -26,8 +26,7 @@ export default ({ zabo }) => {
 				</Link>
 				<Link to="/zabo/upload">
 					<div className="author">
-						{zabo.description}
-						{/* TODO: change to author */}
+						{ zabo.owner === undefined ? 'anonymous' : zabo.owner.name }
 					</div>
 				</Link>
 			</ZaboCard.Writings>

@@ -7,6 +7,7 @@ import FeedbackWrapper from "./Feedback.styled"
 
 class Feedback extends PureComponent {
 	input = React.createRef()
+	thankYou = React.createRef()
 
 	state = {
 		feedback: "",
@@ -25,16 +26,16 @@ class Feedback extends PureComponent {
 			this._handleFeedbackSubmit()
 	}
 
-
 	_handleFeedbackSubmit = () => {
 		const { feedback } = this.state
-		axios.post('/feedback', feedback)
-			.then(res => {
+		axios.post('/feedback', { feedback })
+			.then(() => {
 				this.setState({
 					feedbackSubmitted: true,
 					feedback: "",
 				})
 				this.input.current.value = ""
+				this.thankYou.current.scrollIntoView();
 				setTimeout(() => {
 					this.setState({
 						feedbackSubmitted: false,
@@ -68,7 +69,8 @@ class Feedback extends PureComponent {
 				</FeedbackWrapper.Feedback>
 				{
 					feedbackSubmitted &&
-					<div className="thankyou">감사합니다:)</div>
+					<div ref={this.thankYou}
+							 className="thankYou">감사합니다:)</div>
 				}
 			</FeedbackWrapper>
 		)

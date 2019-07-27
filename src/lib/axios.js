@@ -15,7 +15,7 @@ class Axios {
 				},
 			},
 			timeout: 30000,
-			baseURL: "api",
+			baseURL: "/api",
 		})
 		this._interceptor = null
 		this.token = ""

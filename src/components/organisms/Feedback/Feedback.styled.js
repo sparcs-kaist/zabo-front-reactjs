@@ -10,7 +10,7 @@ const FeedbackWrapper = styled.div`
 	justify-content: center;
 	align-items: center;
 	
-	.thankyou {
+	.thankYou {
 		margin-top: 10px;
 	}
 `
