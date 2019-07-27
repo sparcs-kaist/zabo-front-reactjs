@@ -1,9 +1,11 @@
 import React, { PureComponent } from "react"
 import { connect } from "react-redux"
+import toJS from 'hoc/toJS'
 
 import ZaboUpload from "./ZaboUpload";
 
 import { uploadZabo } from "../../../store/reducers/zabo"
+import { isAuthenticated } from "../../../lib/utils"
 
 class ZaboUploadContainer extends PureComponent {
   render() {
@@ -16,6 +18,8 @@ class ZaboUploadContainer extends PureComponent {
 const mapStateToProps = (state) => {
   return {
     windowWidth: state.getIn(["app", "windowSize", "width"]),
+    isAuthenticated: isAuthenticated(state),
+    info : state.getIn(['auth', 'info']),
   }
 };
 
@@ -27,4 +31,4 @@ const mapDispatchToProps = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ZaboUploadContainer);
+)(toJS(ZaboUploadContainer));

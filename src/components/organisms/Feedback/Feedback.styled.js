@@ -23,7 +23,7 @@ FeedbackWrapper.Feedback = styled.div`
 	
 	div:nth-child(2) {
 		width: 100%;
-		margin-top: 10px;
+		margin-top: 12px;
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
@@ -36,7 +36,7 @@ FeedbackWrapper.Feedback = styled.div`
 		border-radius: 4px;
 		border: none;
 		outline: none;
-		padding: 10px 15px;
+		padding: 11px 15px;
 		font-size: 16px;
 	}
 	input::placeholder {
@@ -48,6 +48,7 @@ FeedbackWrapper.Feedback = styled.div`
 		height: 38px;
 		margin-left: 5px;
 		border-radius: 4px;
+		border-color: #143441;
 		
 		color: white;
 		background-color: #143441;
@@ -66,16 +67,9 @@ FeedbackWrapper.Feedback = styled.div`
 			flex-direction: column;
 		}
 		
-		input {
-			font-size: 14px;
-		}
-		input::placeholder {
-			font-size: 14px;
-		}
-		
 		button {
 			width: 100%;
-			padding: 6px 0px;
+			padding: 8px 0px;
 			margin: 6px 0px;
 			font-size: 14px;
 		}

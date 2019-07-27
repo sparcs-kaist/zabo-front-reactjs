@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react"
 
-
 import SavedPosters from "templates/SavedPosters"
 import MyPageWrapper from "./MyPage.styled"
 

@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react"
-import { Link } from "react-router-dom"
+import { Link, Redirect } from "react-router-dom"
 import PropTypes from "prop-types"
 import ReactSwipe from 'react-swipe'
 import InputBase from '@material-ui/core/InputBase'
@@ -16,7 +16,7 @@ import Chevron_Left from "../../../static/images/chevron_left.svg"
 import Chevron_Right from "../../../static/images/chevron_right.svg"
 import Delete from "../../../static/images/delete.svg"
 import Add from "../../../static/images/add.svg"
-
+import Group from "../../../static/images/group.svg"
 
 class ZaboUpload extends PureComponent {
 	addPosters = React.createRef()
@@ -36,6 +36,7 @@ class ZaboUpload extends PureComponent {
 		postersPreviewURLs: [],
 		activeCarouselHeight: 0,
 		carouselPos: 0,
+		selectedGroup: "",
 		title: "",
 		description: "",
 		selectedDate: new Date(),
@@ -66,6 +67,13 @@ class ZaboUpload extends PureComponent {
 			},
 		],
 		percentCompleted: 0,
+	}
+
+	_handleGroupSelect = (e) => {
+		const { value: group } = e.target
+		this.setState({
+			selectedGroup: group,
+		})
 	}
 
 	_handlePosterAdd = (windowWidth, e) => {
@@ -159,6 +167,7 @@ class ZaboUpload extends PureComponent {
 			if (tag.clicked === true) uploadTags = uploadTags.concat(tag.tag)
 		})
 		formData.append("category", uploadTags)
+		// TODO: append group => 원래 다른 곳에서 currentGroup 처리.. 하지만 유저 선택 반영.
 
 		// uploadZabo from this.props
 		this.props.uploadZabo(formData, percentCompleted => this.setState({ percentCompleted }))
@@ -197,9 +206,10 @@ class ZaboUpload extends PureComponent {
 
 	render() {
 		const { posters, postersPreviewURLs, activeCarouselHeight, tags, selectedDate, percentCompleted, error } = this.state
-		const { windowWidth } = this.props
+		const { windowWidth, info } = this.props
 		let reactSwipeEl
 
+		if ( !this.props.isAuthenticated ) return <Redirect to="/auth/login"/>
 		return (
 			<ZaboUploadWrapper>
 				<div className="container">
@@ -207,8 +217,31 @@ class ZaboUpload extends PureComponent {
 						<Link to="/">
 							<img src={Chevron_Home} alt="back to home"/>
 						</Link>
-						<div className="headerTitle">
-							Upload Your Poster
+						<div className="headerLow">
+							<div className="headerTitle">
+								Upload Your Poster
+							</div>
+							<div className="zabo-uploader">
+								<img src={Group} alt="group"/>
+								<select onChange={this._handleGroupSelect}>
+									<option value="" hidden>
+										Select Your Group
+									</option>
+									{
+										info.groups.map(group =>
+											<option value={group.name}>
+												{ group.name }
+											</option>
+										)
+									}
+									{/*<option value="SPARCS">*/}
+									{/*	SPARCS*/}
+									{/*</option>*/}
+									{/*<option value="Lunatic">*/}
+									{/*	Lunatic*/}
+									{/*</option>*/}
+								</select>
+							</div>
 						</div>
 					</div>
 					<div className="inputs">

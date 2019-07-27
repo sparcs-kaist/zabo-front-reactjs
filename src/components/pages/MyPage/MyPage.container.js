@@ -5,7 +5,6 @@ import toJS from 'hoc/toJS'
 import MyPage from "./MyPage"
 
 import { setCurrentGroup } from "../../../store/reducers/auth.js"
-
 import { isAuthenticated } from "../../../lib/utils"
 
 class MyPageContainer extends PureComponent {

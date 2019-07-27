@@ -41,7 +41,32 @@ const ZaboUploadWrapper = styled.div`
     font-weight: bold;
     color: #143441;
   }
-  
+  .zabo-uploader {
+  	margin-top: 15px;
+  	display: flex;
+  	flex-direction: row;
+  	align-items: center;
+  }
+  .zabo-uploader > img {
+  	margin-right: 3px;
+  }
+  select {
+  	display: inline-block;
+		padding: 0.5em 2.5em 0.5em 0.3em;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		border: none;
+		font: inherit;
+		
+		background-color: white;
+		background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA3klEQVRIS+3VMU9CMRTF8d8zBL+aizoQFhx0kUk33RzdYMNFXUFnYeGrYYyaJiUxJHDLSxodbNKpfeffc9/pbaPyaCrr+3OA++z4rtT5Pg5GuMnCY9yWQEoBE1xhlUUP8YDrCBIB0vojLvGO0yz4hm4JJAKcYYoPHGOZAUdYoIMBXrc5iQAHeMlzviFygj7O8dkWEJU4XI8chALRhn9AVKHf70VRTHu4wFfbmKZLNKt50dLBnna0imcMd/2I0phWa3Y/D1e1Xa9BCZJG0VuQNpaWKMx72xS1Fl5/WN3BN+AgJhnZQlq4AAAAAElFTkSuQmCC');
+		background-position: calc(100% - .5rem), 100% 0;
+		background-size:  1.5em 1.5em;
+		background-repeat: no-repeat;
+  }
+  select:focus {
+  	outline: 0;
+  }
   
   /* ========= Inputs ========= */
   .inputs {
@@ -175,6 +200,7 @@ const ZaboUploadWrapper = styled.div`
     height: 40px;
     font-size: 16px;
     font-family: 'NanumSquare';
+    border-color: #143441;
     border-radius: 4px;
     color: white;
     background-color: #143441;
@@ -212,6 +238,14 @@ const ZaboUploadWrapper = styled.div`
     }
   }
   @media (min-width: 800px) {
+  	.headerLow {
+  		width: 100%;
+  		display: flex;
+  		flex-direction: row;
+  		justify-content: space-between;
+  		align-items: center;
+  	}
+  
   	/* ==== adjust position into two columns ==== */
     .inputs {
       display: flex;
