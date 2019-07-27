@@ -2,41 +2,46 @@ import React, { PureComponent } from "react"
 import PropTypes from "prop-types"
 import MasonryZaboList from "react-masonry-infinite"
 
-import ZaboPageWrapper, { Zabo } from "./ZaboPage.styled"
+import ZaboPageWrapper, { Zabo, ZaboCard as Card } from "./ZaboPage.styled"
+import { Link } from "react-router-dom"
+import ZaboList from "templates/ZaboList"
 
 class ZaboPage extends PureComponent {
 	render() {
+		const { zabo = {}, zaboId } = this.props
+		const { title, author, description, category = [], photos=[{}] } = zabo
+
 		return (
 			<ZaboPageWrapper>
 				<div className="container">
 					<Zabo>
 						<Zabo.Poster>
-							<img 
+							<img
 								width="100%"
-								src="https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/1563636623412"
+								src={photos[0].url}
 							/>
 						</Zabo.Poster>
 						<Zabo.Writings>
 							<div className="title">
-								SPARCS 2019 Spring Recruiting
+								{title}
 							</div>
 							<div className="author">
-								SPARCS
+								{author}
 							</div>
 							<hr></hr>
 							<div className="description">
-								Kristin Bye (Brooklyn, NY & Portland, OR Poster for Obit: “a documentary giving a first-ever glimpse into the daily rituals, joys and existential angst of the NY Times obit writers as they chronicle
+								{description}
 							</div>
 							<hr></hr>
 							<ul className="keyword-result">
-								<li>#Club</li>
-								<li>#Recruiting</li>
+								{category.map(cat =>
+									<li key={cat}>#{cat}</li>
+								)}
 							</ul>
 						</Zabo.Writings>
 					</Zabo>
-					
 				</div>
-				
+				<ZaboList type="related" relatedTo={zaboId} />
 			</ZaboPageWrapper>
 		)
 	}

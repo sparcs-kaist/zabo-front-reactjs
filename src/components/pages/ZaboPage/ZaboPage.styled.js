@@ -16,8 +16,10 @@ export default ZaboPageWrapper
 export const Zabo = styled.div`
   position: relative;
 
+	margin: 24px auto;
 	width: 375px; 
 `
+
 Zabo.Poster = styled.div`	
 	background-color: lightgrey;
 	box-shadow: 0px 3px 6px #A9A9A9;

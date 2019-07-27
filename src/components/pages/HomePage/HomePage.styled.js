@@ -4,7 +4,6 @@ import styled from "styled-components"
 const HomePageWrapper = styled.div`
 	transition: 0.4s;
 	animation-duration: 0.3s;
-	// 무슨 코드?
 	
 	/* 
 	 * Poster Layout
@@ -16,6 +15,7 @@ const HomePageWrapper = styled.div`
 	 * 3: 760px    => 800 ~ 
 	 * 4: 1020px    => 1060 ~
 	 */
+	
 	@media (min-width: 0px) and (max-width: 530px) {
 		//.container width auto with padding
 	}
@@ -27,59 +27,6 @@ const HomePageWrapper = styled.div`
 	}
 	@media (min-width: 1060px) {
 		.container { width: 1060px; } 
-	}
-
-	.masonry {
-		margin-top: 20px;
-		width: 100% !important;
-	}
-	
-	.loader {
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		margin: 20px 0px 30px 0px;
-	}
-	
-	.expand {
-		display: inline-block;
-		color: #143441;
-		padding: 0 5px;
-		font-size: 25px;
-		animation: wave 1400ms linear infinite;
-	}
-	
-	//@for $i from 2 through 7 {
-	//	.expand:nth-child(#{$i}) {
-	//		animation-delay: $i*200ms;
-	//	}
-	//}
-	.expand:nth-child(2) {
-		animation-delay: 200ms;
-	}
-	.expand:nth-child(3) {
-		animation-delay: 400ms;
-	}
-	.expand:nth-child(4) {
-		animation-delay: 600ms;
-	}
-	.expand:nth-child(5) {
-		animation-delay: 800ms;
-	}
-	.expand:nth-child(6) {
-		animation-delay: 1000ms;
-	}
-	.expand:nth-child(7) {
-		animation-delay: 1200ms;
-	}
-	
-	@keyframes wave {
-		30% {
-			transform: translateY(-9px) scale(1.1, 1.1);
-		}
-		100% {
-			transform: initial;
-		}
 	}
 `
 
@@ -116,130 +63,3 @@ Header.AddButton = styled.button`
 	height: 40px;
 	background-color: rgb(27, 50, 65);
 `;
-
-/* ============ Zabo ============ */
-export const Zabo = styled.div`
-	width: 240px; // 530px 이상이면 240으로 고정하기. 최대 4줄
-	
-	@media (min-width: 0px) and (max-width: 530px) {
-		width: calc(50% - 5px); // 240 이 아닌 화면의 절반
-	}
-`
-Zabo.Poster = styled.div`	
-	display: flex;
-	background-color: lightgrey;
-	box-shadow: 0px 3px 6px #A9A9A9;
-	position: relative;
-	
-	img {	
-		position: absolute;
-		top: 0;
-		left: 0;
-	}
-`
-Zabo.Writings = styled.div`
-	padding: 15px 10px 20px 10px;
-	// TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인
-	color: #143441;
-	
-	.title {
-		font-weight: bold;
- 		font-size: 14px;
-	}
-	.author {
-		margin-top: 5px;
-		font-weight: bold;
-		font-size: 10px;
-	}
-	
-	@media (min-width: 530px) {
-		.title {
-			font-size: 16px;
-		}
-		.author {
-			font-size: 13px;
-		}
-	}
-`
-
-/* ============ Feedbacks ============ */
-export const FeedbackWrapper = styled.div`
-	width: 100%;
-	margin: 25px 0px;
-	
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	
-	.thankyou {
-		margin-top: 10px;
-	}
-`
-FeedbackWrapper.Feedback = styled.div`
-	width: 100%;
-	max-width: 800px;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	
-	div:nth-child(2) {
-		width: 100%;
-		margin-top: 10px;
-		display: flex;
-		flex-direction: row;
-		justify-content: center;
-		align-items: center;
-	}
-	
-	input {
-		width: 100%;
-		background-color: #f4f4f4;
-		border-radius: 4px;
-		border: none;
-		outline: none;
-		padding: 10px 15px;
-		font-size: 16px;
-	}
-	input::placeholder {
-		font-size: 16px;
-	}
-	
-	button {
-		width: 80px;
-		height: 38px;
-		margin-left: 5px;
-		border-radius: 4px;
-		
-		color: white;
-		background-color: #143441;
-		box-shadow: 0px 3px 6px;
-		font-size: 14px;
-	}
-	button:hover {
-		opacity: 0.9;
-	}
-	
-	@media (max-width: 530px) {
-		font-size: 14px;
-	
-		div:nth-child(2) {
-			height: 70px;
-			flex-direction: column;
-		}
-		
-		input {
-			font-size: 14px;
-		}
-		input::placeholder {
-			font-size: 14px;
-		}
-		
-		button {
-			width: 100%;
-			padding: 6px 0px;
-			margin: 6px 0px;
-			font-size: 14px;
-		}
-	}
-`

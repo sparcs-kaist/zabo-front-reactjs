@@ -15,7 +15,7 @@ class Axios {
 				},
 			},
 			timeout: 30000,
-			baseURL: "http://ssal.sparcs.org:10001/api",
+			baseURL: "api",
 		})
 		this._interceptor = null
 		this.token = ""
