@@ -3,13 +3,10 @@ import { Link, Redirect } from "react-router-dom"
 
 import MyPageWrapper, { Header, User, Groups } from "./MyPage.styled"
 
-import SavedPosters from "templates/SavedPosters"
 import Chevron_Home from "../../../static/images/chevron_home.svg"
 import Circle from "../../../static/images/circle.svg"
 
 class MyPage extends PureComponent {
-	/* 그룹 || 뒤는 추후에 undefined나 null로 설정해둘 예정 */
-
 	state = {
 		username: 'No Name',
 		clicked: 0,
@@ -28,14 +25,12 @@ class MyPage extends PureComponent {
 
 	render() {
 		const { clicked } = this.state
-		const { sso_uid, groups, studentId, firstName, lastName, currentGroup = {} } = this.props.info
+		const { groups, studentId, firstName, lastName, currentGroup = {} } = this.props.info
 		const username = (firstName && lastName) ? `${firstName} ${lastName}` : 'No Name'
 		let imgRotate = {
 			transform: `rotate(${clicked}deg)`,
 			transition: `all 0.5s ease-out`,
 		}
-		console.log("info: ", this.props.info)
-		console.log({ groups })
 
 		if (!this.props.isAuthenticated) return <Redirect to="/auth/login"/>
 		return (
@@ -58,8 +53,8 @@ class MyPage extends PureComponent {
 					<User>
 						<img src={Circle} alt={username}/>
 						<div className="user-name">
-							박근용
-							{/*	{username} */}
+							{/*박근용*/}
+								{username}
 						</div>
 					</User>
 					<Groups>
@@ -101,7 +96,8 @@ class MyPage extends PureComponent {
 								</div>
 						}
 					</Groups>
-					<SavedPosters user={sso_uid}/>
+					{/*<ZaboList type="pins"/>*/}
+					posters
 				</div>
 			</MyPageWrapper>
 		)

@@ -95,6 +95,19 @@ export const User = styled.div`
 	  color: #143441;
 	}
 	
+	@media (min-width: 530px) {
+		margin-top: 34px;
+		
+		img {
+			width: 90px;
+			height: 90px;
+		}
+		
+		.user-name {
+			margin-top: 20px;
+			font-size: 22px;
+		}
+	}
 `
 
 /* ======== Groups ========= */
@@ -157,5 +170,9 @@ export const Groups = styled.div`
 		font-family: NanumSquare;
 		font-weight: bold;
 		color: #8F8F8F;
+	}
+	
+	@media (min-width: 530px) {
+		margin: 20px 0px 80px 0px;
 	}
 `
