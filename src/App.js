@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom"
 
 import PWAPrompt from "templates/PWAPrompt"
 import Header from "templates/Header"
-import { AuthPage, GroupAddPage, GroupPage, HomePage, MyPage, ZaboUploadPage } from "components/pages"
+import { AuthPage, GroupAddPage, GroupPage, HomePage, MyPage, ZaboUploadPage, ZaboPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 import WindowResizeListener from "containers/WindowResizeListener"
 
@@ -23,7 +23,7 @@ function App() {
 			<Route path="/" exact component={AuthCallback}/>
 			<Switch>
 				<Route path="/zabo/upload" component={ZaboUploadPage}/>
-				<Route path="/zabo/:zaboId" component={pToP(HomePage)}/>
+				<Route path="/zabo/:zaboId" component={pToP(ZaboPage)}/>
 				<Route path="/" exact component={HomePage}/>
 				<PublicRoute path="/auth" component={AuthPage}/>
 				<PrivateRoute path="/my-page/group/add" component={GroupAddPage}/>

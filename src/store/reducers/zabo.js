@@ -1,6 +1,7 @@
 import { createAction, handleActions } from "redux-actions"
 import { Map, List, fromJS } from "immutable"
 import { pender } from "redux-pender"
+import uniqBy from 'lodash.uniqby'
 
 import * as ZaboAPI from "../../lib/api/zabo"
 
@@ -54,11 +55,16 @@ export default handleActions({
 			const zaboList = action.payload
 			const { lastSeen, relatedTo } = action.meta
 			const key = relatedTo || "main"
+
+			const zaboMap = zaboList.reduce((acc, cur) => ({ ...acc, [cur._id]: cur }))
+
 			if (!lastSeen)
-				return state.setIn(['lists', key], fromJS(zaboList))
-			return state.updateIn(['lists', key], prevList => {
-				return prevList.merge(fromJS(zaboList))
-			})
+				return state
+					.updateIn(['lists', key], prevList => fromJS(uniqBy([...zaboList, ...(prevList || [])])))
+					.update('zabos', zabos => zabos.merge(zaboMap))
+			return state
+				.updateIn(['lists', key], prevList => prevList.merge(fromJS(zaboList)))
+				.update('zabos', zabos => zabos.merge(zaboMap))
 		},
 	}),
 	...pender({
@@ -66,11 +72,16 @@ export default handleActions({
 		onSuccess: (state, action) => {
 			const pins = action.payload
 			const { lastSeen } = action.meta
+
+			const zaboMap = pins.reduce((acc, cur) => ({ ...acc, [cur._id]: cur }))
+
 			if (!lastSeen)
-				return state.setIn(["lists", "pins"], fromJS(pins))
-			return state.updateIn(["lists", 'pins'], prevList => {
-				return prevList.merge(fromJS(pins))
-			})
+				return state
+					.updateIn(['lists', "pins"], prevList => fromJS(uniqBy([...pins, ...(prevList || [])])))
+					.update('zabos', zabos => zabos.merge(zaboMap))
+			return state
+				.updateIn(["lists", 'pins'], prevList => prevList.merge(fromJS(pins)))
+				.update('zabos', zabos => zabos.merge(zaboMap))
 		}
 	}),
 }, initialState)
