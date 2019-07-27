@@ -1,9 +1,5 @@
 import axios from "../axios"
 
-export const loadZaboAPI = () => {
-  return null;
-}
-
 export const uploadZabo = (formData, onUploadProgress = () => {}) =>
   axios.post("/zabo", formData, {
     headers: {
@@ -16,3 +12,9 @@ export const uploadZabo = (formData, onUploadProgress = () => {}) =>
       onUploadProgress(percentCompleted)
     }
   })
+
+export const getZabo = (id) => axios.get(`/zabo?id=${id}`).then(res =>res.data)
+export const getZaboList = ({ lastSeen, relatedTo }) =>
+	axios.get('/zabo/list', { params : { lastSeen, relatedTo } }).then(res => res.data.filter(item => item.photos[0] !== undefined))
+export const getPins = ({ lastSeen }) =>
+	axios.get('/pin/list', { params : { lastSeen } }).then(res => res.data.filter(item => item.photos[0] !== undefined))

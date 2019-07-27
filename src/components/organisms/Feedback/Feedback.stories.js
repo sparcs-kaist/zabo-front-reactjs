@@ -1,12 +1,12 @@
 import React from "react"
 import { storiesOf } from "@storybook/react"
 
-import Masonry from "./index"
+import Feedback from "./index"
 
-storiesOf("templates/Masonry", module).add(
+storiesOf("organisms/Feedback", module).add(
 	"Default",
 	() => (
-		<Masonry />
+		<Feedback />
 	), {
 		notes: ""
 	}

@@ -1,5 +1,5 @@
 import { Fragment } from "react"
 import styled from "styled-components"
 
-export default styled(Fragment)`
+export default styled.div`
 `

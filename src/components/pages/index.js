@@ -2,13 +2,9 @@ import Loadable from "react-loadable"
 
 import Loading from "../templates/Loading"
 
+// HomePage 폴더를 import.
 export const HomePage = Loadable({
     loader: () => import("./HomePage"),
-    loading: Loading
-});
-
-export const MainPage = Loadable({
-    loader: () => import("./MainPage"),
     loading: Loading
 });
 
