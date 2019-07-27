@@ -4,7 +4,14 @@ import { connect } from "react-redux"
 import ZaboPage from "./ZaboPage"
 import toJS from "hoc/toJS"
 
+import { getZabo } from "../../../store/reducers/zabo"
+
 class ZaboPageContainer extends PureComponent {
+	componentDidMount() {
+		const { getZabo, zaboId } = this.props
+		getZabo(zaboId)
+	}
+
 	render() {
 		return (
 			<ZaboPage {...this.props} />
@@ -12,16 +19,15 @@ class ZaboPageContainer extends PureComponent {
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
+	const { zaboId } = ownProps
 	return {
-
+		zabo: state.getIn(['zabo', 'zabos', zaboId])
 	}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = {
+	getZabo
 }
 
 export default connect(

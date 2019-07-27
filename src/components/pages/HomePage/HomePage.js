@@ -42,8 +42,8 @@ class HomePage extends PureComponent {
 						}
 					</Header>
 
-					<ZaboList type="main"/>
 				</div>
+				<ZaboList type="main"/>
 			</HomePageWrapper>
 		)
 	}

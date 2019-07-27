@@ -16,6 +16,7 @@ export default ZaboPageWrapper
 export const Zabo = styled.div`
   position: relative;
 
+	margin: 24px auto;
 	width: 375px; 
 `
 

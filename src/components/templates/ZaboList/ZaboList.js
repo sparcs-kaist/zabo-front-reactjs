@@ -37,7 +37,7 @@ class ZaboList extends PureComponent {
 
 	fetch = (next) => {
 		const { type, getZaboList, getPins, relatedTo, zaboList } = this.props
-		const lastSeen = next ? zaboList[zaboList.length - 1]._id : undefined
+		const lastSeen = next ? (zaboList[zaboList.length - 1] || {})._id : undefined
 		const fetches = {
 			main: () => getZaboList({ lastSeen }),
 			related: () => getZaboList({ lastSeen, relatedTo }),
@@ -62,23 +62,25 @@ class ZaboList extends PureComponent {
 
 		return (
 			<ZaboListWrapper>
-				<MasonryZaboList
-					className="masonry"
-					initialLoad={false}
-					sizes={sizes}
-					hasMore={hasNext}
-					loadMore={fetchNext} // called on useWindow (scrollLister)
-					loader={loader}
-					ref={this.masonry}
-					threshold={800}
-				>
-					{
-						zaboList.map((zabo, i) =>
-							<ZaboCard key={zabo._id} zabo={zabo} />
-						)
-					}
-				</MasonryZaboList>
-				{hasNext || <Feedback/>}
+				<div className="container">
+					<MasonryZaboList
+						className="masonry"
+						initialLoad={false}
+						sizes={sizes}
+						hasMore={hasNext}
+						loadMore={fetchNext} // called on useWindow (scrollLister)
+						loader={loader}
+						ref={this.masonry}
+						threshold={800}
+					>
+						{
+							zaboList.map((zabo, i) =>
+								<ZaboCard key={zabo._id} zabo={zabo} />
+							)
+						}
+					</MasonryZaboList>
+					{hasNext || <Feedback/>}
+				</div>
 			</ZaboListWrapper>
 		)
 	}
