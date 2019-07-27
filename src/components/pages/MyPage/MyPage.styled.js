@@ -1,28 +1,114 @@
 import styled from "styled-components"
 
 const MyPageWrapper = styled.div`
-	margin: 0;
-	padding: 0 20px;
 	animation-duration: 0.3s;
 	
-	/* ===== Your Code Here ===== */
-	font-size: 50px;
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
 	
+	/* 
+	 * Poster Layout
+	 * poster = 240px, column space = 10px
+	 * .container padding = 0px 20px
+	 * num of posters: total width
+	 * 1: 240px
+	 * 2: 490px   => 530 ~
+	 * 3: 760px    => 800 ~ 
+	 * 4: 1020px    => 1060 ~
+	 */
+	@media (min-width: 0px) and (max-width: 530px) {
+		//.container width auto with padding
+	}
+	@media (min-width: 530px) and (max-width: 800px) {
+		.container { width: 530px; }
+	}
+	@media (min-width: 800px) and (max-width: 1060px) {
+		.container { width: 800px; }
+	}
+	@media (min-width: 1060px) {
+		.container { width: 1060px; } 
+	}
+`;
+
+export default MyPageWrapper
+
+/* ============ Header ============ */
+export const Header = styled.div`
+	width: 100%;
+`
+Header.Head = styled.div`
+	margin: 14px 0px;
+
+	display: flex;
+	flex-direction: column;
+	
+	div:nth-child(1) {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+	}
 	.page-title {
-	  font-size: 30px;
-	  font-family: NanumSquare;
-	  font-weight: bold;
-	  color: #143441;
+		font-size: 24px;
+		font-family: NanumSquareExtraBold;
+		font-weight: 900;
+		color: #143441;
+	}
+	.page-done {
+		font-size: 16px;
+		font-family: NanumSquare;
+		font-weight: bold;
+		color: #8F8F8F;
+	}
+	.page-explanation {
+		margin-top: 5px;
+		font-size: 12px;
+		font-family: NanumSquare;
+		color: #8F8F8F;
+	}
+`
+
+/* ======== User ========= */
+export const User = styled.div`
+	width: 100%;
+	margin-top: 29px;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	
+	img {
+		width: 76px;
+		height: 76px;
 	}
 	
 	.user-name {
-	  font-size: 24px;
-	  margin-top: 30px;
+	  font-size: 20px;
+	  margin-top: 8px;
 	  font-family: NanumSquare;
-	  font-weight: bold;
+	  font-weight: 700;
 	  color: #143441;
 	}
 	
+`
+
+/* ======== Groups ========= */
+export const Groups = styled.div`
+	width: 100%;
+	margin: 8px 0px 72px 0px;
+	
+	div {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: flex-start;
+	}
+
 	.group-selector {
 	  font-size: 16px;
 	  font-weight: bold;
@@ -58,11 +144,18 @@ const MyPageWrapper = styled.div`
 	  width : fit-content;
 	  flex-flow: column;
 	  align-items: start;
+	  z-index: 500;
 	}
 	
 	.group-dropdown-name {
 	  padding : 5px 0;
 	}
-`;
-
-export default MyPageWrapper
+	
+	.group-control {
+		margin: 3px 0px 0px 10px;
+		font-size: 16px;
+		font-family: NanumSquare;
+		font-weight: bold;
+		color: #8F8F8F;
+	}
+`
