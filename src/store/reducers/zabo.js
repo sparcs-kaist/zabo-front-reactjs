@@ -60,7 +60,7 @@ export default handleActions({
 
 			if (!lastSeen)
 				return state
-					.updateIn(['lists', key], prevList => fromJS(uniqBy([...zaboList, ...(prevList || [])])))
+					.updateIn(['lists', key], prevList => fromJS(uniqBy([...zaboList, ...(prevList || List([])).toJS()], '_id')))
 					.update('zabos', zabos => zabos.merge(zaboMap))
 			return state
 				.updateIn(['lists', key], prevList => prevList.merge(fromJS(zaboList)))
@@ -77,7 +77,7 @@ export default handleActions({
 
 			if (!lastSeen)
 				return state
-					.updateIn(['lists', "pins"], prevList => fromJS(uniqBy([...pins, ...(prevList || [])])))
+					.updateIn(['lists', "pins"], prevList => fromJS(uniqBy([...pins, ...(prevList || List([])).toJS()], '_id')))
 					.update('zabos', zabos => zabos.merge(zaboMap))
 			return state
 				.updateIn(["lists", 'pins'], prevList => prevList.merge(fromJS(pins)))
