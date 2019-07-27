@@ -168,8 +168,13 @@ export const FeedbackWrapper = styled.div`
 	margin: 25px 0px;
 	
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
+	
+	.thankyou {
+		margin-top: 10px;
+	}
 `
 FeedbackWrapper.Feedback = styled.div`
 	width: 100%;

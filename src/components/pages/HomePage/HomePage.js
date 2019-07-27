@@ -16,7 +16,7 @@ class HomePage extends PureComponent {
 
 	state = {
 		searchFocused: false,
-		hasMoreZabo: false,
+		hasMoreZabo: true,
 		feedback: "",
 		feedbackSubmitted: false,
 	}
@@ -53,15 +53,16 @@ class HomePage extends PureComponent {
 
 	_handleFeedbackSubmit = () => {
 		const { feedback } = this.state
-		axios.post('/feedback', feedback)
+		axios.post('/feedback', { feedback })
 			.then(res => {
 				console.log(res.data)
 				this.setState({
-					feedbackSubmitted: true
+					feedbackSubmitted: true,
+					feedback: "",
 				})
-				setTimeout(() => {this.setState({
-					feedbackSubmitted: false
-				})}, 5000)
+				setTimeout(() => {
+					this.setState({ feedbackSubmitted: false })
+				}, 5000)
 			})
 			.catch(err => {
 				console.error(err)
@@ -108,17 +109,17 @@ class HomePage extends PureComponent {
 					<Header>
 						<div className={`blur animated fadeIn ${searchFocused ? "show" : ""}`}/>
 						<Header.Search>
-							<SearchBar
-								onFocus={this._onSearchFocusBlur}
-								onBlur={this._onSearchFocusBlur}
-								isOpen={searchFocused}/>
+							<SearchBar onFocus={this._onSearchFocusBlur}
+												 onBlur={this._onSearchFocusBlur}
+												 isOpen={searchFocused}/>
 						</Header.Search>
-						{searchFocused ||
-						<Link to="/zabo/upload">
-							<Header.AddButton>
-								<SVG icon={'plus'} color="white" size="lg"/>
-							</Header.AddButton>
-						</Link>
+						{
+							searchFocused ||
+								<Link to="/zabo/upload">
+									<Header.AddButton>
+										<SVG icon={'plus'} color="white" size="lg"/>
+									</Header.AddButton>
+								</Link>
 						}
 					</Header>
 					<MasonryZaboList
@@ -152,8 +153,7 @@ class HomePage extends PureComponent {
 											</Link>
 											<Link to="/zabo/upload">
 												<div className="author">
-													{zabo.description}
-													{/* TODO: change to author */}
+													{ zabo.owner === undefined ? 'anonymous' : zabo.owner.name }
 												</div>
 											</Link>
 										</Zabo.Writings>
@@ -169,12 +169,6 @@ class HomePage extends PureComponent {
 								<div>
 									Zabo 는 Open Beta 서비스 입니다. <br/>
 									여러분들의 소중한 의견과 함께 발전하는 Zabo 가 되겠습니다.
-									{/*{*/}
-									{/*	windowWidth >= 800 &&*/}
-									{/*	<span>*/}
-									{/*		<br/> 생각나시는 점이 있다면, 꼭 참여부탁드립니다.*/}
-									{/*	</span>*/}
-									{/*}*/}
 								</div>
 								<div>
 									<input placeholder={'Please leave a comment for the service'}
@@ -187,7 +181,7 @@ class HomePage extends PureComponent {
 						}
 						{
 							feedbackSubmitted &&
-								<div>감사합니다</div>
+							<div className="thankyou">감사합니다:)</div>
 						}
 					</FeedbackWrapper>
 				</div>
