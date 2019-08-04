@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom"
 
 import PWAPrompt from "templates/PWAPrompt"
 import Header from "templates/Header"
+import FloatingNavigator from "templates/FloatingNavigator"
 import { AuthPage, GroupAddPage, GroupPage, HomePage, MyPage, ZaboUploadPage, ZaboPage } from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 import WindowResizeListener from "containers/WindowResizeListener"
@@ -42,6 +43,7 @@ class App extends React.Component {
 				<Route path="/:route?" component={Header}/>
 				<Route path="/zabo/:route?" component={ScrollToTop}/>
 				<Route path="/" exact component={AuthCallback}/>
+				<FloatingNavigator/>
 				<Switch>
 					<Route path="/zabo/upload" component={ZaboUploadPage}/>
 					<Route path="/zabo/:zaboId" component={pToP(ZaboPage)}/>
