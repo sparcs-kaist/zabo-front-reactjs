@@ -40,9 +40,7 @@ export const PublicRoute = connect(
 					const state = props.location.state
 					if (state && state.referrer === "comeback") props.history.goBack()
 					else if (state && state.referrer) props.history.replace(state.referrer)
-					else {
-						props.history.push("/exchange/KRW:BTC", { referrer: "public" })
-					}
+					else props.history.push("/", { referrer: "public" })
 					return null
 				}
 				return <Component {...props} />
