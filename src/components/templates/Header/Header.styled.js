@@ -5,11 +5,14 @@ const HeaderWrapper = styled.header`
     top: 0;
     left: 0;
     width: 100%;
-    height: 70px;
+    height: 50px;
     background: #fff;
     transition: 0.4s;
     z-index: 1000;
     border-top: 6px solid rgb(27, 50, 65);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     
     a {
     	margin-left: 2px;
@@ -17,7 +20,6 @@ const HeaderWrapper = styled.header`
     }
     
     .container {
-			padding: 13px 20px;
 			flex-direction: row;
 			justify-content: space-between;
 			align-items: center;

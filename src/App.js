@@ -43,7 +43,6 @@ class App extends React.Component {
 				<Route path="/:route?" component={Header}/>
 				<Route path="/zabo/:route?" component={ScrollToTop}/>
 				<Route path="/" exact component={AuthCallback}/>
-				<FloatingNavigator/>
 				<Switch>
 					<Route path="/zabo/upload" component={ZaboUploadPage}/>
 					<Route path="/zabo/:zaboId" component={pToP(ZaboPage)}/>
@@ -53,6 +52,7 @@ class App extends React.Component {
 					<PrivateRoute path="/my-page/group" component={GroupPage}/>
 					<PrivateRoute path="/my-page" component={MyPage}/>
 				</Switch>
+				<FloatingNavigator/>
 			</AppWrapper>
 		)
 	}
