@@ -23,6 +23,7 @@ If you're looking for backend codes, you can find it in [here](https://github.co
     - [Get Ready for Production](#get-ready-for-production)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
+- [Redirect API Requests](#redirect-api-requests)
 - [Built With](#built-with)
 - [Folder Structure](#folder-structure)
 - [Deployment](#deployment)
@@ -138,6 +139,12 @@ yarn build  // Refer to react-scripts(https://www.npmjs.com/package/react-script
 server -s deploy // or serve static files located in /deploy with whatever you like!
 // I recommend you to set up production server with nginx. Please refer to [Deployment](#deployment) section for more.
 ```
+
+## Redirect API Requests
+
+All requests sent from client are intercepted by an axios instance located in [axios.js](src/lib/axios.js).
+
+You can change **baseURL** option to redirect all requests to specific domain or IP.
 
 ## Built with
 
