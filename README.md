@@ -266,7 +266,7 @@ The footer should contain any information about **Breaking Changes** and is also
 
 ## Branch Management
 
-I use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to manage branches. For branch history, see the [branches on this repository](https://github.com/jungdj/mia/branches).
+I use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to manage branches. For branch history, see the [branches on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/branches).
 
 
 ## Contributing
@@ -275,7 +275,7 @@ Member of SPARCS-KAIST can freely contribute on this repository.
 
 ## Versioning
 
-I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sparcs-kaist/zabo-server-nodejs/tags). 
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/tags). 
 ## Authors
 
 * **Cookie** - [Cookie](https://github.com/jungdj)
