@@ -15,12 +15,14 @@ If you're looking for backend codes, you can find it in [here](https://github.co
     - [Running Development Server](#running-development-server)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
+    - [Available Scripts](#available-scripts)
+        - [Storybook](#storybook)
     - [Get Ready for Production](#get-ready-for-production)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
+- [Built With](#built-with)
 - [Folder Structure](#folder-structure)
 - [Deployment](#deployment)
-- [Built With](#built-with)
 - [Commit Message Guidelines](#commit-message-guidlines)
     - [Commit Message Format](#commit-message-format)
     - [Revert](#revert)
@@ -69,6 +71,18 @@ yarn start // Refer to react-scripts(https://www.npmjs.com/package/react-scripts
 // Follow the instructions on terminal
 ```
 
+### Available Scripts
+
+#### Storybook
+
+```sh
+yarn storybook
+```
+
+![cli](docs/storybook_cli.png)
+![gui](docs/storybook.png)
+
+
 ### Get Ready for Production
 
 #### npm
@@ -93,6 +107,11 @@ server -s deploy // or serve static files located in /deploy with whatever you l
 // I recommend you to set up production server with nginx. Please refer to [Deployment](#deployment) section for more.
 ```
 
+## Built with
+
+* [Atomic Web Design](http://bradfrost.com/blog/post/atomic-web-design/)
+* [Create React App](https://create-react-app.dev/) - Easy set up for react project
+* [Redux](https://redux.js.org/) - In-memory data structure store.
 
 ## Folder Structure
 ```
@@ -132,12 +151,6 @@ zabo-front
 
 First, build static files with webpack regarding to [Get Ready for Production](#get-ready-for-production)
 And then follow [zabo-server-nodejs deployment guide-line](https://github.com/sparcs-kaist/zabo-server-nodejs/tree/develop#running-production-server) 
-
-## Built with
-
-* [Atomic Web Design](http://bradfrost.com/blog/post/atomic-web-design/)
-* [Create React App](https://create-react-app.dev/) - Easy set up for react project
-* [Redux](https://redux.js.org/) - In-memory data structure store.
 
 ## Commit Message Guidelines
 
