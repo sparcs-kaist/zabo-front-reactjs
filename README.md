@@ -17,6 +17,9 @@ If you're looking for backend codes, you can find it in [here](https://github.co
         - [Using yarn](#yarn)
     - [Available Scripts](#available-scripts)
         - [Storybook](#storybook)
+        - [Generate Component](#generate-component)
+        - [Post Build](#post-build)
+        - [Pre-Commit](#pre-commit)
     - [Get Ready for Production](#get-ready-for-production)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
@@ -82,6 +85,35 @@ yarn storybook
 ![cli](docs/storybook_cli.png)
 ![gui](docs/storybook.png)
 
+#### Generate Component
+```sh
+yarn generate [% component_architecture %] [% component_name %] "[% options %]"
+```
+* component_architecture :  One of [atoms, molecules, organisms, templates, pages]
+* component_name : Captitalized first character is recommended (ex: HomePage)
+* options (optional) : Combination of characters (r : react component, s : styled component, y : storybook, c : redux container) or '*' for all.
+	Options must be captured inside quotes (" or ').
+	Default option is "rsy"
+
+#### Post Build
+
+```sh
+yarn postbuild
+```
+
+Copy build folder to deploy folder to remove down time caused by rimraf in build process (yarn build)
+
+Automatically triggered after build command finishes.
+
+#### Pre-Commit
+
+```sh
+yarn precommit
+```
+
+Lint and rewrite staged files.
+
+Automatically triggered before commit.
 
 ### Get Ready for Production
 
