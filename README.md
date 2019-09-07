@@ -1,4 +1,4 @@
-# ZABO Front 
+# ZABO Front
 
 ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform not only in an analogue way. While this service is open public, **only KAIST members** are allowed to post images on this website and others must manually get permission from SPARCS KAIST's current project manager.
 
@@ -189,7 +189,7 @@ zabo-front
 ## Deployment
 
 First, build static files with webpack regarding to [Get Ready for Production](#get-ready-for-production)
-And then follow [zabo-server-nodejs deployment guide-line](https://github.com/sparcs-kaist/zabo-server-nodejs/tree/develop#running-production-server) 
+And then follow [zabo-server-nodejs deployment guide-line](https://github.com/sparcs-kaist/zabo-server-nodejs/tree/develop#running-production-server)
 
 ## Commit Message Guidelines
 
@@ -197,7 +197,7 @@ I referred [Google's Angular JS's contributor's commit message guidelines](https
 
 By the way, this repository's commit messages format is not exactly same as the one suggested above.
 
-### Commit Message Format 
+### Commit Message Format
 
 Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
 format that includes a **type**, a **scope** and a **subject**:
@@ -275,13 +275,14 @@ Member of SPARCS-KAIST can freely contribute on this repository.
 
 ## Versioning
 
-I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/tags). 
+I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/tags).
 ## Authors
 
 * **Cookie** - [Cookie](https://github.com/jungdj)
 * **Hubo** - [bhanghj3094](https://github.com/bhanghj3094)
 * **Hou** - [Sanghou](https://github.com/Sanghou)
 * **Parang** - [pa-rang](https://github.com/pa-rang)
+* **Paco** - [pacokwon](https://github.com/pacokwon)
 
 
 ## License
