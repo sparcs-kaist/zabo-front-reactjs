@@ -283,6 +283,7 @@ I use [SemVer](http://semver.org/) for versioning. For the versions available, s
 * **Hou** - [Sanghou](https://github.com/Sanghou)
 * **Parang** - [pa-rang](https://github.com/pa-rang)
 * **Paco** - [pacokwon](https://github.com/pacokwon)
+* **Sniperj** - [sni-j](https://github.com/sni-J)
 
 
 ## License
