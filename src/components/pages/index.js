@@ -42,3 +42,8 @@ export const ZaboPage = Loadable({
     loader: () => import("./ZaboPage"),
     loading: Loading
 })
+
+export const SearchPage = Loadable({
+    loader: () => import("./SearchPage"),
+    loading: Loading
+})
