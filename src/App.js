@@ -10,11 +10,15 @@ import AuthCallback from "organisms/AuthCallback"
 import WindowResizeListener from "containers/WindowResizeListener"
 import ScrollToTop from "containers/ScrollToTop"
 
+import ZaboWeb from "templates/ZaboGraph"
+
 import pToP from "hoc/paramsToProps"
 
 import AppWrapper from "./App.styled"
 
 import { PrivateRoute, PublicRoute } from "./hoc/AuthRoutes"
+
+import Test from "./Test"
 
 class App extends React.Component {
 	componentDidCatch(error, errorInfo) {
@@ -51,6 +55,7 @@ class App extends React.Component {
 					<PrivateRoute path="/my-page/group/add" component={GroupAddPage}/>
 					<PrivateRoute path="/my-page/group" component={GroupPage}/>
 					<PrivateRoute path="/my-page" component={MyPage}/>
+					<Route path="/on-develop" component={ZaboWeb} />
 				</Switch>
 				<FloatingNavigator/>
 			</AppWrapper>
