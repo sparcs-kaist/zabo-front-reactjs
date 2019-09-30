@@ -1,4 +1,22 @@
-# ZABO Front
+<br />
+<br />
+<br />
+<p align="center">
+  <a href="https://alpha.zabo.sparcs.org">
+    <img src="src/static/logo/Services-Zabo.svg" alt="Logo" height="150">
+  </a>
+  
+  <p align="center">
+    <img src="https://img.shields.io/badge/version-1.0-informational.svg" />
+    <img src="https://img.shields.io/badge/license-MIT-black.svg" />
+  </p>
+  
+  <p align="center">
+    ZABO with modern JS, designed and developed by SPARCS
+    <br />
+    <a href="https://alpha.zabo.sparcs.org">Go to ZABO</a>
+  </p>
+</p>
 
 ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform not only in an analogue way. While this service is open public, **only KAIST members** are allowed to post images on this website and others must manually get permission from SPARCS KAIST's current project manager.
 
