@@ -18,6 +18,8 @@
   </p>
 </p>
 
+# About
+
 ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform not only in an analogue way. While this service is open public, **only KAIST members** are allowed to post images on this website and others must manually get permission from SPARCS KAIST's current project manager.
 
 We're expecting anyone satisfying above conditions posting there recruiting announcements, performance schedules, and any other events in much better condition (posting paper posters at each dorms, cafeterias, E11, ...etc) with ease and joy.
