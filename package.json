@@ -6,11 +6,11 @@
   "scripts": {
     "env:path": "cross-env NODE_PATH=src:src/components",
     "start": "cross-env NODE_PATH=src:src/components react-scripts start",
-    "build": "$npm_execpath run env:path react-scripts build",
-    "test": "$npm_execpath run env:path react-scripts test",
+    "build": "cross-var $npm_execpath run env:path react-scripts build",
+    "test": "cross-var $npm_execpath run env:path react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
-    "build-storybook": "$npm_execpath run env:path build-storybook -s public",
+    "storybook": "cross-var $npm_execpath run env:path start-storybook -p 9009 -s public",
+    "build-storybook": "cross-var $npm_execpath run env:path build-storybook -s public",
     "postbuild": "./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
     "precommit": "lint-staged"
@@ -54,6 +54,7 @@
     "bricks.js": "^1.8.0",
     "browserslist": "^4.6.4",
     "cross-env": "^5.2.0",
+    "cross-var": "^1.1.0",
     "date-fns": "^2.0.0-beta.2",
     "dayjs": "^1.8.15",
     "i18next": "^15.1.3",
