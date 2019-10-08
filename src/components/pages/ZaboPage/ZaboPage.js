@@ -8,7 +8,7 @@ import ZaboList from "templates/ZaboList"
 
 class ZaboPage extends PureComponent {
 	render() {
-		const { zabo = {}, zaboId } = this.props
+		const { zabo = {}, zaboId, pinZabo, unpinZabo } = this.props
 		const { title, author, description, category = [], photos=[{}] } = zabo
 
 		return (
@@ -31,6 +31,10 @@ class ZaboPage extends PureComponent {
 							<hr></hr>
 							<div className="description">
 								{description}
+							</div>
+							<hr></hr>
+							<div className="pin">
+								<a onClick={()=>{pinZabo(zaboId)}}>PIN</a> | <a onClick={()=>{unpinZabo(zaboId)}}>UNPIN</a>
 							</div>
 							<hr></hr>
 							<ul className="keyword-result">

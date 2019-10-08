@@ -4,7 +4,7 @@ import { connect } from "react-redux"
 import ZaboPage from "./ZaboPage"
 import toJS from "hoc/toJS"
 
-import { getZabo } from "../../../store/reducers/zabo"
+import { getZabo, pinZabo, unpinZabo } from "../../../store/reducers/zabo"
 
 class ZaboPageContainer extends PureComponent {
 	componentDidMount() {
@@ -27,7 +27,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = {
-	getZabo
+	getZabo,
+	pinZabo,
+	unpinZabo
 }
 
 export default connect(
