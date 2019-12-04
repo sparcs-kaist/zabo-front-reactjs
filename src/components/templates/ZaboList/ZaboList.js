@@ -11,11 +11,8 @@ import withStackMaster from "./withStackMaster"
 
 const sizes = [
 	{ columns: 2, gutter: 10 },
-	...[...Array(68)].map((x, i) => ({
-		mq: `${200 + i * 10}px`, columns: 2, gutter: 10,
-	})),
-	{ mq: '800px', columns: 3, gutter: 20 },
-	{ mq: '1050px', columns: 4, gutter: 20 },
+	{ mq: '1000px', columns: 3, gutter: 20 },
+	{ mq: '1260px', columns: 4, gutter: 20 },
 ]
 
 const loader = (
@@ -62,22 +59,22 @@ class ZaboList extends PureComponent {
 
 		return (
 			<ZaboListWrapper>
-				<MasonryZaboList
-					className="masonry"
-					initialLoad={false}
-					sizes={sizes}
-					hasMore={hasNext}
-					loadMore={fetchNext} // called on useWindow (scrollLister)
-					loader={loader}
-					ref={this.masonry}
-					threshold={800}
-				>
-					{
-						zaboList.map(zabo =>
-							<ZaboCard key={zabo._id} zabo={zabo}/>,
-						)
-					}
-				</MasonryZaboList>
+                <MasonryZaboList
+                    className="masonry"
+                    initialLoad={false}
+                    hasMore={hasNext}
+                    loadMore={fetchNext} // called on useWindow (scrollLister)
+                    loader={loader}
+                    ref={this.masonry}
+                    sizes={sizes}
+                    threshold={800}
+                >
+                    {
+                        zaboList.map(zabo =>
+                            <ZaboCard key={zabo._id} zabo={zabo}/>,
+                        )
+                    }
+                </MasonryZaboList>
 				{
 					hasNext || <Feedback/>
 				}
