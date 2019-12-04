@@ -11,7 +11,8 @@ i18n.on("languageChanged", function(lng) {
 	if (lng.split("-")[0] !== lng) return i18n.changeLanguage(lng.split("-")[0])
 })
 
-i18n.use(LanguageDetector)
+i18n
+	.use(LanguageDetector)
 	.use(new Li())
 	.use(new ReactPostProcessor())
 	.init({

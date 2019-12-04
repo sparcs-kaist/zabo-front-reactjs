@@ -3,11 +3,6 @@ import { storiesOf } from "@storybook/react"
 
 import GroupAddPage from "./index"
 
-storiesOf("pages/GroupAddPage", module).add(
-	"Default",
-	() => (
-		<GroupAddPage />
-	), {
-		notes: ""
-	}
-)
+storiesOf("pages/GroupAddPage", module).add("Default", () => <GroupAddPage />, {
+	notes: "",
+})

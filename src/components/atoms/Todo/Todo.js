@@ -7,7 +7,7 @@ const Todo = ({ onClick, completed, text }) => (
 	<TodoWrapper
 		onClick={onClick}
 		style={{
-			textDecoration: completed ? 'line-through' : 'none'
+			textDecoration: completed ? "line-through" : "none",
 		}}
 	>
 		{text}
@@ -17,10 +17,9 @@ const Todo = ({ onClick, completed, text }) => (
 Todo.propTypes = {
 	onClick: PropTypes.func.isRequired,
 	completed: PropTypes.bool.isRequired,
-	text: PropTypes.string.isRequired
+	text: PropTypes.string.isRequired,
 }
 
-Todo.defaultProps = {
-}
+Todo.defaultProps = {}
 
 export default Todo

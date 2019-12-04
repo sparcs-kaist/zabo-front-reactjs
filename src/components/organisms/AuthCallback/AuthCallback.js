@@ -25,16 +25,12 @@ class AuthCallback extends PureComponent {
 	}
 
 	render() {
-		return (
-			null
-		)
+		return null
 	}
 }
 
-AuthCallback.propTypes = {
-}
+AuthCallback.propTypes = {}
 
-AuthCallback.defaultProps = {
-}
+AuthCallback.defaultProps = {}
 
 export default AuthCallback

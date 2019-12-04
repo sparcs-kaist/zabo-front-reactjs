@@ -6,25 +6,16 @@ import toJS from "hoc/toJS"
 
 class GroupAddPageContainer extends PureComponent {
 	render() {
-		return (
-			<GroupAddPage {...this.props} />
-		)
+		return <GroupAddPage {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(toJS(GroupAddPageContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(GroupAddPageContainer))

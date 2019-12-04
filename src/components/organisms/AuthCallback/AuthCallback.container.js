@@ -8,24 +8,19 @@ import { loginCallback } from "../../../store/reducers/auth"
 
 class AuthCallbackContainer extends PureComponent {
 	render() {
-		return (
-			<AuthCallback {...this.props} />
-		)
+		return <AuthCallback {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
 		jwt: state.getIn(["auth", "jwt"]),
-		info: state.getIn(["auth", "info"])
+		info: state.getIn(["auth", "info"]),
 	}
 }
 
 const mapDispatchToProps = {
-	loginCallback
+	loginCallback,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(toJS(AuthCallbackContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(AuthCallbackContainer))

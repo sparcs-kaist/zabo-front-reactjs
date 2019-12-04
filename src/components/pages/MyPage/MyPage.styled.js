@@ -2,14 +2,14 @@ import styled from "styled-components"
 
 const MyPageWrapper = styled.div`
 	animation-duration: 0.3s;
-	
+
 	.container {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 	}
-	
+
 	/* 
 	 * Poster Layout
 	 * poster = 240px, column space = 10px
@@ -24,15 +24,21 @@ const MyPageWrapper = styled.div`
 		//.container width auto with padding
 	}
 	@media (min-width: 530px) and (max-width: 800px) {
-		.container { width: 530px; }
+		.container {
+			width: 530px;
+		}
 	}
 	@media (min-width: 800px) and (max-width: 1060px) {
-		.container { width: 800px; }
+		.container {
+			width: 800px;
+		}
 	}
 	@media (min-width: 1060px) {
-		.container { width: 1060px; } 
+		.container {
+			width: 1060px;
+		}
 	}
-`;
+`
 
 export default MyPageWrapper
 
@@ -45,7 +51,7 @@ Header.Head = styled.div`
 
 	display: flex;
 	flex-direction: column;
-	
+
 	div:nth-child(1) {
 		display: flex;
 		flex-direction: row;
@@ -62,13 +68,13 @@ Header.Head = styled.div`
 		font-size: 16px;
 		font-family: NanumSquare;
 		font-weight: bold;
-		color: #8F8F8F;
+		color: #8f8f8f;
 	}
 	.page-explanation {
 		margin-top: 5px;
 		font-size: 12px;
 		font-family: NanumSquare;
-		color: #8F8F8F;
+		color: #8f8f8f;
 	}
 `
 
@@ -76,33 +82,33 @@ Header.Head = styled.div`
 export const User = styled.div`
 	width: 100%;
 	margin-top: 29px;
-	
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	
+
 	img {
 		width: 76px;
 		height: 76px;
 	}
-	
+
 	.user-name {
-	  font-size: 20px;
-	  margin-top: 8px;
-	  font-family: NanumSquare;
-	  font-weight: 700;
-	  color: #143441;
+		font-size: 20px;
+		margin-top: 8px;
+		font-family: NanumSquare;
+		font-weight: 700;
+		color: #143441;
 	}
-	
+
 	@media (min-width: 530px) {
 		margin-top: 34px;
-		
+
 		img {
 			width: 90px;
 			height: 90px;
 		}
-		
+
 		.user-name {
 			margin-top: 20px;
 			font-size: 22px;
@@ -114,7 +120,7 @@ export const User = styled.div`
 export const Groups = styled.div`
 	width: 100%;
 	margin: 8px 0px 72px 0px;
-	
+
 	div {
 		display: flex;
 		flex-direction: row;
@@ -123,55 +129,54 @@ export const Groups = styled.div`
 	}
 
 	.group-selector {
-	  font-size: 16px;
-	  font-weight: bold;
-	  color: #8f8f8f;
-	  display: flex;
-	  flex-flow: column;
-	  align-items: start;
-	  width: fit-content;
-	  cursor: pointer;
-	    :hover {
-	    
-	    }
+		font-size: 16px;
+		font-weight: bold;
+		color: #8f8f8f;
+		display: flex;
+		flex-flow: column;
+		align-items: start;
+		width: fit-content;
+		cursor: pointer;
+		:hover {
+		}
 	}
-	
+
 	.group-name {
-	  display: flex;
-	  align-items : center;
-	  flex-flow: row;
+		display: flex;
+		align-items: center;
+		flex-flow: row;
 	}
-	
+
 	.selector {
-	  margin-left : 2px;
-	  font-family: NanumSquare;
-	  width: fit-content;
+		margin-left: 2px;
+		font-family: NanumSquare;
+		width: fit-content;
 	}
-	
+
 	.group-dropdown {
-	  font-family: NanumSquare;
-	  font-size: 16px;
-	  font-weight: bold;
-	  color: #8f8f8f;
-	  cursor : pointer;
-	  width : fit-content;
-	  flex-flow: column;
-	  align-items: start;
-	  z-index: 500;
+		font-family: NanumSquare;
+		font-size: 16px;
+		font-weight: bold;
+		color: #8f8f8f;
+		cursor: pointer;
+		width: fit-content;
+		flex-flow: column;
+		align-items: start;
+		z-index: 500;
 	}
-	
+
 	.group-dropdown-name {
-	  padding : 5px 0;
+		padding: 5px 0;
 	}
-	
+
 	.group-control {
 		margin: 3px 0px 0px 10px;
 		font-size: 16px;
 		font-family: NanumSquare;
 		font-weight: bold;
-		color: #8F8F8F;
+		color: #8f8f8f;
 	}
-	
+
 	@media (min-width: 530px) {
 		margin: 20px 0px 80px 0px;
 	}

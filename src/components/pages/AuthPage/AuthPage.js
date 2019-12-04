@@ -19,10 +19,8 @@ class AuthPage extends PureComponent {
 	}
 }
 
-AuthPage.propTypes = {
-}
+AuthPage.propTypes = {}
 
-AuthPage.defaultProps = {
-}
+AuthPage.defaultProps = {}
 
 export default AuthPage

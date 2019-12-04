@@ -6,25 +6,16 @@ import toJS from "hoc/toJS"
 
 class FloatingNavigatorContainer extends PureComponent {
 	render() {
-		return (
-			<FloatingNavigator {...this.props} />
-		)
+		return <FloatingNavigator {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(toJS(FloatingNavigatorContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(FloatingNavigatorContainer))

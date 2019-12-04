@@ -30,7 +30,7 @@ class Header extends PureComponent {
 		window.addEventListener("optimizedScroll", a => {
 			this.setState({
 				scrollY: window.scrollY,
-				clicked: false
+				clicked: false,
 			})
 			//console.log("scroll ", this.state)
 		})
@@ -52,7 +52,7 @@ class Header extends PureComponent {
 	render() {
 		const { fit, scrollY, clicked } = this.state
 		const { route } = this.props.match.params
-		const overlap = clicked || route || (scrollY > 0)
+		const overlap = clicked || route || scrollY > 0
 
 		return (
 			<HeaderWrapper className={`${overlap ? "scrolled" : ""}`}>
@@ -97,9 +97,7 @@ class Header extends PureComponent {
 				<nav>
 					<ul>
 						<li>
-							<NavLink to="/home">
-								Home
-							</NavLink>
+							<NavLink to="/home">Home</NavLink>
 						</li>
 						<li>
 							<NavLink to="/main">Main</NavLink>

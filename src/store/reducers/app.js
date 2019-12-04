@@ -12,16 +12,22 @@ const initialState = Map({
 	windowSize: Map({
 		width: window.innerWidth,
 		height: window.innerHeight,
-	})
+	}),
 })
 
 // reducer
-export default handleActions({
-	[UPDATE_WINDOW_SIZE]: (state, action) => {
-		const { width, height } = action.payload
-		return state.set("windowSize", fromJS({
-			width,
-			height
-		}))
-	}
-}, initialState)
+export default handleActions(
+	{
+		[UPDATE_WINDOW_SIZE]: (state, action) => {
+			const { width, height } = action.payload
+			return state.set(
+				"windowSize",
+				fromJS({
+					width,
+					height,
+				})
+			)
+		},
+	},
+	initialState
+)

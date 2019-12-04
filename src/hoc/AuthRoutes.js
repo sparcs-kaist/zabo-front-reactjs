@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 
 export const PrivateRoute = connect(
 	mapStateToProps,
-	null,
+	null
 )(({ component: Component, isAuthenticated, ...rest }) => (
 	<Route
 		{...rest}
@@ -30,7 +30,7 @@ export const PrivateRoute = connect(
 
 export const PublicRoute = connect(
 	mapStateToProps,
-	null,
+	null
 )(({ component: Component, isAuthenticated, ...rest }) => {
 	return (
 		<Route

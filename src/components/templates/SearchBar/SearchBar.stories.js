@@ -3,11 +3,6 @@ import { storiesOf } from "@storybook/react"
 
 import SearchBar from "./index"
 
-storiesOf("templates/SearchBar", module).add(
-	"Default",
-	() => (
-		<SearchBar />
-	), {
-		notes: ""
-	}
-)
+storiesOf("templates/SearchBar", module).add("Default", () => <SearchBar />, {
+	notes: "",
+})

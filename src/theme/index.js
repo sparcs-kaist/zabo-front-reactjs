@@ -1,7 +1,7 @@
 import theme from "styled-theming"
 
 export default {
-    mode: "light"
+	mode: "light",
 }
 // define background colours for `mode` theme
 export const backgroundColor = theme("mode", {
@@ -17,5 +17,5 @@ export const textColor = theme("mode", {
 
 export const mainColor = theme("mode", {
 	light: "#1976d2",
-	dark: "#12397d"
+	dark: "#12397d",
 })

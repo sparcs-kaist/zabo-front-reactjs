@@ -13,24 +13,19 @@ class ZaboPageContainer extends PureComponent {
 	}
 
 	render() {
-		return (
-			<ZaboPage {...this.props} />
-		)
+		return <ZaboPage {...this.props} />
 	}
 }
 
 const mapStateToProps = (state, ownProps) => {
 	const { zaboId } = ownProps
 	return {
-		zabo: state.getIn(['zabo', 'zabos', zaboId])
+		zabo: state.getIn(["zabo", "zabos", zaboId]),
 	}
 }
 
 const mapDispatchToProps = {
-	getZabo
+	getZabo,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(toJS(ZaboPageContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(ZaboPageContainer))

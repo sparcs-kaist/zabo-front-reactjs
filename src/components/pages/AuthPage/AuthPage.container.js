@@ -5,25 +5,16 @@ import AuthPage from "./AuthPage"
 
 class AuthPageContainer extends PureComponent {
 	render() {
-		return (
-			<AuthPage {...this.props} />
-		)
+		return <AuthPage {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(AuthPageContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPageContainer)

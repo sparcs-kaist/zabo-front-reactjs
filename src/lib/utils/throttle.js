@@ -8,27 +8,28 @@ function getDimensions() {
 	const height = window.innerHeight
 	listeners.forEach(listener => {
 		listener({
-			width, height
+			width,
+			height,
 		})
 	})
 }
 
 // window.resize event listener
-window.addEventListener('resize', function() {
+window.addEventListener("resize", function() {
 	// only run if we're not throttled
 	if (!throttled) {
 		// actual callback action
-		getDimensions();
+		getDimensions()
 		// we're throttled!
-		throttled = true;
+		throttled = true
 		// set a timeout to un-throttle
 		setTimeout(function() {
-			throttled = false;
-		}, delay);
+			throttled = false
+		}, delay)
 	}
-});
+})
 
-export const addWindowResizeListener = (listener) => {
+export const addWindowResizeListener = listener => {
 	listeners.push(listener)
 	return () => listeners.filter(x => x !== listener)
 }

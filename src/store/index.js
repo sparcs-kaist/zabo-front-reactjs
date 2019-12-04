@@ -5,15 +5,10 @@ import { Map } from "immutable"
 
 import rootReducer from "./reducers"
 
-const composeEnhancers =
-		composeWithDevTools({
-				actionBlacklist: [
-					"@@redux-pender/SUCCESS",
-					"@@redux-pender/FAILURE",
-					"@@redux-pender/PENDING",
-				],
-				maxAge: 1000,
-		  })
+const composeEnhancers = composeWithDevTools({
+	actionBlacklist: ["@@redux-pender/SUCCESS", "@@redux-pender/FAILURE", "@@redux-pender/PENDING"],
+	maxAge: 1000,
+})
 
 const store = createStore(
 	rootReducer,

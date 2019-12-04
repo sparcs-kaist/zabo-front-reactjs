@@ -14,10 +14,8 @@ class Button extends PureComponent {
 	}
 }
 
-Button.propTypes = {
-}
+Button.propTypes = {}
 
-Button.defaultProps = {
-}
+Button.defaultProps = {}
 
 export default Button

@@ -25,10 +25,7 @@ const decodedTokenLifetime = decoded => {
 	return 0
 }
 
-export const isAuthenticated = createSelector(
-	decodedTokenSelector,
-	isDecodedTokenAlive,
-)
+export const isAuthenticated = createSelector(decodedTokenSelector, isDecodedTokenAlive)
 
 export const tokenTimeLeft = createSelector(decodedTokenSelector, decodedTokenLifetime)
 
@@ -40,7 +37,7 @@ export const getUserState = createSelector(userInfoSelect, info => info.get("sta
 //)
 
 export const getCurrencyPair = createSelector(locationSelector, location =>
-	location.get("pathname").substring(10),
+	location.get("pathname").substring(10)
 )
 
 //export const getDevice = createSelector(deviceSelector, width => {

@@ -10,7 +10,6 @@ import left from "static/images/chevron_left.svg"
 import SVG from "atoms/SVG"
 
 class Header extends PureComponent {
-
 	goBack = () => {
 		const { history } = this.props
 		history.goBack()
@@ -23,30 +22,28 @@ class Header extends PureComponent {
 		return (
 			<HeaderWrapper>
 				<div className="container">
-					{
-						route ?
-							<img src={left} style={{ width: "15px", height: "auto" }} onClick={this.goBack}/>
-							:
-							<React.Fragment>
-								<NavLink to="/">
-									<img src={logo} style={{ width: "70px", height: "30px" }}/>
-								</NavLink>
-								{
-									isAuthenticated ?
-										<div>
-											<NavLink to="/my-page"
-															 size="md"
-															 className="user-icon">
-												<SVG icon={'user'} />
-											</NavLink>
+					{route ? (
+						<img src={left} style={{ width: "15px", height: "auto" }} onClick={this.goBack} />
+					) : (
+						<React.Fragment>
+							<NavLink to="/">
+								<img src={logo} style={{ width: "70px", height: "30px" }} />
+							</NavLink>
+							{isAuthenticated ? (
+								<div>
+									<NavLink to="/my-page" size="md" className="user-icon">
+										<SVG icon={"user"} />
+									</NavLink>
 
-											<a href='#' onClick={this.props.logout}>Logout</a>
-										</div>
-										:
-										<NavLink to="/auth/login">Login</NavLink>
-								}
-							</React.Fragment>
-					}
+									<a href="#" onClick={this.props.logout}>
+										Logout
+									</a>
+								</div>
+							) : (
+								<NavLink to="/auth/login">Login</NavLink>
+							)}
+						</React.Fragment>
+					)}
 				</div>
 			</HeaderWrapper>
 		)

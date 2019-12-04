@@ -5,12 +5,14 @@ import LoadingWrapper from "./Loading.styled"
 
 class Loading extends PureComponent {
 	render() {
-
 		return (
 			<LoadingWrapper className="pre-loading" height={this.props.height}>
 				<ul>
 					<li>za</li>
-					<li><span>b</span><span>o</span></li>
+					<li>
+						<span>b</span>
+						<span>o</span>
+					</li>
 				</ul>
 			</LoadingWrapper>
 		)
@@ -18,10 +20,9 @@ class Loading extends PureComponent {
 }
 
 Loading.propTypes = {
-	height: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+	height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 }
 
-Loading.defaultProps = {
-}
+Loading.defaultProps = {}
 
 export default Loading

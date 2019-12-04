@@ -9,23 +9,18 @@ import { isAuthenticated } from "../../../lib/utils"
 
 class HeaderContainer extends PureComponent {
 	render() {
-		return (
-			<Header {...this.props} />
-		)
+		return <Header {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
-		isAuthenticated: isAuthenticated(state)
+		isAuthenticated: isAuthenticated(state),
 	}
 }
 
 const mapDispatchToProps = {
-	logout
+	logout,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(HeaderContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(HeaderContainer)

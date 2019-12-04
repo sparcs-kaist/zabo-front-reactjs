@@ -5,25 +5,16 @@ import Link from "./Link"
 
 class LinkContainer extends PureComponent {
 	render() {
-		return (
-			<Link {...this.props} />
-		)
+		return <Link {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(LinkContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LinkContainer)

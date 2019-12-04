@@ -42,7 +42,7 @@ class Axios {
 			this._interceptor = null
 		}
 
-		if (!token || typeof token === 'undefined' || token === '') return
+		if (!token || typeof token === "undefined" || token === "") return
 
 		this._interceptor = this.session.interceptors.request.use(config => {
 			if (config.url[0] === "/")
@@ -54,7 +54,7 @@ class Axios {
 				})
 			return config
 		})
-    }
+	}
 
 	get = (...params) => this.session.get(...params)
 	post = (...params) => this.session.post(...params)
