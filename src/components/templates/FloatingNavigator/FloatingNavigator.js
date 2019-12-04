@@ -14,7 +14,7 @@ class FloatingNavigator extends PureComponent {
 		this.setState(prevState => {
 			return {
 				scrollY: window.scrollY,
-				show: prevState.scrollY > window.scrollY
+				show: prevState.scrollY > window.scrollY,
 			}
 		})
 	}
@@ -23,7 +23,7 @@ class FloatingNavigator extends PureComponent {
 		window.addEventListener("optimizedScroll", this.handleScroll)
 	}
 	componentWillUnmount() {
-		window.removeEventListener('optimizedScroll', this.handleScroll)
+		window.removeEventListener("optimizedScroll", this.handleScroll)
 	}
 
 	render() {
@@ -32,19 +32,18 @@ class FloatingNavigator extends PureComponent {
 		return (
 			<FloatingNavigatorWrapper show={show}>
 				<NavItem to="/" exact>
-					<img src={calendar} alt=""/>
-					홈
+					<img src={calendar} alt="" />홈
 				</NavItem>
 				<NavItem to="/search" exact>
-					<img src={search} alt=""/>
+					<img src={search} alt="" />
 					검색
 				</NavItem>
 				<NavItem to="/zabo/upload" exact>
-					<img src={add} alt=""/>
+					<img src={add} alt="" />
 					업로드
 				</NavItem>
 				<NavItem to="/my-page" exact>
-					<img src={user} alt=""/>
+					<img src={user} alt="" />
 					프로필
 				</NavItem>
 			</FloatingNavigatorWrapper>
@@ -52,10 +51,8 @@ class FloatingNavigator extends PureComponent {
 	}
 }
 
-FloatingNavigator.propTypes = {
-}
+FloatingNavigator.propTypes = {}
 
-FloatingNavigator.defaultProps = {
-}
+FloatingNavigator.defaultProps = {}
 
 export default FloatingNavigator

@@ -6,22 +6,17 @@ import GroupAddPageWrapper from "./GroupAddPage.styled"
 import SearchBar from "templates/SearchBar"
 
 class GroupAddPage extends PureComponent {
-
-
-
 	render() {
 		return (
 			<GroupAddPageWrapper>
-        <SearchBar />
+				<SearchBar />
 			</GroupAddPageWrapper>
 		)
 	}
 }
 
-GroupAddPage.propTypes = {
-}
+GroupAddPage.propTypes = {}
 
-GroupAddPage.defaultProps = {
-}
+GroupAddPage.defaultProps = {}
 
 export default GroupAddPage

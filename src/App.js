@@ -5,7 +5,15 @@ import { Route, Switch } from "react-router-dom"
 import PWAPrompt from "templates/PWAPrompt"
 import Header from "templates/Header"
 import FloatingNavigator from "templates/FloatingNavigator"
-import { AuthPage, GroupAddPage, GroupPage, HomePage, MyPage, ZaboUploadPage, ZaboPage } from "components/pages"
+import {
+	AuthPage,
+	GroupAddPage,
+	GroupPage,
+	HomePage,
+	MyPage,
+	ZaboUploadPage,
+	ZaboPage,
+} from "components/pages"
 import AuthCallback from "organisms/AuthCallback"
 import WindowResizeListener from "containers/WindowResizeListener"
 import ScrollToTop from "containers/ScrollToTop"
@@ -38,21 +46,21 @@ class App extends React.Component {
 	render() {
 		return (
 			<AppWrapper>
-				<WindowResizeListener/>
-				<PWAPrompt/>
-				<Route path="/:route?" component={Header}/>
-				<Route path="/zabo/:route?" component={ScrollToTop}/>
-				<Route path="/" exact component={AuthCallback}/>
+				<WindowResizeListener />
+				<PWAPrompt />
+				<Route path="/:route?" component={Header} />
+				<Route path="/zabo/:route?" component={ScrollToTop} />
+				<Route path="/" exact component={AuthCallback} />
 				<Switch>
-					<Route path="/zabo/upload" component={ZaboUploadPage}/>
-					<Route path="/zabo/:zaboId" component={pToP(ZaboPage)}/>
-					<Route path="/" exact component={HomePage}/>
-					<PublicRoute path="/auth" component={AuthPage}/>
-					<PrivateRoute path="/my-page/group/add" component={GroupAddPage}/>
-					<PrivateRoute path="/my-page/group" component={GroupPage}/>
-					<PrivateRoute path="/my-page" component={MyPage}/>
+					<Route path="/zabo/upload" component={ZaboUploadPage} />
+					<Route path="/zabo/:zaboId" component={pToP(ZaboPage)} />
+					<Route path="/" exact component={HomePage} />
+					<PublicRoute path="/auth" component={AuthPage} />
+					<PrivateRoute path="/my-page/group/add" component={GroupAddPage} />
+					<PrivateRoute path="/my-page/group" component={GroupPage} />
+					<PrivateRoute path="/my-page" component={MyPage} />
 				</Switch>
-				<FloatingNavigator/>
+				<FloatingNavigator />
 			</AppWrapper>
 		)
 	}

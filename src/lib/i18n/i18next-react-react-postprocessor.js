@@ -4,7 +4,6 @@ import { Link } from "react-router-dom"
 //
 //const debug = Debugger('react-postprocessor')
 
-
 // ERROS
 const NOT_SUPPORTED_TAG = "NOT SUPPORTED TAG FOUND"
 const CLOSE_TAG_NOT_FOUND = "CLOSE TAG NOT FOUND"

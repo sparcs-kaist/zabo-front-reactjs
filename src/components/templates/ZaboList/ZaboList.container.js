@@ -10,22 +10,20 @@ import { getPins, getZaboList } from "store/reducers/zabo"
 import ZaboList from "./ZaboList"
 
 const reduxKey = {
-	main: () => ['zabo', "lists", "main"],
-	related: (id) => ['zabo', "lists", id],
-	pins: () => ['zabo', "lists", "pins"]
+	main: () => ["zabo", "lists", "main"],
+	related: id => ["zabo", "lists", id],
+	pins: () => ["zabo", "lists", "pins"],
 }
 
 class ZaboListContainer extends PureComponent {
 	render() {
-		return (
-			<ZaboList {...this.props} />
-		)
+		return <ZaboList {...this.props} />
 	}
 }
 
 ZaboListContainer.propTypes = {
 	...ZaboList.propTypes,
-	type: PropTypes.oneOf(listTypes)
+	type: PropTypes.oneOf(listTypes),
 }
 
 ZaboListContainer.defaultProps = {
@@ -37,16 +35,13 @@ const emptyList = List([])
 const mapStateToProps = (state, ownProps) => {
 	const { type, relatedTo } = ownProps
 	return {
-		zaboList: state.getIn(reduxKey[type](relatedTo)) || emptyList
+		zaboList: state.getIn(reduxKey[type](relatedTo)) || emptyList,
 	}
 }
 
 const mapDispatchToProps = {
 	getPins,
-	getZaboList
+	getZaboList,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(toJS(ZaboListContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(ZaboListContainer))

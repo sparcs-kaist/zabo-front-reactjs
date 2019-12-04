@@ -12,26 +12,30 @@ const PWAPromptWrapper = styled.div`
 		flex-direction: row;
 		align-items: center;
 	}
-	
+
 	img {
 		height: 25px;
 		margin-right: 20px;
 	}
-	
+
 	.texts {
 		flex: 1;
 		overflow: hidden;
-	
-		* { 
-			overflow: hidden; 
+
+		* {
+			overflow: hidden;
 			text-overflow: ellipsis;
-			white-space: nowrap; 
+			white-space: nowrap;
 			color: white;
 		}
-		.title { font-size: 12px; }
-		.desc { font-size: 10px; }
+		.title {
+			font-size: 12px;
+		}
+		.desc {
+			font-size: 10px;
+		}
 	}
-	
+
 	button {
 		background-color: transparent;
 		border: none;
@@ -39,7 +43,7 @@ const PWAPromptWrapper = styled.div`
 		height: 25px;
 		padding: 0;
 		color: cornflowerblue;
-		font-size: 14px;		
+		font-size: 14px;
 	}
 `
 

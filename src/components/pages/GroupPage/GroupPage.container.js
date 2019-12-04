@@ -10,16 +10,14 @@ import { isAuthenticated } from "lib/utils"
 
 class GroupPageContainer extends PureComponent {
 	render() {
-		return (
-			<GroupPage {...this.props} />
-		)
+		return <GroupPage {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
 		isAuthenticated: isAuthenticated(state),
-		info: state.getIn(['auth', 'info']),
+		info: state.getIn(["auth", "info"]),
 	}
 }
 
@@ -27,7 +25,4 @@ const mapDispatchToProps = {
 	removeGroupUser,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(toJS(GroupPageContainer))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(GroupPageContainer))

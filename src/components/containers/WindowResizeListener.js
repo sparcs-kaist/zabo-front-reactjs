@@ -24,17 +24,14 @@ class WindowResizeListener extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
 	return {
-		windowSize: state.getIn(["app", "windowSize"])
+		windowSize: state.getIn(["app", "windowSize"]),
 	}
 }
 
 const mapDispatchToProps = {
-	setWindowSize
+	setWindowSize,
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps,
-)(toJS(WindowResizeListener))
+export default connect(mapStateToProps, mapDispatchToProps)(toJS(WindowResizeListener))

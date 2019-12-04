@@ -17,7 +17,7 @@ const withLog = WrappedComponent => {
 				`%c[${displayName}] : componentDidUpdate`,
 				"color: #2196F3;",
 				prevProps,
-				this.props,
+				this.props
 			)
 		}
 

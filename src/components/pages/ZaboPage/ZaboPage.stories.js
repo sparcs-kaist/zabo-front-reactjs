@@ -3,11 +3,6 @@ import { storiesOf } from "@storybook/react"
 
 import ZaboPage from "./index"
 
-storiesOf("pages/ZaboPage", module).add(
-	"Default",
-	() => (
-		<ZaboPage />
-	), {
-		notes: ""
-	}
-)
+storiesOf("pages/ZaboPage", module).add("Default", () => <ZaboPage />, {
+	notes: "",
+})

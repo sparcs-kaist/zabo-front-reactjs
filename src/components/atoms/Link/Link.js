@@ -14,10 +14,8 @@ class Link extends PureComponent {
 	}
 }
 
-Link.propTypes = {
-}
+Link.propTypes = {}
 
-Link.defaultProps = {
-}
+Link.defaultProps = {}
 
 export default Link

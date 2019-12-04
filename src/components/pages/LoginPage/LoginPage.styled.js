@@ -1,6 +1,5 @@
 import styled from "styled-components"
 
-const LoginPageWrapper = styled.div`
-`
+const LoginPageWrapper = styled.div``
 
 export default LoginPageWrapper

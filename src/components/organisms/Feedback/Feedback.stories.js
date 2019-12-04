@@ -3,11 +3,6 @@ import { storiesOf } from "@storybook/react"
 
 import Feedback from "./index"
 
-storiesOf("organisms/Feedback", module).add(
-	"Default",
-	() => (
-		<Feedback />
-	), {
-		notes: ""
-	}
-)
+storiesOf("organisms/Feedback", module).add("Default", () => <Feedback />, {
+	notes: "",
+})

@@ -5,25 +5,16 @@ import LoginPage from "./LoginPage"
 
 class LoginPageContainer extends PureComponent {
 	render() {
-		return (
-			<LoginPage {...this.props} />
-		)
+		return <LoginPage {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(LoginPageContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPageContainer)

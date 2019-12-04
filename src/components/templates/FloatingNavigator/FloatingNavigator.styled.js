@@ -30,7 +30,7 @@ const FloatingNavigatorWrapper = styled.div`
 	left: 0;
 	width: 100%;
 	height: 60px;
-	max-height: ${props => props.show ? '60px' : 0};
+	max-height: ${props => (props.show ? "60px" : 0)};
 	overflow: hidden;
 	border-top: 1px solid black;
 	background-color: white;
@@ -39,16 +39,16 @@ const FloatingNavigatorWrapper = styled.div`
 	justify-content: space-between;
 	
 	${NavItem} {
-		${props => props.show ? css`
-			
-		` : css`
-			img {
-				width: 0;
-				height: 0;
-			}
-			font-size: 0;
-		`
-	};
+		${props =>
+			props.show
+				? css``
+				: css`
+						img {
+							width: 0;
+							height: 0;
+						}
+						font-size: 0;
+				  `};
 	@media (min-width: 560px) {
 		display: none;
 	}

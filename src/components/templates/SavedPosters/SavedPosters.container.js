@@ -5,25 +5,16 @@ import SavedPosters from "./SavedPosters"
 
 class SavedPostersContainer extends PureComponent {
 	render() {
-		return (
-			<SavedPosters {...this.props} />
-		)
+		return <SavedPosters {...this.props} />
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-
-	}
+const mapStateToProps = state => {
+	return {}
 }
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-
-	}
+const mapDispatchToProps = dispatch => {
+	return {}
 }
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(SavedPostersContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SavedPostersContainer)

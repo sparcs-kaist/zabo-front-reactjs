@@ -14,10 +14,8 @@ class SavedPosters extends PureComponent {
 	}
 }
 
-SavedPosters.propTypes = {
-}
+SavedPosters.propTypes = {}
 
-SavedPosters.defaultProps = {
-}
+SavedPosters.defaultProps = {}
 
 export default SavedPosters
