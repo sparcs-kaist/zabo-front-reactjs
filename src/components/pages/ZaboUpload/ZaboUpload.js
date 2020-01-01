@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react"
 import { Link, Redirect } from "react-router-dom"
-import PropTypes from "prop-types"
 import ReactSwipe from "react-swipe"
 import InputBase from "@material-ui/core/InputBase"
 import DateFnsUtils from "@date-io/date-fns"

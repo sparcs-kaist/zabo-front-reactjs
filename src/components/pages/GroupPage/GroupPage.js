@@ -29,7 +29,7 @@ class GroupPage extends PureComponent {
 				<div className="groupName">
 					<div>{currentGroup.name}</div>
 					<a href={"/my-page/group/add"}>
-						<img src={require("static/icon/person_add-24px.svg")} />
+						<img src={require("static/icon/person_add-24px.svg")} alt={'add group'}/>
 					</a>
 				</div>
 				<div className="members">
@@ -39,7 +39,7 @@ class GroupPage extends PureComponent {
 							<div className="member-info">
 								<div className="member">{member.studentId}</div>
 								<div className="member-remove" onClick={e => this.popUpRemove(member.studentId)}>
-									<img src={require("static/icon/remove-24px.svg")} />
+									<img src={require("static/icon/remove-24px.svg")} alt='remove'/>
 								</div>
 							</div>
 							<hr className="line" />

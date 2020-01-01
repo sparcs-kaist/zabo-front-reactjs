@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
 import { Switch, Route, Redirect } from "react-router-dom"
 
 import AuthPageWrapper from "./AuthPage.styled"

@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
 import { NavLink } from "react-router-dom"
 
 import HeaderWrapper from "./Header.styled"
@@ -23,11 +22,11 @@ class Header extends PureComponent {
 			<HeaderWrapper>
 				<div className="container">
 					{route ? (
-						<img src={left} style={{ width: "15px", height: "auto" }} onClick={this.goBack} />
+						<img alt="Go back" src={left} style={{ width: "15px", height: "auto" }} onClick={this.goBack} />
 					) : (
 						<React.Fragment>
 							<NavLink to="/">
-								<img src={logo} style={{ width: "70px", height: "30px" }} />
+								<img alt="logo" src={logo} style={{ width: "70px", height: "30px" }} />
 							</NavLink>
 							{isAuthenticated ? (
 								<div>

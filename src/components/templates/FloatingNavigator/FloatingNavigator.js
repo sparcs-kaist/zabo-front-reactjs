@@ -1,5 +1,4 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
 
 import FloatingNavigatorWrapper, { NavItem } from "./FloatingNavigator.styled"
 import user from "static/images/user.svg"

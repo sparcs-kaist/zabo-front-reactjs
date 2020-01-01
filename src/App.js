@@ -24,6 +24,10 @@ import AppWrapper from "./App.styled"
 
 import { PrivateRoute, PublicRoute } from "./hoc/AuthRoutes"
 
+if (process.env.NODE_ENV === "production") {
+	import ("lib/channel_io");
+}
+
 class App extends React.Component {
 	componentDidCatch(error, errorInfo) {
 		// Catch errors in any components below and re-render with error message

@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react"
 import ReactDOM from "react-dom"
-import PropTypes from "prop-types"
 import { CSSTransition } from "react-transition-group"
 
 import ModalWrapper from "./Modal.styled"

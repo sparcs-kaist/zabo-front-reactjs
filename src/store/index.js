@@ -1,4 +1,4 @@
-import { applyMiddleware, compose, createStore } from "redux"
+import { applyMiddleware, createStore } from "redux"
 import { composeWithDevTools } from "redux-devtools-extension"
 import penderMiddleware from "redux-pender"
 import { Map } from "immutable"

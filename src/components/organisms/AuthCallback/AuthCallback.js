@@ -1,8 +1,5 @@
-import React, { PureComponent } from "react"
+import { PureComponent } from "react"
 import queryString from "query-string"
-import PropTypes from "prop-types"
-
-import AuthCallbackWrapper from "./AuthCallback.styled"
 
 class AuthCallback extends PureComponent {
 	componentDidMount() {

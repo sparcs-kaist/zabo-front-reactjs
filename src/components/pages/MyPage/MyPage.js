@@ -64,6 +64,7 @@ class MyPage extends PureComponent {
 										<img
 											src={require("static/icon/baseline-expand_more-24px.svg")}
 											style={imgRotate}
+											alt="expand"
 										/>
 									</div>
 									<div className="group-dropdown" style={{ display: clicked ? "flex" : "none" }}>

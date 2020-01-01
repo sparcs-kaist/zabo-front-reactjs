@@ -1,9 +1,6 @@
 import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import MasonryZaboList from "react-masonry-infinite"
 
-import ZaboPageWrapper, { Zabo, ZaboCard as Card } from "./ZaboPage.styled"
-import { Link } from "react-router-dom"
+import ZaboPageWrapper, { Zabo } from "./ZaboPage.styled"
 import ZaboList from "templates/ZaboList"
 
 class ZaboPage extends PureComponent {
@@ -16,7 +13,7 @@ class ZaboPage extends PureComponent {
 				<div className="container">
 					<Zabo>
 						<Zabo.Poster>
-							<img width="100%" src={photos[0].url} />
+							<img width="100%" src={photos[0].url} alt="poster"/>
 						</Zabo.Poster>
 						<Zabo.Writings>
 							<div className="title">{title}</div>

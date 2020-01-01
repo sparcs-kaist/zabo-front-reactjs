@@ -64,7 +64,7 @@ class SearchBar extends React.Component {
 							{...props}
 						/>
 					</div>
-					<img className="search-icon" src={searchIcon} />
+					<img className="search-icon" src={searchIcon} alt="search"/>
 				</div>
 				<div className={`search-result ${isOpen ? "show" : "hide"}`}>
 					<h3>Zabo</h3>

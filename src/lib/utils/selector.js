@@ -4,11 +4,11 @@ import { createSelector } from "reselect"
 //import { mediaSizes } from "lib/variables"
 
 const decodedTokenSelector = state => state.getIn(["auth", "jwt"])
-const emailSelector = state => state.getIn(["auth", "info", "email"])
+//const emailSelector = state => state.getIn(["auth", "info", "email"])
 const userInfoSelect = state => state.getIn(["user", "info"])
 const locationSelector = state => state.getIn(["router", "location"])
 //const deviceSelector = state => state.getIn(["base", "window", "width"])
-const ratesSelector = state => state.getIn(["market", "rates"])
+//const ratesSelector = state => state.getIn(["market", "rates"])
 
 const isDecodedTokenAlive = decoded => {
 	if (decoded && decoded.get("exp")) {

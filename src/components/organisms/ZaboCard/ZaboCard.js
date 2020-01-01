@@ -1,5 +1,4 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
+import React from "react"
 
 import ZaboCard from "./ZaboCard.styled"
 import { Link } from "react-router-dom"
@@ -13,7 +12,7 @@ export default ({ zabo }) => {
 						paddingTop: `${(zabo.photos[0].height / zabo.photos[0].width) * 100}%`,
 					}}
 				>
-					<img width="100%" src={zabo.photos[0].url} />
+					<img width="100%" src={zabo.photos[0].url} alt={"zabo"}/>
 				</ZaboCard.Poster>
 			</Link>
 			<ZaboCard.Writings>
