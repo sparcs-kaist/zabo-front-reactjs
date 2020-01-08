@@ -1,33 +1,33 @@
-import { PureComponent } from "react"
-import queryString from "query-string"
+import { PureComponent } from 'react';
+import queryString from 'query-string';
 
 class AuthCallback extends PureComponent {
-	componentDidMount() {
-		const { location, loginCallback, history } = this.props
-		const { code, state } = queryString.parse(location.search)
-		if (code && state) {
-			loginCallback(code, state)
-				.then(res => {
-					history.replace("/")
-				})
-				.catch(error => {
-					alert(error.message)
-					history.replace("/")
-				})
-		}
-	}
+  componentDidMount() {
+    const { location, loginCallback, history } = this.props;
+    const { code, state } = queryString.parse(location.search);
+    if (code && state) {
+      loginCallback(code, state)
+        .then((res) => {
+          history.replace('/');
+        })
+        .catch((error) => {
+          alert(error.message);
+          history.replace('/');
+        });
+    }
+  }
 
-	componentDidUpdate(prevProps, prevState, snapshot) {
-		console.log(this.props.jwt)
-	}
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    console.log(this.props.jwt);
+  }
 
-	render() {
-		return null
-	}
+  render() {
+    return null;
+  }
 }
 
-AuthCallback.propTypes = {}
+AuthCallback.propTypes = {};
 
-AuthCallback.defaultProps = {}
+AuthCallback.defaultProps = {};
 
-export default AuthCallback
+export default AuthCallback;
