@@ -1,5 +1,5 @@
 import { createAction, handleActions } from 'redux-actions';
-import { fromJS, Map } from 'immutable';
+import { fromJS, Map, List } from 'immutable';
 
 // action types
 const SET_GROUP_SELECTED = 'upload/SET_GROUP_SELECTED';
@@ -19,12 +19,12 @@ export const reset = createAction (RESET);
 const initialState = Map ({
   groupSelected: false,
   imagesSelected: false,
-  images: [],
+  images: List ([]),
   info: {
     title: '',
     desc: '',
     expDate: '',
-    keyword: [''],
+    keyword: List (['']),
   },
 });
 

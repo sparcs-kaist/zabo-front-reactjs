@@ -11,7 +11,6 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import ZaboUpload from '../../templates/ZaboUpload';
 
-
 const SlideComponent = styled.div`
   
 `;
@@ -45,19 +44,8 @@ const SlideView = ({ currentStep }) => {
       <button onClick={prev}>Prev</button>
       <button onClick={next}>Next</button>
       <Slider {...settings} ref={slick}>
+        <ZaboUpload.UploadImage />
         <ZaboUpload.SelectGroup />
-        <div>
-          <h3>2</h3>
-        </div>
-        <div>
-          <h3>3</h3>
-        </div>
-        <div>
-          <h3>4</h3>
-        </div>
-        <div>
-          <h3>5</h3>
-        </div>
         <div>
           <h3>6</h3>
         </div>
