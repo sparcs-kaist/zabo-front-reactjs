@@ -1,21 +1,21 @@
-import React, { PureComponent } from "react"
+import React, { PureComponent } from 'react';
 
-import GroupAddPageWrapper from "./GroupAddPage.styled"
+import SearchBar from 'templates/SearchBar';
+import GroupAddPageWrapper from './GroupAddPage.styled';
 
-import SearchBar from "templates/SearchBar"
 
 class GroupAddPage extends PureComponent {
-	render() {
-		return (
-			<GroupAddPageWrapper>
-				<SearchBar />
-			</GroupAddPageWrapper>
-		)
-	}
+  render () {
+    return (
+      <GroupAddPageWrapper>
+        <SearchBar />
+      </GroupAddPageWrapper>
+    );
+  }
 }
 
-GroupAddPage.propTypes = {}
+GroupAddPage.propTypes = {};
 
-GroupAddPage.defaultProps = {}
+GroupAddPage.defaultProps = {};
 
-export default GroupAddPage
+export default GroupAddPage;

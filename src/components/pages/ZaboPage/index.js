@@ -1,1 +1,1 @@
-export { default } from "./ZaboPage.container"
+export { default } from './ZaboPage.container';

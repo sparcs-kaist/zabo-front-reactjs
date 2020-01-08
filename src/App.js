@@ -12,7 +12,6 @@ import {
   HomePage,
   MyPage,
   ZaboUploadPage,
-  ZaboUploadPage2,
   ZaboPage,
 } from 'components/pages';
 import AuthCallback from 'organisms/AuthCallback';
@@ -28,25 +27,25 @@ import { PrivateRoute, PublicRoute } from './hoc/AuthRoutes';
 import 'lib/channel_io';
 
 class App extends React.Component {
-  componentDidCatch(error, errorInfo) {
+  componentDidCatch (error, errorInfo) {
     // Catch errors in any components below and re-render with error message
     if (process.env.NODE_ENV !== 'production') {
-      this.setState({
+      this.setState ({
         error,
         errorInfo: { ...errorInfo, url: window.location.href },
       });
     } else {
-      alert('Something went wrong. Please contact us if this error continues to appear.');
+      alert ('Something went wrong. Please contact us if this error continues to appear.');
       // TODO: Crash Report
       // crashReport({
-      //	error: error.toString(),
-      //	errorInfo: { ...errorInfo, url: window.location.href },
+      // error: error.toString(),
+      // errorInfo: { ...errorInfo, url: window.location.href },
       // })
     }
     // You can also log error messages to an error reporting service here
   }
 
-  render() {
+  render () {
     return (
       <AppWrapper>
         <WindowResizeListener />
@@ -55,9 +54,8 @@ class App extends React.Component {
         <Route path="/zabo/:route?" component={ScrollToTop} />
         <Route path="/" exact component={AuthCallback} />
         <Switch>
-          <Route path="/zabo/upload2" component={ZaboUploadPage2} />
           <Route path="/zabo/upload" component={ZaboUploadPage} />
-          <Route path="/zabo/:zaboId" component={pToP(ZaboPage)} />
+          <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
           <Route path="/" exact component={HomePage} />
           <PublicRoute path="/auth" component={AuthPage} />
           <PrivateRoute path="/my-page/group/add" component={GroupAddPage} />

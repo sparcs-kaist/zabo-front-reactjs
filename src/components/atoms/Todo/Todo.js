@@ -1,25 +1,25 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
 
-import TodoWrapper from "./Todo.styled"
+import TodoWrapper from './Todo.styled';
 
 const Todo = ({ onClick, completed, text }) => (
-	<TodoWrapper
-		onClick={onClick}
-		style={{
-			textDecoration: completed ? "line-through" : "none",
-		}}
-	>
-		{text}
-	</TodoWrapper>
-)
+  <TodoWrapper
+    onClick={onClick}
+    style={{
+      textDecoration: completed ? 'line-through' : 'none',
+    }}
+  >
+    {text}
+  </TodoWrapper>
+);
 
 Todo.propTypes = {
-	onClick: PropTypes.func.isRequired,
-	completed: PropTypes.bool.isRequired,
-	text: PropTypes.string.isRequired,
-}
+  onClick: PropTypes.func.isRequired,
+  completed: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+};
 
-Todo.defaultProps = {}
+Todo.defaultProps = {};
 
-export default Todo
+export default Todo;

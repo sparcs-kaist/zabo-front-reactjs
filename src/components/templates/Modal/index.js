@@ -1,3 +1,4 @@
-import Modal from "./Modal"
-export * from "./modalMethods"
-export default Modal
+import Modal from './Modal';
+
+export * from './modalMethods';
+export default Modal;

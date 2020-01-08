@@ -1,1 +1,1 @@
-export { default } from "./GroupAddPage.container"
+export { default } from './GroupAddPage.container';

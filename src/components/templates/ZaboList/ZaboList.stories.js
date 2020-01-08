@@ -1,8 +1,8 @@
-import React from "react"
-import { storiesOf } from "@storybook/react"
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import ZaboList from "./index"
+import ZaboList from './index';
 
-storiesOf("templates/ZaboList", module).add("Default", () => <ZaboList />, {
-	notes: "",
-})
+storiesOf ('templates/ZaboList', module).add ('Default', () => <ZaboList />, {
+  notes: '',
+});

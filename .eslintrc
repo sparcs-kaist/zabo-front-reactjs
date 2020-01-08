@@ -13,6 +13,13 @@
     "react/jsx-filename-extension": 0,
     "react/jsx-one-expression-per-line": 0,
     "react/jsx-props-no-spreading": 0,
+    "react/state-in-constructor": "off",
+    "react/destructuring-assignment": "warn",
+    "react/no-unused-state": "warn",
+    "react/button-has-type": "warn",
+    "react/no-array-index-key": "warn",
+    "react/sort-comp": "off",
+    "import/prefer-default-export": "warn",
     "arrow-parens": 0,
     "no-nested-ternary": "off",
     "no-unused-vars": "warn",
@@ -20,7 +27,9 @@
     "space-before-function-paren": ["warn", "always"],
     "no-spaced-func": "off",
     "func-call-spacing": ["warn", "always"],
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-mixed-spaces-and-tabs": "error",
+    "no-shadow": "warn"
   },
   "env": {
     "browser": true

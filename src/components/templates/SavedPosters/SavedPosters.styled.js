@@ -1,5 +1,5 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
-const SavedPostersWrapper = styled.div``
+const SavedPostersWrapper = styled.div``;
 
-export default SavedPostersWrapper
+export default SavedPostersWrapper;

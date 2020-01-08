@@ -1,37 +1,38 @@
-import React from "react"
-import ReactDOM from "react-dom"
-import Modal from "./Modal"
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Modal from './Modal';
 
-const body = document.body
+const { body } = document;
 
 export const showInstanceModal = ({ content, onCancel, ...props }) => {
-	const container = document.createElement("div")
-	body.appendChild(container)
+  const container = document.createElement ('div');
+  body.appendChild (container);
 
-	const unmount = () => {
-		ReactDOM.unmountComponentAtNode(container)
-		body.removeChild(container)
-	}
+  const render = show => {
+    ReactDOM.render (
+      // eslint-disable-next-line no-use-before-define
+      <Modal show={show} shownByMethod onCancel={_onCancel} onCanceled={unmount} {...props}>
+        {content}
+      </Modal>,
+      container,
+    );
+  };
 
-	const _onCancel = () => {
-		if (typeof onCancel === "function") onCancel()
-		hide()
-	}
+  const show = () => render (true);
 
-	const render = show => {
-		ReactDOM.render(
-			<Modal show={show} shownByMethod={true} onCancel={_onCancel} onCanceled={unmount} {...props}>
-				{content}
-			</Modal>,
-			container
-		)
-	}
+  const hide = () => render (false);
 
-	const show = () => render(true)
+  const unmount = () => {
+    ReactDOM.unmountComponentAtNode (container);
+    body.removeChild (container);
+  };
 
-	const hide = () => render(false)
+  const _onCancel = () => {
+    if (typeof onCancel === 'function') onCancel ();
+    hide ();
+  };
 
-	show()
+  show ();
 
-	return hide
-}
+  return hide;
+};

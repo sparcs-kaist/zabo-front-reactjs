@@ -1,21 +1,17 @@
-import React, { PureComponent } from "react"
-import { connect } from "react-redux"
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import FloatingNavigator from "./FloatingNavigator"
-import toJS from "hoc/toJS"
+import toJS from 'hoc/toJS';
+import FloatingNavigator from './FloatingNavigator';
 
 class FloatingNavigatorContainer extends PureComponent {
-	render() {
-		return <FloatingNavigator {...this.props} />
-	}
+  render () {
+    return <FloatingNavigator {...this.props} />;
+  }
 }
 
-const mapStateToProps = state => {
-	return {}
-}
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-	return {}
-}
+const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(FloatingNavigatorContainer))
+export default connect (mapStateToProps, mapDispatchToProps) (toJS (FloatingNavigatorContainer));

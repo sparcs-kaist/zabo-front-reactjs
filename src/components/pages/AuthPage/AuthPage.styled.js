@@ -1,5 +1,5 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
-const AuthPageWrapper = styled.div``
+const AuthPageWrapper = styled.div``;
 
-export default AuthPageWrapper
+export default AuthPageWrapper;

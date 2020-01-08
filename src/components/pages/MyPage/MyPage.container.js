@@ -1,27 +1,25 @@
-import React, { PureComponent } from "react"
-import { connect } from "react-redux"
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import toJS from "hoc/toJS"
-import MyPage from "./MyPage"
+import toJS from 'hoc/toJS';
+import MyPage from './MyPage';
 
-import { setCurrentGroup } from "../../../store/reducers/auth.js"
-import { isAuthenticated } from "../../../lib/utils"
+import { setCurrentGroup } from '../../../store/reducers/auth';
+import { isAuthenticated } from '../../../lib/utils';
 
 class MyPageContainer extends PureComponent {
-	render() {
-		return <MyPage {...this.props} />
-	}
+  render () {
+    return <MyPage {...this.props} />;
+  }
 }
 
-const mapStateToProps = state => {
-	return {
-		isAuthenticated: isAuthenticated(state),
-		info: state.getIn(["auth", "info"]),
-	}
-}
+const mapStateToProps = state => ({
+  isAuthenticated: isAuthenticated (state),
+  info: state.getIn (['auth', 'info']),
+});
 
 const mapDispatchToProps = {
-	setCurrentGroup,
-}
+  setCurrentGroup,
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(MyPageContainer))
+export default connect (mapStateToProps, mapDispatchToProps) (toJS (MyPageContainer));

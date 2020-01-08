@@ -1,8 +1,8 @@
-import React from "react"
-import { storiesOf } from "@storybook/react"
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import MyPage from "./index"
+import MyPage from './index';
 
-storiesOf("pages/MyPage", module).add("Default", () => <MyPage />, {
-	notes: "",
-})
+storiesOf ('pages/MyPage', module).add ('Default', () => <MyPage />, {
+  notes: '',
+});

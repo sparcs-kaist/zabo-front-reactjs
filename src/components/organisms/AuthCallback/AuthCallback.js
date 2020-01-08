@@ -1,27 +1,28 @@
+/* eslint-disable */
 import { PureComponent } from 'react';
 import queryString from 'query-string';
 
 class AuthCallback extends PureComponent {
-  componentDidMount() {
+  componentDidMount () {
     const { location, loginCallback, history } = this.props;
-    const { code, state } = queryString.parse(location.search);
+    const { code, state } = queryString.parse (location.search);
     if (code && state) {
-      loginCallback(code, state)
-        .then((res) => {
-          history.replace('/');
+      loginCallback (code, state)
+        .then ((res) => {
+          history.replace ('/');
         })
-        .catch((error) => {
-          alert(error.message);
-          history.replace('/');
+        .catch ((error) => {
+          alert (error.message);
+          history.replace ('/');
         });
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(this.props.jwt);
+  componentDidUpdate (prevProps, prevState, snapshot) {
+    console.log (this.props.jwt);
   }
 
-  render() {
+  render () {
     return null;
   }
 }

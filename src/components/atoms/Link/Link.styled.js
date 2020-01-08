@@ -1,5 +1,5 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
-const LinkWrapper = styled.div``
+const LinkWrapper = styled.div``;
 
-export default LinkWrapper
+export default LinkWrapper;

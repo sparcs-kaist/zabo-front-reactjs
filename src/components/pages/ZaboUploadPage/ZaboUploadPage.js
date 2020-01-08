@@ -37,7 +37,7 @@ const SlideView = ({ currentStep }) => {
     slick.current.slickGoTo (currentStep);
   }, [currentStep]);
 
-  console.log({ currentStep });
+  console.log ({ currentStep });
 
   return (
     <>

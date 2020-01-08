@@ -1,21 +1,17 @@
-import React, { PureComponent } from "react"
-import { connect } from "react-redux"
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import GroupAddPage from "./GroupAddPage"
-import toJS from "hoc/toJS"
+import toJS from 'hoc/toJS';
+import GroupAddPage from './GroupAddPage';
 
 class GroupAddPageContainer extends PureComponent {
-	render() {
-		return <GroupAddPage {...this.props} />
-	}
+  render () {
+    return <GroupAddPage {...this.props} />;
+  }
 }
 
-const mapStateToProps = state => {
-	return {}
-}
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-	return {}
-}
+const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(toJS(GroupAddPageContainer))
+export default connect (mapStateToProps, mapDispatchToProps) (toJS (GroupAddPageContainer));

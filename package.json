@@ -93,6 +93,7 @@
     "redux-pender": "^2.0.12",
     "reselect": "^4.0.0",
     "slick-carousel": "^1.8.1",
+    "static": "^2.0.0",
     "styled-components": "^4.3.2",
     "styled-theming": "^2.2.0",
     "swipe-js-iso": "^2.1.5"

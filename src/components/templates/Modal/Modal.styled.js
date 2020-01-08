@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
 
@@ -158,6 +158,6 @@ font-size: 12px;
     }
   }
 
-`
+`;
 
-export default ModalWrapper
+export default ModalWrapper;

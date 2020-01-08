@@ -1,1 +1,1 @@
-export const listTypes = ["main", "related", "pins"]
+export const listTypes = ['main', 'related', 'pins'];

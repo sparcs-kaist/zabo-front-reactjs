@@ -1,8 +1,8 @@
-import React from "react"
-import { storiesOf } from "@storybook/react"
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import GroupAddPage from "./index"
+import GroupAddPage from './index';
 
-storiesOf("pages/GroupAddPage", module).add("Default", () => <GroupAddPage />, {
-	notes: "",
-})
+storiesOf ('pages/GroupAddPage', module).add ('Default', () => <GroupAddPage />, {
+  notes: '',
+});

@@ -1,20 +1,16 @@
-import React, { PureComponent } from "react"
-import { connect } from "react-redux"
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-import LoginPage from "./LoginPage"
+import LoginPage from './LoginPage';
 
 class LoginPageContainer extends PureComponent {
-	render() {
-		return <LoginPage {...this.props} />
-	}
+  render () {
+    return <LoginPage {...this.props} />;
+  }
 }
 
-const mapStateToProps = state => {
-	return {}
-}
+const mapStateToProps = state => ({});
 
-const mapDispatchToProps = dispatch => {
-	return {}
-}
+const mapDispatchToProps = dispatch => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPageContainer)
+export default connect (mapStateToProps, mapDispatchToProps) (LoginPageContainer);
