@@ -2,7 +2,9 @@ import React, { useEffect, useMemo, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import GridLayout, { Responsive, WidthProvider } from 'react-grid-layout';
+import GridLayout, { Responsive, WidthProvider } from 'lib/react-grid-layout';
+
+
 import CloseIcon from '@material-ui/icons/Close';
 
 import { setImages } from '../../../store/reducers/upload';
@@ -144,7 +146,7 @@ const Previews = (props) => {
   const thumbs = files.map ((file, index) => (
     <Thumb
       key={file.key}
-      //data-grid={file.layout}
+      // data-grid={file.layout}
       style={thumb}
     >
       <ThumbOverlay>
@@ -173,16 +175,20 @@ const Previews = (props) => {
   }, [filesImmutable]);
 
 
-  console.log('render', files.map(x => x.layout))
+  console.log ('render', files.map (x => x.layout));
   return (
     <Wrapper>
-      <button onClick={() => {
-        setFiles(
-          files.map ((x, i) => Object.assign(x, {
-            layout: { ...x.layout, x: files.length - i - 1, y:0 }
-          }))
-        )
-      }}>Shuffle</button>
+      <button
+        onClick={() => {
+          setFiles (
+            files.map ((x, i) => Object.assign (x, {
+              layout: { ...x.layout, x: files.length - i - 1, y: 0 },
+            })),
+          );
+        }}
+        type="button"
+      >Shuffle
+      </button>
       <div {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
@@ -199,8 +205,8 @@ const Previews = (props) => {
             }}
             isResizable={false}
             onLayoutChange={layout => {
-              //const clone = files.slice ();
-              //layout.forEach (l => {
+              // const clone = files.slice ();
+              // layout.forEach (l => {
               //  const fileIndex = clone.findIndex (file => file.key === l.i);
               //  var y = Math.ceil(Math.random() * 4) + 1;
               //  clone[fileIndex] = Object.assign (clone[fileIndex], {
@@ -213,11 +219,11 @@ const Previews = (props) => {
               //      moved: true,
               //    },
               //  });
-              //});
-              //setFiles (clone);
-              console.log ('lc', JSON.stringify(layout));
+              // });
+              // setFiles (clone);
+              console.log ('lc', JSON.stringify (layout));
             }}
-            layouts={{ lg: files.map(x => x.layout) }}
+            layouts={{ lg: files.map (x => x.layout) }}
             onClick={e => e.stopPropagation ()}
             onDrag={x => console.log ('drag', JSON.stringify (x))}
           >

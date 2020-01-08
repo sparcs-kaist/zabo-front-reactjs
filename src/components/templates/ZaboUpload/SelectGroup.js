@@ -100,8 +100,7 @@ const SelectGroup = () => {
             groupsInfo={groupsInfo.toJS ()}
           />
         )
-        : <div>현재 속해 있는 그룹이 없습니다.</div>
-      }
+        : <div>현재 속해 있는 그룹이 없습니다.</div>}
     </div>
   );
 };
