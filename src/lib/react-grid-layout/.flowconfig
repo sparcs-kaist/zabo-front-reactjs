@@ -1,0 +1,11 @@
+[version]
+0.110.1
+
+[ignore]
+
+[include]
+
+[libs]
+interfaces/
+
+[options]
