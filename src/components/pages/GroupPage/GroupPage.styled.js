@@ -6,7 +6,7 @@ const GroupPageWrapper = styled.div`
   animation-duration: 0.3s;
   display: flex;
   flex-direction: column;
-  font-family: NanumSquare;
+  font-family: NanumSquare, sans-serif;
 
   max-width: 500px;
   color: #143441;

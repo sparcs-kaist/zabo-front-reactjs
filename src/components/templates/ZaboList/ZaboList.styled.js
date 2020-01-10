@@ -16,7 +16,6 @@ const ZaboListWrapper = styled.div`
    */
 
   .masonry {
-    margin-top: 20px;
     margin: 20px auto 0 auto;
     width: 100%;
   }
@@ -36,11 +35,11 @@ const ZaboListWrapper = styled.div`
     animation: wave 1400ms linear infinite;
   }
 
-  //@for $i from 2 through 7 {
-  //  .expand:nth-child(#{$i}) {
-  //    animation-delay: $i*200ms;
-  //  }
-  //}
+  /*@for $i from 2 through 7 {
+    .expand:nth-child(#{$i}) {
+      animation-delay: $i*200ms;
+    }
+  }*/
   .expand:nth-child(2) {
     animation-delay: 200ms;
   }

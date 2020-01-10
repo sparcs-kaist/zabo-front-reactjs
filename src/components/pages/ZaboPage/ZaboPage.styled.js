@@ -25,8 +25,8 @@ Zabo.Poster = styled.div`
   box-shadow: 0px -1px 6px #a9a9a9;
 `;
 Zabo.Writings = styled.div`
-  // padding: 15px 10px 20px 10px;
-  // TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인
+ /*padding: 15px 10px 20px 10px;*/
+ /*TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인*/
   color: #143441;
   padding: 0px 20px;
 
@@ -46,7 +46,7 @@ Zabo.Writings = styled.div`
   .description {
     color: #143441;
     font-size: 14px;
-    font-family: "NanumSquareRegular";
+    font-family: "NanumSquareRegular", sans-serif;
 
     margin-top: 15px;
     margin-bottom: 15px;

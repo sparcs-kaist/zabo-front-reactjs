@@ -45,7 +45,7 @@ font-size: 12px;
     }
   
     > .content {
-      margin : 20px
+      margin : 20px;
       overflow: auto;
       color: #9b9b9b;
       text-align: center;

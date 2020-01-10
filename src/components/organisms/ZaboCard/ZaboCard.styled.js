@@ -2,10 +2,10 @@ import styled from 'styled-components';
 
 /* ============ Zabo ============ */
 export const ZaboCard = styled.div`
-  width: 240px; // 530px 이상이면 240으로 고정하기. 최대 4줄
+  width: 240px; /* 530px 이상이면 240으로 고정하기. 최대 4줄 */
 
   @media (min-width: 0px) and (max-width: 530px) {
-    width: calc(50% - 5px); // 240 이 아닌 화면의 절반
+    width: calc(50% - 5px); /* 240 이 아닌 화면의 절반 */
   }
 `;
 
@@ -24,7 +24,7 @@ ZaboCard.Poster = styled.div`
 
 ZaboCard.Writings = styled.div`
   padding: 15px 10px 20px 10px;
-  // TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인
+  /* TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인 */
   color: #143441;
 
   .title {

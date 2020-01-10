@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 
+/* stylelint-disable */
 const Scrolled = css`
   height: 100px;
   .center-box {
@@ -65,6 +66,7 @@ const Scrolled = css`
   }
 `;
 
+// noinspection Stylelint
 const HeaderWrapper = styled.header`
   position: fixed;
   top: 0;
@@ -159,15 +161,16 @@ const HeaderWrapper = styled.header`
 
       li {
         list-style: none;
-
-        a {
-          color: #fff;
-          padding: 10px 15px;
-        }
+      }
+      
+      li a {
+        color: #fff;
+        padding: 10px 15px;
       }
     }
   }
-
+  
+  
   &.scrolled {
     ${Scrolled};
   }

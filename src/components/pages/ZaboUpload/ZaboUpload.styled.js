@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+/* stylelint-disable */
 const ZaboUploadWrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -12,13 +13,13 @@ const ZaboUploadWrapper = styled.div`
     align-items: center;
     max-width: 880px;
   }
-  // label on all inputs
+  /*label on all inputs*/
   .label {
     margin-top: 20px;
     font-size: 12px;
     color: #8f8f8f;
   }
-  // container for all inputs
+  /*container for all inputs*/
   .inputContainer {
     width: 100%;
     margin: 5px 0px;
@@ -71,7 +72,7 @@ const ZaboUploadWrapper = styled.div`
   .inputs {
     width: 100%;
   }
-  // section: .zabo-poster //
+  /*section: .zabo-poster //*/
   .zabo-poster > label > button {
     width: 130px;
     height: 30px;
@@ -90,10 +91,10 @@ const ZaboUploadWrapper = styled.div`
     align-items: center;
   }
   div.reactswipe {
-    width: calc(100% - 50px); // bug fix: rendering small in mobile
+    width: calc(100% - 50px); /*bug fix: rendering small in mobile*/
   }
   div.reactswipe > div > div {
-    width: calc(100% - 50px); // bug fix: rendering small in mobile
+    width: calc(100% - 50px); /*bug fix: rendering small in mobile*/
   }
   .slick-image {
     border: 5px solid #f4f4f4;
@@ -138,7 +139,7 @@ const ZaboUploadWrapper = styled.div`
     transform: translate(-50%, -50%);
   }
   .posterContainerResponsiveHeight {
-    padding: 0; // 위의 컨테이너보다 나중 선언되어 적용
+    padding: 0; /*// 위의 컨테이너보다 나중 선언되어 적용*/
     display: flex;
     justify-content: center;
     align-items: center;
@@ -147,14 +148,14 @@ const ZaboUploadWrapper = styled.div`
     display: none;
   }
 
-  // div: .info //
-  // section: zabo-title, zabo-description, zabo-expiration
+  /*// div: .info //
+  // section: zabo-title, zabo-description, zabo-expiration*/
   .zabo-description > div > textarea,
   .zabo-title > div > textarea,
   .zabo-expiration > div > div > div > input {
     font-family: "NanumSquare";
   }
-  // section: zabo-keywords
+  /*// section: zabo-keywords*/
   .zabo-keywords {
     margin-bottom: 30px;
   }
@@ -177,7 +178,7 @@ const ZaboUploadWrapper = styled.div`
     opacity: 0.8;
     transform: translate3d(1px, 1px, 1px);
   }
-  // tag colors
+  /*// tag colors*/
   .default {
     color: #c5c5c5;
     background-color: #f4f4f4;
@@ -203,8 +204,8 @@ const ZaboUploadWrapper = styled.div`
     color: white;
     background-color: #143441;
     box-shadow: 0px 3px 6px;
-  } // button 에는 margin-bottom 이 필요 없잖아.
-  // 컴포넌트는 그 자체로만. Layout 은 감싸는 div 가 해결.
+  } /*// button 에는 margin-bottom 이 필요 없잖아.
+  // 컴포넌트는 그 자체로만. Layout 은 감싸는 div 가 해결.*/
   .submit > button:hover {
     opacity: 0.9;
   }
@@ -232,7 +233,7 @@ const ZaboUploadWrapper = styled.div`
   /* ======================================== */
   @media (min-width: 0px) and (max-width: 800px) {
     .posterCarousel > div > button {
-      // display: none; => only if touchable in mobile
+      /*// display: none; => only if touchable in mobile*/
     }
   }
   @media (min-width: 800px) {
@@ -259,12 +260,12 @@ const ZaboUploadWrapper = styled.div`
       height: 524px;
     }
 
-    // ==== ReactSwipe ==== //
+    /*// ==== ReactSwipe ==== //*/
     .reactswipe {
       height: 480px !important;
-      // 320:480 = 2:3
+      /*// 320:480 = 2:3
       // covers longer than most common poster size
-      // A2 size 420:600 = 2:2.86
+      // A2 size 420:600 = 2:2.86*/
     }
     .slick-image {
       width: 320px;
@@ -289,7 +290,7 @@ const ZaboUploadWrapper = styled.div`
       margin-right: 6px;
     }
 
-    // === loading bar === //
+    /*// === loading bar === //*/
     .loading-bar {
       width: 640px;
       padding: 0;

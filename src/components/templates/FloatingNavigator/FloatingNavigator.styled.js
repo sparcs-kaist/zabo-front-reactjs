@@ -48,8 +48,9 @@ const FloatingNavigatorWrapper = styled.div`
             }
             font-size: 0;
           `)};
-  @media (min-width: 560px) {
-    display: none;
+    @media (min-width: 560px) {
+      display: none;
+    }
   }
 `;
 

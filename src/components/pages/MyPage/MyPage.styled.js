@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+/* stylelint-disable */
 const MyPageWrapper = styled.div`
   animation-duration: 0.3s;
 
@@ -21,7 +22,7 @@ const MyPageWrapper = styled.div`
    * 4: 1020px    => 1060 ~
    */
   @media (min-width: 0px) and (max-width: 530px) {
-    //.container width auto with padding
+    /*.container width auto with padding*/
   }
   @media (min-width: 530px) and (max-width: 800px) {
     .container {
@@ -60,20 +61,20 @@ Header.Head = styled.div`
   }
   .page-title {
     font-size: 24px;
-    font-family: NanumSquareExtraBold;
+    font-family: NanumSquareExtraBold, sans-serif;
     font-weight: 900;
     color: #143441;
   }
   .page-done {
     font-size: 16px;
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     font-weight: bold;
     color: #8f8f8f;
   }
   .page-explanation {
     margin-top: 5px;
     font-size: 12px;
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     color: #8f8f8f;
   }
 `;
@@ -96,7 +97,7 @@ export const User = styled.div`
   .user-name {
     font-size: 20px;
     margin-top: 8px;
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     font-weight: 700;
     color: #143441;
   }
@@ -121,6 +122,7 @@ export const Groups = styled.div`
   width: 100%;
   margin: 8px 0px 72px 0px;
 
+  // noinspection Stylelint
   div {
     display: flex;
     flex-direction: row;
@@ -137,8 +139,6 @@ export const Groups = styled.div`
     align-items: start;
     width: fit-content;
     cursor: pointer;
-    :hover {
-    }
   }
 
   .group-name {
@@ -149,12 +149,12 @@ export const Groups = styled.div`
 
   .selector {
     margin-left: 2px;
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     width: fit-content;
   }
 
   .group-dropdown {
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     font-size: 16px;
     font-weight: bold;
     color: #8f8f8f;
@@ -172,7 +172,7 @@ export const Groups = styled.div`
   .group-control {
     margin: 3px 0px 0px 10px;
     font-size: 16px;
-    font-family: NanumSquare;
+    font-family: NanumSquare, sans-serif;
     font-weight: bold;
     color: #8f8f8f;
   }
