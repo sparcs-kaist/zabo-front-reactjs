@@ -402,7 +402,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
     this.setState({
       oldDragItem: cloneLayoutItem(l),
-      oldLayout: this.state.layout
+      oldLayout: cloneLayoutItem(this.state.layout),
     });
 
     return this.props.onDragStart(layout, l, l, null, e, node);
