@@ -176,7 +176,14 @@ const Previews = props => {
             onClick={e => {
               e.stopPropagation ();
               const clone = files.map (x => Object.assign (x, { layout: x.updatedLayout }));
-              clone.splice (index, 1);
+              clone.sort ((a, b) => {
+                const { x: ax, y: ay } = a.layout;
+                const { x: bx, y: by } = b.layout;
+                if (ay - by) return ay - by;
+                return ax - bx;
+              });
+              const myIndex = clone.findIndex (l => l.key === file.key);
+              clone.splice (myIndex, 1);
               for (let i = index; i < clone.length; i += 1) {
                 clone[i].layout.x -= 1;
                 if (clone[i].layout.x < 0) {
