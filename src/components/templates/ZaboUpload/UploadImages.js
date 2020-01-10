@@ -103,6 +103,9 @@ const Wrapper = styled.section`
 `;
 
 const Previews = (props) => {
+  const [widthInfo, setWidthInfo] = useState ({
+    width: 0, margin: 0, cols: 0, containerPadding: 0,
+  });
   const dispatch = useDispatch ();
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const files = filesImmutable.toJS ();
@@ -120,7 +123,7 @@ const Previews = (props) => {
       console.log (files, acceptedFiles);
       setFiles (
         [
-          ...files.map(file => Object.assign(file, { layout: file.updatedLayout })),
+          ...files.map (file => Object.assign (file, { layout: file.updatedLayout })),
           ...acceptedFiles.map ((file, index) => Object.assign (file, {
             preview: URL.createObjectURL (file),
             key: `${file.name}-${files.length + index}`,
@@ -157,6 +160,13 @@ const Previews = (props) => {
           e.stopPropagation ();
           const clone = files.map (x => Object.assign (x, { layout: x.updatedLayout }));
           clone.splice (index, 1);
+          for (let i = index; i < clone.length; i += 1) {
+            clone[i].layout.x -= 1;
+            if (clone[i].layout.x < 0) {
+              clone[i].layout.y -= 1;
+              clone[i].layout.x = widthInfo.cols - 1;
+            }
+          }
           setFiles (clone);
         }}
         />
@@ -177,7 +187,6 @@ const Previews = (props) => {
     setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
   }, [filesImmutable]);
 
-
   return (
     <Wrapper>
       <div {...getRootProps ({ style })}>
@@ -189,10 +198,10 @@ const Previews = (props) => {
             compactType="horizontal"
             verticalCompact
             breakpoints={{
-              lg: 1200, md: 1000, sm: 800, xs: 400, xxs: 200,
+              lg: 1200, md: 1000, sm: 800, xs: 600, xxs: 400,
             }}
             cols={{
-              lg: 6, md: 5, sm: 4, xs: 2, xxs: 1,
+              lg: 6, md: 5, sm: 4, xs: 3, xxs: 2,
             }}
             isResizable={false}
             onLayoutChange={layout => {
@@ -201,6 +210,11 @@ const Previews = (props) => {
             }}
             layouts={{ lg: files.map (x => x.layout) }}
             onClick={e => e.stopPropagation ()}
+            onWidthChange={(width, margin, newCols, containerPadding) => {
+              setWidthInfo ({
+                width, margin, cols: newCols, containerPadding,
+              });
+            }}
           >
             {thumbs}
           </ResponsiveGridLayout>
