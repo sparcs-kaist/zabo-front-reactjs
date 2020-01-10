@@ -221,11 +221,11 @@ const Previews = props => {
             compactType="horizontal"
             verticalCompact
             breakpoints={{
-              lg: 1200,
-              md: 1000,
-              sm: 800,
-              xs: 600,
-              xxs: 400,
+              lg: 1300,
+              md: 1100,
+              sm: 900,
+              xs: 680,
+              xxs: 450,
             }}
             cols={{
               lg: 6,
