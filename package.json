@@ -23,7 +23,7 @@
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
       "eslint --fix",
-      "$npm_execpath run lint:css",
+      "yarn lint:css",
       "git add"
     ]
   },
