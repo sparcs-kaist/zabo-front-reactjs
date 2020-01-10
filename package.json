@@ -12,8 +12,12 @@
     "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
     "build-storybook": "$npm_execpath run env:path build-storybook -s public",
     "postbuild": "./tools/moveBuildFolder.sh",
-    "generate": "python tools/generate-component.py",
-    "precommit": "lint-staged"
+    "generate": "python tools/generate-component.py"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "$npm_execpath lint-staged"
+    }
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
@@ -110,6 +114,8 @@
     "@storybook/addon-viewport": "^5.0.10",
     "@storybook/addons": "^5.0.10",
     "@storybook/react": "^5.0.10",
+    "husky": "^4.0.6",
+    "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
     "require-context.macro": "^1.0.4"
   },
