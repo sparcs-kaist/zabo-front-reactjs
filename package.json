@@ -12,7 +12,8 @@
     "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
     "build-storybook": "$npm_execpath run env:path build-storybook -s public",
     "postbuild": "./tools/moveBuildFolder.sh",
-    "generate": "python tools/generate-component.py"
+    "generate": "python tools/generate-component.py",
+    "lint:css": "stylelint './src/**/*.js'"
   },
   "husky": {
     "hooks": {
@@ -21,7 +22,8 @@
   },
   "lint-staged": {
     "src/**/*.{js,jsx,json,css}": [
-      "prettier --config .prettierrc --write",
+      "eslint --fix",
+      "$npm_execpath run lint:css",
       "git add"
     ]
   },
@@ -114,10 +116,15 @@
     "@storybook/addon-viewport": "^5.0.10",
     "@storybook/addons": "^5.0.10",
     "@storybook/react": "^5.0.10",
+    "eslint-plugin-styled-components": "^0.0.0",
     "husky": "^4.0.6",
     "lint-staged": "^9.5.0",
     "prettier": "^1.19.1",
-    "require-context.macro": "^1.0.4"
+    "require-context.macro": "^1.0.4",
+    "stylelint": "^12.0.1",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-processor-styled-components": "^1.9.0"
   },
   "license": "MIT"
 }
