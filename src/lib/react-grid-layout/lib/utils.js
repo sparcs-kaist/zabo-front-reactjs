@@ -256,7 +256,6 @@ export function compactItem(
     l.y = Math.min(bottom(compareWith), l.y);
     // Move the element left as far as it can go without colliding.
     while (l.x > 0 && !getFirstCollision(compareWith, l)) {
-      //console.log('reduce x ', l.i);
       l.x--;
     }
   }
@@ -271,10 +270,6 @@ export function compactItem(
     }
     // Since we can't grow without bounds horizontally, if we've overflown, let's move it down and try again.
     if (compactH && l.x + l.w > cols) {
-      console.log("내려", l.i);
-      //l.x = 0;
-      //l.y++;
-      console.log(JSON.stringify(fullLayout, null, 4));
       fullLayout = moveElement(
         fullLayout,
         l,
@@ -285,10 +280,6 @@ export function compactItem(
         compactType,
         cols
       );
-      console.log(JSON.stringify(fullLayout, null, 4));
-      //compactItem(compareWith, l, compactType, cols, fullLayout);
-      //l.x = cols - l.w;
-      //l.y++;
     }
   }
   return l;
