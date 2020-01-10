@@ -29,7 +29,8 @@
     "func-call-spacing": ["warn", "always"],
     "no-underscore-dangle": "off",
     "no-mixed-spaces-and-tabs": "error",
-    "no-shadow": "warn"
+    "no-shadow": "warn",
+    "max-len": ["warn", 150]
   },
   "env": {
     "browser": true
