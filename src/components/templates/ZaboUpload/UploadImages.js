@@ -120,12 +120,15 @@ const Previews = (props) => {
       console.log (files, acceptedFiles);
       setFiles (
         [
-          ...files,
+          ...files.map(file => Object.assign(file, { layout: file.updatedLayout })),
           ...acceptedFiles.map ((file, index) => Object.assign (file, {
             preview: URL.createObjectURL (file),
             key: `${file.name}-${files.length + index}`,
             layout: {
-              x: index, y: 0, w: 1, h: 1, i: `${file.name}-${files.length + index}`,
+              x: files.length + index, y: 0, w: 1, h: 1, i: `${file.name}-${files.length + index}`,
+            },
+            updatedLayout: {
+              x: files.length + index, y: 0, w: 1, h: 1, i: `${file.name}-${files.length + index}`,
             },
           })),
         ],
@@ -152,7 +155,7 @@ const Previews = (props) => {
       <ThumbOverlay>
         <CloseIcon onClick={e => {
           e.stopPropagation ();
-          const clone = files.slice ();
+          const clone = files.map (x => Object.assign (x, { layout: x.updatedLayout }));
           clone.splice (index, 1);
           setFiles (clone);
         }}
@@ -175,20 +178,8 @@ const Previews = (props) => {
   }, [filesImmutable]);
 
 
-  console.log ('render', files.map (x => x.layout));
   return (
     <Wrapper>
-      <button
-        onClick={() => {
-          setFiles (
-            files.map ((x, i) => Object.assign (x, {
-              layout: { ...x.layout, x: files.length - i - 1, y: 0 },
-            })),
-          );
-        }}
-        type="button"
-      >Shuffle
-      </button>
       <div {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
@@ -205,27 +196,11 @@ const Previews = (props) => {
             }}
             isResizable={false}
             onLayoutChange={layout => {
-              // const clone = files.slice ();
-              // layout.forEach (l => {
-              //  const fileIndex = clone.findIndex (file => file.key === l.i);
-              //  var y = Math.ceil(Math.random() * 4) + 1;
-              //  clone[fileIndex] = Object.assign (clone[fileIndex], {
-              //    //layout: l,
-              //    layout: {
-              //      x: Math.floor(Math.random() * 6),
-              //      y: Math.floor(3 / 6) * y,
-              //      w: 1,
-              //      h: 1,
-              //      moved: true,
-              //    },
-              //  });
-              // });
-              // setFiles (clone);
-              console.log ('lc', JSON.stringify (layout));
+              const clone = files.map ((file, index) => Object.assign (file, { updatedLayout: layout[index] }));
+              setFiles (clone);
             }}
             layouts={{ lg: files.map (x => x.layout) }}
             onClick={e => e.stopPropagation ()}
-            onDrag={x => console.log ('drag', JSON.stringify (x))}
           >
             {thumbs}
           </ResponsiveGridLayout>
