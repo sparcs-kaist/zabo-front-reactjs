@@ -103,7 +103,9 @@ const Wrapper = styled.section`
 `;
 
 const Previews = props => {
-  const imageRef = useRef (null);
+  const [imageRef, setImageRef] = useState (null);
+  const [titleImage, setTitleImage] = useState ('');
+
   const [widthInfo, setWidthInfo] = useState ({
     width: 0,
     margin: 0,
@@ -156,11 +158,17 @@ const Previews = props => {
   );
 
   const thumbs = files.map ((file, index) => {
-    const imageProps = index === 0 ? { ref: imageRef } : {};
+    const isTitle = (file.updatedLayout.x === 0 && file.updatedLayout.y === 0);
+    if (isTitle && file.key !== titleImage) {
+      setTimeout (() => setTitleImage (file.key), 0);
+    }
+    const imageProps = isTitle ? {
+      ref: ref => { setImageRef (ref); },
+    } : {};
+
     return (
       <Thumb
         key={file.key}
-// data-grid={file.layout}
         style={thumb}
       >
         <ThumbOverlay>
@@ -202,7 +210,7 @@ const Previews = props => {
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
             className="responsive-grid-layout"
-            rowHeight={imageRef.current ? imageRef.current.height : 200}
+            rowHeight={imageRef ? imageRef.height : 200}
             compactType="horizontal"
             verticalCompact
             breakpoints={{
