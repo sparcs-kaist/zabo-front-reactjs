@@ -122,7 +122,6 @@ const Previews = props => {
   } = useDropzone ({
     accept: 'image/*',
     onDrop: acceptedFiles => {
-      console.log (files, acceptedFiles);
       setFiles ([
         ...files.map (file => Object.assign (file, { layout: file.updatedLayout })),
         ...acceptedFiles.map ((file, index) => Object.assign (file, {
@@ -238,6 +237,8 @@ const Previews = props => {
             onLayoutChange={layout => {
               const clone = files.map ((file, index) => Object.assign (file, { updatedLayout: layout[index] }));
               setFiles (clone);
+              const title = layout.find (l => (l.x === 0 && l.y === 0));
+              if (title) setTimeout (() => setTitleImage (title.i), 0);
             }}
             layouts={{ lg: files.map (x => x.layout) }}
             onClick={e => e.stopPropagation ()}
