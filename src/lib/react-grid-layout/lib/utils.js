@@ -162,7 +162,13 @@ export function compact(
   const out = Array(layout.length);
 
   for (let i = 0, len = sorted.length; i < len; i++) {
-    let l = cloneLayoutItem(sorted[i]);
+    // Clear moved flag, if it exists.
+    let l = sorted[i];
+    l.moved = false;
+  }
+
+  for (let i = 0, len = sorted.length; i < len; i++) {
+    let l = sorted[i];
 
     // Don't move static elements
     if (!l.static) {
@@ -245,10 +251,12 @@ export function compactItem(
     while (l.y > 0 && !getFirstCollision(compareWith, l)) {
       l.y--;
     }
-  } else if (compactH) {
+  }
+  if (compactH) {
     l.y = Math.min(bottom(compareWith), l.y);
     // Move the element left as far as it can go without colliding.
     while (l.x > 0 && !getFirstCollision(compareWith, l)) {
+      //console.log('reduce x ', l.i);
       l.x--;
     }
   }
@@ -263,8 +271,24 @@ export function compactItem(
     }
     // Since we can't grow without bounds horizontally, if we've overflown, let's move it down and try again.
     if (compactH && l.x + l.w > cols) {
-      l.x = cols - l.w;
-      l.y++;
+      console.log("내려", l.i);
+      //l.x = 0;
+      //l.y++;
+      console.log(JSON.stringify(fullLayout, null, 4));
+      fullLayout = moveElement(
+        fullLayout,
+        l,
+        0,
+        l.y + 1,
+        false,
+        false,
+        compactType,
+        cols
+      );
+      console.log(JSON.stringify(fullLayout, null, 4));
+      //compactItem(compareWith, l, compactType, cols, fullLayout);
+      //l.x = cols - l.w;
+      //l.y++;
     }
   }
   return l;
@@ -283,8 +307,14 @@ export function correctBounds(
   const collidesWith = getStatics(layout);
   for (let i = 0, len = layout.length; i < len; i++) {
     const l = layout[i];
+    while (getFirstCollision(collidesWith, l)) {
+      l.x++;
+    }
     // Overflows right
-    if (l.x + l.w > bounds.cols) l.x = bounds.cols - l.w;
+    while (l.x + l.w > bounds.cols) {
+      l.x -= bounds.cols;
+      l.y++;
+    }
     // Overflows left
     if (l.x < 0) {
       l.x = 0;
@@ -395,7 +425,23 @@ export function moveElement(
       : compactType === "horizontal" && typeof x === "number"
       ? oldX >= x
       : false;
-  if (movingUp) sorted = sorted.reverse();
+  //if (movingUp) sorted = sorted.reverse();
+  if (isUserAction && y > oldY) {
+    let nextLineL = sorted.find(iterL => iterL.y === y && iterL.i !== l.i);
+    if (nextLineL) {
+      moveElement(
+        layout,
+        nextLineL,
+        cols + 2 /* 꼼수 */,
+        y - 1,
+        false,
+        preventCollision,
+        compactType,
+        cols
+      );
+    }
+  }
+
   const collisions = getAllCollisions(sorted, l);
 
   // There was a collision; abort
@@ -572,7 +618,7 @@ export function sortLayoutItemsByRowCol(layout: Layout): Layout {
 
 export function sortLayoutItemsByColRow(layout: Layout): Layout {
   return [].concat(layout).sort(function(a, b) {
-    if (a.x > b.x || (a.x === b.x && a.y > b.y)) {
+    if (a.y > b.y || (a.y === b.y && a.x > b.x)) {
       return 1;
     }
     return -1;
