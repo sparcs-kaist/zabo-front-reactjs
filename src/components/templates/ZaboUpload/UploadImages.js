@@ -83,12 +83,12 @@ const thumb = {
   boxSizing: 'border-box',
 };
 
-const thumbInner = {
-  minWidth: 0,
-  height: 'auto',
-  overflow: 'hidden',
-  border: '1px solid #101010',
-};
+const ThumbInner = styled.div`
+  min-width: 0;
+  height: auto;
+  overflow: visible hidden;
+  border: 1px solid #101010;
+`;
 
 const img = {
   display: 'block',
@@ -195,9 +195,9 @@ const Previews = props => {
             }}
           />
         </ThumbOverlay>
-        <div style={thumbInner} {...imageProps}>
-          <img src={file.preview} style={img} alt="thumbnail" />
-        </div>
+        <ThumbInner>
+          <img {...imageProps} src={file.preview} style={img} alt="thumbnail" />
+        </ThumbInner>
       </Thumb>
     );
   });
