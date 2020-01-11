@@ -10,7 +10,7 @@ const RESET = 'upload/RESET';
 
 // action creators
 export const setGroupSelected = createAction (SET_GROUP_SELECTED);
-export const setImagesSeletec = createAction (SET_IMAGES_SELECTED);
+export const setImagesSeleted = createAction (SET_IMAGES_SELECTED);
 export const setImages = createAction (SET_IMAGES);
 export const setInfo = createAction (SET_INFO);
 export const reset = createAction (RESET);
@@ -20,12 +20,12 @@ const initialState = Map ({
   groupSelected: false,
   imagesSelected: false,
   images: List ([]),
-  info: {
+  info: Map ({
     title: '',
     desc: '',
     expDate: '',
-    keyword: List (['']),
-  },
+    keywords: List (['']),
+  }),
 });
 
 // reducer
