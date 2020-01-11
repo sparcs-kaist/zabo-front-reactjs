@@ -1,16 +1,17 @@
 import React, {
-  useEffect, useMemo, useRef, useState,
+  useEffect, useMemo, useState,
 } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import GridLayout, { Responsive, WidthProvider } from 'lib/react-grid-layout';
+import { Responsive, WidthProvider } from 'lib/react-grid-layout';
 
 import CloseIcon from '@material-ui/icons/Close';
 
 import { setImages } from '../../../store/reducers/upload';
 
 import './grid-layout.scss';
+import { gridLayoutCompareFunction } from '../../../lib/utils';
 
 const ResponsiveGridLayout = WidthProvider (Responsive);
 
@@ -102,7 +103,7 @@ const Wrapper = styled.section`
   }
 `;
 
-const Previews = props => {
+const UploadImages = props => {
   const [imageRef, setImageRef] = useState (null);
   const [titleImage, setTitleImage] = useState ('');
 
@@ -146,6 +147,14 @@ const Previews = props => {
     },
   });
 
+  useEffect (
+    () => () => {
+      // Make sure to revoke the data uris to avoid memory leaks
+      setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
+    },
+    [],
+  );
+
   const style = useMemo (
     () => ({
       ...baseStyle,
@@ -156,7 +165,7 @@ const Previews = props => {
     [isDragActive, isDragReject],
   );
 
-  const thumbs = files.map ((file, index) => {
+  const thumbs = files.map (file => {
     const isTitle = (file.updatedLayout.x === 0 && file.updatedLayout.y === 0);
     if (isTitle && file.key !== titleImage) {
       setTimeout (() => setTitleImage (file.key), 0);
@@ -174,20 +183,19 @@ const Previews = props => {
           <CloseIcon
             onClick={e => {
               e.stopPropagation ();
-              const clone = files.map (x => Object.assign (x, { layout: x.updatedLayout }));
-              clone.sort ((a, b) => {
-                const { x: ax, y: ay } = a.layout;
-                const { x: bx, y: by } = b.layout;
-                if (ay - by) return ay - by;
-                return ax - bx;
-              });
-              const myIndex = clone.findIndex (l => l.key === file.key);
-              clone.splice (myIndex, 1);
-              for (let i = index; i < clone.length; i += 1) {
+              const clone = files.map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
+              clone.sort (gridLayoutCompareFunction);
+              const deleteIndex = clone.findIndex (l => l.key === file.key);
+              URL.revokeObjectURL (clone[deleteIndex].preview);
+              clone.splice (deleteIndex, 1);
+              for (let i = deleteIndex; i < clone.length; i += 1) {
                 clone[i].layout.x -= 1;
+                clone[i].updatedLayout.x -= 1;
                 if (clone[i].layout.x < 0) {
                   clone[i].layout.y -= 1;
                   clone[i].layout.x = widthInfo.cols - 1;
+                  clone[i].updatedLayout.y -= 1;
+                  clone[i].updatedLayout.x = widthInfo.cols - 1;
                 }
               }
               setFiles (clone);
@@ -200,14 +208,6 @@ const Previews = props => {
       </Thumb>
     );
   });
-
-  useEffect (
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
-    },
-    [filesImmutable],
-  );
 
   return (
     <Wrapper>
@@ -260,6 +260,4 @@ const Previews = props => {
   );
 };
 
-const UploadImage = () => <div />;
-
-export default Previews;
+export default UploadImages;
