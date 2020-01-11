@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useMemo, useState,
+  useEffect, useMemo, useState, useCallback,
 } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +8,7 @@ import { Responsive, WidthProvider } from 'lib/react-grid-layout';
 
 import CloseIcon from '@material-ui/icons/Close';
 
-import { setImages } from '../../../store/reducers/upload';
+import { setImages, setImagesSeleted } from '../../../store/reducers/upload';
 
 import './grid-layout.scss';
 import { gridLayoutCompareFunction } from '../../../lib/utils';
@@ -29,6 +29,7 @@ const baseStyle = {
   color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out',
+  minHeight: '70vh',
 };
 
 const activeStyle = {
@@ -97,6 +98,8 @@ const img = {
   height: 'auto',
 };
 
+const ConfirmBox = styled.section``;
+
 const Wrapper = styled.section`
   .responsive-grid-layout {
     width: 100%;
@@ -117,6 +120,13 @@ const UploadImages = props => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const files = filesImmutable.toJS ();
   const setFiles = imageFiles => dispatch (setImages (imageFiles));
+  const confirm = useCallback (() => {
+    if (files.length > 0) {
+      dispatch (setImagesSeleted (true));
+    } else {
+      alert ('사진을 먼저 선택해주세요');
+    }
+  }, [filesImmutable]);
 
   const {
     getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
@@ -169,6 +179,8 @@ const UploadImages = props => {
     [isDragActive, isDragReject],
   );
 
+  const gridLayoutStyle = files.length ? {} : { height: 0 };
+
   const thumbs = files.map (file => {
     const isTitle = (file.updatedLayout.x === 0 && file.updatedLayout.y === 0);
     if (isTitle && file.key !== titleImage) {
@@ -219,6 +231,7 @@ const UploadImages = props => {
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
+            style={gridLayoutStyle}
             className="responsive-grid-layout"
             rowHeight={imageRef ? imageRef.height : 200}
             compactType="horizontal"
@@ -258,8 +271,16 @@ const UploadImages = props => {
             {thumbs}
           </ResponsiveGridLayout>
         </aside>
-        <p>Drag drop some files/folder here, or click to select</p>
+        <p style={{ justifySelf: 'flex-end' }}>Drag drop some files/folder here, or click to select</p>
       </div>
+      {
+        !!files.length
+        && (
+        <ConfirmBox>
+          <button onClick={confirm}>사진 선택 완료</button>
+        </ConfirmBox>
+        )
+      }
     </Wrapper>
   );
 };

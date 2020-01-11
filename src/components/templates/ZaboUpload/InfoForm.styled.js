@@ -1,11 +1,6 @@
 import styled from 'styled-components';
 
 const InfoFormWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  height: 90vh;
-
   /*label on all inputs*/
   .label {
     margin-top: 20px;
@@ -141,6 +136,13 @@ const InfoFormWrapper = styled.div`
       padding: 0;
     }
   }
+`;
+
+InfoFormWrapper.TwoCol = styled.section`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  min-height: 70vh;
 `;
 
 InfoFormWrapper.TitleImage = styled.section`
