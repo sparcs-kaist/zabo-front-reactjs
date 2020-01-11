@@ -65,13 +65,13 @@ UploadProcess.defaultProps = {
 };
 
 const Optimizer = (props) => {
-  const { currentStep } = props;
-  if (currentStep !== 3) return null;
+  const { step } = props;
+  if (step !== 3) return null;
   return <UploadProcess />;
 };
 
 Optimizer.propTypes = {
-  currentStep: PropTypes.number.isRequired,
+  step: PropTypes.number.isRequired,
 };
 
 Optimizer.defaultProps = {

@@ -4,7 +4,6 @@ import { Route, Switch } from 'react-router-dom';
 
 import PWAPrompt from 'templates/PWAPrompt';
 import Header from 'templates/Header';
-import FloatingNavigator from 'templates/FloatingNavigator';
 import {
   AuthPage,
   GroupAddPage,
@@ -62,7 +61,6 @@ class App extends React.Component {
           <PrivateRoute path="/my-page/group" component={GroupPage} />
           <PrivateRoute path="/my-page" component={MyPage} />
         </Switch>
-        <FloatingNavigator />
       </AppWrapper>
     );
   }

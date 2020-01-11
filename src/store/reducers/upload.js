@@ -17,6 +17,9 @@ export const setImages = createAction (SET_IMAGES);
 export const setInfo = createAction (SET_INFO);
 export const reset = createAction (RESET);
 
+const date = new Date ();
+date.setDate (date.getDate () + 7);
+
 // initial state
 const initialState = Map ({
   groupSelected: false,
@@ -26,7 +29,7 @@ const initialState = Map ({
   info: Map ({
     title: '',
     desc: '',
-    expDate: '',
+    expDate: date,
     keywords: List (['']),
   }),
 });

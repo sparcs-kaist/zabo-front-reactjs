@@ -5,14 +5,12 @@ import InputBase from '@material-ui/core/InputBase';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
-import { setInfo, setInfoWritten } from '../../../store/reducers/upload';
+import { setInfo } from '../../../store/reducers/upload';
 
 import { TAGS } from '../../../lib/variables';
 
 import { InfoFormWrapper } from './InfoForm.styled';
 import { gridLayoutCompareFunction } from '../../../lib/utils';
-
-const ConfirmBox = styled.section``;
 
 const InfoForm = () => {
   const dispatch = useDispatch ();
@@ -43,12 +41,6 @@ const InfoForm = () => {
       : tag));
     setTags (clone);
   }, [tags]);
-
-  const confirm = useCallback (() => {
-    dispatch (setInfoWritten (true));
-  }, []);
-
-  const isValid = (title && desc && expDate);
 
   return (
     <InfoFormWrapper>
@@ -96,7 +88,11 @@ const InfoForm = () => {
                   InputProps={{
                     disableUnderline: true,
                   }}
+                  animateYearScrolling
+                  allowKeyboardControl={false}
+                  format="yyyy-MM-dd"
                   fullWidth
+                  invalidDateMessage={<p>잘못된 형식입니다.</p>}
                 />
               </MuiPickersUtilsProvider>
             </div>
@@ -117,9 +113,6 @@ const InfoForm = () => {
           </section>
         </InfoFormWrapper.Info>
       </InfoFormWrapper.TwoCol>
-      <ConfirmBox>
-        {isValid && <button onClick={confirm}>자보 업로드하기</button>}
-      </ConfirmBox>
     </InfoFormWrapper>
   );
 };
