@@ -123,6 +123,10 @@ const UploadImages = props => {
   } = useDropzone ({
     accept: 'image/*',
     onDrop: acceptedFiles => {
+      if (files.length + acceptedFiles.length > 20) {
+        alert ('이미지는 최대 20개까지 업로드 할 수 있습니다.');
+        acceptedFiles.splice (20 - files.length);
+      }
       setFiles ([
         ...files.map (file => Object.assign (file, { layout: file.updatedLayout })),
         ...acceptedFiles.map ((file, index) => Object.assign (file, {

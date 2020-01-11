@@ -38,11 +38,9 @@ const SlideView = ({ currentStep }) => {
       <button onClick={prev}>Prev</button>
       <button onClick={next}>Next</button>
       <Slider {...settings} ref={slick}>
-        <ZaboUpload.SelectGroup />
+        <ZaboUpload.InfoForm />
         <ZaboUpload.UploadImage />
-        <div>
-          <h3>6</h3>
-        </div>
+        <ZaboUpload.SelectGroup />
       </Slider>
     </>
   );
