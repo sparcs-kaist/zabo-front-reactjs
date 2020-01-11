@@ -33,8 +33,6 @@ const SlideView = ({ currentStep }) => {
     slick.current.slickGoTo (currentStep);
   }, [currentStep]);
 
-  console.log ({ currentStep });
-
   return (
     <>
       <button onClick={prev}>Prev</button>
