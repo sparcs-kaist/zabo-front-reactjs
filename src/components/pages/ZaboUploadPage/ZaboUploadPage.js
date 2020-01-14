@@ -4,7 +4,7 @@ import React, {
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  useRouteMatch,
+  useRouteMatch, Prompt,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from 'react-slick';
@@ -13,7 +13,7 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import ZaboUpload from '../../templates/ZaboUpload';
 import {
-  setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten,
+  setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten, reset,
 } from '../../../store/reducers/upload';
 
 const OptimizedSlider = forwardRef ((props, ref) => {
@@ -186,8 +186,22 @@ const ZaboUploadPage = () => {
   const prev = useCallback (() => setStep (step - 1), [step]);
   const slideActions = { next, prev };
 
+  useEffect (() => {
+    // window.onbeforeunload = () => true;
+    // window.onbeforeunload = undefined
+  }, []);
+
+  useEffect (() => () => {
+    console.log ('reset');
+    dispatch (reset ());
+  }, []);
+
   return (
     <PageWrapper>
+      <Prompt
+        when
+        message="You have unsaved changes, are you sure you want to leave?"
+      />
       <div>1. 그룹 선택하기 2. 자보 올리기 3. 정보 입력하기 4. 업로드 완료</div>
       <SlideView step={step} />
       <Footer {...slideActions} step={step} />
