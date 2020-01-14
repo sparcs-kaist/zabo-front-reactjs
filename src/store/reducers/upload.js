@@ -12,6 +12,7 @@ const SET_INFO_WRITTEN = 'upload/SET_INFO_WRITTEN';
 const SET_IMAGES = 'upload/SET_IMAGES';
 const SET_INFO = 'upload/SET_INFO';
 const RESET = 'upload/RESET';
+const SET_MODAL = 'upload/SET_MODAL';
 
 // action creators
 export const initialize = createAction (INITIALIZE);
@@ -22,6 +23,7 @@ export const setInfoWritten = createAction (SET_INFO_WRITTEN);
 export const setImages = createAction (SET_IMAGES);
 export const setInfo = createAction (SET_INFO);
 export const reset = createAction (RESET);
+export const setModal = createAction (SET_MODAL);
 
 const date = new Date ();
 date.setDate (date.getDate () + 7);
@@ -39,6 +41,7 @@ const initialState = Map ({
     expDate: date,
     tags: List (TAGS.map (tag => ({ name: tag, clicked: false }))),
   }),
+  showModal: false,
 });
 
 // reducer
@@ -62,6 +65,7 @@ export default handleActions (
       const info = action.payload;
       return state.set ('info', fromJS (info));
     },
+    [SET_MODAL]: (state, action) => state.set ('showModal', action.payload),
     [RESET]: () => initialState,
   },
   initialState,
