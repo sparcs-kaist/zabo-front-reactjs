@@ -106,7 +106,8 @@
     "static": "^2.0.0",
     "styled-components": "^4.3.2",
     "styled-theming": "^2.2.0",
-    "swipe-js-iso": "^2.1.5"
+    "swipe-js-iso": "^2.1.5",
+    "zabo-utils": "^0.0.5"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

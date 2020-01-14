@@ -15690,3 +15690,8 @@ yargs@^7.0.0:
     which-module "^1.0.0"
     y18n "^3.2.1"
     yargs-parser "^5.0.0"
+
+zabo-utils@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/zabo-utils/-/zabo-utils-0.0.5.tgz#e6e3179606c28746bc2b3deaf368701f81b20224"
+  integrity sha512-OLL0tZktemnxd/cOAR06xnJ/nQl6dowNOJgrRVEgZODHA0M5Rw1D/Hf1FVlS5LibhUMor89gh+uDSnSzgGOQWA==
