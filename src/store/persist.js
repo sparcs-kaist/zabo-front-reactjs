@@ -8,7 +8,8 @@ const persistUpload = store => next => action => {
   if (action.type.substring (0, 6) === 'upload') {
     const upload = store.getState ()
       .get ('upload')
-      .set ('imagesSelected', false)
+      .delete ('imagesSelected')
+      .delete ('infoWritten', false)
       .set ('images', List ([]));
     storage.setItem ('uploadPersist', serializer.stringify (upload));
   }
