@@ -63,3 +63,8 @@ button, button:focus, button:active {
   display: flex;
   flex-direction: column;
 }
+
+#modal-root {
+  position: relative;
+  z-index: 9999;
+}
