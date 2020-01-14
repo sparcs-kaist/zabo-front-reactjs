@@ -1,8 +1,9 @@
 import store from 'store';
-import * as authActions from 'store/reducers/auth';
-import { bindActionCreators } from 'redux';
+import { checkAuth } from 'store/reducers/auth';
 import storage from 'lib/storage';
 import axios from 'lib/axios';
+import serializer from './lib/immutable';
+import { initialize } from './store/reducers/upload';
 
 const pwaInstallPromptListener = () => {
   window.addEventListener ('beforeinstallprompt', e => {
@@ -44,12 +45,15 @@ export default () => {
 
   pwaInstallPromptListener ();
 
-  const AuthActions = bindActionCreators (authActions, store.dispatch);
+  const uploadPersist = storage.getItem ('uploadPersist', false);
+  if (uploadPersist) {
+    store.dispatch (initialize (serializer.parse (uploadPersist)));
+  }
 
   const token = storage.getItem ('token');
   axios.updateToken (token);
 
   if (token) {
-    AuthActions.checkAuth (token);
+    store.dispatch (checkAuth (token));
   }
 };

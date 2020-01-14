@@ -1,7 +1,11 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Map, List } from 'immutable';
 
+import { TAGS } from '../../lib/variables';
+
 // action types
+const INITIALIZE = 'upload/INITIALIZE';
+const SET_STEP = 'upload/SET_STEP';
 const SET_GROUP_SELECTED = 'upload/SET_GROUP_SELECTED';
 const SET_IMAGES_SELECTED = 'upload/SET_IMAGES_SELECTED';
 const SET_INFO_WRITTEN = 'upload/SET_INFO_WRITTEN';
@@ -10,6 +14,8 @@ const SET_INFO = 'upload/SET_INFO';
 const RESET = 'upload/RESET';
 
 // action creators
+export const initialize = createAction (INITIALIZE);
+export const setStep = createAction (SET_STEP);
 export const setGroupSelected = createAction (SET_GROUP_SELECTED);
 export const setImagesSeleted = createAction (SET_IMAGES_SELECTED);
 export const setInfoWritten = createAction (SET_INFO_WRITTEN);
@@ -22,6 +28,7 @@ date.setDate (date.getDate () + 7);
 
 // initial state
 const initialState = Map ({
+  step: 0,
   groupSelected: false,
   imagesSelected: false,
   infoWritten: false,
@@ -30,13 +37,17 @@ const initialState = Map ({
     title: '',
     desc: '',
     expDate: date,
-    keywords: List (['']),
+    tags: List (TAGS.map (tag => ({ name: tag, clicked: false }))),
   }),
 });
 
 // reducer
 export default handleActions (
   {
+    [INITIALIZE]: (state, action) => state.merge (
+      action.payload,
+    ),
+    [SET_STEP]: (state, action) => state.set ('step', action.payload),
     [SET_GROUP_SELECTED]: (state, action) => {
       const groupSelected = action.payload;
       return state.set ('groupSelected', groupSelected);

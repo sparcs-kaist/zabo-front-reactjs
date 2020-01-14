@@ -5,14 +5,14 @@ export default (function () {
       setItem: (key, object) => {
         st[key] = typeof object === 'string' ? object : JSON.stringify (object);
       },
-      getItem: key => {
+      getItem: (key, parse = true) => {
         if (!st[key]) {
           return null;
         }
         const value = st[key];
 
         try {
-          const parsed = JSON.parse (value);
+          const parsed = parse ? JSON.parse (value) : value;
           return parsed;
         } catch (e) {
           return value;

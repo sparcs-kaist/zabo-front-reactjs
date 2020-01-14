@@ -19,6 +19,8 @@
     "react/button-has-type": "warn",
     "react/no-array-index-key": "warn",
     "react/sort-comp": "off",
+    "react/prop-types": "warn",
+    "react/require-default-props": "warn",
     "import/prefer-default-export": "warn",
     "arrow-parens": 0,
     "no-nested-ternary": "off",
