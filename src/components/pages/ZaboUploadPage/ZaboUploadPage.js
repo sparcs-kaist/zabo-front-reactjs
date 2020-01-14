@@ -1,10 +1,10 @@
 import React, {
-  useState, useCallback, useEffect, useRef,
+  useCallback, useEffect, useRef, forwardRef,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Switch, Route, useRouteMatch, useParams,
+  useRouteMatch,
 } from 'react-router-dom';
 import styled from 'styled-components';
 import Slider from 'react-slick';
@@ -12,11 +12,34 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import ZaboUpload from '../../templates/ZaboUpload';
-import { setGroupSelected, setImagesSeleted, setInfoWritten } from '../../../store/reducers/upload';
+import {
+  setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten,
+} from '../../../store/reducers/upload';
 
-const SlideComponent = styled.div``;
+const OptimizedSlider = forwardRef ((props, ref) => {
+  const { children, ...others } = props;
+  if (Array.isArray (children)) {
+    return (
+      <Slider {...others} ref={ref}>
+        {children[props.step]}
+      </Slider>
+    );
+  }
+  return (
+    <Slider {...others} ref={ref}>
+      {children}
+    </Slider>
+  );
+});
 
-const SlideViewWrapper = styled.div``;
+OptimizedSlider.propTypes = {
+  // eslint-disable-next-line react/require-default-props
+  children: PropTypes.arrayOf (PropTypes.element),
+  step: PropTypes.number.isRequired,
+};
+
+OptimizedSlider.defaultProps = {
+};
 
 const SlideView = ({ step }) => {
   const slick = useRef (null);
@@ -35,15 +58,12 @@ const SlideView = ({ step }) => {
   }, [step]);
 
   return (
-    <>
-
-      <Slider {...settings} ref={slick}>
-        <ZaboUpload.SelectGroup />
-        <ZaboUpload.UploadImage />
-        <ZaboUpload.InfoForm />
-        <ZaboUpload.UploadProcess step={step} />
-      </Slider>
-    </>
+    <Slider step={step} {...settings} ref={slick}>
+      <ZaboUpload.SelectGroup />
+      <ZaboUpload.UploadImage />
+      <ZaboUpload.InfoForm />
+      <ZaboUpload.UploadProcess step={step} />
+    </Slider>
   );
 };
 
@@ -154,9 +174,10 @@ const PageWrapper = styled.div`
 
 const ZaboUploadPage = () => {
   const match = useRouteMatch ();
+  const dispatch = useDispatch ();
+  const step = useSelector (state => state.getIn (['upload', 'step']));
   const { infoWritten, groupSelected, imagesSelected } = useSelector (state => state.get ('upload')).toJS ();
-  const currentStep = !groupSelected ? 0 : !imagesSelected ? 1 : !infoWritten ? 2 : 3;
-  const [step, setStep] = useState (currentStep);
+  const setStep = (step => dispatch (setReduxStep (step)));
   useEffect (() => {
     const newStep = !groupSelected ? 0 : !imagesSelected ? 1 : !infoWritten ? 2 : 3;
     setStep (newStep);
