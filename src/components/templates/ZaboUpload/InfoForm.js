@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import InputBase from '@material-ui/core/InputBase';
@@ -14,22 +14,34 @@ import { gridLayoutCompareFunction } from '../../../lib/utils';
 
 const InfoForm = () => {
   const dispatch = useDispatch ();
-  const [tags, setTags] = useState (TAGS.map (tag => ({ name: tag, clicked: false })));
+  const [preview, setPreview] = useState ();
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const imageFiles = imageFilesImmutable.toJS ();
-  const sortedImageFiles = imageFiles.slice ();
-  sortedImageFiles.sort (gridLayoutCompareFunction);
-  const titleImageFile = sortedImageFiles[0];
+
+  useEffect (() => {
+    const imageFiles = imageFilesImmutable.toJS ();
+    const sortedImageFiles = imageFiles.slice ();
+    sortedImageFiles.sort (gridLayoutCompareFunction);
+    const titleImageFile = sortedImageFiles[0];
+    let url = '';
+    if (titleImageFile) {
+      url = URL.createObjectURL (titleImageFile);
+    }
+    setPreview (url);
+    return () => {
+      URL.revokeObjectURL (url);
+    };
+  }, [imageFilesImmutable]);
 
   const info = infoImmutable.toJS ();
   const {
-    title, desc, expDate, keywords,
+    title, desc, expDate, tags,
   } = info;
 
   const setState = useCallback (updates => {
     dispatch (setInfo (Object.assign (info, updates)));
   }, [infoImmutable]);
+
   const handleChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
@@ -39,7 +51,7 @@ const InfoForm = () => {
     const clone = tags.map (tag => (tag.name === name
       ? Object.assign (tag, { clicked: !tag.clicked })
       : tag));
-    setTags (clone);
+    setState ({ tags: clone });
   }, [tags]);
 
   return (
@@ -47,7 +59,7 @@ const InfoForm = () => {
       <InfoFormWrapper.TwoCol>
         <InfoFormWrapper.TitleImage>
           <div>
-            {titleImageFile && <img src={titleImageFile.preview} alt="title image" />}
+            {preview && <img src={preview} alt="title image" />}
           </div>
         </InfoFormWrapper.TitleImage>
         <InfoFormWrapper.Info>

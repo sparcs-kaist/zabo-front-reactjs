@@ -152,10 +152,16 @@ const UploadImages = props => {
     },
   });
 
+  useEffect (() => () => {
+    // Make sure to revoke the data uris to avoid memory leaks
+    setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
+  }, [filesImmutable]);
+
   useEffect (
-    () => () => {
-      // Make sure to revoke the data uris to avoid memory leaks
-      setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
+    () => {
+      setFiles (files.map (file => Object.assign (file, {
+        preview: URL.createObjectURL (file),
+      })));
     },
     [],
   );
@@ -248,7 +254,7 @@ const UploadImages = props => {
               const title = layout.find (l => (l.x === 0 && l.y === 0));
               if (title) setTimeout (() => setTitleImage (title.i), 0);
             }}
-            layouts={{ lg: files.map (x => x.layout) }}
+            layouts={{ lg: files.map (x => x.updatedLayout) }}
             onClick={e => e.stopPropagation ()}
             onWidthChange={(width, margin, newCols, containerPadding) => {
               setWidthInfo ({
