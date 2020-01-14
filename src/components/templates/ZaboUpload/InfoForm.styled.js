@@ -143,10 +143,14 @@ InfoFormWrapper.TwoCol = styled.section`
   flex-direction: row;
   justify-content: center;
   min-height: 70vh;
+  @media (max-width: 600px) {
+    flex-direction: column;
+    padding: 0 12px;
+  }
 `;
 
 InfoFormWrapper.TitleImage = styled.section`
-  width: 50%;
+  flex: 1;
   height: 100%;
   img {
     width: 100%;
@@ -156,7 +160,7 @@ InfoFormWrapper.TitleImage = styled.section`
 `;
 
 InfoFormWrapper.Info = styled.section`
-  width: 50%;
+  flex: 1;
   height: 100%;
 `;
 

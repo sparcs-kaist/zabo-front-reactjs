@@ -170,6 +170,7 @@ Footer.propTypes = {
 
 const PageWrapper = styled.div`
   padding-top: 64px;
+  padding-bottom: 74px;
 `;
 
 const ZaboUploadPage = () => {
