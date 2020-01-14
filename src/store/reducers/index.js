@@ -1,5 +1,8 @@
 import { penderReducer } from 'redux-pender';
 import { combineReducers } from 'redux-immutable';
+// import immutableTransform from 'redux-persist-transform-immutable';
+// import storage from 'redux-persist/lib/storage';
+// import { persistReducer } from 'redux-persist';
 
 // import all files except index.js
 const req = require.context ('.', true, /^(?!.\/index).*.js$/);
@@ -13,5 +16,16 @@ req.keys ().forEach (key => {
 });
 
 modules.pender = penderReducer;
+
+
+// const persistConfig = {
+//  transforms: [immutableTransform ({
+//    blacklist: ['groupSelected', 'imagesSelected', 'infoWritten'],
+//  })],
+//  key: 'upload',
+//  storage,
+// };
+//
+// modules.upload = persistReducer (persistConfig, modules.upload);
 
 export default combineReducers (modules);
