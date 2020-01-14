@@ -153,7 +153,7 @@ const Footer = (props) => {
     <FooterStyle>
       <div className="container">
         <div className="slide-action-group">
-          <button className="prev" onClick={prev}>{'<'} 이전</button>
+          {step > 0 && <button className="prev" onClick={prev}>{'<'} 이전</button>}
           <button className="next" onClick={validatedNext} disabled={!isValid}>다음</button>
         </div>
       </div>
