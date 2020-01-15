@@ -13,6 +13,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.45);
 
   a {
     margin-left: 2px;
