@@ -16,8 +16,8 @@ const HomePageWrapper = styled.div`
    * 4: 1020px    => 1060 ~
    */
 
-  @media (min-width: 0px) and (max-width: 530px) {
-    /* .container width auto with padding */
+/*  @media (min-width: 0px) and (max-width: 530px) {
+    !* .container width auto with padding *!
   }
   @media (min-width: 530px) and (max-width: 800px) {
     .container {
@@ -33,7 +33,7 @@ const HomePageWrapper = styled.div`
     .container {
       width: 1060px;
     }
-  }
+  }*/
 `;
 
 export default HomePageWrapper;
