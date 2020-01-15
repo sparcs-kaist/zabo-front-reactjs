@@ -1,27 +1,49 @@
-/* eslint-disable */
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ZaboCard from './ZaboCard.styled';
+import moment from 'moment';
 
-export default ({ zabo }) => (
-  <ZaboCard>
-    <Link to={`/zabo/${zabo._id}`}>
-      <ZaboCard.Poster
-        style={{
-            paddingTop: `${(zabo.photos[0].height / zabo.photos[0].width) * 100}%`,
-        }}
-      >
-        <img width="100%" src={zabo.photos[0].url} alt="zabo" />
-      </ZaboCard.Poster>
-    </Link>
-    <ZaboCard.Writings>
-      <Link to={`/zabo/${zabo._id}`}>
-        <div className="title">{zabo.title}</div>
+import ZaboCardStyle from './ZaboCard.styled';
+
+import { to2Digits } from '../../../lib/utils';
+import { ZaboType } from '../../../lib/propTypes';
+
+const ZaboCard = ({ zabo }) => {
+  const {
+    _id, photos, title, owner, endAt,
+  } = zabo;
+  const diff = moment (endAt).diff (moment (), 'days');
+
+  return (
+    <ZaboCardStyle>
+      <Link to={`/zabo/${_id}`}>
+        <ZaboCardStyle.Poster
+          style={{
+            paddingTop: `${(photos[0].height / photos[0].width) * 100}%`,
+          }}
+        >
+          <img width="100%" src={photos[0].url} alt="zabo" />
+        </ZaboCardStyle.Poster>
       </Link>
-      <Link to="/zabo/upload">
-        <div className="author">{zabo.owner === undefined ? 'anonymous' : zabo.owner.name}</div>
-      </Link>
-    </ZaboCard.Writings>
-  </ZaboCard>
-);
+      <ZaboCardStyle.Writings>
+        <div className="top">
+          <Link to={`/zabo/${_id}`}>
+            <div className="title">{title}</div>
+          </Link>
+          <div className="due-date">D{to2Digits (-diff, true)}</div>
+        </div>
+        <div>
+          <Link to="/zabo/upload">
+            <span className="author">{owner === undefined ? 'anonymous' : owner.name}</span>
+          </Link>
+        </div>
+      </ZaboCardStyle.Writings>
+    </ZaboCardStyle>
+  );
+};
+
+ZaboCard.propTypes = {
+  zabo: PropTypes.shape (ZaboType),
+};
+
+export default ZaboCard;

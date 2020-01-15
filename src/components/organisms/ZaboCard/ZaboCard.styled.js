@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 /* ============ Zabo ============ */
-export const ZaboCard = styled.div`
+const ZaboCardStyle = styled.div`
   width: 240px; /* 530px 이상이면 240으로 고정하기. 최대 4줄 */
 
   @media (min-width: 0px) and (max-width: 530px) {
@@ -9,11 +9,12 @@ export const ZaboCard = styled.div`
   }
 `;
 
-ZaboCard.Poster = styled.div`
+ZaboCardStyle.Poster = styled.div`
   display: flex;
   background-color: lightgrey;
-  box-shadow: 0px 3px 6px #a9a9a9;
   position: relative;
+  cursor: pointer;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   img {
     position: absolute;
@@ -22,19 +23,51 @@ ZaboCard.Poster = styled.div`
   }
 `;
 
-ZaboCard.Writings = styled.div`
+ZaboCardStyle.Writings = styled.div`
   padding: 15px 10px 20px 10px;
   /* TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인 */
   color: #143441;
 
-  .title {
-    font-weight: bold;
-    font-size: 14px;
+  .top {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    a {
+      max-width: calc(100% - 30px);
+    }
+    .title {
+      flex: 1;
+      font-weight: bold;
+      font-size: 14px;
+      cursor: pointer;
+      line-height: 16px;
+      color: #143441;
+      overflow : hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .due-date {
+      width: 27px;
+      height: 15px;
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #143441;
+      border-radius: 2px;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 8px;
+      line-height: 9px;
+      color: #FFFFFF;
+    }
   }
   .author {
     margin-top: 5px;
-    font-weight: bold;
     font-size: 10px;
+    cursor: pointer;
+    line-height: 11px;
+    color: #8F8F8F;
   }
 
   @media (min-width: 530px) {
@@ -47,4 +80,4 @@ ZaboCard.Writings = styled.div`
   }
 `;
 
-export default ZaboCard;
+export default ZaboCardStyle;

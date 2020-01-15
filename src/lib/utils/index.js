@@ -14,3 +14,20 @@ export const gridLayoutCompareFunction = (a, b) => {
   if (ay - by) return ay - by;
   return ax - bx;
 };
+
+export const to2Digits = (number, sign = false) => {
+  let result;
+  let pos;
+  if (number < 0) {
+    result = (-number).toString ();
+    pos = false;
+  } else {
+    result = number.toString ();
+    pos = true;
+  }
+  while (result.length < 2) result = `0${result}`;
+  if (result.length > 2) result = '99';
+  if (!pos) result = `-${result}`;
+  if (sign && pos) result = `+${result}`;
+  return result;
+};
