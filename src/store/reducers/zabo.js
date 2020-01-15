@@ -39,7 +39,10 @@ export default handleActions (
   {
     ...pender ({
       type: UPLOAD_ZABO,
-      onSuccess: (state, action) => state,
+      onSuccess: (state, action) => {
+        console.log ('result', action.payload);
+        return state;
+      },
     }),
     ...pender ({
       type: GET_ZABO,
