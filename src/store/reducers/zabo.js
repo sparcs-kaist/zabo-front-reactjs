@@ -55,7 +55,7 @@ export default handleActions (
         const { lastSeen, relatedTo } = action.meta;
         const key = relatedTo || 'main';
 
-        const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }));
+        const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
 
         if (!lastSeen) {
           return state
