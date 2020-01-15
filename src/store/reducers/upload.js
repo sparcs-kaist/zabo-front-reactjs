@@ -1,6 +1,8 @@
 import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Map, List } from 'immutable';
 
+import storage from 'lib/storage';
+
 import { TAGS } from '../../lib/variables';
 
 // action types
@@ -66,7 +68,10 @@ export default handleActions (
       return state.set ('info', fromJS (info));
     },
     [SET_MODAL]: (state, action) => state.set ('showModal', action.payload),
-    [RESET]: () => initialState,
+    [RESET]: () => {
+      storage.removeItem ('uploadPersist');
+      return initialState;
+    },
   },
   initialState,
 );
