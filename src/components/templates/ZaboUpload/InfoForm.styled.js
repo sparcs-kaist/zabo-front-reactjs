@@ -90,7 +90,7 @@ const InfoFormWrapper = styled.div`
 
   .loading-bar {
     margin: 24px 0;
-    padding: 0 20px;
+    padding: 0 16px;
     width: 100%;
     display: flex;
     .loading-active {

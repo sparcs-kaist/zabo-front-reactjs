@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 
 import toJS from 'hoc/toJS';
 import ZaboPage from './ZaboPage';
@@ -9,8 +10,8 @@ import { getZabo } from '../../../store/reducers/zabo';
 
 class ZaboPageContainer extends PureComponent {
   componentDidMount () {
-    const { zaboId } = this.props;
-    this.props.getZabo (zaboId);
+    const { zaboId, getZabo } = this.props;
+    getZabo (zaboId);
   }
 
   render () {
@@ -23,10 +24,11 @@ ZaboPageContainer.propTypes = {
   zaboId: PropTypes.string.isRequired,
 };
 
+const emptyMap = Map ({});
 const mapStateToProps = (state, ownProps) => {
   const { zaboId } = ownProps;
   return {
-    zabo: state.getIn (['zabo', 'zabos', zaboId]),
+    zabo: state.getIn (['zabo', 'zabos', zaboId]) || emptyMap,
   };
 };
 

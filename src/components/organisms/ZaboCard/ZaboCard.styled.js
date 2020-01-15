@@ -24,7 +24,7 @@ ZaboCardStyle.Poster = styled.div`
 `;
 
 ZaboCardStyle.Writings = styled.div`
-  padding: 15px 10px 20px 10px;
+  padding: 10px 5px 13px 5px;
   /* TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인 */
   color: #143441;
 
