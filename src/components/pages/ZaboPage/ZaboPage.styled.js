@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const ZaboPageWrapper = styled.div`
   display: flex;
@@ -15,14 +15,37 @@ export default ZaboPageWrapper;
 
 export const Zabo = styled.div`
   position: relative;
-
   margin: 0 auto 0 auto;
-  width: 375px;
+  width: 100%;
 `;
 
 Zabo.Poster = styled.div`
   background-color: lightgrey;
+  display: flex;
+  justify-content: center;
   box-shadow: 0px -1px 6px #a9a9a9;
+  img {
+    ${props => {
+    const { meta } = props;
+    if (!meta) {
+      return css`
+         width: auto;
+         height: 50vh;
+      `;
+    }
+    const { width, height } = meta;
+    if (width > 1.7 * height) {
+      return css`
+          width: 100%;
+          height: auto;
+        `;
+    }
+    return css`
+          width: auto;
+          height: 50vh;
+        `;
+  }};
+  }
 `;
 Zabo.Writings = styled.div`
  /*TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인*/

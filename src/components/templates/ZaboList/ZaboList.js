@@ -52,6 +52,13 @@ class ZaboList extends PureComponent {
     this.fetch ();
   }
 
+  componentDidUpdate (prevProps) {
+    const { relatedTo } = this.props;
+    if (relatedTo !== prevProps.relatedTo) {
+      this.fetch ();
+    }
+  }
+
   fetch = next => {
     const {
       type, getZaboList, getPins, relatedTo, zaboList,

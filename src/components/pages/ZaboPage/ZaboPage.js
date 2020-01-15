@@ -25,7 +25,7 @@ class ZaboPage extends PureComponent {
       <ZaboPageWrapper>
         <div className="container">
           <Zabo>
-            <Zabo.Poster>
+            <Zabo.Poster meta={photos[0]}>
               <img width="100%" src={photos[0].url} alt="poster" />
             </Zabo.Poster>
             <Zabo.Writings>
@@ -51,7 +51,7 @@ class ZaboPage extends PureComponent {
             </Zabo.Writings>
           </Zabo>
         </div>
-        <ZaboList type="related" relatedTo={zaboId} />
+        <ZaboList type="related" relatedTo={zaboId} key={zaboId} />
       </ZaboPageWrapper>
     );
   }
