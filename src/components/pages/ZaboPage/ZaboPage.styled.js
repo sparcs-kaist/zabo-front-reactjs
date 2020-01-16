@@ -79,18 +79,17 @@ Zabo.Writings = styled.div`
       color: #8F8F8F;
     }
     .due-date {
-      width: 27px;
-      height: 15px;
-      flex-shrink: 0;
       display: flex;
+      flex-shrink: 0;
       justify-content: center;
       align-items: center;
+      width: 36px;
+      height: 18px;
+      font-size: 11px;
+      line-height: 18px;
+      border-radius: 5px;
       background: #143441;
-      border-radius: 2px;
-      font-style: normal;
       font-weight: bold;
-      font-size: 8px;
-      line-height: 9px;
       color: #FFFFFF;
     }
   }
