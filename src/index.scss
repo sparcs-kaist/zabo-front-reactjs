@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Anton');
 
 @font-face {
-  font-famfont-familyily: 'NanumSquare';
+  font-family: 'NanumSquare';
   font-weight: 700;
   src: url(lib/fonts/NanumSquareBold.ttf) format('truetype');
 }
@@ -20,6 +20,9 @@ body {
   transition: margin-top 0.4s;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  .pwa-prompt {
+    z-index: 0;
+  }
   &.pwa-prompt-active {
     margin-top: 110px;
     header {

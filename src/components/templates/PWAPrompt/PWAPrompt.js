@@ -4,7 +4,7 @@ import appIcon from 'static/logo/sparcs.svg';
 import PWAPromptWrapper from './PWAPrompt.styled';
 
 
-const handleScroll = e => {
+const handleScroll = (e) => {
   if (window.scrollY < 10) {
     document.body.classList.add ('pwa-prompt-active');
   } else {
@@ -12,55 +12,59 @@ const handleScroll = e => {
   }
 };
 
-const addListener = () => {
-  window.addEventListener ('optimizedScroll', handleScroll);
-};
-
-const deletelistener = () => {
-  window.removeEventListener ('optimizedScroll', handleScroll);
-};
-
 class PWAPrompt extends PureComponent {
-previousTop = 0
+  state = { active: false };
 
-componentDidMount () {
-  if (window.pwaPromptActive) {
-    addListener ();
-  } else {
-    window.onPWAPromptActive = addListener;
+  addListener = () => {
+    this.setState ({ active: true });
+    window.addEventListener ('optimizedScroll', handleScroll);
   }
-}
 
-handleOpenClick = () => {
-  deletelistener ();
-  document.body.classList.remove ('pwa-prompt-active');
+  deleteListener = () => {
+    this.setState ({ active: false });
+    window.removeEventListener ('optimizedScroll', handleScroll);
+  }
 
-  window.deferredPrompt.prompt ();
-  // Wait for the user to respond to the prompt
-  window.deferredPrompt.userChoice.then (choiceResult => {
-    if (choiceResult.outcome === 'accepted') {
-      console.log ('User accepted the A2HS prompt');
+  componentDidMount () {
+    if (window.pwaPromptActive) {
+      this.addListener ();
     } else {
-      console.log ('User dismissed the A2HS prompt');
+      window.onPWAPromptActive = this.addListener;
     }
-    window.deferredPrompt = null;
-  });
-}
+  }
 
-render () {
-  return (
-    <PWAPromptWrapper className="pwa-prompt">
-      <div className="container">
-        <img src={appIcon} alt="" className="logo" />
-        <div className="texts">
-          <div className="title">ZABO (자보) : 모든 포스터를 한 곳에서 모아보세요</div>
-          <div className="desc">ZABO 어플리케이션 설치하기 (데스크탑, 안드로이드 ,iOS)</div>
+  handleOpenClick = () => {
+    this.deleteListener ();
+    document.body.classList.remove ('pwa-prompt-active');
+
+    window.deferredPrompt.prompt ();
+    // Wait for the user to respond to the prompt
+    window.deferredPrompt.userChoice.then (choiceResult => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log ('User accepted the A2HS prompt'); // TODO: Statistics
+      } else {
+        console.log ('User dismissed the A2HS prompt');
+      }
+      window.deferredPrompt = null;
+    });
+  }
+
+  render () {
+    const { active } = this.state;
+    if (!active) return null;
+    return (
+      <PWAPromptWrapper className="pwa-prompt">
+        <div className="container">
+          <img src={appIcon} alt="" className="logo" />
+          <div className="texts">
+            <div className="title">ZABO (자보) : 모든 포스터를 한 곳에서 모아보세요</div>
+            <div className="desc">ZABO 어플리케이션 설치하기 (데스크탑, 안드로이드 ,iOS)</div>
+          </div>
+          <button onClick={this.handleOpenClick}>설치</button>
         </div>
-        <button onClick={this.handleOpenClick}>설치</button>
-      </div>
-    </PWAPromptWrapper>
-  );
-}
+      </PWAPromptWrapper>
+    );
+  }
 }
 
 PWAPrompt.propTypes = {};
