@@ -33,8 +33,8 @@ const ZaboCard = ({ zabo }) => {
           {diff > 0 && <div className="due-date">D{to2Digits (-diff, true)}</div>}
         </div>
         <div>
-          <Link to="/zabo/upload">
-            <span className="author">{owner === undefined ? 'anonymous' : owner.name}</span>
+          <Link to={owner ? `/${owner.name}` : '#'}>
+            <span className="author">{owner ? owner.name : 'anonymous'}</span>
           </Link>
         </div>
       </ZaboCardStyle.Writings>
