@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { isAuthenticated as getAuth } from 'lib/utils';
+import { selectAuthenticated as getAuth } from 'lib/utils';
 
 const mapStateToProps = state => ({
   isAuthenticated: getAuth (state),

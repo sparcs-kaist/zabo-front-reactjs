@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
 import toJS from 'hoc/toJS';
-import { isAuthenticated } from 'lib/utils';
+import { selectAuthenticated } from 'lib/utils';
 import GroupPage from './GroupPage';
 
 import { removeGroupUser } from '../../../store/reducers/auth';
@@ -15,7 +15,7 @@ class GroupPageContainer extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: isAuthenticated (state),
+  isAuthenticated: selectAuthenticated (state),
   info: state.getIn (['auth', 'info']),
 });
 

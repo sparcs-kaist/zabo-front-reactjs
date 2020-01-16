@@ -1,67 +1,70 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink, useHistory } from 'react-router-dom';
+import SVG from 'atoms/SVG';
 import logo from 'static/logo/logo.svg';
 import left from 'static/images/chevron_left.svg';
-
-import SVG from 'atoms/SVG';
+import { selectAuthenticated } from '../../../lib/utils';
+import { logout as logoutAction } from '../../../store/reducers/auth';
 import HeaderWrapper from './Header.styled';
 
-class Header extends PureComponent {
-  goBack = () => {
-    const { history } = this.props;
-    history.goBack ();
-  }
-
-  render () {
-    const { isAuthenticated, match, logout } = this.props;
-    const { route } = match.params;
-
-    return (
-      <HeaderWrapper>
-        <div className="container">
-          {route ? (
-            <img alt="Go back" src={left} style={{ width: '15px', height: 'auto' }} onClick={this.goBack} />
-          ) : (
+const Header = ({ back, title, rightGroup }) => {
+  const history = useHistory ();
+  return (
+    <HeaderWrapper>
+      <div className="container">
+        <div>
+          {back ? (
             <>
-              <NavLink to="/">
-                <img alt="logo" src={logo} style={{ width: '70px', height: '30px' }} />
-              </NavLink>
-              {isAuthenticated ? (
-                <div>
-                  <NavLink to="/my-page" size="md" className="user-icon">
-                    <SVG icon="user" />
-                  </NavLink>
-
-                  <a href="#" onClick={logout}>
-                    Logout
-                  </a>
-                </div>
-              ) : (
-                <NavLink to="/auth/login">Login</NavLink>
-              )}
+              <img alt="Go back" src={left} style={{ width: '15px', height: 'auto' }} onClick={history.goBack} />
+              {title && <h1>{title}</h1>}
             </>
+          ) : (
+            <NavLink to="/">
+              <img alt="logo" src={logo} style={{ width: '70px', height: '30px' }} />
+            </NavLink>
           )}
         </div>
-      </HeaderWrapper>
-    );
-  }
-}
-
-Header.propTypes = {
-  history: PropTypes.shape ({
-    goBack: PropTypes.func,
-  }).isRequired,
-  isAuthenticated: PropTypes.bool.isRequired,
-  match: PropTypes.shape ({
-    params: PropTypes.shape ({
-      route: PropTypes.string,
-    }),
-  }).isRequired,
-  logout: PropTypes.func.isRequired,
+        {rightGroup}
+      </div>
+    </HeaderWrapper>
+  );
 };
 
-Header.defaultProps = {};
+Header.propTypes = {
+  back: PropTypes.bool,
+  title: PropTypes.string,
+  rightGroup: PropTypes.element,
+};
+
+Header.defaultProps = {
+  back: false,
+  title: '',
+  rightGroup: null,
+};
+
+Header.AuthDropdown = () => {
+  const dispatch = useDispatch ();
+  const isAuthenticated = useSelector (selectAuthenticated);
+  const logout = () => dispatch (logoutAction ());
+  return (
+    <div>
+      {isAuthenticated ? (
+        <div>
+          <NavLink to="/my-page" size="md" className="user-icon">
+            <SVG icon="user" />
+          </NavLink>
+
+          <a href="#" onClick={logout}>
+            Logout
+          </a>
+        </div>
+      ) : (
+        <NavLink to="/auth/login">Login</NavLink>
+      )}
+    </div>
+  );
+};
 
 export default Header;

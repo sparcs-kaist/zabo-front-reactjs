@@ -27,7 +27,7 @@ const decodedTokenLifetime = decoded => {
   return 0;
 };
 
-export const isAuthenticated = createSelector (decodedTokenSelector, isDecodedTokenAlive);
+export const selectAuthenticated = createSelector (decodedTokenSelector, isDecodedTokenAlive);
 
 export const tokenTimeLeft = createSelector (decodedTokenSelector, decodedTokenLifetime);
 

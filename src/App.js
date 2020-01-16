@@ -3,7 +3,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import PWAPrompt from 'templates/PWAPrompt';
-import Header from 'templates/Header';
 import {
   AuthPage,
   GroupAddPage,
@@ -51,7 +50,6 @@ class App extends React.Component {
       <AppWrapper>
         <WindowResizeListener />
         <PWAPrompt />
-        <Route path="/:route?" component={Header} />
         <Route path="/zabo/:route?" component={ScrollToTop} />
         <Route path="/" exact component={AuthCallback} />
         <Switch>

@@ -24,6 +24,11 @@ const HeaderWrapper = styled.header`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    >div {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+    }
   }
 `;
 

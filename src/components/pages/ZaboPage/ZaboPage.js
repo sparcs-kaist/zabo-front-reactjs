@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import ZaboList from 'templates/ZaboList';
+import Header from 'templates/Header';
 import ZaboPageWrapper, { Zabo } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
@@ -23,6 +24,7 @@ class ZaboPage extends PureComponent {
 
     return (
       <ZaboPageWrapper>
+        <Header />
         <div className="container">
           <Zabo>
             <Zabo.Poster meta={photos[0]}>

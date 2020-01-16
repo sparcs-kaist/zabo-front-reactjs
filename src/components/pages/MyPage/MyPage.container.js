@@ -5,7 +5,7 @@ import toJS from 'hoc/toJS';
 import MyPage from './MyPage';
 
 import { setCurrentGroup } from '../../../store/reducers/auth';
-import { isAuthenticated } from '../../../lib/utils';
+import { selectAuthenticated } from '../../../lib/utils';
 
 class MyPageContainer extends PureComponent {
   render () {
@@ -14,7 +14,7 @@ class MyPageContainer extends PureComponent {
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: isAuthenticated (state),
+  isAuthenticated: selectAuthenticated (state),
   info: state.getIn (['auth', 'info']),
 });
 
