@@ -5,8 +5,8 @@ import { UserType } from '../../../lib/propTypes';
 import { Page, Intro, Groups } from './Profile.styled';
 import Header from '../../templates/Header';
 
-import defaultProfile from '../../../static/images/default_profile.png';
-import groupDefaultProfile from '../../../static/images/group_default_profile.png';
+import defaultProfile from '../../../static/images/defaultProfile.png';
+import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 
 const UserProfile = ({ profile }) => {
   const {
