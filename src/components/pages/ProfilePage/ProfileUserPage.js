@@ -32,7 +32,7 @@ const UserProfile = ({ profile }) => {
         </Page.Header.ProfilePhoto>
         <Page.Header.UserInfo>
           {username}
-          <button>Sign Out</button>
+          <button>로그아웃</button>
         </Page.Header.UserInfo>
       </Page.Header>
 
