@@ -2,10 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { UserType } from '../../../lib/propTypes';
-import { Page } from './Profile.styled';
+import { Page, Intro, Groups } from './Profile.styled';
 import Header from '../../templates/Header';
 
-const Groups = styled.div``;
+import defaultProfile from '../../../static/images/defaultProfile.png';
+import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 
 const UserProfile = ({ profile }) => {
   const {
@@ -18,7 +19,7 @@ const UserProfile = ({ profile }) => {
         <Page.Header.BackPhoto>
           {
             backgroundPhoto
-              ? <img src={backgroundPhoto} alt="background photo" />
+              ? <div style={{ backgroundImage: `url(${backgroundPhoto})` }}> </div>
               : <div>Background placeholder</div>
           }
         </Page.Header.BackPhoto>
@@ -26,20 +27,34 @@ const UserProfile = ({ profile }) => {
           {
             profilePhoto
               ? <img src={profilePhoto} alt="profile photo" />
-              : <div>Profile photo placeholder</div>
+              : <img src={defaultProfile} alt="default profile img" />
           }
         </Page.Header.ProfilePhoto>
-        {username}
+        <Page.Header.UserInfo>
+          {username}
+          <button>Sign Out</button>
+        </Page.Header.UserInfo>
       </Page.Header>
 
+      <Intro>
+        <h1>소개</h1>
+        <div>Hi, we are sparcs :)</div>
+      </Intro>
+
       <Groups>
-        <h1>My Group</h1>
-        {groups.map (group => (
-          <div>
-            Profile : {group.profilePhoto || 'no profile photo'}<br />
-            {group.name}
-          </div>
-        ))}
+        <h1>그룹</h1>
+        <Groups.List>
+          {groups.map (group => (
+            <div>
+              {
+                group.profilePhoto
+                  ? <img src={group.profilePhoto} alt="group profile photo" />
+                  : <img src={groupDefaultProfile} alt="default group profile photo" />
+              }
+              <p>{group.name}</p>
+            </div>
+          ))}
+        </Groups.List>
       </Groups>
     </Page>
   );
