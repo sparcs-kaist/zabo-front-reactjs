@@ -11,13 +11,12 @@ const ZaboCardStyle = styled.div`
 
 ZaboCardStyle.Poster = styled.div`
   display: flex;
-  background-color: lightgrey;
   position: relative;
   cursor: pointer;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
   img {
     position: absolute;
+    border-radius: 16px;
     top: 0;
     left: 0;
   }
@@ -47,18 +46,18 @@ ZaboCardStyle.Writings = styled.div`
       text-overflow: ellipsis;
     }
     .due-date {
-      width: 27px;
-      height: 15px;
-      flex-shrink: 0;
       display: flex;
+      flex-shrink: 0;
       justify-content: center;
       align-items: center;
+      width: 36px;
+      height: 18px;
+      font-size: 11px;
+      line-height: 18px;
+      border-radius: 5px;
       background: #143441;
-      border-radius: 2px;
       font-style: normal;
       font-weight: bold;
-      font-size: 8px;
-      line-height: 9px;
       color: #FFFFFF;
     }
   }

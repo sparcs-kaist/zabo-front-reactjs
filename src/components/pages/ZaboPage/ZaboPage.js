@@ -40,7 +40,7 @@ class ZaboPage extends PureComponent {
                       : daysDiff < 30 ? `${daysDiff} days ...`
                         : monthDiff}
                 </div>
-                <div className="due-date">D{to2Digits (-due, true)}</div>
+                {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
               </div>
               <hr />
               <div className="description">{description}</div>

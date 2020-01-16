@@ -30,7 +30,7 @@ const ZaboCard = ({ zabo }) => {
           <Link to={`/zabo/${_id}`}>
             <div className="title">{title}</div>
           </Link>
-          <div className="due-date">D{to2Digits (-diff, true)}</div>
+          {diff > 0 && <div className="due-date">D{to2Digits (-diff, true)}</div>}
         </div>
         <div>
           <Link to="/zabo/upload">

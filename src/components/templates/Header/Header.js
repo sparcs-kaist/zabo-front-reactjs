@@ -59,12 +59,14 @@ Header.defaultProps = {
 Header.AuthDropdown = () => {
   const dispatch = useDispatch ();
   const isAuthenticated = useSelector (selectAuthenticated);
+  const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const logout = () => dispatch (logoutAction ());
+
   return (
     <div>
       {isAuthenticated ? (
         <div>
-          <NavLink to="/my-page" size="md" className="user-icon">
+          <NavLink to={`/${username}`} size="md" className="user-icon">
             <SVG icon="user" />
           </NavLink>
 
