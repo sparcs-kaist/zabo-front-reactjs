@@ -52,10 +52,17 @@ export const Intro = styled.section`
 
 export const Groups = styled.section`
   border-top: 1px solid #F4F4F4;
+`;
+
+Groups.List = styled.div`
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
+
   div {
-    display: flex;
-    flex-direction: column;
+    display: inline-block;
     width: 60px;
+    margin-right: 16px;
   }
   img {
     width: 60px;

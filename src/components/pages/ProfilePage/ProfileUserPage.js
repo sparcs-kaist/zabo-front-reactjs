@@ -43,16 +43,18 @@ const UserProfile = ({ profile }) => {
 
       <Groups>
         <h1>그룹</h1>
-        {groups.map (group => (
-          <div>
-            {
-              group.profilePhoto
-                ? <img src={group.profilePhoto} alt="group profile photo" />
-                : <img src={groupDefaultProfile} alt="default group profile photo" />
-            }
-            <p>{group.name}</p>
-          </div>
-        ))}
+        <Groups.List>
+          {groups.map (group => (
+            <div>
+              {
+                group.profilePhoto
+                  ? <img src={group.profilePhoto} alt="group profile photo" />
+                  : <img src={groupDefaultProfile} alt="default group profile photo" />
+              }
+              <p>{group.name}</p>
+            </div>
+          ))}
+        </Groups.List>
       </Groups>
     </Page>
   );
