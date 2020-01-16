@@ -12,6 +12,8 @@ import {
   MyPage,
   ZaboUploadPage,
   ZaboPage,
+  NotFound,
+  ProfilePage,
 } from 'components/pages';
 import AuthCallback from 'organisms/AuthCallback';
 import WindowResizeListener from 'containers/WindowResizeListener';
@@ -60,6 +62,8 @@ class App extends React.Component {
           <PrivateRoute path="/my-page/group/add" component={GroupAddPage} />
           <PrivateRoute path="/my-page/group" component={GroupPage} />
           <PrivateRoute path="/my-page" component={MyPage} />
+          <Route path="/:name" component={ProfilePage} />
+          <Route component={NotFound} />
         </Switch>
       </AppWrapper>
     );

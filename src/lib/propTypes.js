@@ -12,3 +12,12 @@ export const ZaboType = {
     name: PropTypes.string,
   }),
 };
+
+export const UserType = {
+  username: PropTypes.string,
+  birthday: PropTypes.string,
+};
+
+export const GroupType = {
+  name: PropTypes.string,
+};

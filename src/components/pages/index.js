@@ -37,7 +37,17 @@ export const GroupAddPage = Loadable ({
   loading: Loading,
 });
 
+export const ProfilePage = Loadable ({
+  loader: () => import ('./ProfilePage'),
+  loading: Loading,
+});
+
 export const ZaboPage = Loadable ({
   loader: () => import ('./ZaboPage'),
+  loading: Loading,
+});
+
+export const NotFound = Loadable ({
+  loader: () => import ('./NotFound'),
   loading: Loading,
 });
