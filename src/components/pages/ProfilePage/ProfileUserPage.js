@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { UserType } from '../../../lib/propTypes';
 import { Page } from './Profile.styled';
+import Header from '../../templates/Header';
 
 const Groups = styled.div``;
 
@@ -12,6 +13,7 @@ const UserProfile = ({ profile }) => {
   } = profile;
   return (
     <Page>
+      <Header rightGroup={<Header.AuthDropdown />} />
       <Page.Header>
         <Page.Header.BackPhoto>
           {
