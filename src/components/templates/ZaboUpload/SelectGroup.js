@@ -39,9 +39,10 @@ const InsetDividers = ({ groupsInfo }) => {
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
   const dispatch = useDispatch ();
 
-  const updateGroup = useCallback ((groupId) => {
-    dispatch (setCurrentGroup (groupId));
-    dispatch (setGroupSelected (true));
+  const updateGroup = useCallback ((groupName) => {
+    dispatch (setCurrentGroup (groupName))
+      .then (() => dispatch (setGroupSelected (true)))
+      .catch (error => console.error (error));
   }, []);
 
   return (
@@ -56,8 +57,8 @@ const InsetDividers = ({ groupsInfo }) => {
               <ListItem
                 key={_id}
                 className={classes.item}
-                selected={_id === currentGroup.get ('_id')}
-                onClick={() => updateGroup (_id)}
+                selected={currentGroup && _id === currentGroup.get ('_id')}
+                onClick={() => updateGroup (name)}
               >
                 <ListItemAvatar>
                   <Avatar>

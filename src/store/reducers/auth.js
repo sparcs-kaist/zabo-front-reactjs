@@ -75,17 +75,11 @@ export default handleActions (
     },
     ...pender ({
       type: SET_CURRENT_GROUP,
-      onSuccess: (state, action) => {
-        const { currentGroup } = action.payload;
-        return state.setIn (['info', 'currentGroup'], fromJS (currentGroup));
-      },
+      onSuccess: (state, action) => state.setIn (['info', 'currentGroup'], fromJS (action.payload)),
     }),
     ...pender ({
       type: REMOVE_GROUP_USER,
-      onSuccess: (state, action) => {
-        const { members } = action.payload;
-        return state.setIn (['info', 'currentGroup', 'members'], fromJS (members));
-      },
+      onSuccess: (state, action) => state.setIn (['info', 'currentGroup', 'members'], fromJS (action.payload.members)),
     }),
   },
   initialState,
