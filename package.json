@@ -59,6 +59,7 @@
     "cross-env": "^5.2.0",
     "date-fns": "^2.0.0-beta.2",
     "dayjs": "^1.8.15",
+    "devtools-detect": "^3.0.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.1.0",
     "i18next": "^15.1.3",

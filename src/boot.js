@@ -1,4 +1,5 @@
 import store from 'store';
+import 'devtools-detect';
 import { checkAuth } from 'store/reducers/auth';
 import storage from 'lib/storage';
 import axios from 'lib/axios';
@@ -57,3 +58,9 @@ export default () => {
     store.dispatch (checkAuth (token));
   }
 };
+
+window.addEventListener ('devtoolschange', event => {
+  import ('./static/images/recruitAscii').then (asciiArt => {
+    console.log (asciiArt.default);
+  });
+});
