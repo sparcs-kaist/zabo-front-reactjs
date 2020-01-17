@@ -14,7 +14,7 @@ const GroupProfile = ({ profile }) => {
   } = profile;
   return (
     <Page>
-      <Header rightGroup={<Header.AuthDropdown />} />
+      <Header rightGroup={<Header.AuthButton />} />
       <Page.Header>
         <Page.Header.BackPhoto>
           {

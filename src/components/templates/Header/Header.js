@@ -56,7 +56,7 @@ Header.defaultProps = {
   rightGroup: null,
 };
 
-Header.AuthDropdown = () => {
+Header.AuthButton = () => {
   const isAuthenticated = useSelector (selectAuthenticated);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
 

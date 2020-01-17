@@ -17,7 +17,7 @@ class HomePage extends PureComponent {
 
     return (
       <HomePageWrapper className="animated fadeIn">
-        <Header rightGroup={<Header.AuthDropdown />} />
+        <Header rightGroup={<Header.AuthButton />} />
         <div className="container">
           {/* <Header> */}
           {/*   <div className={`blur animated fadeIn ${searchFocused ? 'show' : ''}`} /> */}

@@ -24,7 +24,7 @@ class ZaboPage extends PureComponent {
 
     return (
       <ZaboPageWrapper>
-        <Header />
+        <Header rightGroup={<Header.AuthButton />} />
         <div className="container">
           <Zabo>
             <Zabo.Poster meta={photos[0]}>
