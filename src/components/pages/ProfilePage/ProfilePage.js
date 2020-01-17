@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotFound } from 'components/pages';
 import { getProfile } from '../../../store/reducers/profile';
 
-import UserProfile from './ProfileUserPage';
-import GroupProfile from './ProfileGroupPage';
+import UserProfile from './UserProfilePage';
+import GroupProfile from './GroupProfilePage';
 
 
 const ProfilePage = () => {
@@ -19,7 +18,6 @@ const ProfilePage = () => {
   }, [name]);
   if (!profileImmutable) return null;
   const profile = profileImmutable.toJS ();
-  console.log ({ profile });
   if (profile.error) return <NotFound />;
   if (profile.username === name) return <UserProfile profile={profile} />;
   if (profile.name === name) return <GroupProfile profile={profile} />;

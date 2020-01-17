@@ -32,6 +32,7 @@ Page.Header.UserInfo = styled.div`
   font-size: 22px;
   font-weight: bold;
   padding: 16px 0 22px 0;
+  min-height: 64px;
 
   button {
     height: 30px;

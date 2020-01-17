@@ -93,6 +93,7 @@
     "react-slick": "^0.25.2",
     "react-swipe": "^6.0.4",
     "react-transition-group": "^4.2.1",
+    "react-use": "^13.20.0",
     "redux": "^4.0.2",
     "redux-actions": "^2.6.5",
     "redux-devtools-extension": "^2.13.8",

@@ -9,6 +9,7 @@ import {
   GroupPage,
   HomePage,
   MyPage,
+  SettingsPage,
   ZaboUploadPage,
   ZaboPage,
   NotFound,
@@ -57,9 +58,7 @@ class App extends React.Component {
           <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
           <Route path="/" exact component={HomePage} />
           <PublicRoute path="/auth" component={AuthPage} />
-          <PrivateRoute path="/my-page/group/add" component={GroupAddPage} />
-          <PrivateRoute path="/my-page/group" component={GroupPage} />
-          <PrivateRoute path="/my-page" component={MyPage} />
+          <PrivateRoute path="/settings" component={SettingsPage} />
           <Route path="/:name" component={ProfilePage} />
           <Route component={NotFound} />
         </Switch>

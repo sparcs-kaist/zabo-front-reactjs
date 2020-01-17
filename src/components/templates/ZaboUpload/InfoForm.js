@@ -39,7 +39,7 @@ const InfoForm = () => {
   } = info;
 
   const setState = useCallback (updates => {
-    dispatch (setInfo (Object.assign (info, updates)));
+    dispatch (setInfo ({ ...info, ...updates }));
   }, [infoImmutable]);
 
   const handleChange = useCallback (e => {

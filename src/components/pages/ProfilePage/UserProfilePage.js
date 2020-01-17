@@ -3,26 +3,30 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
+import SettingsIcon from '@material-ui/icons/Settings';
 import { UserType } from '../../../lib/propTypes';
 import { Page, Intro, Groups } from './Profile.styled';
 import Header from '../../templates/Header';
-
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { selectAuthenticated } from '../../../lib/utils';
 
 const UserProfile = ({ profile }) => {
-  const dispatch = useDispatch ();
-  const isAuthenticated = useSelector (selectAuthenticated);
   const {
     username, profilePhoto, backgroundPhoto, groups, description,
   } = profile;
+  const dispatch = useDispatch ();
+  const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
+  const isMyProfile = (myUsername === username);
   const logout = () => dispatch (logoutAction ());
+
+  const rightGroup = isMyProfile
+    ? <Link to="/settings/profile"><SettingsIcon /></Link>
+    : <Header.AuthButton />;
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} />
+      <Header rightGroup={rightGroup} />
       <Page.Header>
         <Page.Header.BackPhoto>
           {
@@ -40,7 +44,7 @@ const UserProfile = ({ profile }) => {
         </Page.Header.ProfilePhoto>
         <Page.Header.UserInfo>
           {username}
-          {isAuthenticated && <button type="button" onClick={logout}>로그아웃</button>}
+          {isMyProfile && <button type="button" onClick={logout}>로그아웃</button>}
         </Page.Header.UserInfo>
       </Page.Header>
 

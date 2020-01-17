@@ -17,6 +17,11 @@ export const MyPage = Loadable ({
   loading: Loading,
 });
 
+export const SettingsPage = Loadable ({
+  loader: () => import ('./SettingsPage'),
+  loading: Loading,
+});
+
 export const AuthPage = Loadable ({
   loader: () => import ('./AuthPage'),
   loading: Loading,
