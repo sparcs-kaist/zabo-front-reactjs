@@ -12,6 +12,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import ZaboUpload from '../../templates/ZaboUpload';
+import Header from '../../templates/Header';
 import {
   setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten, reset,
 } from '../../../store/reducers/upload';
@@ -199,6 +200,7 @@ const ZaboUploadPage = () => {
 
   return (
     <PageWrapper>
+      <Header rightGroup={<Header.AuthButton />} />
       <Prompt
         when
         message="You have unsaved changes, are you sure you want to leave?"

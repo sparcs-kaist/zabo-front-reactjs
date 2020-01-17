@@ -20,7 +20,7 @@ export const Zabo = styled.div`
 `;
 
 Zabo.Poster = styled.div`
-  background-color: lightgrey;
+  background-color: rgba(0, 0, 0, 0.03);
   display: flex;
   justify-content: center;
   box-shadow: 0px -1px 6px #a9a9a9;
