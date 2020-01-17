@@ -175,7 +175,7 @@ const UserProfileSetting = (props) => {
 
   return (
     <PageWrapper>
-      <Header />
+      <Header rightGroup={<Header.AuthButton />} />
       <ProfilePage.Header>
         <ProfilePage.Header.BackPhoto>
           {
