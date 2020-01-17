@@ -23,6 +23,7 @@ const ZaboCard = ({ zabo }) => {
           }}
         >
           <img width="100%" src={photos[0].url} alt="zabo" />
+          <ZaboCardStyle.Poster.Overlay />
         </ZaboCardStyle.Poster>
       </Link>
       <ZaboCardStyle.Writings>
