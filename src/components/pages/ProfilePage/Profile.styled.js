@@ -58,18 +58,23 @@ Groups.List = styled.div`
   width: 100%;
   overflow-x: scroll;
   white-space: nowrap;
+`;
 
-  div {
-    display: inline-block;
-    width: 60px;
-    margin-right: 16px;
-  }
+Groups.ListItem = styled.div`
+  display: inline-block;
+  width: 60px;
+  margin-right: 16px;
   img {
-    width: 60px;
+    width: 100%;
     height: 60px;
     border-radius: 50%;
   }
-  p {
+  .group-name {
+    width: 100%;
+    overflow: hidden;
     text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 1em 0;
   }
 `;

@@ -1,6 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 import { UserType } from '../../../lib/propTypes';
 import { Page, Intro, Groups } from './Profile.styled';
 import Header from '../../templates/Header';
@@ -10,7 +11,7 @@ import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png'
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, backgroundPhoto, groups,
+    username, profilePhoto, backgroundPhoto, groups, description,
   } = profile;
   return (
     <Page>
@@ -38,21 +39,25 @@ const UserProfile = ({ profile }) => {
 
       <Intro>
         <h1>소개</h1>
-        <div>Hi, we are sparcs :)</div>
+        <div>{description}</div>
       </Intro>
 
       <Groups>
         <h1>그룹</h1>
         <Groups.List>
           {groups.map (group => (
-            <div>
-              {
+            <Link to={group.name}>
+              <Groups.ListItem>
+                {
                 group.profilePhoto
                   ? <img src={group.profilePhoto} alt="group profile photo" />
                   : <img src={groupDefaultProfile} alt="default group profile photo" />
               }
-              <p>{group.name}</p>
-            </div>
+                <Tooltip title={group.name}>
+                  <div className="group-name">{group.name}</div>
+                </Tooltip>
+              </Groups.ListItem>
+            </Link>
           ))}
         </Groups.List>
       </Groups>

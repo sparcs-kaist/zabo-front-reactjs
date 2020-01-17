@@ -20,6 +20,7 @@ export const GroupType = {
 export const UserType = {
   email: PropTypes.string,
   username: PropTypes.string,
+  description: PropTypes.string,
   profilePhoto: PropTypes.string,
   backgroundPhoto: PropTypes.string,
   birthday: PropTypes.string,
