@@ -9,6 +9,8 @@ import { Page, Intro, Groups } from './Profile.styled';
 import Header from '../../templates/Header';
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
+import defaultBackground from '../../../static/hd/zhangjiajie-landscape.jpg';
+
 import { logout as logoutAction } from '../../../store/reducers/auth';
 
 const UserProfile = ({ profile }) => {
@@ -32,7 +34,7 @@ const UserProfile = ({ profile }) => {
           {
             backgroundPhoto
               ? <div style={{ backgroundImage: `url(${backgroundPhoto})` }}> </div>
-              : <div>Background placeholder</div>
+              : <div style={{ backgroundImage: `url(${defaultBackground})` }}> </div>
           }
         </Page.Header.BackPhoto>
         <Page.Header.ProfilePhoto>
@@ -50,7 +52,7 @@ const UserProfile = ({ profile }) => {
 
       <Intro>
         <h1>소개</h1>
-        <div>{description}</div>
+        <div>{description || '아직 소개가 없습니다.'}</div>
       </Intro>
 
       <Groups>
