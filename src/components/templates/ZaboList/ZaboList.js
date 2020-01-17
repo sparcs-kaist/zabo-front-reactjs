@@ -1,5 +1,5 @@
-/* eslint-disable */
 import React, { PureComponent } from 'react';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import MasonryZaboList from 'react-masonry-infinite';
 
@@ -17,30 +17,30 @@ const sizes = [
   { mq: '1260px', columns: 5, gutter: 16 },
 ];
 
+const Loader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px 0 30px 0;
+  @keyframes spin { 100% { transform:rotate(360deg); } }
+  img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    animation: spin 4s linear infinite;  
+  }
+`;
+
 const loader = (
-  <div className="loader">
-    <span key="1" className="expand">
-Z
-    </span>
-    <span key="2" className="expand">
-A
-    </span>
-    <span key="3" className="expand">
-B
-    </span>
-    <span key="4" className="expand">
-O
-    </span>
-    <span key="5" className="expand">
-.
-    </span>
-    <span key="6" className="expand">
-.
-    </span>
-    <span key="7" className="expand">
-.
-    </span>
-  </div>
+  <Loader>
+
+    <img src={
+      Math.floor (Math.random () * 2) === 0
+        ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579285702954'
+        : 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/profile/user-1579181150933'
+    }
+    />
+  </Loader>
 );
 
 class ZaboList extends PureComponent {
@@ -106,6 +106,7 @@ class ZaboList extends PureComponent {
 }
 
 ZaboList.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
   zaboList: PropTypes.array.isRequired,
 };
 
