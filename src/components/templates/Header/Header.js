@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
 import SVG from 'atoms/SVG';
 import Container from 'atoms/Container';
@@ -57,10 +57,8 @@ Header.defaultProps = {
 };
 
 Header.AuthDropdown = () => {
-  const dispatch = useDispatch ();
   const isAuthenticated = useSelector (selectAuthenticated);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
-  const logout = () => dispatch (logoutAction ());
 
   return (
     <div>
@@ -69,10 +67,6 @@ Header.AuthDropdown = () => {
           <NavLink to={`/${username}`} size="md" className="user-icon">
             <SVG icon="user" />
           </NavLink>
-
-          <a href="#" onClick={logout}>
-            Logout
-          </a>
         </div>
       ) : (
         <NavLink to="/auth/login">Login</NavLink>
