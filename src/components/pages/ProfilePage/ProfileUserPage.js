@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import { UserType } from '../../../lib/propTypes';
 import { Page, Intro, Groups } from './Profile.styled';
@@ -8,11 +9,17 @@ import Header from '../../templates/Header';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
+import { logout as logoutAction } from '../../../store/reducers/auth';
+import { selectAuthenticated } from '../../../lib/utils';
 
 const UserProfile = ({ profile }) => {
+  const dispatch = useDispatch ();
+  const isAuthenticated = useSelector (selectAuthenticated);
   const {
     username, profilePhoto, backgroundPhoto, groups, description,
   } = profile;
+  const logout = () => dispatch (logoutAction ());
+
   return (
     <Page>
       <Header rightGroup={<Header.AuthDropdown />} />
@@ -33,7 +40,7 @@ const UserProfile = ({ profile }) => {
         </Page.Header.ProfilePhoto>
         <Page.Header.UserInfo>
           {username}
-          <button>로그아웃</button>
+          {isAuthenticated && <button type="button" onClick={logout}>로그아웃</button>}
         </Page.Header.UserInfo>
       </Page.Header>
 
@@ -46,7 +53,7 @@ const UserProfile = ({ profile }) => {
         <h1>그룹</h1>
         <Groups.List>
           {groups.map (group => (
-            <Link to={group.name}>
+            <Link to={group.name} key={group.name}>
               <Groups.ListItem>
                 {
                 group.profilePhoto

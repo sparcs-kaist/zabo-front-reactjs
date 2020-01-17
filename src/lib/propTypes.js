@@ -28,12 +28,12 @@ export const UserType = {
   firstName: PropTypes.string,
   studentId: PropTypes.string,
   koreanName: PropTypes.string,
-  currentGroup: PropTypes.oneOf ([
+  currentGroup: PropTypes.oneOfType ([
     PropTypes.shape (GroupType),
     PropTypes.string,
   ]),
   groups: PropTypes.arrayOf (
-    PropTypes.oneOf ([
+    PropTypes.oneOfType ([
       PropTypes.shape (GroupType),
       PropTypes.string,
     ]),

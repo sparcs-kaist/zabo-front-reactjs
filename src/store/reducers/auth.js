@@ -71,6 +71,7 @@ export default handleActions (
     [LOGOUT]: (state, action) => {
       storage.removeItem ('token');
       axios.updateToken ('');
+      window.location.href = '/';
       return state.set ('jwt', initialState.get ('jwt')).set ('info', initialState.get ('info'));
     },
     ...pender ({
