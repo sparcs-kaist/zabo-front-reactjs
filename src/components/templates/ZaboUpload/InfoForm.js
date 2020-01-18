@@ -56,6 +56,10 @@ const InfoForm = () => {
 
   return (
     <InfoFormWrapper>
+      <InfoFormWrapper.Header>
+        <h1>정보 입력하기</h1>
+        <p>자보에 대한 설명을 입력해주세요. 태그를 등록하면 사용자에게 더 잘 노출됩니다.</p>
+      </InfoFormWrapper.Header>
       <InfoFormWrapper.TwoCol>
         <InfoFormWrapper.TitleImage>
           <div>
@@ -64,10 +68,10 @@ const InfoForm = () => {
         </InfoFormWrapper.TitleImage>
         <InfoFormWrapper.Info>
           <section className="zabo-title">
-            <div className="label">제목 *</div>
+            <div className="label">제목</div>
             <InputBase
               required
-              className="inputContainer"
+              className="inputContainer oneLineInput"
               placeholder="포스터 제목을 입력해주세요."
               multiline
               name="title"
@@ -76,13 +80,13 @@ const InfoForm = () => {
             />
           </section>
           <section className="zabo-description">
-            <div className="label">설명 *</div>
+            <div className="label">설명</div>
             <InputBase
               required
               className="inputContainer"
               placeholder="포스터 설명을 작성해주세요."
               multiline
-              rows="12"
+              rows="5"
               fullWidth
               name="desc"
               value={desc}
@@ -90,8 +94,8 @@ const InfoForm = () => {
             />
           </section>
           <section className="zabo-expiration">
-            <div className="label">마감일 *</div>
-            <div className="inputContainer">
+            <div className="label">마감일</div>
+            <div className="inputContainer oneLineInput">
               <MuiPickersUtilsProvider utils={DateFnsUtils}>
                 <KeyboardDatePicker
                   required
@@ -110,7 +114,7 @@ const InfoForm = () => {
             </div>
           </section>
           <section className="zabo-keywords">
-            <div className="label">카테고리</div>
+            <div className="label">태그</div>
             <div className="tags">
               {tags.map (item => (
                 <div

@@ -17,6 +17,12 @@ import {
   setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten, reset,
 } from '../../../store/reducers/upload';
 
+import {
+  PageWrapper, TitleStyle, FooterStyle,
+} from './ZaboUploadPage.styled';
+import rightArrow from '../../../static/images/rightArrow.png';
+import leftArrow from '../../../static/images/leftArrow.png';
+
 const OptimizedSlider = forwardRef ((props, ref) => {
   const { children, ...others } = props;
   if (Array.isArray (children)) {
@@ -40,6 +46,22 @@ OptimizedSlider.propTypes = {
 };
 
 OptimizedSlider.defaultProps = {
+};
+
+const SlideTitle = () => {
+  const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기', '업로드 완료'];
+
+  const titleTemplate = titleList.map ((elem, idx) => (
+    <div>
+      <p>{ idx + 1 }. { elem }</p>
+      { idx !== 3 ? <img src={rightArrow} alt="right arrow" /> : '' }
+    </div>
+  ));
+  return (
+    <TitleStyle>
+      { titleTemplate }
+    </TitleStyle>
+  );
 };
 
 const SlideView = ({ step }) => {
@@ -71,51 +93,6 @@ const SlideView = ({ step }) => {
 SlideView.propTypes = {
   step: PropTypes.number.isRequired,
 };
-
-const FooterStyle = styled.div`
-  display: flex;
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  border-top: 1px solid black;
-  height: 74px;
-  align-items: center;
-  
-  .container {
-    width: 100%;
-    max-width: 1080px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-  }
-  
-  .slide-action-group {
-    flex: auto 0 0;
-  }
-  
-  button {
-    width: 140px;
-    height: 44px;
-    border-radius: 4px;
-    font-size: 16px;
-    line-height: 18px;
-  }
-  .prev {
-    border: none;
-    color: #9C9C9C;
-    margin-right: 24px;
-  }
-  .next {
-    background: #143441;
-    font-weight: bold;
-    color: #FFFFFF;  
-    &:disabled {
-      background: #cccccc;
-      cursor: not-allowed;
-    }
-  }
-`;
 
 const Footer = (props) => {
   const { prev, next, step } = props;
@@ -155,7 +132,7 @@ const Footer = (props) => {
       <div className="container">
         <div className="slide-action-group">
           {step > 0 && <button className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button className="next" onClick={validatedNext} disabled={!isValid}>다음</button>
+          <button className="next" onClick={validatedNext} disabled={!isValid}>제출하기</button>
         </div>
       </div>
     </FooterStyle>
@@ -167,12 +144,6 @@ Footer.propTypes = {
   next: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
 };
-
-
-const PageWrapper = styled.div`
-  padding-top: 64px;
-  padding-bottom: 74px;
-`;
 
 const ZaboUploadPage = () => {
   const match = useRouteMatch ();
@@ -205,8 +176,10 @@ const ZaboUploadPage = () => {
         when
         message="You have unsaved changes, are you sure you want to leave?"
       />
-      <div>1. 그룹 선택하기 2. 자보 올리기 3. 정보 입력하기 4. 업로드 완료</div>
-      <SlideView step={step} />
+      <PageWrapper.Contents>
+        <SlideTitle />
+        <SlideView step={step} />
+      </PageWrapper.Contents>
       <Footer {...slideActions} step={step} />
     </PageWrapper>
   );
