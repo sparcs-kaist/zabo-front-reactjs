@@ -1581,6 +1581,17 @@
   dependencies:
     any-observable "^0.3.0"
 
+"@sparcs-kaist/react-grid-layout@^0.18.0":
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/@sparcs-kaist/react-grid-layout/-/react-grid-layout-0.18.0.tgz#733500568a828899a31dfaffd1f1d44250dd36d5"
+  integrity sha512-Aqa3wNOtSppG2iqfXV6Z4Mf+3t5nh8GNaBhsgQyypswwUeg9a5tghoeoCTOTUwBkHryxNXw+S3jSbTJtooEdAQ==
+  dependencies:
+    classnames "2.x"
+    lodash.isequal "^4.0.0"
+    prop-types "^15.0.0"
+    react-draggable "^4.0.0"
+    react-resizable "^1.9.0"
+
 "@storybook/addon-actions@^5.0.10":
   version "5.3.5"
   resolved "https://registry.yarnpkg.com/@storybook/addon-actions/-/addon-actions-5.3.5.tgz#a6324f5263064567eb20f86dc9b32b9eefb3dcbc"
@@ -12252,17 +12263,6 @@ react-focus-lock@^2.1.0:
     react-clientside-effect "^1.2.2"
     use-callback-ref "^1.2.1"
     use-sidecar "^1.0.1"
-
-react-grid-layout@^0.17.1:
-  version "0.17.1"
-  resolved "https://registry.yarnpkg.com/react-grid-layout/-/react-grid-layout-0.17.1.tgz#0b75c72e5b7d7085f0f0054e160b31298971c5e2"
-  integrity sha512-L+wHFevK+klKvoAHuHn4Q5qHtrW+4zCj0F3QnpR7wZbkZPmrdaWC7cztFLXwINq6WnOWGE22BCTCDCHJi7dVDw==
-  dependencies:
-    classnames "2.x"
-    lodash.isequal "^4.0.0"
-    prop-types "^15.0.0"
-    react-draggable "^4.0.0"
-    react-resizable "^1.9.0"
 
 react-helmet-async@^1.0.2:
   version "1.0.4"
