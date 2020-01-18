@@ -3,7 +3,6 @@ const delay = 250;
 const listeners = [];
 
 function getDimensions () {
-  console.log ('getDimensions', listeners);
   const width = window.innerWidth;
   const height = window.innerHeight;
   listeners.forEach (listener => {

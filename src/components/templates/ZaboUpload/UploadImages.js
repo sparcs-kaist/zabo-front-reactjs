@@ -4,7 +4,7 @@ import React, {
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
-import { Responsive, WidthProvider } from 'lib/react-grid-layout';
+import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
 
 import CloseIcon from '@material-ui/icons/Close';
 
@@ -118,6 +118,21 @@ const UploadImages = props => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const files = filesImmutable.toJS ();
   const setFiles = imageFiles => dispatch (setImages (imageFiles));
+
+  useEffect (() => {
+    const { cols } = widthInfo;
+    const clone = files.slice ();
+    clone.sort (gridLayoutCompareFunction);
+    const result = clone.map ((file, index) => {
+      const newLayout = {
+        ...file.updatedLayout,
+        x: index % cols,
+        y: Math.floor (index / cols),
+      };
+      return Object.assign (file, { layout: newLayout, updatedLayout: newLayout });
+    });
+    setFiles (result);
+  }, [widthInfo.cols]);
 
   const {
     getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
