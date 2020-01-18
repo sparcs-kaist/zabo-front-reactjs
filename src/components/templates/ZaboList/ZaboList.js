@@ -13,8 +13,8 @@ import withStackMaster from './withStackMaster';
 const sizes = [
   { columns: 2, gutter: 16 },
   { mq: '780px', columns: 3, gutter: 16 },
-  { mq: '1024px', columns: 4, gutter: 16 },
-  { mq: '1260px', columns: 5, gutter: 16 },
+  { mq: '1024px', columns: 4, gutter: 24 },
+  { mq: '1260px', columns: 4, gutter: 24 },
 ];
 
 const Loader = styled.div`
@@ -33,7 +33,6 @@ const Loader = styled.div`
 
 const loader = (
   <Loader>
-
     <img src={
       Math.floor (Math.random () * 2) === 0
         ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579285702954'

@@ -15,7 +15,7 @@ ZaboCardStyle.Poster = styled.div`
   cursor: pointer;
 
   img {
-    border-radius: 16px;
+    border-radius: 4px;
     position: absolute;
     top: 0;
     left: 0;
@@ -28,7 +28,7 @@ ZaboCardStyle.Poster.Overlay = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  border-radius: 16px;
+  border-radius: 4px;
   background-color: rgba(0, 0, 0, .03);
 `;
 
