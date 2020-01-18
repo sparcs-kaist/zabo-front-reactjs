@@ -3,17 +3,20 @@ import styled from 'styled-components';
 const InfoFormWrapper = styled.div`
   /*label on all inputs*/
   .label {
-    margin-top: 20px;
-    font-size: 12px;
-    color: #8f8f8f;
+    font-size: 18px;
+    color: #202020;
   }
   /*container for all inputs*/
   .inputContainer {
     width: 100%;
-    margin: 5px 0px;
+    margin: 8px 0 24px 0;
     padding: 9px 10px;
     border-radius: 4px;
     background-color: #f4f4f4;
+  }
+
+  .oneLineInput {
+    height: 48px;
   }
 
   /* ========= Inputs ========= */
@@ -54,12 +57,13 @@ const InfoFormWrapper = styled.div`
   }
   /*// tag colors*/
   .default {
-    color: #c5c5c5;
-    background-color: #f4f4f4;
+    color: #143441;
+    border: solid 1px #143441;
   }
   .selected {
     color: white;
     background-color: #143441;
+    border: solid 1px #143441;
   }
 
   /* ========== Submit ========== */
@@ -138,6 +142,17 @@ const InfoFormWrapper = styled.div`
   }
 `;
 
+InfoFormWrapper.Header = styled.section`
+  h1 {
+    font-size: 28px;
+    margin: 20px 0 0 0;
+  }
+  p {
+    color: #202020;
+    margin: 15px 0 35px 0;
+  }
+`;
+
 InfoFormWrapper.TwoCol = styled.section`
   display: flex;
   flex-direction: row;
@@ -152,10 +167,11 @@ InfoFormWrapper.TwoCol = styled.section`
 InfoFormWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
+  margin-right: 24px;
   img {
     width: 100%;
     height: auto;
-    margin-top: 40px;
+    border-radius: 8px;
   }
 `;
 

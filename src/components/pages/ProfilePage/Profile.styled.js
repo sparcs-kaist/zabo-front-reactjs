@@ -29,7 +29,7 @@ Page.Header.ProfilePhoto = styled.div`
 `;
 
 Page.Header.UserInfo = styled.div`
-  font-size: 22px;
+  font-size: 28px;
   font-weight: bold;
   padding: 16px 0 22px 0;
   min-height: 64px;
