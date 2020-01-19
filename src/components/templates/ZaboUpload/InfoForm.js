@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
-import InputBase from '@material-ui/core/InputBase';
+import InputBase from 'atoms/InputBase';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -71,7 +71,6 @@ const InfoForm = () => {
             <div className="label">제목</div>
             <InputBase
               required
-              className="inputContainer oneLineInput"
               placeholder="포스터 제목을 입력해주세요."
               multiline
               name="title"
@@ -83,7 +82,6 @@ const InfoForm = () => {
             <div className="label">설명</div>
             <InputBase
               required
-              className="inputContainer"
               placeholder="포스터 설명을 작성해주세요."
               multiline
               rows="5"

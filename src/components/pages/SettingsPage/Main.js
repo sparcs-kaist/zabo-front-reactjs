@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 import { NotFound } from 'components/pages';
 import ProfileSetting from './ProfileSetting';
+import GroupSetting from './GroupSetting';
 
 import pToP from '../../../hoc/paramsToProps';
 
@@ -14,6 +15,7 @@ const Main = () => {
   return (
     <SettingsWrapper>
       <Switch>
+        <Route path={`${match.url}/group/:groupName`} component={pToP (GroupSetting)} />
         <Route path={`${match.url}/profile`} component={ProfileSetting} />
         <NotFound />
       </Switch>

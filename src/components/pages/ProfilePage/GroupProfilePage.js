@@ -7,7 +7,7 @@ import Header from '../../templates/Header';
 
 import { GroupType } from '../../../lib/propTypes';
 
-import defaultProfile from '../../../static/images/defaultProfile.png';
+import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import { setCurrentGroup } from '../../../store/reducers/auth';
 
@@ -35,7 +35,7 @@ const GroupProfile = ({ profile }) => {
           {
             profilePhoto
               ? <img src={profilePhoto} alt="profile photo" />
-              : <img src={defaultProfile} alt="default profile img" />
+              : <img src={groupDefaultProfile} alt="default profile img" />
           }
         </Page.Header.ProfilePhoto>
         <Page.Header.UserInfo>
