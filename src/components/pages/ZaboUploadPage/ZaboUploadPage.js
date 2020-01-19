@@ -165,7 +165,6 @@ const ZaboUploadPage = () => {
   }, []);
 
   useEffect (() => () => {
-    console.log ('reset');
     dispatch (reset ());
   }, []);
 
