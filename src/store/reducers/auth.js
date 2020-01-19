@@ -12,6 +12,7 @@ const LOGIN_CALLBACK = 'auth/LOGIN_CALLBACK';
 const CHECK_AUTH = 'auth/CHECK_AUTH';
 const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
+const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';
 const SET_CURRENT_GROUP = 'user/SET_CURRENT_GROUP';
 const REMOVE_GROUP_USER = 'group/REMOVE_GROUP_USER';
 
@@ -20,6 +21,7 @@ export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPI.loginCallback
 export const checkAuth = createAction (CHECK_AUTH, AuthAPI.checkAuth, meta => meta);
 export const logout = createAction (LOGOUT);
 export const updateUserInfo = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfo, meta => meta);
+export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfo, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, AuthAPI.setCurrentGroup);
 export const removeGroupUser = createAction (REMOVE_GROUP_USER, AuthAPI.removeGroupUser);
 
@@ -84,6 +86,10 @@ export default handleActions (
     }),
     ...pender ({
       type: UPDATE_USER_INFO,
+      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
+    }),
+    ...pender ({
+      type: UPDATE_GROUP_INFO,
       onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
     }),
   },
