@@ -11,7 +11,6 @@ import HeaderWrapper from './Header.styled';
 
 const containerStyle = css`
   position: absolute;
-  min-width: 1072px;
   justify-content: space-between;
   align-items: center;
   >div {
