@@ -78,11 +78,12 @@ export const cropImage = async (file, ratio) => {
   canvas.width = dWidth;
   canvas.height = dHeight;
   const context = canvas.getContext ('2d');
+  context.fillStyle = 'white';
+  context.fillRect (0, 0, canvas.width, canvas.height);
 
   // crop it top center
   context.drawImage (image, 0, 0, dWidth, dHeight, 0, 0, dWidth, dHeight);
   // const base64ImageData = canvas.get(0).toDataURL();
   // const imgSrc = canvas.toDataURL ('image/png');
-  const imageSrc = canvas.toDataURL ();
-  return imageSrc;
+  return canvas.toDataURL ('image/jpeg');
 };
