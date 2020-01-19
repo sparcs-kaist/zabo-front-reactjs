@@ -42,7 +42,7 @@ export const dataURLToBlob = (dataURL) => {
   return new Blob ([new Uint8Array (array)]);
 };
 
-const loadImageFile = (file) => {
+export const loadImageFile = (file) => {
   const _URL = window.URL || window.webkitURL;
   const img = new Image ();
   const objectUrl = _URL.createObjectURL (file);
