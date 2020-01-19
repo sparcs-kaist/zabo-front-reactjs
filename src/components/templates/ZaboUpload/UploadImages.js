@@ -11,7 +11,8 @@ import CloseIcon from '@material-ui/icons/Close';
 import { setImages } from '../../../store/reducers/upload';
 
 import './grid-layout.scss';
-import { gridLayoutCompareFunction } from '../../../lib/utils';
+import { gridLayoutCompareFunction, loadImageFile } from '../../../lib/utils';
+import useSetState from '../../../hooks/useSetState';
 
 const ResponsiveGridLayout = WidthProvider (Responsive);
 
@@ -92,11 +93,12 @@ const ThumbInner = styled.div`
   border: 1px solid #101010;
 `;
 
-const img = {
-  display: 'block',
-  width: 200,
-  height: 'auto',
-};
+const ThumbImage = styled.div`
+  display: block;
+  width: 200px;
+  height: 100%;
+  background-size: cover;
+`;
 
 const Wrapper = styled.section`
   .responsive-grid-layout {
@@ -105,8 +107,13 @@ const Wrapper = styled.section`
 `;
 
 const UploadImages = props => {
-  const [imageRef, setImageRef] = useState (null);
-  const [titleImage, setTitleImage] = useState ('');
+  const [titleKey, setTitleKey] = useState ('');
+  const [titleHeight, setTitleHeight] = useState (200);
+  const updateTitleImage = async (file) => {
+    setTitleKey (file);
+    const image = await loadImageFile (file);
+    setTitleHeight (image.height * (200 / image.width));
+  };
 
   const [widthInfo, setWidthInfo] = useState ({
     width: 0,
@@ -169,7 +176,14 @@ const UploadImages = props => {
 
   useEffect (() => () => {
     // Make sure to revoke the data uris to avoid memory leaks
-    setTimeout (() => files.forEach (file => URL.revokeObjectURL (file.preview)), 0);
+    setTimeout (() => files.forEach (file => {
+      URL.revokeObjectURL (file.preview);
+      const isTitle = (file.updatedLayout.x === 0 && file.updatedLayout.y === 0);
+      if (isTitle && file.key !== titleKey) {
+        updateTitleImage (file)
+          .catch (error => console.error (error));
+      }
+    }), 0);
   }, [filesImmutable]);
 
   useEffect (
@@ -193,49 +207,39 @@ const UploadImages = props => {
 
   const gridLayoutStyle = files.length ? {} : { height: 0 };
 
-  const thumbs = files.map (file => {
-    const isTitle = (file.updatedLayout.x === 0 && file.updatedLayout.y === 0);
-    if (isTitle && file.key !== titleImage) {
-      setTimeout (() => setTitleImage (file.key), 0);
-    }
-    const imageProps = isTitle ? {
-      ref: ref => { setImageRef (ref); },
-    } : {};
-
-    return (
-      <Thumb
-        key={file.key}
-        style={thumb}
-      >
-        <ThumbOverlay>
-          <CloseIcon
-            onClick={e => {
-              e.stopPropagation ();
-              const clone = files.map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
-              clone.sort (gridLayoutCompareFunction);
-              const deleteIndex = clone.findIndex (l => l.key === file.key);
-              URL.revokeObjectURL (clone[deleteIndex].preview);
-              clone.splice (deleteIndex, 1);
-              for (let i = deleteIndex; i < clone.length; i += 1) {
-                clone[i].layout.x -= 1;
-                clone[i].updatedLayout.x -= 1;
-                if (clone[i].layout.x < 0) {
-                  clone[i].layout.y -= 1;
-                  clone[i].layout.x = widthInfo.cols - 1;
-                  clone[i].updatedLayout.y -= 1;
-                  clone[i].updatedLayout.x = widthInfo.cols - 1;
-                }
+  const thumbs = useMemo (() => files.map (file => (
+    <Thumb
+      key={file.key}
+      style={thumb}
+    >
+      <ThumbOverlay>
+        <CloseIcon
+          onClick={e => {
+            e.stopPropagation ();
+            const clone = files.map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
+            clone.sort (gridLayoutCompareFunction);
+            const deleteIndex = clone.findIndex (l => l.key === file.key);
+            URL.revokeObjectURL (clone[deleteIndex].preview);
+            clone.splice (deleteIndex, 1);
+            for (let i = deleteIndex; i < clone.length; i += 1) {
+              clone[i].layout.x -= 1;
+              clone[i].updatedLayout.x -= 1;
+              if (clone[i].layout.x < 0) {
+                clone[i].layout.y -= 1;
+                clone[i].layout.x = widthInfo.cols - 1;
+                clone[i].updatedLayout.y -= 1;
+                clone[i].updatedLayout.x = widthInfo.cols - 1;
               }
-              setFiles (clone);
-            }}
-          />
-        </ThumbOverlay>
-        <ThumbInner>
-          <img {...imageProps} src={file.preview} style={img} alt="thumbnail" />
-        </ThumbInner>
-      </Thumb>
-    );
-  });
+            }
+            setFiles (clone);
+          }}
+        />
+      </ThumbOverlay>
+      <ThumbInner>
+        <ThumbImage style={{ backgroundImage: `url(${file.preview})` }} alt="thumbnail" />
+      </ThumbInner>
+    </Thumb>
+  )), [filesImmutable]);
 
   return (
     <Wrapper>
@@ -245,7 +249,7 @@ const UploadImages = props => {
           <ResponsiveGridLayout
             style={gridLayoutStyle}
             className="responsive-grid-layout"
-            rowHeight={imageRef ? imageRef.height : 200}
+            rowHeight={titleHeight}
             compactType="horizontal"
             verticalCompact
             breakpoints={{
@@ -266,8 +270,6 @@ const UploadImages = props => {
             onLayoutChange={layout => {
               const clone = files.map ((file, index) => Object.assign (file, { updatedLayout: layout[index] }));
               setFiles (clone);
-              const title = layout.find (l => (l.x === 0 && l.y === 0));
-              if (title) setTimeout (() => setTitleImage (title.i), 0);
             }}
             layouts={{ lg: files.map (x => x.updatedLayout) }}
             onClick={e => e.stopPropagation ()}
