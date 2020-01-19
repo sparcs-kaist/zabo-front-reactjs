@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import LoadingDialog from './Loading';
 
 import { uploadZabo } from '../../../store/reducers/zabo';
-import { gridLayoutCompareFunction } from '../../../lib/utils';
+import {
+  cropImage, dataURLToBlob, gridLayoutCompareFunction, imageFileGetWidthHeight,
+} from '../../../lib/utils';
 
 const ProcessWrapper = styled.section`
   width: 100%;
@@ -63,13 +65,17 @@ const UploadProcess = (props) => {
   const sortedImageFiles = imageFiles.slice ();
   sortedImageFiles.sort (gridLayoutCompareFunction);
 
-  const upload = useCallback (e => {
+  const upload = useCallback (async e => {
     e.preventDefault ();
+    const { width, height } = await imageFileGetWidthHeight (sortedImageFiles[0]);
+    const ratio = width / height;
+
     const formData = new FormData ();
-    Array.from (sortedImageFiles).forEach (file => {
-      // FileList => Array 로
-      formData.append ('img', file);
-    });
+    await Promise.all (
+      sortedImageFiles.map (file => cropImage (file, ratio)
+        .then (imageSrc => dataURLToBlob (imageSrc))
+        .then (blob => formData.append ('img', blob))),
+    );
     formData.append ('title', title);
     formData.append ('description', desc);
     formData.append ('endAt', expDate);
