@@ -31,12 +31,15 @@ const Loader = styled.div`
   }
 `;
 
+const rand = Math.floor (Math.random () * 3);
 const loader = (
   <Loader>
     <img src={
-      Math.floor (Math.random () * 2) === 0
+      rand === 0
         ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579285702954'
-        : 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/profile/user-1579181150933'
+        : rand === 1
+          ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579452331713'
+          : 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/profile/user-1579181150933'
     }
     />
   </Loader>
