@@ -5,6 +5,7 @@ const ZaboPageWrapper = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
+  min-width: 1072px;
 
   .container {
     padding: 0;
