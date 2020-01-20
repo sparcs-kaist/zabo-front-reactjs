@@ -126,7 +126,7 @@ const ZaboUploadPage = () => {
       <Header rightGroup={<Header.AuthButton />} />
       <Prompt
         when
-        message="You have unsaved changes, are you sure you want to leave?"
+        message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
       />
       <PageWrapper.Contents>
         <SlideTitle />
