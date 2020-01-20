@@ -71,6 +71,7 @@
     "jsonwebtoken": "^8.5.1",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
+    "lodash.throttle": "^4.1.1",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
     "luxon": "^1.16.1",

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useDropzone } from 'react-dropzone';
 import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
 import CloseIcon from '@material-ui/icons/Close';
+import throttle from 'lodash.throttle';
 
 import { setImages } from '../../../store/reducers/upload';
 
@@ -256,6 +257,7 @@ const UploadImages = props => {
     }
   };
   const [, dispatch] = useReducer (reducer, null);
+  const throttledDispatch = useMemo (() => throttle (dispatch, 80), [dispatch]);
 
   useEffect (() => () => dispatch ({ type: 'revokeObjectURL' }), []); // Make sure to revoke the data uris to avoid memory leaks
   useEffect (() => {
@@ -348,7 +350,7 @@ const UploadImages = props => {
                 containerPadding,
               });
             }}
-            onDrag={() => dispatch ({ type: 'updateImagesInfo' })}
+            onDrag={() => throttledDispatch ({ type: 'updateImagesInfo' })}
           >
             {thumbs}
           </ResponsiveGridLayout>
