@@ -29,14 +29,25 @@ ZaboPageWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
   margin-right: 48px;
+  position: relative;
   @media (max-width: 640px) {
     margin-right: 0;
   }
+  .imageOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.03);
+    width: 100%;
+    height: 100%;
+  }
+
   img {
     width: 100%;
     height: auto;
     border-radius: 8px;
     vertical-align: top;
+    /* opacity: 0.97; */
     @media (max-width: 640px) {
       border-radius: 0;
     }

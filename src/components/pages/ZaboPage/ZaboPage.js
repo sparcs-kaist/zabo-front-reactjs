@@ -49,6 +49,7 @@ class ZaboPage extends PureComponent {
           <ZaboPageWrapper.TitleImage>
             <div>
               <img src={photos[0].url} alt="title poster" />
+              <div className="imageOverlay"> </div>
             </div>
           </ZaboPageWrapper.TitleImage>
           <ZaboPageWrapper.Info>
@@ -98,7 +99,7 @@ class ZaboPage extends PureComponent {
           </ZaboPageWrapper.Info>
         </ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.Recommend>
-          <h1>관련 있는 자보</h1>
+          <h1>연관 있는 자보</h1>
           <ZaboList type="related" relatedTo={zaboId} key={zaboId} />
         </ZaboPageWrapper.Recommend>
       </ZaboPageWrapper>
