@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import InputBase from 'atoms/InputBase';
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
+import MomentUtils from '@date-io/moment';
 
 import { setInfo } from '../../../store/reducers/upload';
 
@@ -94,7 +94,7 @@ const InfoForm = () => {
           <section className="zabo-expiration">
             <div className="label">마감일</div>
             <div className="inputContainer oneLineInput">
-              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+              <MuiPickersUtilsProvider utils={MomentUtils}>
                 <KeyboardDatePicker
                   required
                   value={expDate}
