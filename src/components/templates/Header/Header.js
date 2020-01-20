@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
 import { useSelector } from 'react-redux';
@@ -6,12 +6,11 @@ import { NavLink, useHistory } from 'react-router-dom';
 import SVG from 'atoms/SVG';
 import Container from 'atoms/Container';
 import logo from 'static/logo/logo.svg';
-import left from 'static/images/chevron_left.svg';
 import { selectAuthenticated } from '../../../lib/utils';
-import { logout as logoutAction } from '../../../store/reducers/auth';
 import HeaderWrapper from './Header.styled';
 
 const containerStyle = css`
+  position: absolute;
   justify-content: space-between;
   align-items: center;
   >div {
@@ -23,9 +22,16 @@ const containerStyle = css`
 
 const Header = ({ back, title, rightGroup }) => {
   const history = useHistory ();
+  const [left, setLeft] = useState (0);
+  useEffect (() => {
+    const listener = () => setLeft (-window.pageXOffset);
+    window.addEventListener ('optimizedScroll', listener);
+    return () => window.removeEventListener ('optimizedScroll', listener);
+  }, []);
+
   return (
     <HeaderWrapper>
-      <Container ownStyle={containerStyle}>
+      <Container ownStyle={containerStyle} style={{ left }}>
         <div>
           {back ? (
             <>

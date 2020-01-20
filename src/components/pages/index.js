@@ -1,58 +1,19 @@
-import Loadable from 'react-loadable';
+import loadable from '@loadable/component';
+/*
+ Migrated from react-loadable to loadable-component.
+ Check out these to find out more
+ https://loadable-components.com/docs/loadable-vs-react-lazy/#note-about-react-loadable
+ https://velog.io/@velopert/nomore-react-loadable
+*/
 
-import Loading from '../templates/Loading';
-
-export const HomePage = Loadable ({
-  loader: () => import ('./HomePage'),
-  loading: Loading,
-});
-
-export const ZaboUploadPage = Loadable ({
-  loader: () => import ('./ZaboUploadPage'),
-  loading: Loading,
-});
-
-export const MyPage = Loadable ({
-  loader: () => import ('./MyPage'),
-  loading: Loading,
-});
-
-export const SettingsPage = Loadable ({
-  loader: () => import ('./SettingsPage'),
-  loading: Loading,
-});
-
-export const AuthPage = Loadable ({
-  loader: () => import ('./AuthPage'),
-  loading: Loading,
-});
-
-export const LoginPage = Loadable ({
-  loader: () => import ('./LoginPage'),
-  loading: Loading,
-});
-
-export const GroupPage = Loadable ({
-  loader: () => import ('./GroupPage'),
-  loading: Loading,
-});
-
-export const GroupAddPage = Loadable ({
-  loader: () => import ('./GroupAddPage'),
-  loading: Loading,
-});
-
-export const ProfilePage = Loadable ({
-  loader: () => import ('./ProfilePage'),
-  loading: Loading,
-});
-
-export const ZaboPage = Loadable ({
-  loader: () => import ('./ZaboPage'),
-  loading: Loading,
-});
-
-export const NotFound = Loadable ({
-  loader: () => import ('./NotFound'),
-  loading: Loading,
-});
+export const HomePage = loadable (/* webpackPrefetch: true */ () => import ('./HomePage'));
+export const ZaboUploadPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboUploadPage'));
+export const MyPage = loadable (/* webpackPrefetch: true */ () => import ('./MyPage'));
+export const SettingsPage = loadable (/* webpackPrefetch: true */ () => import ('./SettingsPage'));
+export const AuthPage = loadable (/* webpackPrefetch: true */ () => import ('./AuthPage'));
+export const LoginPage = loadable (/* webpackPrefetch: true */ () => import ('./LoginPage'));
+export const GroupPage = loadable (/* webpackPrefetch: true */ () => import ('./GroupPage'));
+export const GroupAddPage = loadable (/* webpackPrefetch: true */ () => import ('./GroupAddPage'));
+export const ProfilePage = loadable (/* webpackPrefetch: true */ () => import ('./ProfilePage'));
+export const ZaboPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboPage'));
+export const NotFound = loadable (/* webpackPrefetch: true */ () => import ('./NotFound'));
