@@ -68,6 +68,7 @@ const UserProfile = ({ profile }) => {
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
+  // TODO : need to change scroll value; consider mobile app version
   const leftScrollClick = () => {
     document.getElementById ('groupsList').scrollLeft -= 1000;
   };
@@ -91,10 +92,8 @@ const UserProfile = ({ profile }) => {
             <h1>{username}</h1>
             <p>{description || '아직 소개가 없습니다.'}</p>
             <section>
-              {/* <div className="button logout">로그아웃</div> */}
               {isMyProfile && <button className="logout" type="button" onClick={logout}>로그아웃</button>}
               {isMyProfile && <button className="edit" type="button" onClick={logout}>프로필 편집</button>}
-              {/* <div className="button edit">프로필 편집</div> */}
             </section>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>

@@ -19,18 +19,26 @@ Page.Header = styled.section`
   margin-bottom: 120px;
   @media (max-width: 640px) {
     flex-direction: column;
+    width: 100%;
+    margin-bottom: 60px;
   }
 `;
 
 Page.Header.Left = styled.section`
   display: flex;
   @media (max-width: 640px) {
-    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 60px;
+    min-width: 291px;
+    padding: 0 24px;
   }
 `;
 
 Page.Header.Left.ProfilePhoto = styled.div`
   padding-right: 36px;
+  @media (max-width: 640px) {
+    padding-right: 28px;
+  }
   img {
     width: 120px;
     height: 120px;
@@ -41,6 +49,9 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media (max-width: 640px) {
+    min-width: 158px;
+  }
   h1 {
     font-size: 28px;
     font-weight: bold;
@@ -48,8 +59,13 @@ Page.Header.Left.UserInfo = styled.div`
     margin: 0;
   }
   p {
+    display: inline-block;
+    
     margin: 10px 0 15px 0;
     color: #202020;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
   }
   button {
     height: 30px;
@@ -75,11 +91,19 @@ Page.Header.Right = styled.section`
   align-items: center;
   justify-content: flex-end;
   flex: 1;
+  @media (max-width: 640px) {
+    justify-content: center;
+  }
 `;
 
 export const Groups = styled.section`
   width: 1032px;
   margin-bottom: 78px;
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 0 16px;
+  }
+
   h1 {
     display: inline-block;
     font-size: 22px;
