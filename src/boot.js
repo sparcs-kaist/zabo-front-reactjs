@@ -22,11 +22,11 @@ const pwaInstallPromptListener = () => {
 };
 
 export default () => {
-  (function () {
-    const throttle = function (type, name, givenObj) {
+  ((() => {
+    const throttle = (type, name, givenObj) => {
       const obj = givenObj || window;
       let running = false;
-      const func = function () {
+      const func = () => {
         if (running) {
           return;
         }
@@ -42,7 +42,7 @@ export default () => {
     /* init - you can init any event */
     throttle ('resize', 'optimizedResize');
     throttle ('scroll', 'optimizedScroll');
-  } ());
+  }) ());
 
   pwaInstallPromptListener ();
 
@@ -59,8 +59,8 @@ export default () => {
   }
 };
 
-window.addEventListener ('devtoolschange', event => {
-  import ('./static/images/recruitAscii').then (asciiArt => {
-    // console.log (asciiArt.default);
-  });
+window.addEventListener ('devtoolschange', () => {
+  // import ('./static/images/recruitAscii').then (asciiArt => {
+  //   console.log (asciiArt.default);
+  // });
 });

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   useRouteMatch, Prompt,
 } from 'react-router-dom';
-import styled from 'styled-components';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -21,7 +20,6 @@ import {
   PageWrapper, TitleStyle, FooterStyle,
 } from './ZaboUploadPage.styled';
 import rightArrow from '../../../static/images/rightArrow.png';
-import leftArrow from '../../../static/images/leftArrow.png';
 
 const OptimizedSlider = forwardRef ((props, ref) => {
   const { children, ...others } = props;
@@ -131,8 +129,8 @@ const Footer = (props) => {
     <FooterStyle>
       <div className="container">
         <div className="slide-action-group">
-          {step > 0 && <button className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button className="next" onClick={validatedNext} disabled={!isValid}>제출하기</button>
+          {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
+          <button type="button" className="next" onClick={validatedNext} disabled={!isValid}>제출하기</button>
         </div>
       </div>
     </FooterStyle>
@@ -146,11 +144,10 @@ Footer.propTypes = {
 };
 
 const ZaboUploadPage = () => {
-  const match = useRouteMatch ();
   const dispatch = useDispatch ();
   const step = useSelector (state => state.getIn (['upload', 'step']));
   const { infoWritten, groupSelected, imagesSelected } = useSelector (state => state.get ('upload')).toJS ();
-  const setStep = (step => dispatch (setReduxStep (step)));
+  const setStep = (newStep => dispatch (setReduxStep (newStep)));
   useEffect (() => {
     const newStep = !groupSelected ? 0 : !imagesSelected ? 1 : !infoWritten ? 2 : 3;
     setStep (newStep);
@@ -165,7 +162,6 @@ const ZaboUploadPage = () => {
   }, []);
 
   useEffect (() => () => {
-    console.log ('reset');
     dispatch (reset ());
   }, []);
 
