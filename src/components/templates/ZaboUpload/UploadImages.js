@@ -153,11 +153,11 @@ const UploadImages = props => {
     ]);
   }, [filesImmutable]);
 
-  const removeImage = useCallback ((e, key) => {
-    e.stopPropagation ();
-    const clone = files.map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
+  const removeImage = useCallback ((key) => {
+    const clone = files.slice ().map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
     clone.sort (gridLayoutCompareFunction);
     const deleteIndex = clone.findIndex (l => l.key === key);
+    if (deleteIndex === -1) return;
     clone.splice (deleteIndex, 1);
     for (let i = deleteIndex; i < clone.length; i += 1) {
       clone[i].layout.x -= 1;
@@ -217,8 +217,7 @@ const UploadImages = props => {
         break;
       }
       case 'removeImage': {
-        const { e, key } = action;
-        removeImage (e, key);
+        removeImage (action.key);
         break;
       }
       case 'relocate': {
@@ -287,7 +286,11 @@ const UploadImages = props => {
       style={thumb}
     >
       <ThumbOverlay>
-        <CloseIcon onClick={e => dispatch ({ type: 'removeImage', e, key })} />
+        <CloseIcon onClick={e => {
+          e.stopPropagation ();
+          dispatch ({ type: 'removeImage', key });
+        }}
+        />
       </ThumbOverlay>
       <ThumbInner>
         <ThumbImage
