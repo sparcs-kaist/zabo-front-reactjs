@@ -110,7 +110,7 @@ const InfoFormWrapper = styled.div`
   /* ======================================== */
   /* ============ Responsive CSS ============ */
   /* ======================================== */
-  @media (min-width: 800px) {
+  @media (min-width: 640px) {
     .headerLow {
       width: 100%;
       display: flex;
@@ -158,7 +158,7 @@ InfoFormWrapper.TwoCol = styled.section`
   flex-direction: row;
   justify-content: center;
   min-height: 70vh;
-  @media (max-width: 600px) {
+  @media (max-width: 640px) {
     flex-direction: column;
     padding: 0 12px;
   }

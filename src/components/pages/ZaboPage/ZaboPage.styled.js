@@ -1,125 +1,194 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
-const ZaboPageWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-
-  .container {
+export const ZaboPageWrapper = styled.div`
+  padding: 80px 0;
+  min-width: 1072px;
+  @media (max-width: 640px) {
+    min-width: 100%;
     padding: 0;
   }
-`;
 
-export default ZaboPageWrapper;
-
-export const Zabo = styled.div`
-  position: relative;
-  margin: 0 auto 0 auto;
-  width: 100%;
-`;
-
-Zabo.Poster = styled.div`
-  background-color: rgba(0, 0, 0, 0.03);
   display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+ZaboPageWrapper.TwoCol = styled.section`
+  display: flex;
+  flex-direction: row;
   justify-content: center;
-  box-shadow: 0px -1px 6px #a9a9a9;
-  img {
-    ${props => {
-    const { meta } = props;
-    if (!meta) {
-      return css`
-         width: auto;
-         height: 50vh;
-      `;
-    }
-    const { width, height } = meta;
-    if (width > 1.7 * height) {
-      return css`
-          width: 100%;
-          height: auto;
-        `;
-    }
-    return css`
-          width: auto;
-          height: 50vh;
-        `;
-  }};
+  min-height: 712.22px;
+  width: 1032px;
+  @media (max-width: 640px) {
+    flex-direction: column;
+    width: 100%;
   }
 `;
-Zabo.Writings = styled.div`
- /*TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인*/
-  color: #143441;
-  padding: 0 12px;
 
-  .title {
-    color: #143441;
-    font-size: 24px;
-    font-weight: bold;
-    margin-top: 20px;
-    margin-bottom: 15px;
+ZaboPageWrapper.TitleImage = styled.section`
+  flex: 1;
+  height: 100%;
+  margin-right: 48px;
+  position: relative;
+  @media (max-width: 640px) {
+    margin-right: 0;
   }
-  .owner {
-    color: #8f8f8f;
-    font-size: 16px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-  .times {
-    display: flex;
-    justify-content: space-between;
+  .imageOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,0.03);
     width: 100%;
-    a {
-      max-width: calc(100% - 30px);
-    }
-    .after-create {
-      flex: 1;
-      font-size: 12px;
-      line-height: 14px;
-      color: #8F8F8F;
-    }
-    .due-date {
-      display: flex;
-      flex-shrink: 0;
-      justify-content: center;
-      align-items: center;
-      width: 36px;
-      height: 18px;
-      font-size: 11px;
-      line-height: 18px;
-      border-radius: 5px;
-      background: #143441;
-      font-weight: bold;
-      color: #FFFFFF;
-    }
-  }
-  .description {
-    color: #143441;
-    font-size: 14px;
-    font-family: "NanumSquareRegular", sans-serif;
-    line-height: 18px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    height: 100%;
   }
 
-  hr {
-    border: 1px solid #F4F4F4;
+  img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    vertical-align: top;
+    /* opacity: 0.97; */
+    @media (max-width: 640px) {
+      border-radius: 0;
+    }
   }
+`;
 
+ZaboPageWrapper.Info = styled.section`
+  flex: 1.05;
+  height: 100%;
+  @media (max-width: 640px) {
+    padding: 24px 16px;
+  }
+`;
+
+ZaboPageWrapper.Info.Header = styled.section`
   .keyword-result {
     padding: 0px;
     width: 100%;
+    margin: 0;
     li {
-      border-radius: 2px;
       display: inline-block;
-      padding: 4.5px 10px 4.5px 10px;
-      margin-right: 10px;
-      margin-top: 10px;
-      background: #CECCB7;
-      color: #ffffff;
+      border-radius: 2px;
+      padding: 4px 6px;
+      margin-right: 8px;
+      background: #EEEEEE;
+      color: #5C5C5C;
       font-size: 14px;
       line-height: 16px;
-      font-weight: bold;
+    }
+  }
+  
+  h1 {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: bold;
+    margin: 12px 20px 12px 0;
+    vertical-align: middle;
+    @media (max-width: 640px) {
+      font-size: 24px;
+    } 
+  }
+  .due-date {
+    display: inline-block;
+    width: 58px;
+    height: 26px;
+    padding: 4px 10px;
+    border-radius: 4px;
+    background: #143441;
+    color: white;
+    font-size: 16px;
+    vertical-align: middle;
+  }
+
+  .after-create {
+    font-size: 14px;
+    line-height: 14px;
+    color: #666666;
+    @media (max-width: 640px) {
+      font-size: 12px;
+    }
+  }
+`;
+
+ZaboPageWrapper.Info.Box = styled.div`
+  display: inline-block;
+  margin: 28px 8px 72px 0;
+  min-width: 86px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #143441;
+  padding: 8px 14px;
+  @media (max-width: 640px) {
+    width: 72px;
+    height: 38px;
+    font-size: 14px;
+  }
+
+  img {
+    width: 24px;
+    height: 24px;
+    @media (max-width: 640px) {
+      width: 22px;
+      height: 22px;
+    }
+  }
+  div {
+    display: inline-block;
+    position: relative;
+    top: -8px;
+    left: 4px;
+  }
+`;
+
+ZaboPageWrapper.Info.Body = styled.section`
+  color: #202020;
+  .borderLine {
+    border: .5px solid #D7D7D7;
+  }
+
+  .owner {
+    color: #202020;
+    img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      margin-right: 2px;
+      vertical-align: middle;
+    }
+    p { 
+      display: inline-block;
+      vertical-align: middle;
+      padding: 0 8px;
+      &.follow { font-size: 14px; }
+    }
+    .specialChar {
+      display: inline-block;
+      color: #8F8F8F;
+      vertical-align: middle;
+    }
+  }
+
+  .contents {
+    padding-top: 28px;
+    font-size: 14px;
+  }
+`;
+
+ZaboPageWrapper.Recommend = styled.section`
+  width: 1032px;
+  margin-top: 102.78px;
+  @media (max-width: 640px) {
+    margin-top: 64px;
+    padding: 0 16px;
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    @media (max-width: 640px) {
+      font-size: 16px;
     }
   }
 `;

@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -52,6 +53,7 @@ Loading.Inactive = styled.div`
 
 const UploadProcess = (props) => {
   const dispatch = useDispatch ();
+  const history = useHistory ();
   const [progress, setProgress2] = useState (0);
   const setProgress = x => { console.log ({ x }); setProgress2 (x); };
   const [error, setError] = useState (null);
@@ -87,8 +89,7 @@ const UploadProcess = (props) => {
       uploadZabo (formData, percentCompleted => setProgress (percentCompleted)),
     )
       .then (res => {
-        console.log (res.data);
-        // this.props.history.push ('/');
+        history.push ('/');
       })
       .catch (err => {
         console.error (err);
