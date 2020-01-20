@@ -53,6 +53,11 @@ const thumbsContainer = {
   width: '100%',
 };
 
+const GridItem = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const ThumbOverlay = styled.div`
   position: absolute;
   top: 0;
@@ -73,8 +78,8 @@ const Thumb = styled.div`
   width: 200px;
   height: 100%;
   overflow: hidden;
-  /*border: 1px solid #eaeaea;*/
-  padding: 4px;
+  /*border: 1px solid #eaeaea;
+  padding: 4px;*/
   &:hover {
     ${ThumbOverlay} {
       background-color: rgba(0, 0, 0, 0.5);
@@ -282,7 +287,7 @@ const UploadImages = props => {
   });
 
   const thumbs = useMemo (() => files.map (({ key, preview }) => (
-    <div key={key}>
+    <GridItem key={key}>
       <Thumb>
         <ThumbOverlay>
           <CloseIcon onClick={e => {
@@ -303,7 +308,7 @@ const UploadImages = props => {
           />
         </ThumbInner>
       </Thumb>
-    </div>
+    </GridItem>
   )), [filesImmutable, imagesInfo, dispatch]);
 
   const style = useMemo (
@@ -324,7 +329,7 @@ const UploadImages = props => {
           <ResponsiveGridLayout
             style={gridLayoutStyle}
             className="responsive-grid-layout"
-            rowHeight={titleHeight + 12}
+            rowHeight={titleHeight}
             compactType="horizontal"
             verticalCompact
             breakpoints={{
