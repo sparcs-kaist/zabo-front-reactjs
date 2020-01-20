@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import InputBase from 'atoms/InputBase';
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
 import { setInfo } from '../../../store/reducers/upload';
@@ -95,7 +95,7 @@ const InfoForm = () => {
             <div className="label">마감일</div>
             <div className="inputContainer oneLineInput">
               <MuiPickersUtilsProvider utils={MomentUtils}>
-                <KeyboardDatePicker
+                <KeyboardDateTimePicker
                   required
                   value={expDate}
                   onChange={value => setState ({ expDate: value })}
@@ -104,8 +104,9 @@ const InfoForm = () => {
                   }}
                   animateYearScrolling
                   allowKeyboardControl={false}
-                  format="yyyy-MM-dd"
+                  format="YYYY-MM-DD HH:mm:ss"
                   fullWidth
+                  ampm={false}
                   invalidDateMessage={<p>잘못된 형식입니다.</p>}
                 />
               </MuiPickersUtilsProvider>
