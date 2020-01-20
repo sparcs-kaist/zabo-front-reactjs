@@ -52,7 +52,7 @@ const SlideTitle = () => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기', '업로드 완료'];
 
   const titleTemplate = titleList.map ((elem, idx) => (
-    <div>
+    <div key={elem}>
       <p>{ idx + 1 }. { elem }</p>
       { idx !== 3 ? <img src={rightArrow} alt="right arrow" /> : '' }
     </div>

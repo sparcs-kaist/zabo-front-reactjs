@@ -53,9 +53,8 @@ const InsetDividers = ({ groupsInfo }) => {
             _id, name, lastUpdated,
           } = info;
           return (
-            <>
+            <React.Fragment key={_id}>
               <ListItem
-                key={_id}
                 className={classes.item}
                 selected={currentGroup && _id === currentGroup.get ('_id')}
                 onClick={() => updateGroup (name)}
@@ -68,7 +67,7 @@ const InsetDividers = ({ groupsInfo }) => {
                 <ListItemText primary={name} secondary={lastUpdated} />
               </ListItem>
               {i !== groupsInfo.length - 1 && <Divider variant="inset" component="li" />}
-            </>
+            </React.Fragment>
           );
         })
       }

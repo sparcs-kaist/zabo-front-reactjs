@@ -61,6 +61,6 @@ export default () => {
 
 window.addEventListener ('devtoolschange', event => {
   import ('./static/images/recruitAscii').then (asciiArt => {
-    console.log (asciiArt.default);
+    // console.log (asciiArt.default);
   });
 });
