@@ -22,7 +22,6 @@ export default handleActions ({
     onSuccess: (state, action) => {
       const profile = action.payload;
       const [name, clear] = action.meta;
-      console.log ([name, clear]);
       const added = state.setIn (['profiles', name], fromJS (profile));
       if (clear) return added.deleteIn (['profiles', clear]);
       return added;

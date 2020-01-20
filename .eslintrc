@@ -33,7 +33,9 @@
     "no-underscore-dangle": "off",
     "no-mixed-spaces-and-tabs": "error",
     "no-shadow": "warn",
-    "max-len": ["warn", 150]
+    "max-len": ["warn", 150],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "func-names": "off"
   },
   "env": {
     "browser": true
