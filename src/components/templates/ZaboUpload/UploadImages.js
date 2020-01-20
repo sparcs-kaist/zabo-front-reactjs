@@ -333,18 +333,18 @@ const UploadImages = props => {
             compactType="horizontal"
             verticalCompact
             breakpoints={{
-              lg: 1300,
-              md: 1100,
-              sm: 900,
-              xs: 680,
-              xxs: 450,
+              lg: 1100,
+              md: 900,
+              sm: 680,
+              xs: 450,
+              xxs: 200,
             }}
             cols={{
-              lg: 6,
-              md: 5,
-              sm: 4,
-              xs: 3,
-              xxs: 2,
+              lg: 5,
+              md: 4,
+              sm: 3,
+              xs: 2,
+              xxs: 1,
             }}
             isResizable={false}
             onLayoutChange={layout => dispatch ({ type: 'updateLayout', layout })}
