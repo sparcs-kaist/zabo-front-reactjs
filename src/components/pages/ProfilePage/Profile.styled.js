@@ -81,16 +81,27 @@ export const Groups = styled.section`
   width: 1032px;
   margin-bottom: 78px;
   h1 {
+    display: inline-block;
     font-size: 22px;
     font-weight: bold;
     margin: 0 0 16px 0;
   }
 `;
 
+Groups.ScrollBtn = styled.div`
+  float: right;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+  }
+`;
+
 Groups.List = styled.div`
   width: 100%;
+  padding: 3px;
   overflow-x: scroll;
-  overflow: visible;
+  /* overflow-y: visible; */
   white-space: nowrap;
 `;
 
@@ -102,6 +113,9 @@ Groups.ListItem = styled.div`
   margin-right: 14px;
   padding: 28px 14px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  &:last-child {
+    margin-right: 0;
+  }
 
   img {
     width: 70px;

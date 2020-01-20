@@ -7,9 +7,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { UserType } from '../../../lib/propTypes';
 import { Page, Groups, Stats } from './Profile.styled';
 import Header from '../../templates/Header';
+
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import defaultBackground from '../../../static/hd/zhangjiajie-landscape.jpg';
+import leftScroll from '../../../static/images/leftScroll.png';
+import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
 
@@ -66,6 +68,13 @@ const UserProfile = ({ profile }) => {
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
+  const leftScrollClick = () => {
+    document.getElementById ('groupsList').scrollLeft -= 1000;
+  };
+  const rightScrollClick = () => {
+    document.getElementById ('groupsList').scrollLeft += 1000;
+  };
+
   return (
     <Page>
       <Header rightGroup={rightGroup} scrollHeader />
@@ -95,7 +104,11 @@ const UserProfile = ({ profile }) => {
       </Page.Header>
       <Groups>
         <h1>소속 그룹</h1>
-        <Groups.List>
+        <Groups.ScrollBtn>
+          <img onClick={leftScrollClick} src={leftScroll} alt="left scroll button" />
+          <img onClick={rightScrollClick} src={rightScroll} alt="right scroll button" />
+        </Groups.ScrollBtn>
+        <Groups.List id="groupsList">
           {groups.map (group => (
             <Link to={group.name} key={group.name}>
               <GroupBox group={group} />
