@@ -6130,13 +6130,6 @@ eslint-plugin-react@^7.17.0:
     prop-types "^15.7.2"
     resolve "^1.14.2"
 
-eslint-plugin-styled-components@^0.0.0:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-styled-components/-/eslint-plugin-styled-components-0.0.0.tgz#0c8988c83c182762f19d5fcffee0a442e5d2fc0f"
-  integrity sha512-dd+Sac1jwR8ceRb32Dz+W54KbZdXiDt+rjskuDHpPu2gMGIV6H6tGO/uhCynQYt16xw5QRKugC7y+UZauuG37g==
-  dependencies:
-    requireindex "~1.1.0"
-
 eslint-scope@^4.0.3:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/eslint-scope/-/eslint-scope-4.0.3.tgz#ca03833310f6889a3264781aa82e63eb9cfe7848"
@@ -12191,6 +12184,11 @@ react-addons-create-fragment@^15.6.2:
     loose-envify "^1.3.1"
     object-assign "^4.1.0"
 
+react-airbnb-carousel@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/react-airbnb-carousel/-/react-airbnb-carousel-0.0.4.tgz#58bc8d0ca301cbc3507a030c47fb917a000bb49a"
+  integrity sha512-gbYTvjZxOVdblh4RHnAY064+4Ry+/NckIw07c1Nt3t94/UbeRGU7k5ggKiaIbDOUEdwxHDdioGfm8hM1ZZ0hfA==
+
 react-app-polyfill@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-app-polyfill/-/react-app-polyfill-1.0.5.tgz#59c7377a0b9ed25692eeaca7ad9b12ef2d064709"
@@ -12323,6 +12321,13 @@ react-dropzone@^10.2.1:
     attr-accept "^2.0.0"
     file-selector "^0.1.12"
     prop-types "^15.7.2"
+
+react-easy-swipe@^0.0.16:
+  version "0.0.16"
+  resolved "https://registry.yarnpkg.com/react-easy-swipe/-/react-easy-swipe-0.0.16.tgz#5a3d949a8f975d05be92a818254315d1318a81ea"
+  integrity sha1-Wj2Umo+XXQW+kqgYJUMV0TGKgeo=
+  dependencies:
+    prop-types "^15.5.8"
 
 react-element-to-jsx-string@^14.0.2:
   version "14.2.0"
@@ -12463,6 +12468,15 @@ react-resizable@^1.9.0:
   dependencies:
     prop-types "15.x"
     react-draggable "^4.0.3"
+
+react-responsive-carousel@^3.1.51:
+  version "3.1.51"
+  resolved "https://registry.yarnpkg.com/react-responsive-carousel/-/react-responsive-carousel-3.1.51.tgz#f1913530b32e8fe7b484c77051571800b4ab535f"
+  integrity sha512-hb74s8Cj9g3ppNxQeDwsIekTp2EOFO2MdmYXKIqjFS3oMHQE9Fg1lKn4j5tiIhAQAKQlNgy6hfqeS2aIO/Sicg==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.5.8"
+    react-easy-swipe "^0.0.16"
 
 react-router-dom@^5.1.2:
   version "5.1.2"
@@ -13115,11 +13129,6 @@ require-main-filename@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
-
-requireindex@~1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/requireindex/-/requireindex-1.1.0.tgz#e5404b81557ef75db6e49c5a72004893fe03e162"
-  integrity sha1-5UBLgVV+91225JxacgBIk/4D4WI=
 
 requires-port@^1.0.0:
   version "1.0.0"
