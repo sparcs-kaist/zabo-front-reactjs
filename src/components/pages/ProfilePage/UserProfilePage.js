@@ -13,18 +13,42 @@ import defaultBackground from '../../../static/hd/zhangjiajie-landscape.jpg';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
 
-const ProfileStats = ({ statsNames, statsNums }) => (
-  <Stats>
-    {
-      statsNums.map ((elem, idx) => (
-        <Stats.elem>
-          <h3>{elem}</h3>
-          <div>{statsNames[idx]}</div>
-        </Stats.elem>
-      ))
-    }
-  </Stats>
-);
+const ProfileStats = ({ statsNames, statsNums, smallV }) => {
+  const cName = smallV ? 'mini' : '';
+  return (
+    <Stats>
+      {
+        statsNums.map ((elem, idx) => (
+          <Stats.elem key={idx} className={cName}>
+            <h3>{elem}</h3>
+            <div>{statsNames[idx]}</div>
+          </Stats.elem>
+        ))
+      }
+    </Stats>
+  );
+};
+
+const GroupBox = ({ group }) => {
+  const statsNames = ['자보', '팔로워', '최근 업로드'];
+  const statsNums = [263, 263, 23];
+
+  return (
+    <Groups.ListItem>
+      {
+        group.profilePhoto
+          ? <img src={group.profilePhoto} alt="group profile photo" />
+          : <img src={groupDefaultProfile} alt="default group profile photo" />
+      }
+      <section>
+        <Tooltip title={group.name}>
+          <div className="group-name">{group.name}</div>
+        </Tooltip>
+        <ProfileStats statsNames={statsNames} statsNums={statsNums} smallV />
+      </section>
+    </Groups.ListItem>
+  );
+};
 
 const UserProfile = ({ profile }) => {
   const {
@@ -74,16 +98,7 @@ const UserProfile = ({ profile }) => {
         <Groups.List>
           {groups.map (group => (
             <Link to={group.name} key={group.name}>
-              <Groups.ListItem>
-                {
-                  group.profilePhoto
-                    ? <img src={group.profilePhoto} alt="group profile photo" />
-                    : <img src={groupDefaultProfile} alt="default group profile photo" />
-                }
-                <Tooltip title={group.name}>
-                  <div className="group-name">{group.name}</div>
-                </Tooltip>
-              </Groups.ListItem>
+              <GroupBox group={group} />
             </Link>
           ))}
         </Groups.List>

@@ -79,6 +79,7 @@ Page.Header.Right = styled.section`
 
 export const Groups = styled.section`
   width: 1032px;
+  margin-bottom: 78px;
   h1 {
     font-size: 22px;
     font-weight: bold;
@@ -89,25 +90,37 @@ export const Groups = styled.section`
 Groups.List = styled.div`
   width: 100%;
   overflow-x: scroll;
+  overflow: visible;
   white-space: nowrap;
 `;
 
 Groups.ListItem = styled.div`
   display: inline-block;
-  width: 60px;
-  margin-right: 16px;
+  width: 297px;
+  height: 126px;
+  border-radius: 6px;
+  margin-right: 14px;
+  padding: 28px 14px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+
   img {
-    width: 100%;
-    height: 60px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
+    margin-right: 14px;
+  }
+  section {
+    display: inline-block;
   }
   .group-name {
     width: 100%;
+    font-size: 18px;
+    font-weight: bold;
+    color: #143441;
     overflow: hidden;
-    text-align: center;
     text-overflow: ellipsis;
     white-space: nowrap;
-    margin: 1em 0;
+    margin: 0 0 14px 0;
   }
 `;
 
@@ -120,11 +133,6 @@ Stats.elem = styled.div`
   border-right: 1px solid #E9E9E9;
   padding: 0 18px;
 
-  &:nth-child(3) {
-    padding-right: 0;
-    border-right: none;
-  }
-
   h3 {
     font-size: 22px;
     font-weight: bold;
@@ -136,5 +144,18 @@ Stats.elem = styled.div`
     font-size: 14px;
     color: #8F8F8F;
     text-align: center;
+  }
+
+  &.mini {
+    padding: 0 16px;
+    h3 { font-size: 16px }
+    div { font-size: 12px }
+  }
+  &:nth-child(1) {
+    padding-left: 0;
+  }
+  &:nth-child(3) {
+    padding-right: 0;
+    border-right: none;
   }
 `;
