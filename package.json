@@ -40,7 +40,7 @@
     ]
   },
   "dependencies": {
-    "@date-io/core": "^2.0.0",
+    "@date-io/core": "^1",
     "@date-io/date-fns": "^2.0.1",
     "@fortawesome/fontawesome-svg-core": "^1.2.19",
     "@fortawesome/free-solid-svg-icons": "^5.9.0",
@@ -48,7 +48,7 @@
     "@loadable/component": "^5.12.0",
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.2.1",
-    "@material-ui/pickers": "^3.1.2",
+    "@material-ui/pickers": "^3.2.9",
     "@sparcs-kaist/react-grid-layout": "^0.18.0",
     "animate.css": "^3.7.2",
     "awesome-debounce-promise": "^2.1.0",
@@ -113,7 +113,6 @@
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
     "babel-eslint": "10.x",
-    "babel-loader": "^8.0.0",
     "babel-plugin-macros": "^2.8.0",
     "eslint": "^6.8.0",
     "eslint-plugin-flowtype": "3.x",
@@ -132,8 +131,7 @@
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.9.0",
-    "typescript": "^3.7.5",
-    "webpack": "^4.41.5"
+    "typescript": "^3.7.5"
   },
   "license": "MIT"
 }
