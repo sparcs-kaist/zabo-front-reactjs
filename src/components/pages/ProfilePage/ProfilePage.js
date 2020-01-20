@@ -5,7 +5,7 @@ import { NotFound } from 'components/pages';
 import { getProfile } from '../../../store/reducers/profile';
 
 import UserProfile from './UserProfilePage';
-import GroupProfile from './GroupProfilePage';
+// import GroupProfile from './GroupProfilePage';
 
 
 const ProfilePage = () => {
@@ -20,7 +20,7 @@ const ProfilePage = () => {
   const profile = profileImmutable.toJS ();
   if (profile.error) return <NotFound />;
   if (profile.username === name) return <UserProfile profile={profile} />;
-  if (profile.name === name) return <GroupProfile profile={profile} />;
+  // if (profile.name === name) return <GroupProfile profile={profile} />;
   return null;
 };
 

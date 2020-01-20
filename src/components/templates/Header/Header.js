@@ -20,7 +20,9 @@ const containerStyle = css`
   }
 `;
 
-const Header = ({ back, title, rightGroup }) => {
+const Header = ({
+  back, title, rightGroup, scrollHeader,
+}) => {
   const history = useHistory ();
   const [left, setLeft] = useState (0);
   useEffect (() => {
@@ -28,10 +30,12 @@ const Header = ({ back, title, rightGroup }) => {
     window.addEventListener ('optimizedScroll', listener);
     return () => window.removeEventListener ('optimizedScroll', listener);
   }, []);
+  const style = { left };
+  if (scrollHeader) style.minWidth = '1072px';
 
   return (
     <HeaderWrapper>
-      <Container ownStyle={containerStyle} style={{ left }}>
+      <Container ownStyle={containerStyle} style={style}>
         <div>
           {back ? (
             <>

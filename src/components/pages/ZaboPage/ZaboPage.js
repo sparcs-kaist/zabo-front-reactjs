@@ -44,7 +44,7 @@ class ZaboPage extends PureComponent {
 
     return (
       <ZaboPageWrapper>
-        <Header rightGroup={<Header.AuthButton />} />
+        <Header rightGroup={<Header.AuthButton />} scrollHeader />
         <ZaboPageWrapper.TwoCol>
           <ZaboPageWrapper.TitleImage>
             <div>
