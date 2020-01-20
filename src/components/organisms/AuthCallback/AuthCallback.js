@@ -18,10 +18,6 @@ class AuthCallback extends PureComponent {
     }
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
-    console.log (this.props.jwt);
-  }
-
   render () {
     return null;
   }
