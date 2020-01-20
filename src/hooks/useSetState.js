@@ -1,9 +1,13 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 
 export default function useSetState (initialForm) {
   const [state, setStateInternal] = useState (initialForm);
-  const setState = (obj) => {
-    setStateInternal ({ ...state, ...obj });
+  const setState = (param) => {
+    if (typeof param === 'function') {
+      setStateInternal (prevState => ({ ...prevState, ...param (prevState) }));
+      return;
+    }
+    setStateInternal ({ ...state, ...param });
   };
   const onChange = e => {
     setState ({
