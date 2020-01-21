@@ -48,7 +48,7 @@ const ZaboPage = (props) => {
 
   const { zabo, zaboId } = props;
   const {
-    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked,
+    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked, views = 0,
   } = zabo;
 
   const curMoment = moment ();
@@ -80,14 +80,16 @@ const ZaboPage = (props) => {
               {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
             </section>
             <section>
-              <div className="after-create">
+              <div className="details">
                 {minDiff < 60 ? `${minDiff} minutes...`
                   : hourDiff < 24 ? `${hourDiff} hours...`
                     : daysDiff < 30 ? `${daysDiff} days ...`
                       : monthDiff}
               </div>
+              <div className="specialChar">&middot;</div>
+              <div className="details">조회수 {views}</div>
             </section>
-            <section>
+            <section className="statSection">
               {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} />)}
             </section>
           </ZaboPageWrapper.Info.Header>

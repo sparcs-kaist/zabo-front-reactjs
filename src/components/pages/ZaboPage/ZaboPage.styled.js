@@ -101,18 +101,34 @@ ZaboPageWrapper.Info.Header = styled.section`
     vertical-align: middle;
   }
 
-  .after-create {
+  .details{
+    display: inline-block;
     font-size: 14px;
     line-height: 14px;
     color: #666666;
+    &:nth-child(1) { padding-right: 8px }
+    &:nth-child(3) { padding-left: 8px }
     @media (max-width: 640px) {
       font-size: 12px;
     }
   }
+  .specialChar {
+    display: inline-block;
+    color: #8F8F8F;
+    vertical-align: middle;
+  }
+
+  .statSection {
+    display: flex;
+  }
 `;
 
-ZaboPageWrapper.Info.Box = styled.div`
-  display: inline-block;
+ZaboPageWrapper.Info.Box = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: 143441;
   margin: 28px 8px 72px 0;
   min-width: 86px;
   height: 40px;
@@ -134,10 +150,8 @@ ZaboPageWrapper.Info.Box = styled.div`
     }
   }
   div {
-    display: inline-block;
-    position: relative;
-    top: -8px;
-    left: 4px;
+    line-height: 15px;
+    padding-left: 4px;
   }
 `;
 
