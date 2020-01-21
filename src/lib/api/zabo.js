@@ -21,4 +21,3 @@ export const getPins = ({ lastSeen }) => axios
   .then (res => res.data.filter (item => item.photos[0] !== undefined));
 
 export const likeZabo = zaboId => axios.post ('/zabo/like', { zaboId }).then (res => res.data);
-export const deleteLike = zaboId => axios.delete ('/zabo/like', { zaboId }).then (res => res.data);

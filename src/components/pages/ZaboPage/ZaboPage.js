@@ -1,30 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import throttle from 'lodash.throttle';
 
 import ZaboList from 'templates/ZaboList';
 import Header from 'templates/Header';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
-import { likeZabo, deleteLike } from '../../../store/reducers/zabo';
+import { likeZabo } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import likeImg from '../../../static/images/like.png';
 import emptyLikeImg from '../../../static/images/emptyLike.png';
 import bookmarkImg from '../../../static/images/bookmark.png';
 
-const statsBox = (num, isBookmark, zaboId, isLiked) => {
+const StatsBox = ({
+  num, isBookmark, zaboId, isLiked,
+}) => {
   // isBookmark : type number ( 0 == falsy )
   const src = isBookmark ? bookmarkImg : isLiked ? likeImg : emptyLikeImg;
+
   const dispatch = useDispatch ();
+  const throttledLike = useMemo (() => throttle (() => dispatch (likeZabo (zaboId))
+    .catch (err => console.log (err)), 200), [dispatch]);
 
   const onClick = e => {
     e.preventDefault ();
-    dispatch (likeZabo (zaboId))
-      .then (res => console.log ('success'))
-      .catch (err => console.log (err));
+    throttledLike ();
   };
 
   return (
@@ -85,7 +89,7 @@ const ZaboPage = (props) => {
               </div>
             </section>
             <section>
-              {statsList.map ((elem, idx) => statsBox (elem, idx, zaboId, isLiked))}
+              {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} />)}
             </section>
           </ZaboPageWrapper.Info.Header>
           <ZaboPageWrapper.Info.Body>

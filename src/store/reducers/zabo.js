@@ -27,7 +27,6 @@ export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, met
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
 export const likeZabo = createAction (LIKE_ZABO, ZaboAPI.likeZabo, meta => meta);
-export const deleteLike = createAction (DELETE_LIKE, ZaboAPI.deleteLike, meta => meta);
 
 // 초기값 설정
 const initialState = Map ({
@@ -91,11 +90,11 @@ export default handleActions (
     }),
     ...pender ({
       type: LIKE_ZABO,
-      onSuccess: (state, action) => state,
-    }),
-    ...pender ({
-      type: DELETE_LIKE,
-      onSuccess: (state, action) => state,
+      onSuccess: (state, action) => {
+        const zaboId = action.meta;
+        const newLiked = action.payload;
+        return state.setIn (['zabos', zaboId, 'isLiked'], newLiked);
+      },
     }),
 
   },
