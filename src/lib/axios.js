@@ -16,6 +16,7 @@ class Axios {
       },
       timeout: 30000,
       baseURL: '/api',
+      withCredentials: true,
     });
     this._interceptor = null;
     this.token = '';
