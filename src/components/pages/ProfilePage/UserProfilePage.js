@@ -55,7 +55,7 @@ const GroupBox = ({ group }) => {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, backgroundPhoto, groups, description,
+    username, profilePhoto, groups, description, likesNum,
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -63,7 +63,7 @@ const UserProfile = ({ profile }) => {
   const logout = () => dispatch (logoutAction ());
 
   const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];
-  const statsNums = [100, 123, 100];
+  const statsNums = [100, likesNum, 100];
 
   const rightGroup = isMyProfile
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
