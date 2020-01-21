@@ -15,7 +15,7 @@ class Axios {
         },
       },
       timeout: 30000,
-      baseURL: 'http://localhost:6001/api',
+      baseURL: '/api',
     });
     this._interceptor = null;
     this.token = '';
