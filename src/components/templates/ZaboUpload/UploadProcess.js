@@ -70,14 +70,15 @@ const UploadProcess = (props) => {
   const upload = useCallback (async e => {
     e.preventDefault ();
     const { width, height } = await imageFileGetWidthHeight (sortedImageFiles[0]);
-    const ratio = width / height;
-
+    let ratio = width / height;
+    if (ratio > 2) ratio = 2;
+    else if (ratio < 0.5) ratio = 0.5;
     const formData = new FormData ();
-    await Promise.all (
-      sortedImageFiles.map (file => cropImage (file, ratio)
-        .then (imageSrc => dataURLToBlob (imageSrc))
-        .then (blob => formData.append ('img', blob))),
-    );
+    const sources = await Promise.all (sortedImageFiles.map (file => cropImage (file, ratio)));
+    sources.forEach (imageSrc => {
+      const blob = dataURLToBlob (imageSrc);
+      formData.append ('img', blob);
+    });
     formData.append ('title', title);
     formData.append ('description', desc);
     formData.append ('endAt', expDate);

@@ -23,6 +23,7 @@
     "react/require-default-props": "warn",
     "import/prefer-default-export": "warn",
     "import/named": "warn",
+    "import/no-named-as-default": "off",
     "arrow-parens": 0,
     "no-nested-ternary": "off",
     "no-unused-vars": "warn",

@@ -6,6 +6,8 @@ import throttle from 'lodash.throttle';
 
 import ZaboList from 'templates/ZaboList';
 import Header from 'templates/Header';
+import Carousel from 'react-airbnb-carousel';
+
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
@@ -62,10 +64,7 @@ const ZaboPage = (props) => {
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
       <ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.TitleImage>
-          <div>
-            <img src={photos[0].url} alt="title poster" />
-            <div className="imageOverlay"> </div>
-          </div>
+          <Carousel imageUrls={photos.map (({ url }) => url)} ratio={photos[0].width / photos[0].height} />
         </ZaboPageWrapper.TitleImage>
         <ZaboPageWrapper.Info>
           <ZaboPageWrapper.Info.Header>

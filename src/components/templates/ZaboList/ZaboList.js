@@ -12,9 +12,9 @@ import withStackMaster from './withStackMaster';
 
 const sizes = [
   { columns: 2, gutter: 16 },
-  { mq: '780px', columns: 3, gutter: 16 },
-  { mq: '1024px', columns: 4, gutter: 24 },
-  { mq: '1260px', columns: 4, gutter: 24 },
+  { mq: `${752 + 32}px`, columns: 3, gutter: 16 },
+  { mq: `${1032 + 32}px`, columns: 4, gutter: 24 },
+  { mq: `${1260 + 32}px`, columns: 4, gutter: 24 },
 ];
 
 const Loader = styled.div`
