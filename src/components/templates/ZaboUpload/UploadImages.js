@@ -198,19 +198,26 @@ const UploadImages = props => {
             Object.assign (titleInfo, info);
             return;
           }
-          titleInfo.height = Math.floor (200 / info.ratio);
           titleInfo.ratio = info.ratio;
           return;
         }
         const image = await loadImageFile (file);
         const ratio = image.width / image.height;
         if (isTitle) {
-          titleInfo.height = Math.floor (200 / ratio);
           titleInfo.ratio = ratio;
         }
         newImagesInfo[key] = { key: file.key, ratio, height: Math.floor (200 / ratio) };
       }),
     );
+
+    const tr = titleInfo.ratio;
+    if (tr > 2) {
+      titleInfo.ratio = 2;
+    } else if (tr < 0.5) {
+      titleInfo.ratio = 0.5;
+    }
+    titleInfo.height = Math.floor (200 / titleInfo.ratio);
+
     newImagesInfo.title = titleInfo;
     setImagesInfo (newImagesInfo);
   }, [filesImmutable, imagesInfo]);
@@ -323,7 +330,11 @@ const UploadImages = props => {
   const gridLayoutStyle = files.length ? {} : { height: 0 };
   return (
     <Wrapper>
-      <div {...getRootProps ({ style })} onTouchStart={e => console.log (e)}>
+      <h4>
+        이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다) <br />
+        가로 세로 비율은 1:2 ~ 2:1을 넘을 수 없습니다.
+      </h4>
+      <div {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
