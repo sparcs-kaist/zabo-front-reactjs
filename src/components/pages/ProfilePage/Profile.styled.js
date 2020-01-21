@@ -27,7 +27,7 @@ Page.Header = styled.section`
 Page.Header.Left = styled.section`
   display: flex;
   @media (max-width: 640px) {
-    justify-content: center;
+    justify-content: flex-start;
     margin-bottom: 60px;
     min-width: 291px;
     padding: 0 24px;
@@ -42,6 +42,10 @@ Page.Header.Left.ProfilePhoto = styled.div`
   img {
     width: 120px;
     height: 120px;
+    @media (max-width: 640px) {
+      width: 105px;
+      height: 105px;
+    }
   }
 `;
 
@@ -49,9 +53,6 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  @media (max-width: 640px) {
-    min-width: 158px;
-  }
   h1 {
     font-size: 28px;
     font-weight: bold;
@@ -84,6 +85,11 @@ Page.Header.Left.UserInfo = styled.div`
       color: #143441;
     }
   }
+  @media (max-width: 640px) {
+    min-width: 158px;
+    h1 { font-size: 24px }
+    p { font-size: 14px }
+  }
 `;
 
 Page.Header.Right = styled.section`
@@ -99,20 +105,27 @@ Page.Header.Right = styled.section`
 export const Groups = styled.section`
   width: 1032px;
   margin-bottom: 78px;
-  @media (max-width: 640px) {
-    width: 100%;
-    padding: 0 16px;
-  }
-
   h1 {
     display: inline-block;
     font-size: 22px;
     font-weight: bold;
     margin: 0 0 16px 0;
   }
+
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 0 16px;
+    h1 {
+      font-size: 18px;
+      margin-bottom: 12px;
+    }
+  }
 `;
 
 Groups.ScrollBtn = styled.div`
+  @media (max-width: 640px) {
+    visibility: hidden;
+  }
   float: right;
   img {
     width: 30px;
@@ -160,6 +173,21 @@ Groups.ListItem = styled.div`
     white-space: nowrap;
     margin: 0 0 14px 0;
   }
+
+  @media (max-width: 640px) {
+    width: 247px;
+    height: 108px;
+    padding: 24px 12px;
+    img {
+      width: 60px;
+      height: 60px;
+      margin-right: 12px;
+    }
+    .group-name {
+      font-size: 16px;
+      margin: 0 0 12px 0;
+    }
+  }
 `;
 
 export const Stats = styled.section`
@@ -186,8 +214,19 @@ Stats.elem = styled.div`
 
   &.mini {
     padding: 0 16px;
-    h3 { font-size: 16px }
+    h3 { 
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
     div { font-size: 12px }
+    @media (max-width: 640px) {
+      padding: 0 12px;
+      h3 {
+        font-size: 14px;
+        margin-bottom: 3px;
+      }
+      div { font-size: 10px }
+    }
   }
   &:nth-child(1) {
     padding-left: 0;
