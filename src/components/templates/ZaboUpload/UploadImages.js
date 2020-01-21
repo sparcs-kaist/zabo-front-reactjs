@@ -7,6 +7,7 @@ import { useDropzone } from 'react-dropzone';
 import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
 import CloseIcon from '@material-ui/icons/Close';
 import throttle from 'lodash.throttle';
+import debounce from 'lodash.debounce';
 
 import { setImages } from '../../../store/reducers/upload';
 
@@ -123,6 +124,13 @@ const Wrapper = styled.section`
   }
 `;
 
+let alerted;
+const alertOnce = (message) => {
+  if (alerted) return;
+  alerted = true;
+  alert (message);
+};
+
 const UploadImages = props => {
   const reduxDispatch = useDispatch ();
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
@@ -142,6 +150,12 @@ const UploadImages = props => {
     },
   });
   const { key: titleKey, height: titleHeight, ratio: titleRatio } = imagesInfo.title;
+  const [showAlert, setShowAlert] = useState (false);
+  if (showAlert) {
+    alertOnce ('대표 이미지의 사진 비율이 너무 크거나 작습니다. 최대 비율에 맞게 조정되었습니다.');
+    setShowAlert (false);
+  }
+  const dd = useMemo (() => debounce (setShowAlert, 2000), []);
 
   const addImages = useCallback (acceptedFiles => {
     setFiles ([
@@ -213,8 +227,12 @@ const UploadImages = props => {
     const tr = titleInfo.ratio;
     if (tr > 2) {
       titleInfo.ratio = 2;
+      dd (true);
     } else if (tr < 0.5) {
       titleInfo.ratio = 0.5;
+      dd (true);
+    } else {
+      dd (false);
     }
     titleInfo.height = Math.floor (200 / titleInfo.ratio);
 
@@ -269,7 +287,7 @@ const UploadImages = props => {
     }
   };
   const [, dispatch] = useReducer (reducer, null);
-  const throttledDispatch = useMemo (() => throttle (dispatch, 80), [dispatch]);
+  const throttledDispatch = useMemo (() => throttle (dispatch, 100), [dispatch]);
 
   useEffect (() => () => dispatch ({ type: 'revokeObjectURL' }), []); // Make sure to revoke the data uris to avoid memory leaks
   useEffect (() => {
@@ -369,7 +387,9 @@ const UploadImages = props => {
                 containerPadding,
               });
             }}
-            onDrag={() => throttledDispatch ({ type: 'updateImagesInfo' })}
+            onDrag={layout => {
+              throttledDispatch ({ type: 'updateImagesInfo' });
+            }}
           >
             {thumbs}
           </ResponsiveGridLayout>
