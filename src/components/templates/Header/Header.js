@@ -18,6 +18,12 @@ const containerStyle = css`
     flex-direction: row;
     align-items: center;
   }
+  ${props => (props.scrollHeader ? css`
+    @media (min-width: 640px) {
+      min-width: 1072px;
+    }
+  ` : css`
+  `)}
 `;
 
 const Header = ({
@@ -31,11 +37,10 @@ const Header = ({
     return () => window.removeEventListener ('optimizedScroll', listener);
   }, []);
   const style = { left };
-  if (scrollHeader) style.minWidth = '1072px';
 
   return (
     <HeaderWrapper>
-      <Container ownStyle={containerStyle} style={style}>
+      <Container ownStyle={containerStyle} style={style} scrollHeader={scrollHeader}>
         <div>
           {back ? (
             <>
