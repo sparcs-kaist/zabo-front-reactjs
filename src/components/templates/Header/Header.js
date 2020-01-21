@@ -18,9 +18,17 @@ const containerStyle = css`
     flex-direction: row;
     align-items: center;
   }
+  ${props => (props.scrollHeader ? css`
+    @media (min-width: 640px) {
+      min-width: 1072px;
+    }
+  ` : css`
+  `)}
 `;
 
-const Header = ({ back, title, rightGroup }) => {
+const Header = ({
+  back, title, rightGroup, scrollHeader,
+}) => {
   const history = useHistory ();
   const [left, setLeft] = useState (0);
   useEffect (() => {
@@ -28,10 +36,11 @@ const Header = ({ back, title, rightGroup }) => {
     window.addEventListener ('optimizedScroll', listener);
     return () => window.removeEventListener ('optimizedScroll', listener);
   }, []);
+  const style = { left };
 
   return (
     <HeaderWrapper>
-      <Container ownStyle={containerStyle} style={{ left }}>
+      <Container ownStyle={containerStyle} style={style} scrollHeader={scrollHeader}>
         <div>
           {back ? (
             <>

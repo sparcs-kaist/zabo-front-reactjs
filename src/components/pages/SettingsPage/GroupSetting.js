@@ -8,7 +8,7 @@ import {
   PageWrapper, SubHeading, FormGroup, Label,
   Note, Button, Success, Error, Submit, Hr,
 } from './Setting.styled';
-import { Page as ProfilePage } from '../ProfilePage/Profile.styled';
+import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
 import InputBase from '../../atoms/InputBase';
 import Header from '../../templates/Header';
 
