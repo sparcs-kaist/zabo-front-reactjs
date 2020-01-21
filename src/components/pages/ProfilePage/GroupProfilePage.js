@@ -2,7 +2,7 @@ import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Page, Intro } from './Profile.styled';
+import { Page, Intro } from './OldProfile.styled';
 import Header from '../../templates/Header';
 
 import { GroupType } from '../../../lib/propTypes';

@@ -93,7 +93,11 @@ const UserProfile = ({ profile }) => {
             <p>{description || '아직 소개가 없습니다.'}</p>
             <section>
               {isMyProfile && <button className="logout" type="button" onClick={logout}>로그아웃</button>}
-              {isMyProfile && <button className="edit" type="button" onClick={logout}>프로필 편집</button>}
+              {isMyProfile && (
+                <Link to="/settings/profile">
+                  <button className="edit" type="button">프로필 편집</button>
+                </Link>
+              )}
             </section>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
