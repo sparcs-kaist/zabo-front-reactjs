@@ -6,9 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   useRouteMatch, Prompt,
 } from 'react-router-dom';
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import SwipeableViews from 'react-swipeable-views';
 
 import ZaboUpload from '../../templates/ZaboUpload';
 import Header from '../../templates/Header';
@@ -20,31 +18,6 @@ import {
   PageWrapper, TitleStyle, FooterStyle,
 } from './ZaboUploadPage.styled';
 import rightArrow from '../../../static/images/rightArrow.png';
-
-const OptimizedSlider = forwardRef ((props, ref) => {
-  const { children, ...others } = props;
-  if (Array.isArray (children)) {
-    return (
-      <Slider {...others} ref={ref}>
-        {children[props.step]}
-      </Slider>
-    );
-  }
-  return (
-    <Slider {...others} ref={ref}>
-      {children}
-    </Slider>
-  );
-});
-
-OptimizedSlider.propTypes = {
-  // eslint-disable-next-line react/require-default-props
-  children: PropTypes.arrayOf (PropTypes.element),
-  step: PropTypes.number.isRequired,
-};
-
-OptimizedSlider.defaultProps = {
-};
 
 const SlideTitle = () => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기', '업로드 완료'];
@@ -62,31 +35,14 @@ const SlideTitle = () => {
   );
 };
 
-const SlideView = ({ step }) => {
-  const slick = useRef (null);
-  const settings = {
-    dots: false,
-    infinite: false,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    draggable: false,
-    initialSlide: step,
-  };
-
-  useEffect (() => {
-    slick.current.slickGoTo (step);
-  }, [step]);
-
-  return (
-    <Slider step={step} {...settings} ref={slick}>
-      <ZaboUpload.SelectGroup />
-      <ZaboUpload.UploadImage />
-      <ZaboUpload.InfoForm />
-      <ZaboUpload.UploadProcess step={step} />
-    </Slider>
-  );
-};
+const SlideView = ({ step }) => (
+  <SwipeableViews disabled index={step}>
+    <ZaboUpload.SelectGroup />
+    <ZaboUpload.UploadImage />
+    <ZaboUpload.InfoForm />
+    <ZaboUpload.UploadProcess step={step} />
+  </SwipeableViews>
+);
 
 SlideView.propTypes = {
   step: PropTypes.number.isRequired,
@@ -170,7 +126,7 @@ const ZaboUploadPage = () => {
       <Header rightGroup={<Header.AuthButton />} />
       <Prompt
         when
-        message="You have unsaved changes, are you sure you want to leave?"
+        message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
       />
       <PageWrapper.Contents>
         <SlideTitle />

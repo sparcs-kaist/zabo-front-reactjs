@@ -53,22 +53,38 @@ const thumbsContainer = {
   width: '100%',
 };
 
+const GridItem = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
 const ThumbOverlay = styled.div`
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: -1;
+  z-index: 1000;
+  background-color: rgba(0,0,0,0.03);
+  svg {
+    visibility: hidden;
+  }
 `;
 
 const Thumb = styled.div`
-  position: relative;
+  position: absolute;
+  display: inline-flex;
+  border-radius: 2px;
+  width: 200px;
+  height: 100%;
+  overflow: hidden;
+  /*border: 1px solid #eaeaea;
+  padding: 4px;*/
   &:hover {
     ${ThumbOverlay} {
-      z-index: 1000;
       background-color: rgba(0, 0, 0, 0.5);
       svg {
+        visibility: visible;
         background-color: rgba(204, 204, 204, 0.3);
         border-radius: 45%;
       }
@@ -76,21 +92,11 @@ const Thumb = styled.div`
   }
 `;
 
-const thumb = {
-  display: 'inline-flex',
-  borderRadius: 2,
-  border: '1px solid #eaeaea',
-  // marginBottom: 8,
-  // marginRight: 8,
-  padding: 4,
-  boxSizing: 'border-box',
-};
-
 const ThumbInner = styled.div`
   min-width: 0;
   height: auto;
-  overflow: visible hidden;
-  border: 1px solid #101010;
+  overflow: hidden;
+  /*border: 1px solid #101010;*/
 `;
 
 const ThumbImage = styled.img`
@@ -281,29 +287,28 @@ const UploadImages = props => {
   });
 
   const thumbs = useMemo (() => files.map (({ key, preview }) => (
-    <Thumb
-      key={key}
-      style={thumb}
-    >
-      <ThumbOverlay>
-        <CloseIcon onClick={e => {
-          e.stopPropagation ();
-          dispatch ({ type: 'removeImage', key });
-        }}
-        />
-      </ThumbOverlay>
-      <ThumbInner>
-        <ThumbImage
-          src={preview}
-          info={{
-            titleHeight,
-            titleRatio,
-            ratio: imagesInfo[key] ? imagesInfo[key].ratio : 1,
+    <GridItem key={key}>
+      <Thumb>
+        <ThumbOverlay>
+          <CloseIcon onClick={e => {
+            e.stopPropagation ();
+            dispatch ({ type: 'removeImage', key });
           }}
-          alt="thumbnail"
-        />
-      </ThumbInner>
-    </Thumb>
+          />
+        </ThumbOverlay>
+        <ThumbInner>
+          <ThumbImage
+            src={preview}
+            info={{
+              titleHeight,
+              titleRatio,
+              ratio: imagesInfo[key] ? imagesInfo[key].ratio : 1,
+            }}
+            alt="thumbnail"
+          />
+        </ThumbInner>
+      </Thumb>
+    </GridItem>
   )), [filesImmutable, imagesInfo, dispatch]);
 
   const style = useMemo (
@@ -318,7 +323,7 @@ const UploadImages = props => {
   const gridLayoutStyle = files.length ? {} : { height: 0 };
   return (
     <Wrapper>
-      <div {...getRootProps ({ style })}>
+      <div {...getRootProps ({ style })} onTouchStart={e => console.log (e)}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
@@ -328,18 +333,18 @@ const UploadImages = props => {
             compactType="horizontal"
             verticalCompact
             breakpoints={{
-              lg: 1300,
-              md: 1100,
-              sm: 900,
-              xs: 680,
-              xxs: 450,
+              lg: 1100,
+              md: 900,
+              sm: 680,
+              xs: 450,
+              xxs: 200,
             }}
             cols={{
-              lg: 6,
-              md: 5,
-              sm: 4,
-              xs: 3,
-              xxs: 2,
+              lg: 5,
+              md: 4,
+              sm: 3,
+              xs: 2,
+              xxs: 1,
             }}
             isResizable={false}
             onLayoutChange={layout => dispatch ({ type: 'updateLayout', layout })}
