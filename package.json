@@ -63,6 +63,7 @@
     "immer": "^5.1.0",
     "immutable": "^4.0.0-rc.12",
     "jsonwebtoken": "^8.5.1",
+    "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
     "lodash.throttle": "^4.1.1",
