@@ -7,6 +7,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import { UserType } from '../../../lib/propTypes';
 import { Page, Groups, Stats } from './Profile.styled';
 import Header from '../../templates/Header';
+import ZaboList from '../../templates/ZaboList';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -118,6 +119,7 @@ const UserProfile = ({ profile }) => {
             </Link>
           ))}
         </Groups.List>
+        <ZaboList type="pins" />
       </Groups>
     </Page>
   );
