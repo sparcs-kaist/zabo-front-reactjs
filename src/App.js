@@ -54,11 +54,11 @@ class App extends React.Component {
         <Route path="/zabo/:route?" component={ScrollToTop} />
         <Route path="/" exact component={AuthCallback} />
         <Switch>
+          <PublicRoute path="/auth" component={AuthPage} />
+          <PrivateRoute path="/settings" component={SettingsPage} />
           <Route path="/zabo/upload" component={ZaboUploadPage} />
           <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
           <Route path="/" exact component={HomePage} />
-          <PublicRoute path="/auth" component={AuthPage} />
-          <PrivateRoute path="/settings" component={SettingsPage} />
           <Route path="/:name" component={ProfilePage} />
           <Route component={NotFound} />
         </Switch>
