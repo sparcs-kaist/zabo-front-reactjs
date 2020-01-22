@@ -9,7 +9,7 @@ import * as AuthAPI from '../../lib/api/auth';
 
 // Action types
 const LOGIN_CALLBACK = 'auth/LOGIN_CALLBACK';
-const CHECK_AUTH = 'auth/CHECK_AUTH';
+export const CHECK_AUTH = 'auth/CHECK_AUTH';
 const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
 const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';

@@ -5,7 +5,7 @@ import { fromJS, Map } from 'immutable';
 import axios from 'lib/axios';
 
 const api = {
-  fetchProfile: (name) => axios.get (`/profile/${name}`).then (res => res.data),
+  fetchProfile: (name) => axios.get (`/profile/${name}`),
 };
 
 const GET_PROFILE = 'profile/GET_PROFILE';
