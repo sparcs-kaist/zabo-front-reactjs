@@ -15,7 +15,7 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { selectIsAdmin } from '../../../lib/utils';
+import { isAdminSelector } from '../../../lib/utils';
 
 const ProfileStats = ({ statsNames, statsNums, smallV }) => {
   const cName = smallV ? 'mini' : '';
@@ -61,7 +61,7 @@ const UserProfile = ({ profile }) => {
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const isMyProfile = (myUsername === username);
-  const isAdmin = useSelector (selectIsAdmin);
+  const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
 
   const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];

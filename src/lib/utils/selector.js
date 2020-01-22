@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { CHECK_AUTH } from '../../store/reducers/auth';
 
 const decodedTokenSelector = state => state.getIn (['auth', 'jwt']);
 const isDecodedTokenAlive = decoded => {
@@ -15,6 +16,9 @@ const decodedTokenLifetime = decoded => {
   return 0;
 };
 
-export const selectAuthenticated = createSelector (decodedTokenSelector, isDecodedTokenAlive);
+export const isAuthedSelector = createSelector (decodedTokenSelector, isDecodedTokenAlive);
 export const tokenTimeLeft = createSelector (decodedTokenSelector, decodedTokenLifetime);
-export const selectIsAdmin = state => state.getIn (['auth', 'info', 'isAdmin']);
+
+export const isAdminSelector = state => state.getIn (['auth', 'info', 'isAdmin']);
+export const authPendingSelector = state => state.get ('pender').pending[CHECK_AUTH];
+export const isAdminOrPendingSelector = state => [isAdminSelector (state), authPendingSelector (state)];

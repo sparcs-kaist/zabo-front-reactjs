@@ -6,7 +6,7 @@ import { NavLink, useHistory } from 'react-router-dom';
 import SVG from 'atoms/SVG';
 import Container from 'atoms/Container';
 import logo from 'static/logo/logo.svg';
-import { selectAuthenticated } from '../../../lib/utils';
+import { isAuthedSelector } from '../../../lib/utils';
 import HeaderWrapper from './Header.styled';
 
 const containerStyle = css`
@@ -72,7 +72,7 @@ Header.defaultProps = {
 };
 
 Header.AuthButton = () => {
-  const isAuthenticated = useSelector (selectAuthenticated);
+  const isAuthenticated = useSelector (isAuthedSelector);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
 
   return (

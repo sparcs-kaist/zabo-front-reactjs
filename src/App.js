@@ -11,6 +11,7 @@ import {
   ZaboPage,
   NotFound,
   ProfilePage,
+  AdminPage,
 } from 'components/pages';
 import AuthCallback from 'organisms/AuthCallback';
 import WindowResizeListener from 'containers/WindowResizeListener';
@@ -20,7 +21,7 @@ import pToP from 'hoc/paramsToProps';
 
 import AppWrapper from './App.styled';
 
-import { PrivateRoute, PublicRoute } from './hoc/AuthRoutes';
+import { AdminRoute, PrivateRoute, PublicRoute } from './hoc/AuthRoutes';
 
 import 'lib/channel_io';
 
@@ -51,10 +52,11 @@ class App extends React.Component {
         <Route path="/zabo/:route?" component={ScrollToTop} />
         <Route path="/" exact component={AuthCallback} />
         <Switch>
-          <PublicRoute path="/auth" component={AuthPage} />
-          <PrivateRoute path="/settings" component={SettingsPage} />
           <Route path="/zabo/upload" component={ZaboUploadPage} />
           <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
+          <PublicRoute path="/auth" component={AuthPage} />
+          <PrivateRoute path="/settings" component={SettingsPage} />
+          <AdminRoute path="/admin" component={AdminPage} />
           <Route path="/" exact component={HomePage} />
           <Route path="/:name" component={ProfilePage} />
           <Route component={NotFound} />
