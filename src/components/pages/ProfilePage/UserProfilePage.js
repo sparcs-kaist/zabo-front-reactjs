@@ -15,6 +15,7 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
+import { selectIsAdmin } from '../../../lib/utils';
 
 const ProfileStats = ({ statsNames, statsNums, smallV }) => {
   const cName = smallV ? 'mini' : '';
@@ -60,6 +61,7 @@ const UserProfile = ({ profile }) => {
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const isMyProfile = (myUsername === username);
+  const isAdmin = useSelector (selectIsAdmin);
   const logout = () => dispatch (logoutAction ());
 
   const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];
@@ -92,14 +94,15 @@ const UserProfile = ({ profile }) => {
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
             <p>{description || '아직 소개가 없습니다.'}</p>
+            {isMyProfile && (
             <section>
-              {isMyProfile && <button className="logout" type="button" onClick={logout}>로그아웃</button>}
-              {isMyProfile && (
-                <Link to="/settings/profile">
-                  <button className="edit" type="button">프로필 편집</button>
-                </Link>
-              )}
+              <button className="logout" type="button" onClick={logout}>로그아웃</button>
+              <Link to="/settings/profile">
+                <button className="edit" type="button">프로필 편집</button>
+              </Link>
+              {isAdmin && (<Link to="/admin"><button className="admin" type="button">어드민</button></Link>)}
             </section>
+            )}
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
         <Page.Header.Right>

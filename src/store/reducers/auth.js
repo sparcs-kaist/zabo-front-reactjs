@@ -44,6 +44,8 @@ const initialState = Map ({
     kaistPersonType: '',
     studentId: '',
     currentGroup: null,
+    isAdmin: false,
+    flags: List ([]),
     boards: List ([]),
     groups: List ([]),
   }),

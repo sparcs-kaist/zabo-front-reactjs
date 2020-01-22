@@ -17,3 +17,4 @@ const decodedTokenLifetime = decoded => {
 
 export const selectAuthenticated = createSelector (decodedTokenSelector, isDecodedTokenAlive);
 export const tokenTimeLeft = createSelector (decodedTokenSelector, decodedTokenLifetime);
+export const selectIsAdmin = state => state.getIn (['auth', 'info', 'isAdmin']);
