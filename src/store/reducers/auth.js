@@ -65,12 +65,8 @@ export default handleActions (
     }),
     ...pender ({
       type: CHECK_AUTH,
-      onSuccess: (state, action) => {
-        const user = action.payload;
-        const token = action.meta;
-        const decoded = jwt.decode (token);
-        return state.set ('jwt', fromJS (decoded)).set ('info', fromJS (user));
-      },
+      onPending: (state, action) => state.set ('jwt', fromJS (jwt.decode (action.meta))),
+      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
     }),
     [LOGOUT]: (state, action) => {
       storage.removeItem ('token');
