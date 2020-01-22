@@ -109,6 +109,7 @@ export const Groups = styled.section`
     display: inline-block;
     font-size: 22px;
     font-weight: bold;
+    color: #363636;
     margin: 0 0 16px 0;
   }
 
@@ -188,6 +189,21 @@ Groups.ListItem = styled.div`
       margin: 0 0 12px 0;
     }
   }
+`;
+
+export const Zabos = styled.section`
+  width: 1032px;
+  h1 {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #363636;
+    margin: 0 0 20px 0;
+  }
+`;
+
+Zabos.ZaboList = styled.div`
+  .masonry { margin: 0 }
 `;
 
 export const Stats = styled.section`

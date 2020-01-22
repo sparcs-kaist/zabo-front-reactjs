@@ -4,8 +4,11 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
+
 import { UserType } from '../../../lib/propTypes';
-import { Page, Groups, Stats } from './Profile.styled';
+import {
+  Page, Groups, Stats, Zabos,
+} from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 
@@ -119,8 +122,12 @@ const UserProfile = ({ profile }) => {
             </Link>
           ))}
         </Groups.List>
-        <ZaboList type="pins" />
       </Groups>
+      <Zabos>
+        <h1>저장한 자보</h1>
+        <p>전체 자보</p>
+        <ZaboList type="pins" />
+      </Zabos>
     </Page>
   );
 };
