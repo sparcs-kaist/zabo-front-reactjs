@@ -4,6 +4,9 @@ import React, {
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
+import FormControl from '@material-ui/core/FormControl';
+import FormHelperText from '@material-ui/core/FormHelperText';
+
 import {
   PageWrapper, SubHeading, FormGroup, Label,
   Input, Note, Button, Success, Error, Submit, Hr,
@@ -37,19 +40,28 @@ const ProfileForm = ({ initialValue }) => {
       .catch (err => setError (err));
   }, [state]);
 
+  const nameValidate = () => false;
+
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
         <Label>
           <label htmlFor="user-profile-name">별칭</label>
         </Label>
-        <InputBase
-          id="user-profile-name"
-          type="text"
-          name="username"
-          value={username}
-          onChange={onChange}
-        />
+        <FormControl error>
+          <InputBase
+            id="user-profile-name"
+            type="text"
+            name="username"
+            value={username}
+            onChange={onChange}
+          />
+          {
+            nameValidate ()
+              ? ''
+              : <FormHelperText id="component-error-text">Error</FormHelperText>
+          }
+        </FormControl>
         <Note>유저이름 변경</Note>
       </FormGroup>
       <FormGroup>
