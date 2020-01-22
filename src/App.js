@@ -5,10 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import PWAPrompt from 'templates/PWAPrompt';
 import {
   AuthPage,
-  GroupAddPage,
-  GroupPage,
   HomePage,
-  MyPage,
   SettingsPage,
   ZaboUploadPage,
   ZaboPage,
