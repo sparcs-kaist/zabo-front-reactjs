@@ -17,8 +17,8 @@ const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
 const GET_ZABO = 'zabo/GET_ZABO';
 const GET_PINS = 'zabo/GET_PINS';
+const PIN_ZABO = 'zabo/PIN_ZABO';
 const LIKE_ZABO = 'zabo/LIKE_ZABO';
-const DELETE_LIKE = 'zabo/DELETE_LIKE';
 
 // Action creator : action 객체를 만들어주는 함수
 //   ㄴ 왜 함수? 그때 그때 보낼 사진, 제목, 설명 등이 다르니까!
@@ -26,6 +26,7 @@ export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta =>
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
+export const pinZabo = createAction (PIN_ZABO, ZaboAPI.pinZabo, meta => meta);
 export const likeZabo = createAction (LIKE_ZABO, ZaboAPI.likeZabo, meta => meta);
 
 // 초기값 설정
@@ -86,6 +87,14 @@ export default handleActions (
         return state
           .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (pins)))
           .update ('zabos', zabos => zabos.merge (zaboMap));
+      },
+    }),
+    ...pender ({
+      type: PIN_ZABO,
+      onSuccess: (state, action) => {
+        const zaboId = action.meta;
+        const newPinned = action.payload;
+        return state.setIn (['zabos', zaboId, 'isPinned'], newPinned);
       },
     }),
     ...pender ({

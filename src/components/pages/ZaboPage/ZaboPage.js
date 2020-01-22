@@ -11,26 +11,32 @@ import Carousel from 'react-airbnb-carousel';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
-import { likeZabo } from '../../../store/reducers/zabo';
+import { pinZabo, likeZabo } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import likeImg from '../../../static/images/like.png';
 import emptyLikeImg from '../../../static/images/emptyLike.png';
 import bookmarkImg from '../../../static/images/bookmark.png';
+import emptyBookmarkImg from '../../../static/images/emptyBookmark.png';
 
 const StatsBox = ({
-  num, isBookmark, zaboId, isLiked,
+  num, isBookmark, zaboId, isLiked, isPinned,
 }) => {
   // isBookmark : type number ( 0 == falsy )
-  const src = isBookmark ? bookmarkImg : isLiked ? likeImg : emptyLikeImg;
+  const pinSrc = isPinned ? bookmarkImg : emptyBookmarkImg;
+  const likeSrc = isLiked ? likeImg : emptyLikeImg;
+  const src = isBookmark ? pinSrc : likeSrc;
 
   const dispatch = useDispatch ();
   const throttledLike = useMemo (() => throttle (() => dispatch (likeZabo (zaboId))
     .catch (err => console.log (err)), 200), [dispatch]);
 
+  const throttledPin = useMemo (() => throttle (() => dispatch (pinZabo (zaboId))
+    .catch (err => console.log (err)), 200), [dispatch]);
+
   const onClick = e => {
     e.preventDefault ();
-    throttledLike ();
+    isBookmark ? throttledPin () : throttledLike ();
   };
 
   return (
@@ -48,7 +54,7 @@ const ZaboPage = (props) => {
 
   const { zabo, zaboId } = props;
   const {
-    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked, views = 0,
+    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked, isPinned, views = 0,
   } = zabo;
 
   const curMoment = moment ();
@@ -90,7 +96,7 @@ const ZaboPage = (props) => {
               <div className="details">조회수 {views}</div>
             </section>
             <section className="statSection">
-              {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} />)}
+              {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} isPinned={isPinned} />)}
             </section>
           </ZaboPageWrapper.Info.Header>
           <ZaboPageWrapper.Info.Body>
