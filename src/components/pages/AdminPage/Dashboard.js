@@ -2,7 +2,6 @@ import React from 'react';
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist';
 import './chartist.min.css';
-import './assets/css/material-dashboard-react.css';
 // @material-ui/core
 import { makeStyles } from '@material-ui/core/styles';
 import Icon from '@material-ui/core/Icon';

@@ -21,6 +21,8 @@ import FixedPlugin from './components/FixedPlugin/FixedPlugin';
 import Dashboard from './Dashboard';
 import GroupAdminPage from './GroupAdminPage';
 
+import AdminWrapper from './Admin.styled';
+
 const routes = [
   {
     path: '/dashboard',
@@ -111,7 +113,7 @@ export default function Admin ({ ...rest }) {
     };
   }, [mainPanel]);
   return (
-    <div className={classes.wrapper}>
+    <AdminWrapper className={classes.wrapper}>
       <Sidebar
         routes={routes}
         logoText="ZABO"
@@ -146,6 +148,6 @@ export default function Admin ({ ...rest }) {
           fixedClasses={fixedClasses}
         />
       </div>
-    </div>
+    </AdminWrapper>
   );
 }
