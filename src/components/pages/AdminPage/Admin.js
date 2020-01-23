@@ -7,17 +7,19 @@ import 'perfect-scrollbar/css/perfect-scrollbar.css';
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import GroupIcon from '@material-ui/icons/Group';
 
 // import routes from 'routes';
+import logo from 'static/logo/logo.svg';
 import styles from './assets/jss/material-dashboard-react/layouts/adminStyle';
 import bgImage from './assets/img/sidebar-2.jpg';
-import logo from './assets/img/reactlogo.png';
 import Navbar from './components/Navbars/Navbar';
 import Footer from './components/Footer/Footer';
 import Sidebar from './components/Sidebar/Sidebar';
 import FixedPlugin from './components/FixedPlugin/FixedPlugin';
 
 import Dashboard from './Dashboard';
+import GroupAdminPage from './GroupAdminPage';
 
 const routes = [
   {
@@ -25,6 +27,13 @@ const routes = [
     name: 'Dashboard',
     icon: DashboardIcon,
     component: Dashboard,
+    layout: '/admin',
+  },
+  {
+    path: '/group',
+    name: 'Group',
+    icon: GroupIcon,
+    component: GroupAdminPage,
     layout: '/admin',
   },
 ];
@@ -105,7 +114,7 @@ export default function Admin ({ ...rest }) {
     <div className={classes.wrapper}>
       <Sidebar
         routes={routes}
-        logoText="Creative Tim"
+        logoText="ZABO"
         logo={logo}
         image={image}
         handleDrawerToggle={handleDrawerToggle}

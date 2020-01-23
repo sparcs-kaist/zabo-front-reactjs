@@ -61,8 +61,11 @@ const sidebarStyle = theme => ({
     },
   },
   logo: {
+    display: 'flex',
     position: 'relative',
     padding: '15px 15px',
+    justifyContent: 'center',
+    height: '100px',
     zIndex: '4',
     '&:after': {
       content: '""',
