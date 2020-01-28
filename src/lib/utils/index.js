@@ -1,3 +1,5 @@
+import { RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
+
 export * from './selector';
 
 export const mediaSizes = {
@@ -86,4 +88,17 @@ export const cropImage = async (file, ratio) => {
   // const base64ImageData = canvas.get(0).toDataURL();
   // const imgSrc = canvas.toDataURL ('image/png');
   return canvas.toDataURL ('image/jpeg');
+};
+
+export const validateName = (name) => {
+  // 1~25자 제한
+  if (name.length === 0 || name.length > 25) return false;
+  // 첫 글자로는 _, 알파벳, 한글, 숫자만 입력 가능
+  // ._- 한글 알파벳 숫자 입력 가능
+  const patt = new RegExp (/^[ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9_][ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9._-]*$/);
+  if (!patt.test (name)) return false;
+  const doubleCharPatt = /(--)|(\.\.)|(__)/;
+  if (doubleCharPatt.test (name)) return false;
+  const match = RESERVED_ROUTES_USERNAME_EXCEPTIONS.find (exception => exception === name.toLowerCase ());
+  return !match;
 };

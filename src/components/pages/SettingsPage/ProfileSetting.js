@@ -7,6 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import debounce from 'lodash.debounce';
 
+import { validateName } from '../../../lib/utils';
 import {
   PageWrapper, SubHeading, FormGroup, Label,
   Input, Note, Button, Success, Error, Submit, Hr,
@@ -41,16 +42,15 @@ const ProfileForm = ({ initialValue }) => {
       .catch (err => setError (err));
   }, [state]);
 
-  const nameValidate = () => {
-    // TODO: need to change validation function here
-    setNameInvalid (true);
-  };
-
-  const nameDebounce = useMemo (() => debounce (nameValidate, 300), []);
+  const nameDebounce = useMemo (() => debounce (() => {
+    // TODO: username: current e.target.username is not applying...
+    // need to use e.target.value, or call 'nameDebounce' function inside onChange function, or...
+    setNameInvalid (!validateName (username));
+  }, 800), [state.username]);
 
   const onChangeName = e => {
-    nameDebounce ();
     onChange (e);
+    nameDebounce ();
   };
 
   return (
