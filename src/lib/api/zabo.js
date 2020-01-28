@@ -17,8 +17,8 @@ export const getZaboList = ({ lastSeen, relatedTo }) => axios
   .get ('/zabo/list', { params: { lastSeen, relatedTo } })
   .then (res => res.data.filter (item => item.photos[0] !== undefined));
 
-export const pinZabo = zaboId => axios.post (`/zabo/${zaboId}/pin`).then (res => res.data);
-export const likeZabo = zaboId => axios.post (`/zabo/${zaboId}/like`).then (res => res.data);
+export const toggleZaboPin = zaboId => axios.post (`/zabo/${zaboId}/pin`).then (res => res.data);
+export const toggleZaboLike = zaboId => axios.post (`/zabo/${zaboId}/like`).then (res => res.data);
 
 export const getPins = ({ lastSeen }) => axios
   .get ('/pin/list', { params: { lastSeen } })

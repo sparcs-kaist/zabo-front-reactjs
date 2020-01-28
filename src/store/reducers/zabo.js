@@ -17,8 +17,8 @@ const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
 const GET_ZABO = 'zabo/GET_ZABO';
 const GET_PINS = 'zabo/GET_PINS';
-const PIN_ZABO = 'zabo/PIN_ZABO';
-const LIKE_ZABO = 'zabo/LIKE_ZABO';
+const TOGGLE_ZABO_PIN = 'zabo/TOGGLE_ZABO_PIN';
+const TOGGLE_ZABO_LIKE = 'zabo/TOGGLE_ZABO_LIKE';
 
 // Action creator : action 객체를 만들어주는 함수
 //   ㄴ 왜 함수? 그때 그때 보낼 사진, 제목, 설명 등이 다르니까!
@@ -26,8 +26,8 @@ export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta =>
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
-export const pinZabo = createAction (PIN_ZABO, ZaboAPI.pinZabo, meta => meta);
-export const likeZabo = createAction (LIKE_ZABO, ZaboAPI.likeZabo, meta => meta);
+export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, meta => meta);
+export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, meta => meta);
 
 // 초기값 설정
 const initialState = Map ({
@@ -90,19 +90,19 @@ export default handleActions (
       },
     }),
     ...pender ({
-      type: PIN_ZABO,
+      type: TOGGLE_ZABO_PIN,
       onSuccess: (state, action) => {
         const zaboId = action.meta;
-        const newPinned = action.payload;
-        return state.setIn (['zabos', zaboId, 'isPinned'], newPinned);
+        const result = action.payload;
+        return state.updateIn (['zabos', zaboId], zabo => zabo.merge (result));
       },
     }),
     ...pender ({
-      type: LIKE_ZABO,
+      type: TOGGLE_ZABO_LIKE,
       onSuccess: (state, action) => {
         const zaboId = action.meta;
-        const newLiked = action.payload;
-        return state.setIn (['zabos', zaboId, 'isLiked'], newLiked);
+        const result = action.payload;
+        return state.updateIn (['zabos', zaboId], zabo => zabo.merge (result));
       },
     }),
 

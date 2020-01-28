@@ -11,7 +11,7 @@ import Carousel from 'react-airbnb-carousel';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
-import { pinZabo, likeZabo } from '../../../store/reducers/zabo';
+import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import likeImg from '../../../static/images/like.png';
@@ -20,23 +20,20 @@ import bookmarkImg from '../../../static/images/bookmark.png';
 import emptyBookmarkImg from '../../../static/images/emptyBookmark.png';
 
 const StatsBox = ({
-  num, isBookmark, zaboId, isLiked, isPinned,
+  type, num, zaboId, isClicked,
 }) => {
-  // isBookmark : type number ( 0 == falsy )
-  const pinSrc = isPinned ? bookmarkImg : emptyBookmarkImg;
-  const likeSrc = isLiked ? likeImg : emptyLikeImg;
-  const src = isBookmark ? pinSrc : likeSrc;
+  const pinSrc = isClicked ? bookmarkImg : emptyBookmarkImg;
+  const likeSrc = isClicked ? likeImg : emptyLikeImg;
+  const src = type === 'like' ? likeSrc : pinSrc;
 
   const dispatch = useDispatch ();
-  const throttledLike = useMemo (() => throttle (() => dispatch (likeZabo (zaboId))
-    .catch (err => console.log (err)), 200), [dispatch]);
-
-  const throttledPin = useMemo (() => throttle (() => dispatch (pinZabo (zaboId))
-    .catch (err => console.log (err)), 200), [dispatch]);
+  const throttledAction = useMemo (() => throttle (() => {
+    type === 'like' ? dispatch (toggleZaboLike (zaboId)) : dispatch (toggleZaboPin (zaboId));
+  }));
 
   const onClick = e => {
     e.preventDefault ();
-    isBookmark ? throttledPin () : throttledLike ();
+    throttledAction ();
   };
 
   return (
@@ -47,14 +44,18 @@ const StatsBox = ({
   );
 };
 
-const ZaboPage = (props) => {
-  const liked = 263;
-  const booked = 263;
-  const statsList = [liked, booked];
+StatsBox.propTypes = {
+  type: PropTypes.string.isRequired,
+  num: PropTypes.number.isRequired,
+  zaboId: PropTypes.number.isRequired,
+  isClicked: PropTypes.bool.isRequired,
+};
 
+const ZaboPage = (props) => {
   const { zabo, zaboId } = props;
   const {
-    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked, isPinned, views = 0,
+    title, owner, endAt, createdAt, description, category = [], photos = [{}],
+    isLiked, likedCount, isPinned, pinnedCount, views = 0,
   } = zabo;
 
   const curMoment = moment ();
@@ -96,7 +97,8 @@ const ZaboPage = (props) => {
               <div className="details">조회수 {views}</div>
             </section>
             <section className="statSection">
-              {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} isPinned={isPinned} />)}
+              <StatsBox type="like" num={likedCount} zaboId={zaboId} isClicked={isLiked} />
+              <StatsBox type="pin" num={pinnedCount} zaboId={zaboId} isClicked={isPinned} />
             </section>
           </ZaboPageWrapper.Info.Header>
           <ZaboPageWrapper.Info.Body>

@@ -19,12 +19,12 @@ import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
 
-const ProfileStats = ({ statsNames, statsNums, smallV }) => {
+const ProfileStats = ({ statsNames, statsCounts, smallV }) => {
   const cName = smallV ? 'mini' : '';
   return (
     <Stats>
       {
-        statsNums.map ((elem, idx) => (
+        statsCounts.map ((elem, idx) => (
           <Stats.elem key={idx} className={cName}>
             <h3>{elem}</h3>
             <div>{statsNames[idx]}</div>
@@ -37,7 +37,7 @@ const ProfileStats = ({ statsNames, statsNums, smallV }) => {
 
 const GroupBox = ({ group }) => {
   const statsNames = ['자보', '팔로워', '최근 업로드'];
-  const statsNums = [263, 263, 23];
+  const statsCounts = [263, 263, 23];
 
   return (
     <Groups.ListItem>
@@ -50,7 +50,7 @@ const GroupBox = ({ group }) => {
         <Tooltip title={group.name}>
           <div className="group-name">{group.name}</div>
         </Tooltip>
-        <ProfileStats statsNames={statsNames} statsNums={statsNums} smallV />
+        <ProfileStats statsNames={statsNames} statsCounts={statsCounts} smallV />
       </section>
     </Groups.ListItem>
   );
@@ -58,7 +58,7 @@ const GroupBox = ({ group }) => {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, likesNum, pinsNum,
+    username, profilePhoto, groups, description, likesCount, pinsCount,
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -66,7 +66,7 @@ const UserProfile = ({ profile }) => {
   const logout = () => dispatch (logoutAction ());
 
   const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];
-  const statsNums = [pinsNum, likesNum, 100];
+  const statsCounts = [pinsCount, likesCount, 100];
 
   const rightGroup = isMyProfile
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
@@ -106,7 +106,7 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
         <Page.Header.Right>
-          <ProfileStats statsNames={statsNames} statsNums={statsNums} />
+          <ProfileStats statsNames={statsNames} statsCounts={statsCounts} />
         </Page.Header.Right>
       </Page.Header>
       <Groups>
