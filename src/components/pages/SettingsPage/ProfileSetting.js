@@ -1,11 +1,11 @@
 import React, {
-  useCallback, useEffect, useState, useRef,
+  useCallback, useEffect, useState, useRef, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
+import debounce from 'lodash.debounce';
 
 import {
   PageWrapper, SubHeading, FormGroup, Label,
@@ -28,6 +28,7 @@ const ProfileForm = ({ initialValue }) => {
   useEffect (() => setState (initialValue), [initialValue]);
   const [error, setError] = useState ();
   const [success, setSuccess] = useState (false);
+  const [nameInvalid, setNameInvalid] = useState (false);
   const { username, description } = state;
 
   const handleSubmit = useCallback (e => {
@@ -40,7 +41,17 @@ const ProfileForm = ({ initialValue }) => {
       .catch (err => setError (err));
   }, [state]);
 
-  const nameValidate = () => false;
+  const nameValidate = () => {
+    // TODO: need to change validation function here
+    setNameInvalid (true);
+  };
+
+  const nameDebounce = useMemo (() => debounce (nameValidate, 300), []);
+
+  const onChangeName = e => {
+    nameDebounce ();
+    onChange (e);
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -54,12 +65,12 @@ const ProfileForm = ({ initialValue }) => {
             type="text"
             name="username"
             value={username}
-            onChange={onChange}
+            onChange={onChangeName}
           />
           {
-            nameValidate ()
-              ? ''
-              : <FormHelperText id="component-error-text">Error</FormHelperText>
+            nameInvalid
+              ? <FormHelperText id="user-profile-error">Error</FormHelperText>
+              : ''
           }
         </FormControl>
         <Note>유저이름 변경</Note>
