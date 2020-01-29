@@ -42,6 +42,7 @@ Page.Header.Left.ProfilePhoto = styled.div`
   img {
     width: 120px;
     height: 120px;
+    border-radius: 50%;
     @media (max-width: 640px) {
       width: 105px;
       height: 105px;
@@ -76,6 +77,7 @@ Page.Header.Left.UserInfo = styled.div`
     padding: 8px 12px;
     border-radius: 15px;
     margin-right: 6px;
+    background-color: #F8F8F8;
     &.logout {
       border: 1px solid #797979;
       color: #797979;

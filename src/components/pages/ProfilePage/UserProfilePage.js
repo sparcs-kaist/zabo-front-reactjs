@@ -7,7 +7,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { UserType, GroupType } from '../../../lib/propTypes';
 import {
-  Page, Groups, Stats, Zabos,
+  Page, Groups, Zabos,
 } from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';

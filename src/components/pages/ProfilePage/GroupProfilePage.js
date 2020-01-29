@@ -1,55 +1,84 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { Page, Intro } from './OldProfile.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import SettingsIcon from '@material-ui/icons/Settings';
+
+import { Page, Group, Zabos } from './Profile.styled';
 import Header from '../../templates/Header';
+import ZaboList from '../../templates/ZaboList';
+import ProfileStats from '../../organisms/ProfileStats';
 
 import { GroupType } from '../../../lib/propTypes';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import { setCurrentGroup } from '../../../store/reducers/auth';
 
 const GroupProfile = ({ profile }) => {
-  const dispatch = useDispatch ();
   const {
-    name, profilePhoto, backgroundPhoto, description,
+    name, profilePhoto, members, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } = {}, description,
   } = profile;
+  const dispatch = useDispatch ();
+  const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
+  const isMyGroupProfile = !!members.find (obj => obj.user === myUserId);
   const toUpload = useCallback (() => {
     dispatch (setCurrentGroup (name));
   }, [name]);
 
+  const stats = [{
+    name: '자보',
+    value: zaboCount,
+  }, {
+    name: '팔로워',
+    value: followerCount,
+  }, {
+    name: '최근 업로드',
+    value: recentUploadDate,
+  }];
+
+  const rightGroup = isMyGroupProfile
+    ? <Link to="/settings/profile"><SettingsIcon /></Link>
+    : <Header.AuthButton />;
+
+  // TODO: need to add ZaboList type with groupUpload Zabolists
+  // TODO: add short, long description <- need to implement server (change schema)
+
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} />
+      <Header rightGroup={rightGroup} scrollHeader />
       <Page.Header>
-        <Page.Header.BackPhoto>
-          {
-            backgroundPhoto
-              ? <div style={{ backgroundImage: `url(${backgroundPhoto})` }}> </div>
-              : <div style={{ backgroundImage: `url(${defaultBackground})` }}> </div>
-          }
-        </Page.Header.BackPhoto>
-        <Page.Header.ProfilePhoto>
-          {
-            profilePhoto
-              ? <img src={profilePhoto} alt="profile photo" />
-              : <img src={groupDefaultProfile} alt="default profile img" />
-          }
-        </Page.Header.ProfilePhoto>
-        <Page.Header.UserInfo>
-          {name}
-          <Link to="/zabo/upload">
-            <button onClick={toUpload} type="button">업로드</button>
-          </Link>
-        </Page.Header.UserInfo>
+        <Page.Header.Left>
+          <Page.Header.Left.ProfilePhoto>
+            {
+              profilePhoto
+                ? <img src={profilePhoto} alt="profile photo" />
+                : <img src={groupDefaultProfile} alt="default profile img" />
+            }
+          </Page.Header.Left.ProfilePhoto>
+          <Page.Header.Left.UserInfo>
+            <h1>{name}</h1>
+            <p>{description || '아직 소개가 없습니다.'}</p>
+            {
+              isMyGroupProfile
+                ? (
+                  <section>
+                    <Link to={`/settings/group/${name}`}>
+                      <button className="edit" type="button">프로필 편집</button>
+                    </Link>
+                  </section>
+                ) : (
+                  ''
+                )
+            }
+          </Page.Header.Left.UserInfo>
+        </Page.Header.Left>
+        <Page.Header.Right>
+          <ProfileStats stats={stats} />
+        </Page.Header.Right>
       </Page.Header>
-
-      <Intro>
-        <h1>소개</h1>
-        <div>{description || '아직 소개가 없습니다.'}</div>
-      </Intro>
+      <Zabos>
+        <h1>업로드한 자보</h1>
+      </Zabos>
     </Page>
   );
 };
