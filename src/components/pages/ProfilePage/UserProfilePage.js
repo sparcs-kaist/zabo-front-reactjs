@@ -46,7 +46,7 @@ ProfileStats.defaultProps = {
 };
 
 const GroupBox = ({ group }) => {
-  const { name, profilePhoto, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } } = group;
+  const { name, profilePhoto, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } = {} } = group;
   const stats = [{
     name: '자보',
     value: zaboCount,
@@ -82,7 +82,7 @@ GroupBox.propTypes = {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, stats: { likesCount, pinsCount, followsCount },
+    username, profilePhoto, groups, description, stats: { likesCount, pinsCount, followsCount } = {},
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
