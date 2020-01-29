@@ -9,7 +9,7 @@ import * as AuthAPI from '../../lib/api/auth';
 
 // Action types
 const LOGIN_CALLBACK = 'auth/LOGIN_CALLBACK';
-const CHECK_AUTH = 'auth/CHECK_AUTH';
+export const CHECK_AUTH = 'auth/CHECK_AUTH';
 const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
 const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';
@@ -44,6 +44,8 @@ const initialState = Map ({
     kaistPersonType: '',
     studentId: '',
     currentGroup: null,
+    isAdmin: false,
+    flags: List ([]),
     boards: List ([]),
     groups: List ([]),
   }),
@@ -63,12 +65,8 @@ export default handleActions (
     }),
     ...pender ({
       type: CHECK_AUTH,
-      onSuccess: (state, action) => {
-        const user = action.payload;
-        const token = action.meta;
-        const decoded = jwt.decode (token);
-        return state.set ('jwt', fromJS (decoded)).set ('info', fromJS (user));
-      },
+      onPending: (state, action) => state.set ('jwt', fromJS (jwt.decode (action.meta))),
+      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
     }),
     [LOGOUT]: (state, action) => {
       storage.removeItem ('token');

@@ -10,7 +10,7 @@ import SearchBarWrapper from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */
 const searchAPI = text => {
-  if (!text) return Promise.resolve ({ data: { zabos: [], groups: [], categories: [] } });
+  if (!text) return Promise.resolve ({ zabos: [], groups: [], categories: [] });
   return axios.get (`/search?query=${encodeURIComponent (text)}`);
 };
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 1000);
@@ -41,12 +41,12 @@ _handleChange = async e => {
     // load from caching
     this._updateResults (searchResults[query]);
   }
-  const res = await searchAPIDebounced (query);
-  this._updateResults (res.data);
+  const data = await searchAPIDebounced (query);
+  this._updateResults (data);
   this.setState (prevState => ({
     searchResults: {
       ...prevState.searchResults,
-      [query]: res.data,
+      [query]: data,
     },
   }));
 }

@@ -20,6 +20,7 @@ class Axios {
     });
     this._interceptor = null;
     this.token = '';
+    this._interceptResponse ();
   }
 
   static get instance () {
@@ -55,6 +56,15 @@ class Axios {
         });
       }
       return config;
+    });
+  }
+
+  _interceptResponse () {
+    this.session.interceptors.response.use (res => res.data, error => {
+      if (!error.response) throw error;
+      const { data } = error.response;
+      if (!data) throw error;
+      throw data;
     });
   }
 
