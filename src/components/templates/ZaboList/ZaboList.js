@@ -81,14 +81,14 @@ class ZaboList extends PureComponent {
   }
 
   render () {
-    const { zaboList } = this.props;
+    const { zaboList, type } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
     return (
       <ZaboListWrapper>
         <MasonryZaboList
-          className="masonry"
+          className={`masonry masonry-${type}`}
           initialLoad={false}
           hasMore={hasNext}
           loadMore={fetchNext} // called on useWindow (scrollLister)

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Page = styled.section`
   padding: 120px 0 80px 0;
@@ -109,6 +109,7 @@ export const Groups = styled.section`
     display: inline-block;
     font-size: 22px;
     font-weight: bold;
+    color: #363636;
     margin: 0 0 16px 0;
   }
 
@@ -190,6 +191,21 @@ Groups.ListItem = styled.div`
   }
 `;
 
+export const Zabos = styled.section`
+  width: 1032px;
+  h1 {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: bold;
+    color: #363636;
+    margin: 0 0 20px 0;
+  }
+`;
+
+Zabos.ZaboList = styled.div`
+  .masonry { margin: 0 }
+`;
+
 export const Stats = styled.section`
   display: inline-block;
 `;
@@ -212,7 +228,7 @@ Stats.elem = styled.div`
     text-align: center;
   }
 
-  &.mini {
+  ${props => (props.small ? css`
     padding: 0 16px;
     h3 { 
       font-size: 16px;
@@ -227,7 +243,8 @@ Stats.elem = styled.div`
       }
       div { font-size: 10px }
     }
-  }
+  ` : css``)};
+  
   &:nth-child(1) {
     padding-left: 0;
   }

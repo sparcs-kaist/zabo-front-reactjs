@@ -20,4 +20,5 @@ export const getPins = ({ lastSeen }) => axios
   .get ('/pin/list', { params: { lastSeen } })
   .then (data => data.filter (item => item.photos[0] !== undefined));
 
-export const likeZabo = zaboId => axios.post ('/zabo/like', { zaboId });
+export const toggleZaboPin = zaboId => axios.post (`/zabo/${zaboId}/pin`);
+export const toggleZaboLike = zaboId => axios.post (`/zabo/${zaboId}/like`);

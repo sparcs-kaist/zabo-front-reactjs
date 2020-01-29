@@ -11,44 +11,67 @@ import Carousel from 'react-airbnb-carousel';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { to2Digits } from '../../../lib/utils';
-import { likeZabo } from '../../../store/reducers/zabo';
+import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import likeImg from '../../../static/images/like.png';
 import emptyLikeImg from '../../../static/images/emptyLike.png';
 import bookmarkImg from '../../../static/images/bookmark.png';
+import emptyBookmarkImg from '../../../static/images/emptyBookmark.png';
 
-const StatsBox = ({
-  num, isBookmark, zaboId, isLiked,
-}) => {
-  // isBookmark : type number ( 0 == falsy )
-  const src = isBookmark ? bookmarkImg : isLiked ? likeImg : emptyLikeImg;
+const icons = {
+  pin: {
+    filled: bookmarkImg,
+    empty: emptyBookmarkImg,
+  },
+  like: {
+    filled: likeImg,
+    empty: emptyLikeImg,
+  },
+};
 
+const toggleActions = {
+  pin: toggleZaboPin,
+  like: toggleZaboLike,
+};
+
+const StatBox = ({ stat }) => {
+  const {
+    type, count, zaboId, active,
+  } = stat;
   const dispatch = useDispatch ();
-  const throttledLike = useMemo (() => throttle (() => dispatch (likeZabo (zaboId))
-    .catch (err => console.log (err)), 200), [dispatch]);
+  const src = icons[type][active ? 'filled' : 'empty'];
+  const throttledAction = useMemo (() => throttle (() => {
+    dispatch (toggleActions[type] (zaboId));
+  }, 200), []);
 
   const onClick = e => {
     e.preventDefault ();
-    throttledLike ();
+    throttledAction ();
   };
 
   return (
     <ZaboPageWrapper.Info.Box onClick={onClick}>
       <img src={src} alt="icon image" />
-      <div>{num}</div>
+      <div>{count}</div>
     </ZaboPageWrapper.Info.Box>
   );
 };
 
-const ZaboPage = (props) => {
-  const liked = 263;
-  const booked = 263;
-  const statsList = [liked, booked];
+StatBox.propTypes = {
+  stat: PropTypes.shape ({
+    type: PropTypes.oneOf (Object.keys (icons)).isRequired,
+    count: PropTypes.number.isRequired,
+    zaboId: PropTypes.number.isRequired,
+    active: PropTypes.bool.isRequired,
+  }).isRequired,
+};
 
+const ZaboPage = (props) => {
   const { zabo, zaboId } = props;
   const {
-    title, owner, endAt, createdAt, description, category = [], photos = [{}], isLiked, views = 0,
+    title, owner, endAt, createdAt, description, category = [], photos = [{}],
+    isLiked, likedCount, isPinned, pinnedCount, views = 0,
   } = zabo;
 
   const curMoment = moment ();
@@ -58,6 +81,18 @@ const ZaboPage = (props) => {
   const daysDiff = curMoment.diff (createdAtMoment, 'days');
   const monthDiff = curMoment.diff (createdAtMoment, 'months');
   const due = moment (endAt).diff (curMoment, 'days');
+
+  const stats = [{
+    type: 'like',
+    count: likedCount,
+    zaboId,
+    active: isLiked,
+  }, {
+    type: 'pin',
+    count: isPinned,
+    zaboId,
+    active: isPinned,
+  }];
 
   return (
     <ZaboPageWrapper>
@@ -90,7 +125,7 @@ const ZaboPage = (props) => {
               <div className="details">조회수 {views}</div>
             </section>
             <section className="statSection">
-              {statsList.map ((elem, idx) => <StatsBox key={idx} num={elem} isBookmark={idx} zaboId={zaboId} isLiked={isLiked} />)}
+              {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
             </section>
           </ZaboPageWrapper.Info.Header>
           <ZaboPageWrapper.Info.Body>
@@ -102,7 +137,7 @@ const ZaboPage = (props) => {
                     ? <img src={owner.profilePhoto} alt="group profile photo" />
                     : <img src={groupDefaultProfile} alt="default profile img" />
                 }
-                <p>{owner ? owner.name : 'annoymous'}</p>
+                <p>{owner ? owner.name : 'anonymous'}</p>
                 <div className="specialChar">&middot;</div>
                 <p className="follow">팔로잉</p>
               </div>
@@ -125,9 +160,6 @@ const ZaboPage = (props) => {
 ZaboPage.propTypes = {
   zabo: PropTypes.shape (ZaboType).isRequired,
   zaboId: PropTypes.string.isRequired,
-};
-
-ZaboPage.defaultProps = {
 };
 
 export default ZaboPage;

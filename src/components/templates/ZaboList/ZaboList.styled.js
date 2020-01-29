@@ -15,7 +15,7 @@ const ZaboListWrapper = styled.div`
    * >>> on const sizes of ZaboList.js
    */
 
-  .masonry {
+  .masonry .masonry-main {
     margin: 20px auto 0 auto;
     width: 100%;
   }

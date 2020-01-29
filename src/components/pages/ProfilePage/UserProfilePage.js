@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { UserType } from '../../../lib/propTypes';
-import { Page, Groups, Stats } from './Profile.styled';
+
+import { UserType, GroupType } from '../../../lib/propTypes';
+import {
+  Page, Groups, Stats, Zabos,
+} from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 
@@ -17,46 +20,69 @@ import rightScroll from '../../../static/images/rightScroll.png';
 import { logout as logoutAction } from '../../../store/reducers/auth';
 import { isAdminSelector } from '../../../lib/utils';
 
-const ProfileStats = ({ statsNames, statsNums, smallV }) => {
-  const cName = smallV ? 'mini' : '';
-  return (
-    <Stats>
-      {
-        statsNums.map ((elem, idx) => (
-          <Stats.elem key={idx} className={cName}>
-            <h3>{elem}</h3>
-            <div>{statsNames[idx]}</div>
+const ProfileStats = ({ stats, smallV }) => (
+  <Stats>
+    {
+        stats.map (({ name, value }) => (
+          <Stats.elem key={name} small={smallV}>
+            <h3>{value}</h3>
+            <div>{name}</div>
           </Stats.elem>
         ))
       }
-    </Stats>
-  );
+  </Stats>
+);
+
+ProfileStats.propTypes = {
+  stats: PropTypes.arrayOf (PropTypes.shape ({
+    name: PropTypes.string.isRequired,
+    value: PropTypes.oneOfType ([PropTypes.number, PropTypes.string]).isRequired,
+  })).isRequired,
+  smallV: PropTypes.bool,
+};
+
+ProfileStats.defaultProps = {
+  smallV: false,
 };
 
 const GroupBox = ({ group }) => {
-  const statsNames = ['자보', '팔로워', '최근 업로드'];
-  const statsNums = [263, 263, 23];
+  const { name, profilePhoto, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } } = group;
+  const stats = [{
+    name: '자보',
+    value: zaboCount,
+  }, {
+    name: '팔로워',
+    value: followerCount,
+  }, {
+    name: '최근 업로드',
+    value: recentUploadDate,
+  }];
 
   return (
     <Groups.ListItem>
       {
-        group.profilePhoto
-          ? <img src={group.profilePhoto} alt="group profile photo" />
+        profilePhoto
+          ? <img src={profilePhoto} alt="group profile photo" />
           : <img src={groupDefaultProfile} alt="default group profile photo" />
       }
       <section>
-        <Tooltip title={group.name}>
-          <div className="group-name">{group.name}</div>
+        <Tooltip title={name}>
+          <div className="group-name">{name}</div>
         </Tooltip>
-        <ProfileStats statsNames={statsNames} statsNums={statsNums} smallV />
+        <ProfileStats stats={stats} smallV />
       </section>
     </Groups.ListItem>
   );
 };
 
+GroupBox.propTypes = {
+  group: PropTypes.shape (GroupType).isRequired,
+};
+
+
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, likesNum,
+    username, profilePhoto, groups, description, stats: { likesCount, pinsCount, followsCount },
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -64,20 +90,28 @@ const UserProfile = ({ profile }) => {
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
 
-  const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];
-  const statsNums = [100, likesNum, 100];
+  const stats = [{
+    name: '저장한 자보',
+    pinsCount,
+  }, {
+    name: '좋아하는 자보',
+    likesCount,
+  }, {
+    name: '팔로잉',
+    followsCount,
+  }];
 
   const rightGroup = isMyProfile
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
   // TODO : need to change scroll value; consider mobile app version
-  const leftScrollClick = () => {
+  const leftScrollClick = useCallback (() => {
     document.getElementById ('groupsList').scrollLeft -= 1000;
-  };
-  const rightScrollClick = () => {
+  }, []);
+  const rightScrollClick = useCallback (() => {
     document.getElementById ('groupsList').scrollLeft += 1000;
-  };
+  }, []);
 
   return (
     <Page>
@@ -106,7 +140,7 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
         <Page.Header.Right>
-          <ProfileStats statsNames={statsNames} statsNums={statsNums} />
+          <ProfileStats stats={stats} />
         </Page.Header.Right>
       </Page.Header>
       <Groups>
@@ -122,8 +156,12 @@ const UserProfile = ({ profile }) => {
             </Link>
           ))}
         </Groups.List>
-        <ZaboList type="pins" />
       </Groups>
+      <Zabos>
+        <h1>저장한 자보</h1>
+        <p>전체 자보</p>
+        <ZaboList type="pins" />
+      </Zabos>
     </Page>
   );
 };
