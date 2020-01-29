@@ -19,17 +19,31 @@ import emptyLikeImg from '../../../static/images/emptyLike.png';
 import bookmarkImg from '../../../static/images/bookmark.png';
 import emptyBookmarkImg from '../../../static/images/emptyBookmark.png';
 
-const StatsBox = ({
-  type, num, zaboId, isClicked,
-}) => {
-  const pinSrc = isClicked ? bookmarkImg : emptyBookmarkImg;
-  const likeSrc = isClicked ? likeImg : emptyLikeImg;
-  const src = type === 'like' ? likeSrc : pinSrc;
+const icons = {
+  pin: {
+    filled: bookmarkImg,
+    empty: emptyBookmarkImg,
+  },
+  like: {
+    filled: likeImg,
+    empty: emptyLikeImg,
+  },
+};
 
+const toggleActions = {
+  pin: toggleZaboPin,
+  like: toggleZaboLike,
+};
+
+const StatBox = ({ stat }) => {
+  const {
+    type, count, zaboId, active,
+  } = stat;
   const dispatch = useDispatch ();
+  const src = icons[type][active ? 'filled' : 'empty'];
   const throttledAction = useMemo (() => throttle (() => {
-    type === 'like' ? dispatch (toggleZaboLike (zaboId)) : dispatch (toggleZaboPin (zaboId));
-  }));
+    dispatch (toggleActions[type] (zaboId));
+  }, 200), []);
 
   const onClick = e => {
     e.preventDefault ();
@@ -39,16 +53,18 @@ const StatsBox = ({
   return (
     <ZaboPageWrapper.Info.Box onClick={onClick}>
       <img src={src} alt="icon image" />
-      <div>{num}</div>
+      <div>{count}</div>
     </ZaboPageWrapper.Info.Box>
   );
 };
 
-StatsBox.propTypes = {
-  type: PropTypes.string.isRequired,
-  num: PropTypes.number.isRequired,
-  zaboId: PropTypes.number.isRequired,
-  isClicked: PropTypes.bool.isRequired,
+StatBox.propTypes = {
+  stat: PropTypes.shape ({
+    type: PropTypes.oneOf (Object.keys (icons)).isRequired,
+    count: PropTypes.number.isRequired,
+    zaboId: PropTypes.number.isRequired,
+    active: PropTypes.bool.isRequired,
+  }).isRequired,
 };
 
 const ZaboPage = (props) => {
@@ -65,6 +81,18 @@ const ZaboPage = (props) => {
   const daysDiff = curMoment.diff (createdAtMoment, 'days');
   const monthDiff = curMoment.diff (createdAtMoment, 'months');
   const due = moment (endAt).diff (curMoment, 'days');
+
+  const stats = [{
+    type: 'like',
+    count: likedCount,
+    zaboId,
+    active: isLiked,
+  }, {
+    type: 'pin',
+    count: isPinned,
+    zaboId,
+    active: isPinned,
+  }];
 
   return (
     <ZaboPageWrapper>
@@ -97,8 +125,7 @@ const ZaboPage = (props) => {
               <div className="details">조회수 {views}</div>
             </section>
             <section className="statSection">
-              <StatsBox type="like" num={likedCount} zaboId={zaboId} isClicked={isLiked} />
-              <StatsBox type="pin" num={pinnedCount} zaboId={zaboId} isClicked={isPinned} />
+              {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
             </section>
           </ZaboPageWrapper.Info.Header>
           <ZaboPageWrapper.Info.Body>
@@ -110,7 +137,7 @@ const ZaboPage = (props) => {
                     ? <img src={owner.profilePhoto} alt="group profile photo" />
                     : <img src={groupDefaultProfile} alt="default profile img" />
                 }
-                <p>{owner ? owner.name : 'annoymous'}</p>
+                <p>{owner ? owner.name : 'anonymous'}</p>
                 <div className="specialChar">&middot;</div>
                 <p className="follow">팔로잉</p>
               </div>
@@ -133,9 +160,6 @@ const ZaboPage = (props) => {
 ZaboPage.propTypes = {
   zabo: PropTypes.shape (ZaboType).isRequired,
   zaboId: PropTypes.string.isRequired,
-};
-
-ZaboPage.defaultProps = {
 };
 
 export default ZaboPage;

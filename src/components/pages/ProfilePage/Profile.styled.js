@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Page = styled.section`
   padding: 120px 0 80px 0;
@@ -228,7 +228,7 @@ Stats.elem = styled.div`
     text-align: center;
   }
 
-  &.mini {
+  ${props => (props.small ? css`
     padding: 0 16px;
     h3 { 
       font-size: 16px;
@@ -243,7 +243,8 @@ Stats.elem = styled.div`
       }
       div { font-size: 10px }
     }
-  }
+  ` : css``)};
+  
   &:nth-child(1) {
     padding-left: 0;
   }

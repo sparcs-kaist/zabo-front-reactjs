@@ -99,11 +99,7 @@ export default handleActions (
     }),
     ...pender ({
       type: TOGGLE_ZABO_LIKE,
-      onSuccess: (state, action) => {
-        const zaboId = action.meta;
-        const result = action.payload;
-        return state.updateIn (['zabos', zaboId], zabo => zabo.merge (result));
-      },
+      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (action.payload)),
     }),
 
   },

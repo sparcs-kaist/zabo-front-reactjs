@@ -15,6 +15,12 @@ export const ZaboType = {
 
 export const GroupType = {
   name: PropTypes.string,
+  profilePhoto: PropTypes.string,
+  stats: PropTypes.shape ({ // TODO: Generate stats in server
+    zaboCount: PropTypes.number,
+    followerCount: PropTypes.number,
+    recentUploadDate: PropTypes.string,
+  }),
 };
 
 export const UserType = {
@@ -38,4 +44,9 @@ export const UserType = {
       PropTypes.string,
     ]),
   ),
+  stats: PropTypes.shape ({ // TODO: Change shape from server
+    pinsCount: PropTypes.number,
+    likesCount: PropTypes.number,
+    followsCount: PropTypes.number,
+  }),
 };
