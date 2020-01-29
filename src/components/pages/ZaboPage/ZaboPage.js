@@ -89,7 +89,7 @@ const ZaboPage = (props) => {
     active: isLiked,
   }, {
     type: 'pin',
-    count: isPinned,
+    count: pinnedCount,
     zaboId,
     active: isPinned,
   }];
