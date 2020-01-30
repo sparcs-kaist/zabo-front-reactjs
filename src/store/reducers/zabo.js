@@ -5,13 +5,6 @@ import uniqBy from 'lodash.uniqby';
 
 import * as ZaboAPI from '../../lib/api/zabo';
 
-/*
- * Reducer: 이 파일은 리듀서 '함수', action creator - dispatch(action) 이 들어오면 action 을 처리한다.
- *          State 와 Action 을 받아서 새로운 State 를 렌더링.
- *
- * 밖의 index.js 에서 이 reducer 함수를 createStore 에 넣어서 전체 STORE 를 만듦.
- */
-
 // Action types
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
@@ -21,7 +14,6 @@ const TOGGLE_ZABO_PIN = 'zabo/TOGGLE_ZABO_PIN';
 const TOGGLE_ZABO_LIKE = 'zabo/TOGGLE_ZABO_LIKE';
 
 // Action creator : action 객체를 만들어주는 함수
-//   ㄴ 왜 함수? 그때 그때 보낼 사진, 제목, 설명 등이 다르니까!
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
