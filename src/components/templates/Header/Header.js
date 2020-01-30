@@ -8,6 +8,7 @@ import Container from 'atoms/Container';
 import logo from 'static/logo/logo.svg';
 import { isAuthedSelector } from '../../../lib/utils';
 import HeaderWrapper from './Header.styled';
+import SearchBar from '../SearchBar';
 
 const containerStyle = css`
   position: absolute;
@@ -53,6 +54,7 @@ const Header = ({
             </NavLink>
           )}
         </div>
+        <SearchBar isOpen />
         {rightGroup}
       </Container>
     </HeaderWrapper>
