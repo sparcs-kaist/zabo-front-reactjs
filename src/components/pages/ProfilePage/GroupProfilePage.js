@@ -65,6 +65,9 @@ const GroupProfile = ({ profile }) => {
                     <Link to={`/settings/group/${name}`}>
                       <button className="edit" type="button">프로필 편집</button>
                     </Link>
+                    <Link to="/zabo/upload">
+                      <button onClick={toUpload} type="button">업로드</button>
+                    </Link>
                   </section>
                 ) : (
                   ''
