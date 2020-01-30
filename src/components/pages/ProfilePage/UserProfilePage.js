@@ -7,10 +7,11 @@ import SettingsIcon from '@material-ui/icons/Settings';
 
 import { UserType, GroupType } from '../../../lib/propTypes';
 import {
-  Page, Groups, Stats, Zabos,
+  Page, Groups, Zabos,
 } from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
+import ProfileStats from '../../organisms/ProfileStats';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -19,31 +20,6 @@ import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
 import { isAdminSelector } from '../../../lib/utils';
-
-const ProfileStats = ({ stats, smallV }) => (
-  <Stats>
-    {
-        stats.map (({ name, value }) => (
-          <Stats.elem key={name} small={smallV}>
-            <h3>{value}</h3>
-            <div>{name}</div>
-          </Stats.elem>
-        ))
-      }
-  </Stats>
-);
-
-ProfileStats.propTypes = {
-  stats: PropTypes.arrayOf (PropTypes.shape ({
-    name: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType ([PropTypes.number, PropTypes.string]).isRequired,
-  })).isRequired,
-  smallV: PropTypes.bool,
-};
-
-ProfileStats.defaultProps = {
-  smallV: false,
-};
 
 const GroupBox = ({ group }) => {
   const { name, profilePhoto, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } = {} } = group;
@@ -82,7 +58,7 @@ GroupBox.propTypes = {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, stats: { likesCount, pinsCount, followsCount } = {},
+    username, profilePhoto, groups, description, stats: { likesCount = 0, pinsCount = 0, followsCount = 0 } = {},
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -92,13 +68,13 @@ const UserProfile = ({ profile }) => {
 
   const stats = [{
     name: '저장한 자보',
-    pinsCount,
+    value: pinsCount,
   }, {
     name: '좋아하는 자보',
-    likesCount,
+    value: likesCount,
   }, {
     name: '팔로잉',
-    followsCount,
+    value: followsCount,
   }];
 
   const rightGroup = isMyProfile
