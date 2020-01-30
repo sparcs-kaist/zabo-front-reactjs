@@ -71,7 +71,7 @@ const ZaboPage = (props) => {
   const { zabo, zaboId } = props;
   const {
     title, owner, endAt, createdAt, description, category = [], photos = [{}],
-    isLiked, likedCount, isPinned, pinnedCount, views = 0,
+    isLiked, likesCount, isPinned, pinsCount, views = 0,
   } = zabo;
 
   const curMoment = moment ();
@@ -84,12 +84,12 @@ const ZaboPage = (props) => {
 
   const stats = [{
     type: 'like',
-    count: likedCount,
+    count: likesCount,
     zaboId,
     active: isLiked,
   }, {
     type: 'pin',
-    count: pinnedCount,
+    count: pinsCount,
     zaboId,
     active: isPinned,
   }];
