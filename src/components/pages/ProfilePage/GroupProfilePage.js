@@ -13,10 +13,11 @@ import { GroupType } from '../../../lib/propTypes';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { setCurrentGroup } from '../../../store/reducers/auth';
+import { getLabeledTimeDiff } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } = {}, description,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description,
   } = profile;
   const dispatch = useDispatch ();
   const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
@@ -25,15 +26,16 @@ const GroupProfile = ({ profile }) => {
     dispatch (setCurrentGroup (name));
   }, [name]);
 
+  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload) : '없음';
   const stats = [{
     name: '자보',
-    value: zaboCount,
+    value: zabosCount,
   }, {
     name: '팔로워',
-    value: followerCount,
+    value: followersCount,
   }, {
     name: '최근 업로드',
-    value: recentUploadDate,
+    value: timePast,
   }];
 
   const rightGroup = isMyGroupProfile

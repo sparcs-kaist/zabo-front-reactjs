@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export * from './selector';
 
 export const mediaSizes = {
@@ -86,4 +88,19 @@ export const cropImage = async (file, ratio) => {
   // const base64ImageData = canvas.get(0).toDataURL();
   // const imgSrc = canvas.toDataURL ('image/png');
   return canvas.toDataURL ('image/jpeg');
+};
+
+export const getLabeledTimeDiff = (time) => {
+  const curMoment = moment ();
+  const momentTime = moment (time);
+  const minDiff = curMoment.diff (momentTime, 'minutes');
+  const hourDiff = curMoment.diff (momentTime, 'hours');
+  const daysDiff = curMoment.diff (momentTime, 'days');
+  const monthDiff = curMoment.diff (momentTime, 'months');
+  return (
+    minDiff < 60 ? `${minDiff}분 전`
+      : hourDiff < 24 ? `${hourDiff}시간 전`
+        : daysDiff < 30 ? `${daysDiff}일 전`
+          : `${monthDiff}개월 전`
+  );
 };

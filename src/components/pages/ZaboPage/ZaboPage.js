@@ -10,7 +10,7 @@ import Carousel from 'react-airbnb-carousel';
 
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
-import { to2Digits } from '../../../lib/utils';
+import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -73,14 +73,8 @@ const ZaboPage = (props) => {
     title, owner, endAt, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0,
   } = zabo;
-
-  const curMoment = moment ();
-  const createdAtMoment = moment (createdAt);
-  const minDiff = curMoment.diff (createdAtMoment, 'minutes');
-  const hourDiff = curMoment.diff (createdAtMoment, 'hours');
-  const daysDiff = curMoment.diff (createdAtMoment, 'days');
-  const monthDiff = curMoment.diff (createdAtMoment, 'months');
-  const due = moment (endAt).diff (curMoment, 'days');
+  const timePast = getLabeledTimeDiff (createdAt);
+  const due = moment (endAt).diff (moment (), 'days');
 
   const stats = [{
     type: 'like',
@@ -116,10 +110,7 @@ const ZaboPage = (props) => {
             </section>
             <section>
               <div className="details">
-                {minDiff < 60 ? `${minDiff} minutes...`
-                  : hourDiff < 24 ? `${hourDiff} hours...`
-                    : daysDiff < 30 ? `${daysDiff} days ...`
-                      : monthDiff}
+                {timePast}
               </div>
               <div className="specialChar">&middot;</div>
               <div className="details">조회수 {views}</div>

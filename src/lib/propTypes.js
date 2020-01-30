@@ -40,6 +40,10 @@ export const UserType = {
   firstName: PropTypes.string,
   studentId: PropTypes.string,
   koreanName: PropTypes.string,
+  boards: PropTypes.arrayOf (PropTypes.shape ({
+    pinsCount: PropTypes.number,
+    pins: PropTypes.array,
+  })),
   currentGroup: PropTypes.oneOfType ([
     PropTypes.shape (GroupType),
     PropTypes.string,
@@ -51,8 +55,7 @@ export const UserType = {
     ]),
   ),
   stats: PropTypes.shape ({ // TODO: Change shape from server
-    pinsCount: PropTypes.number,
     likesCount: PropTypes.number,
-    followsCount: PropTypes.number,
+    followingsCount: PropTypes.number,
   }),
 };

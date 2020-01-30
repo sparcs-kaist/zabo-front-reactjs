@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import moment from 'moment';
 import { UserType, GroupType } from '../../../lib/propTypes';
 import {
   Page, Groups, Zabos,
@@ -19,19 +20,22 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { isAdminSelector } from '../../../lib/utils';
+import { getLabeledTimeDiff, isAdminSelector } from '../../../lib/utils';
 
 const GroupBox = ({ group }) => {
-  const { name, profilePhoto, stats: { zaboCount = 263, followerCount = 194, recentUploadDate = 23 } = {} } = group;
+  const {
+    name, profilePhoto, zabosCount, followersCount, recentUpload,
+  } = group;
+  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload) : '없음';
   const stats = [{
     name: '자보',
-    value: zaboCount,
+    value: zabosCount,
   }, {
     name: '팔로워',
-    value: followerCount,
+    value: followersCount,
   }, {
     name: '최근 업로드',
-    value: recentUploadDate,
+    value: timePast,
   }];
 
   return (
@@ -58,7 +62,7 @@ GroupBox.propTypes = {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, stats: { likesCount = 0, pinsCount = 0, followsCount = 0 } = {},
+    username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {},
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -66,6 +70,7 @@ const UserProfile = ({ profile }) => {
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
 
+  const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{
     name: '저장한 자보',
     value: pinsCount,
@@ -74,7 +79,7 @@ const UserProfile = ({ profile }) => {
     value: likesCount,
   }, {
     name: '팔로잉',
-    value: followsCount,
+    value: followingsCount,
   }];
 
   const rightGroup = isMyProfile
