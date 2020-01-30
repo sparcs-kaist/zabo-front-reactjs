@@ -69,7 +69,7 @@ export default handleActions (
         const pins = action.payload;
         const { lastSeen } = action.meta;
 
-        const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }));
+        const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
 
         if (!lastSeen) {
           return state
