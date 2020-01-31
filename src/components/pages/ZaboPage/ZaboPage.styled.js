@@ -136,7 +136,7 @@ ZaboPageWrapper.Info.Box = styled.button`
   justify-content: center;
   align-items: center;
   font-size: 16px;
-  color: 143441;
+  color: #143441;
   margin: 28px 8px 72px 0;
   min-width: 86px;
   height: 40px;

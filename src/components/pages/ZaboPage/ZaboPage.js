@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -122,16 +123,23 @@ const ZaboPage = (props) => {
           <ZaboPageWrapper.Info.Body>
             <section>
               <div className="borderLine"> </div>
-              <div className="owner">
-                {
-                  owner && ('profilePhoto' in owner)
-                    ? <img src={owner.profilePhoto} alt="group profile photo" />
-                    : <img src={groupDefaultProfile} alt="default profile img" />
-                }
-                <p>{owner ? owner.name : 'anonymous'}</p>
-                <div className="specialChar">&middot;</div>
-                <p className="follow">팔로잉</p>
-              </div>
+              {
+                owner
+                && (
+                <div className="owner">
+                  <Link to={`/${owner.name}`}>
+                    {
+                      ('profilePhoto' in owner)
+                        ? <img src={owner.profilePhoto} alt="group profile photo" />
+                        : <img src={groupDefaultProfile} alt="default profile img" />
+                    }
+                    <p>{owner.name || 'anonymous'}</p>
+                    <div className="specialChar">&middot;</div>
+                  </Link>
+                  <p className="follow">팔로잉</p>
+                </div>
+                )
+              }
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
