@@ -5,7 +5,7 @@ const ZaboCardStyle = styled.div`
   width: 240px; /* 530px 이상이면 240으로 고정하기. 최대 4줄 */
 
   @media (min-width: 0px) and (max-width: 530px) {
-    width: calc(50% - 5px); /* 240 이 아닌 화면의 절반 */
+    width: calc(50% - 8px); /* 240 이 아닌 화면의 절반 */
   }
 `;
 
