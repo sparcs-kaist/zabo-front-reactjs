@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Page = styled.section`
   padding: 120px 0 80px 0;
@@ -138,6 +139,7 @@ Groups.ScrollBtn = styled.div`
 `;
 
 Groups.List = styled.div`
+  scroll-behavior: smooth;
   width: 100%;
   padding: 3px;
   overflow-x: scroll;
@@ -145,7 +147,7 @@ Groups.List = styled.div`
   white-space: nowrap;
 `;
 
-Groups.ListItem = styled.div`
+Groups.ListItem = styled (Link)`
   display: inline-block;
   width: 297px;
   height: 126px;
@@ -156,7 +158,7 @@ Groups.ListItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
-
+  
   img {
     width: 70px;
     height: 70px;
@@ -195,6 +197,11 @@ Groups.ListItem = styled.div`
 
 export const Zabos = styled.section`
   width: 1032px;
+  @media (max-width: 640px) {
+    margin-top: 64px;
+    padding: 0 16px;
+    width: 100%;
+  }
   h1 {
     display: inline-block;
     font-size: 22px;

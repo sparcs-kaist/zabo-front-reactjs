@@ -39,7 +39,7 @@ const GroupBox = ({ group }) => {
   }];
 
   return (
-    <Groups.ListItem>
+    <Groups.ListItem to={name}>
       {
         profilePhoto
           ? <img src={profilePhoto} alt="group profile photo" />
@@ -88,10 +88,10 @@ const UserProfile = ({ profile }) => {
 
   // TODO : need to change scroll value; consider mobile app version
   const leftScrollClick = useCallback (() => {
-    document.getElementById ('groupsList').scrollLeft -= 1000;
+    document.getElementById ('groupsList').scrollLeft -= 622;
   }, []);
   const rightScrollClick = useCallback (() => {
-    document.getElementById ('groupsList').scrollLeft += 1000;
+    document.getElementById ('groupsList').scrollLeft += 622;
   }, []);
 
   return (
@@ -131,11 +131,7 @@ const UserProfile = ({ profile }) => {
           <img onClick={rightScrollClick} src={rightScroll} alt="right scroll button" />
         </Groups.ScrollBtn>
         <Groups.List id="groupsList">
-          {groups.map (group => (
-            <Link to={group.name} key={group.name}>
-              <GroupBox group={group} />
-            </Link>
-          ))}
+          {groups.map (group => <GroupBox group={group} key={group.name} />)}
         </Groups.List>
       </Groups>
       <Zabos>
