@@ -10,7 +10,6 @@ import Carousel from 'react-airbnb-carousel';
 
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
-import './quill.viewer.scss';
 
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';

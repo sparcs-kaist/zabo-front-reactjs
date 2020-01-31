@@ -180,6 +180,22 @@ InfoFormWrapper.Info = styled.section`
   height: 100%;
 `;
 
+InfoFormWrapper.Editor = styled.section`
+  @import url(//fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap&subset=korean);
+
+  .quill-zabo-editor {
+    .ql-container {
+      border: 1px solid rgb(169, 169, 169);
+      border-radius: 3px;
+    }
+
+    .ql-editor {
+      font-size: 1.25em;
+      font-family: Helvetica, 'Noto Sans KR', 'NanumSquare', 'Malgun Gothic', 'Dotum', Arial, sans-serif;
+    }
+  }
+`;
+
 export {
   InfoFormWrapper,
 };
