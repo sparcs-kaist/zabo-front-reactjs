@@ -13,7 +13,7 @@ const ZaboCard = ({ zabo }) => {
     _id, photos, title, owner, createdAt, endAt, views,
   } = zabo;
 
-  const timePast = getLabeledTimeDiff (createdAt);
+  const timePast = getLabeledTimeDiff (createdAt, true, true, true, true, false, false);
   const daysLeft = moment (endAt).diff (moment (), 'days');
 
   return (

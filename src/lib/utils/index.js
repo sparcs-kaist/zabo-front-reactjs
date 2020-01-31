@@ -90,17 +90,25 @@ export const cropImage = async (file, ratio) => {
   return canvas.toDataURL ('image/jpeg');
 };
 
-export const getLabeledTimeDiff = (time) => {
+export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showHours = true, showDays = 2, showWeeks = false, showMonths = false) => {
   const curMoment = moment ();
   const momentTime = moment (time);
+  const momentLabel = momentTime.format ('YYYY.MM.DD');
+  const secDiff = curMoment.diff (momentTime, 'seconds');
   const minDiff = curMoment.diff (momentTime, 'minutes');
-  const hourDiff = curMoment.diff (momentTime, 'hours');
+  const hoursDiff = curMoment.diff (momentTime, 'hours');
   const daysDiff = curMoment.diff (momentTime, 'days');
-  const monthDiff = curMoment.diff (momentTime, 'months');
+  const weeksDiff = curMoment.diff (momentTime, 'weeks');
+  const monthsDiff = curMoment.diff (momentTime, 'months');
+
+  const isShow = (showVar, diff) => (typeof showVar === 'number' && diff <= showVar) || (typeof showVar !== 'number' && showVar);
+
   return (
-    minDiff < 60 ? `${minDiff}분 전`
-      : hourDiff < 24 ? `${hourDiff}시간 전`
-        : daysDiff < 30 ? `${daysDiff}일 전`
-          : `${monthDiff}개월 전`
+    secDiff < 60 ? (isShow (showSecs, secDiff) ? '방금 전' : momentLabel)
+      : minDiff < 60 ? (isShow (showMins, minDiff) ? `${minDiff}분 전` : momentLabel)
+        : hoursDiff < 24 ? (isShow (showHours, hoursDiff) ? `${hoursDiff}시간 전` : momentLabel)
+          : daysDiff < 7 ? (isShow (showDays, daysDiff) ? `${daysDiff}일 전` : momentLabel)
+            : weeksDiff < 5 ? (isShow (showWeeks, weeksDiff) ? `${weeksDiff}주 전` : momentLabel)
+              : (isShow (showMonths, monthsDiff) ? `${monthsDiff}개월 전` : momentLabel)
   );
 };

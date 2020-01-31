@@ -26,7 +26,7 @@ const GroupBox = ({ group }) => {
   const {
     name, profilePhoto, zabosCount, followersCount, recentUpload,
   } = group;
-  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload) : '없음';
+  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
     name: '자보',
     value: zabosCount,

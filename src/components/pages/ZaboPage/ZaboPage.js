@@ -73,7 +73,7 @@ const ZaboPage = (props) => {
     title, owner, endAt, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0,
   } = zabo;
-  const timePast = getLabeledTimeDiff (createdAt);
+  const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
   const due = moment (endAt).diff (moment (), 'days');
 
   const stats = [{
