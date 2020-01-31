@@ -51,7 +51,7 @@ const InfoForm = () => {
 
   const handleQuillChange = useCallback (e => {
     setState ({ desc: e });
-  }, [desc]);
+  }, [desc, setState]);
 
   const onTagClick = useCallback (name => {
     const clone = tags.map (tag => (tag.name === name
