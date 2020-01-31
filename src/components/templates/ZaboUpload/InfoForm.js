@@ -5,6 +5,8 @@ import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
+import StyledQuill from '../../organisms/StyledQuill';
+
 import { setInfo } from '../../../store/reducers/upload';
 
 import { TAGS } from '../../../lib/variables';
@@ -47,6 +49,10 @@ const InfoForm = () => {
     setState ({ [name]: value });
   }, [infoImmutable]);
 
+  const handleQuillChange = useCallback (e => {
+    setState ({ desc: e });
+  }, [desc, setState]);
+
   const onTagClick = useCallback (name => {
     const clone = tags.map (tag => (tag.name === name
       ? Object.assign (tag, { clicked: !tag.clicked })
@@ -78,18 +84,24 @@ const InfoForm = () => {
               onChange={handleChange}
             />
           </section>
-          <section className="zabo-description">
+          <section className="zabo-description-quill">
             <div className="label">설명</div>
-            <InputBase
-              required
-              placeholder="포스터 설명을 작성해주세요."
-              multiline
-              rows="5"
-              fullWidth
-              name="desc"
-              value={desc}
-              onChange={handleChange}
-            />
+            <InfoFormWrapper.Editor>
+              <StyledQuill
+                theme="bubble"
+                value={desc}
+                onChange={handleQuillChange}
+                placeholder="포스터 설명을 작성해주세요."
+                modules={{
+                  toolbar: [
+                    ['bold', 'underline', 'strike'],
+                    [{ list: 'ordered' }, { list: 'bullet' }, { indent: '+1' }, { indent: '-1' }],
+                    ['link'],
+                  ],
+                }}
+                style={{ marginTop: '0.5em', marginBottom: '2em' }}
+              />
+            </InfoFormWrapper.Editor>
           </section>
           <section className="zabo-expiration">
             <div className="label">마감일</div>

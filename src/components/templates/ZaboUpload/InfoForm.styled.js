@@ -180,6 +180,8 @@ InfoFormWrapper.Info = styled.section`
   height: 100%;
 `;
 
+InfoFormWrapper.Editor = styled.section``;
+
 export {
   InfoFormWrapper,
 };
