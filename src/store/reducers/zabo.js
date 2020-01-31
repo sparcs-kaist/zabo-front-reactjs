@@ -73,7 +73,7 @@ export default handleActions (
 
         if (!lastSeen) {
           return state
-            .updateIn (['lists', 'pins'], prevList => fromJS (uniqBy ([...pins, ...(prevList || List ([])).toJS ()], '_id')))
+            .setIn (['lists', 'pins'], fromJS (pins))
             .update ('zabos', zabos => zabos.merge (zaboMap));
         }
         return state
