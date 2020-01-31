@@ -54,7 +54,13 @@ const Header = ({
             </NavLink>
           )}
         </div>
-        <SearchBar isOpen />
+        <div
+          style={{
+            alignItems: 'flex-start', height: '50px', overflow: 'visible', marginTop: '12px',
+          }}
+        >
+          <SearchBar isOpen />
+        </div>
         {rightGroup}
       </Container>
     </HeaderWrapper>
