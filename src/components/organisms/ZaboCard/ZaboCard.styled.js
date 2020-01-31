@@ -32,59 +32,65 @@ ZaboCardStyle.Poster.Overlay = styled.div`
   background-color: rgba(0, 0, 0, .03);
 `;
 
+ZaboCardStyle.DueDate = styled.div`
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 20px;
+  font-size: 11px;
+  line-height: 18px;
+  border-radius: 2px;
+  background: #143441;
+  font-style: normal;
+  font-weight: bold;
+  color: #FFFFFF;
+`;
+
 ZaboCardStyle.Writings = styled.div`
-  padding: 10px 5px 13px 5px;
-  /* TODO: 아래 패딩 10px 늘림 / 폰트 너무 작아 / font-weight - 근용이 확인 */
+  padding: 16px 0 13px;
   color: #143441;
 
-  .top {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    a {
-      max-width: calc(100% - 30px);
-    }
-    .title {
-      flex: 1;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      line-height: 16px;
-      color: #143441;
-      overflow : hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-    .due-date {
-      display: flex;
-      flex-shrink: 0;
-      justify-content: center;
-      align-items: center;
-      width: 36px;
-      height: 18px;
-      font-size: 11px;
-      line-height: 18px;
-      border-radius: 5px;
-      background: #143441;
-      font-style: normal;
-      font-weight: bold;
-      color: #FFFFFF;
-    }
+  a {
+    max-width: calc(100% - 30px);
+  }
+  .title {
+    flex: 1;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 16px;
+    color: #143441;
+    overflow : hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .card-meta {
+    margin-top: 2px;
+    font-size: 12px;
+    line-height: 14px;
+    color: #8F8F8F;
   }
   .author {
-    margin-top: 5px;
+    margin-top: 8px;
     font-size: 10px;
     cursor: pointer;
     line-height: 11px;
-    color: #8F8F8F;
+    color: #202020;
   }
 
   @media (min-width: 530px) {
     .title {
-      font-size: 16px;
+      font-size: 18px;
+      line-height: 20px;
     }
     .author {
-      font-size: 13px;
+      font-size: 14px;
+      line-height: 16px;
     }
   }
 `;

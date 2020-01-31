@@ -5,14 +5,16 @@ import moment from 'moment';
 
 import ZaboCardStyle from './ZaboCard.styled';
 
-import { to2Digits } from '../../../lib/utils';
+import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 import { ZaboType } from '../../../lib/propTypes';
 
 const ZaboCard = ({ zabo }) => {
   const {
-    _id, photos, title, owner, endAt,
+    _id, photos, title, owner, createdAt, endAt, views,
   } = zabo;
-  const diff = moment (endAt).diff (moment (), 'days');
+
+  const timePast = getLabeledTimeDiff (createdAt);
+  const daysLeft = moment (endAt).diff (moment (), 'days');
 
   return (
     <ZaboCardStyle>
@@ -24,20 +26,21 @@ const ZaboCard = ({ zabo }) => {
         >
           <img width="100%" src={photos[0].url} alt="zabo" />
           <ZaboCardStyle.Poster.Overlay />
+          {daysLeft > 0 && <ZaboCardStyle.DueDate>D{to2Digits (-daysLeft, true)}</ZaboCardStyle.DueDate>}
         </ZaboCardStyle.Poster>
       </Link>
       <ZaboCardStyle.Writings>
-        <div className="top">
-          <Link to={`/zabo/${_id}`}>
-            <div className="title">{title}</div>
-          </Link>
-          {diff > 0 && <div className="due-date">D{to2Digits (-diff, true)}</div>}
+        <Link to={`/zabo/${_id}`}>
+          <div className="title">{title}</div>
+        </Link>
+        <div className="card-meta">
+          {timePast} &middot; {`조회수 ${(views || 0).toLocaleString ()}`}
         </div>
-        <div>
-          <Link to={owner ? `/${owner.name}` : '#'}>
-            <span className="author">{owner ? owner.name : 'anonymous'}</span>
-          </Link>
-        </div>
+        <Link to={owner ? `/${owner.name}` : '#'}>
+          <div className="author">
+            {owner ? owner.name : 'anonymous'}
+          </div>
+        </Link>
       </ZaboCardStyle.Writings>
     </ZaboCardStyle>
   );
