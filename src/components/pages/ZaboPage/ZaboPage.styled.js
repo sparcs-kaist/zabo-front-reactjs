@@ -156,8 +156,6 @@ ZaboPageWrapper.Info.Box = styled.button`
 `;
 
 ZaboPageWrapper.Info.Body = styled.section`
-  @import url(//fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap&subset=korean);
-
   color: #202020;
   .borderLine {
     border: .5px solid #D7D7D7;
@@ -188,14 +186,6 @@ ZaboPageWrapper.Info.Body = styled.section`
   .contents {
     padding-top: 28px;
     font-size: 14px;
-  }
-
-  .quill-zabo-viewer {
-    .ql-editor {
-      padding: 0;
-      font-size: 1.25em;
-      font-family: Helvetica, 'Noto Sans KR', 'NanumSquare', 'Malgun Gothic', 'Dotum', Arial, sans-serif;
-    }
   }
 `;
 

@@ -8,8 +8,7 @@ import ZaboList from 'templates/ZaboList';
 import Header from 'templates/Header';
 import Carousel from 'react-airbnb-carousel';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.bubble.css';
+import StyledQuill from '../../organisms/StyledQuill';
 
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
@@ -138,9 +137,7 @@ const ZaboPage = (props) => {
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
-              {/* description */}
-              <ReactQuill
-                className="quill-zabo-viewer"
+              <StyledQuill
                 theme="bubble"
                 readOnly
                 value={description}

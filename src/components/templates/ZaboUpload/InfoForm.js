@@ -5,8 +5,7 @@ import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.bubble.css';
+import StyledQuill from '../../organisms/StyledQuill';
 
 import { setInfo } from '../../../store/reducers/upload';
 
@@ -50,7 +49,7 @@ const InfoForm = () => {
     setState ({ [name]: value });
   }, [infoImmutable]);
 
-  const handleQuillChange = useCallback(e => {
+  const handleQuillChange = useCallback (e => {
     setState ({ desc: e });
   }, [desc]);
 
@@ -88,16 +87,14 @@ const InfoForm = () => {
           <section className="zabo-description-quill">
             <div className="label">설명</div>
             <InfoFormWrapper.Editor>
-              <ReactQuill
-                className="quill-zabo-editor"
+              <StyledQuill
                 theme="bubble"
                 value={desc}
                 onChange={handleQuillChange}
                 placeholder="포스터 설명을 작성해주세요."
                 modules={{
                   toolbar: [
-                    [{ header: [1, 2, 3, false] }],
-                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                    ['bold', 'underline', 'strike'],
                     [{ list: 'ordered' }, { list: 'bullet' }, { indent: '+1' }, { indent: '-1' }],
                     ['link'],
                   ],
