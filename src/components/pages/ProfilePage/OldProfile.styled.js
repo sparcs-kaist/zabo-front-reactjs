@@ -58,6 +58,11 @@ Groups.List = styled.div`
   width: 100%;
   overflow-x: scroll;
   white-space: nowrap;
+  &::-webkit-scrollbar { 
+    width: 0 !important;
+  }
+  overflow: -moz-scrollbars-none;
+  -ms-overflow-style: none;
 `;
 
 Groups.ListItem = styled.div`
