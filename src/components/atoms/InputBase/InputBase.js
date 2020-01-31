@@ -10,6 +10,7 @@ const useStyles = makeStyles ({
     padding: '9px 10px',
     borderRadius: '4px',
     backgroundColor: '#f4f4f4',
+    fontFailiy: 'NanumSquare',
   },
 });
 
