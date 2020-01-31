@@ -5,6 +5,10 @@ import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+import './quill.editor.scss';
+
 import { setInfo } from '../../../store/reducers/upload';
 
 import { TAGS } from '../../../lib/variables';
@@ -47,6 +51,10 @@ const InfoForm = () => {
     setState ({ [name]: value });
   }, [infoImmutable]);
 
+  const handleQuillChange = useCallback(e => {
+    setState ({ desc: e });
+  });
+
   const onTagClick = useCallback (name => {
     const clone = tags.map (tag => (tag.name === name
       ? Object.assign (tag, { clicked: !tag.clicked })
@@ -78,6 +86,7 @@ const InfoForm = () => {
               onChange={handleChange}
             />
           </section>
+          {/*
           <section className="zabo-description">
             <div className="label">설명</div>
             <InputBase
@@ -89,6 +98,26 @@ const InfoForm = () => {
               name="desc"
               value={desc}
               onChange={handleChange}
+            />
+          </section>
+          */}
+          <section className="zabo-description-quill">
+            <div className="label">설명</div>
+            <ReactQuill
+              className="quill-zabo-editor"
+              theme="bubble"
+              value={desc}
+              onChange={handleQuillChange}
+              placeholder="포스터 설명을 작성해주세요."
+              modules={{
+                toolbar: [
+                  [{ header: [1, 2, 3, false] }],
+                  ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                  [{ list: 'ordered' }, { list: 'bullet' }, { indent: '+1' }, { indent: '-1' }],
+                  ['link'],
+                ],
+              }}
+              style={{ marginTop: '0.5em', marginBottom: '2em' }}
             />
           </section>
           <section className="zabo-expiration">

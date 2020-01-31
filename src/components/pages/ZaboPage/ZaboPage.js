@@ -8,6 +8,10 @@ import ZaboList from 'templates/ZaboList';
 import Header from 'templates/Header';
 import Carousel from 'react-airbnb-carousel';
 
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.bubble.css';
+import './quill.viewer.scss';
+
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
@@ -135,7 +139,13 @@ const ZaboPage = (props) => {
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
-              {description}
+              {/* description */}
+              <ReactQuill
+                className="quill-zabo-viewer"
+                theme="bubble"
+                readOnly
+                value={description}
+              />
             </section>
           </ZaboPageWrapper.Info.Body>
         </ZaboPageWrapper.Info>
