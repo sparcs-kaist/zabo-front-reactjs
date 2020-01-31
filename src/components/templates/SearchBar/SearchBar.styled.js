@@ -1,5 +1,15 @@
 import styled, { css } from 'styled-components';
 
+export const SearchBarContainer = styled.div`
+  #dimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
 export const SearchBarWrapper = styled.div`
   @font-face {
     font-family: "NanumSquareRegular";
@@ -74,6 +84,7 @@ SearchBarWrapper.Header.SearchBar = styled.div`
 `;
 
 SearchBarWrapper.Body = styled.div`
+  position: relative;
   ${props => (props.searchFocused ? css`` : css`
     display: none;
   `)}

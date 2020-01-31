@@ -5,7 +5,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import axios from 'lib/axios';
 
 import searchIcon from 'static/images/search-icon-navy.png';
-import { SearchBarWrapper } from './SearchBar.styled';
+import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 import { TAGS } from '../../../lib/variables';
 import useSetState from '../../../hooks/useSetState';
@@ -56,14 +56,24 @@ const SearchBar = ({ isOpen, options }) => {
     }));
   };
 
-  const _handleFocusBlur = e => {
-    setState (prevState => ({
-      searchFocused: !prevState.searchFocused,
-    }));
+  const _handleFocus = e => {
+    e.stopPropagation ();
+    e.nativeEvent.stopImmediatePropagation ();
+    setState ({
+      searchFocused: true,
+    });
+  };
+
+  const _handleBlur = e => {
+    e.stopPropagation ();
+    e.nativeEvent.stopImmediatePropagation ();
+    setState ({
+      searchFocused: false,
+    });
   };
 
   const onTagClick = e => {
-    // console.log('value: ', e.target.value);
+    console.log ('value: ', e.target.value);
   };
 
   const searchWithTagComponent = (
@@ -108,31 +118,34 @@ const SearchBar = ({ isOpen, options }) => {
     </div>
   );
 
+  console.log ('searchFocused: ', searchFocused);
+
   return (
-    <SearchBarWrapper searchFocused={searchFocused}>
-      <SearchBarWrapper.Header>
-        <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
-          <input
-            id="search-input"
-            type="text"
-            placeholder="자보, 그룹, #태그 검색"
-            onChange={_handleChange}
-            onFocus={_handleFocusBlur}
-            onBlur={_handleFocusBlur}
-            {...options}
-          />
-        </SearchBarWrapper.Header.SearchBar>
-        <img className="search-icon" src={searchIcon} alt="search icon" />
-      </SearchBarWrapper.Header>
-      <div className="divider"> </div>
-      <SearchBarWrapper.Body search={search} searchFocused={searchFocused}>
-        {
-          !search
-            ? searchWithTagComponent
-            : searchResultComponent
-        }
-      </SearchBarWrapper.Body>
-    </SearchBarWrapper>
+    <SearchBarContainer onClick={_handleFocus}>
+      {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
+      <SearchBarWrapper searchFocused={searchFocused}>
+        <SearchBarWrapper.Header>
+          <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
+            <input
+              id="search-input"
+              type="text"
+              placeholder="자보, 그룹, #태그 검색"
+              onChange={_handleChange}
+              {...options}
+            />
+          </SearchBarWrapper.Header.SearchBar>
+          <img className="search-icon" src={searchIcon} alt="search icon" />
+        </SearchBarWrapper.Header>
+        <div className="divider"> </div>
+        <SearchBarWrapper.Body search={search} searchFocused={searchFocused}>
+          {
+            !search
+              ? searchWithTagComponent
+              : searchResultComponent
+          }
+        </SearchBarWrapper.Body>
+      </SearchBarWrapper>
+    </SearchBarContainer>
   );
 };
 
