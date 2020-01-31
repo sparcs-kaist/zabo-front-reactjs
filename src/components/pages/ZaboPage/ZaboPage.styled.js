@@ -17,7 +17,6 @@ ZaboPageWrapper.TwoCol = styled.section`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  min-height: 712.22px;
   width: 1032px;
   @media (max-width: 640px) {
     flex-direction: column;
@@ -89,7 +88,16 @@ ZaboPageWrapper.Info.Header = styled.section`
       font-size: 24px;
     } 
   }
+  .zabo-page-header-title-group {
+    display: flex;
+    width: 100%;
+    .zabo-page-header-title {
+      max-width: calc(100% - 150px);
+      display: inline-block; 
+    }
+  }
   .due-date {
+    margin-top: 16px;
     display: inline-block;
     width: 58px;
     height: 26px;
