@@ -31,16 +31,16 @@ const ZaboCard = ({ zabo }) => {
       </Link>
       <ZaboCardStyle.Writings>
         <Link to={`/zabo/${_id}`}>
-          <div className="title">{title}</div>
+          <div className="title">
+            <span>{title}</span>
+          </div>
         </Link>
         <div className="card-meta">
           {timePast} &middot; {`조회수 ${(views || 0).toLocaleString ()}`}
         </div>
-        <Link to={owner ? `/${owner.name}` : '#'}>
-          <div className="author">
-            {owner ? owner.name : 'anonymous'}
-          </div>
-        </Link>
+        <div className="author">
+          <span><Link to={owner ? `/${owner.name}` : '#'}>{owner ? owner.name : 'anonymous'}</Link></span>
+        </div>
       </ZaboCardStyle.Writings>
     </ZaboCardStyle>
   );

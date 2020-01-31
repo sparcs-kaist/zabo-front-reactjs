@@ -61,7 +61,6 @@ ZaboCardStyle.Writings = styled.div`
   .title {
     flex: 1;
     font-weight: bold;
-    cursor: pointer;
     font-size: 14px;
     line-height: 16px;
     color: #143441;
@@ -78,7 +77,6 @@ ZaboCardStyle.Writings = styled.div`
   .author {
     margin-top: 8px;
     font-size: 10px;
-    cursor: pointer;
     line-height: 11px;
     color: #202020;
   }
