@@ -5,6 +5,7 @@ import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import axios from 'lib/axios';
 import queryString from 'query-string';
 import searchIcon from 'static/images/search-icon-navy.png';
+import cancelIcon from 'static/images/cancel.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
@@ -92,13 +93,17 @@ const SearchBar = ({ isOpen, options }) => {
     // route -> query로 만든 SearchPage 생성, 보내기 -> 거기서 searchAPI쏘기!
   };
 
+  const onCancelClick = e => {
+    setState ({ search: '' });
+  };
+
   const isZaboSearchEmpty = zaboSearch.length === 0;
   const isUploaderSearchEmpty = uploaderSearch.length === 0;
   const isResultsEmpty = isZaboSearchEmpty && isUploaderSearchEmpty;
 
   const searchWithTagComponent = (
     <div>
-      <h3>태그로 검색하기</h3>
+      <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
       <SearchBarWrapper.Body.TagBtn>
         {TAGS.map ((tag, idx) => (
           <button key={idx} value={tag} className="tag-button" onClick={onTagClick}>{tag}</button>
@@ -147,21 +152,23 @@ const SearchBar = ({ isOpen, options }) => {
   return (
     <SearchBarContainer onClick={_handleFocus}>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper id="wrapper" searchFocused={searchFocused}>
+      <SearchBarWrapper searchFocused={searchFocused}>
         <SearchBarWrapper.Header>
           <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
             <input
               id="search-input"
               type="text"
               placeholder="자보, 그룹, #태그 검색"
+              value={search}
               onChange={_handleChange}
               onKeyDown={_handleKeyDown}
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
           <img className="search-icon" src={searchIcon} alt="search icon" />
+          { search ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
-        <div className="divider"> </div>
+        {searchFocused ? <div className="divider"> </div> : ''}
         <SearchBarWrapper.Body
           search={search}
           searchFocused={searchFocused}

@@ -56,7 +56,7 @@ const Header = ({
         </div>
         <div
           style={{
-            alignItems: 'flex-start', height: '50px', overflow: 'visible', marginTop: '12px',
+            alignItems: 'flex-start', flex: '1', height: '50px', overflow: 'visible', marginTop: '12px',
           }}
         >
           <SearchBar isOpen />

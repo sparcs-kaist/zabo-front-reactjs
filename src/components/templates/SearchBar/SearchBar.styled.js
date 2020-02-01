@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const SearchBarContainer = styled.div`
+  width: 100%;
   #dimmer {
     position: fixed;
     top: 0;
@@ -22,12 +23,16 @@ export const SearchBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 1;
-  width: 582px;
+  /* width: 582px; */
+  width: 70%;
   max-height: 439px;
   overflow-y: scroll;
 
   background-color: white;
   border-radius: 4px;
+  
+  float: right;
+  margin-right: 12px;
 
   .divider {
     margin: 0 6px;
@@ -55,17 +60,24 @@ export const SearchBarWrapper = styled.div`
 `;
 
 SearchBarWrapper.Header = styled.div`
-  height: 39px;
+  height: 38px;
   position: relative;
   top: 0;
 
-  img.search-icon {
+  img {
     position: absolute;
-    top: 12px;
-    left: 16px;
-    height: 16px;
     display: block;
     align-self: center;
+    &.search-icon {
+      top: 12px;
+      left: 16px;
+      height: 16px;
+    }
+    &.cancel-icon {
+      top: 7px;
+      right: 12px;
+      height: 24px;
+    }
   }
 `;
 
