@@ -1,4 +1,6 @@
-import React, { useCallback } from 'react';
+import React, {
+  useEffect, useCallback, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +21,7 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff, isAdminSelector } from '../../../lib/utils';
+import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const GroupBox = ({ group }) => {
   const {
@@ -68,6 +70,9 @@ const UserProfile = ({ profile }) => {
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
+  const descRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{
@@ -107,9 +112,15 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            <Tooltip title={description}>
-              <p>{description || '아직 소개가 없습니다.'}</p>
-            </Tooltip>
+            {
+              showTooltip
+                ? (
+                  <Tooltip title={description}>
+                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  </Tooltip>
+                )
+                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            }
             {isMyProfile && (
             <section>
               <button className="logout" type="button" onClick={logout}>로그아웃</button>

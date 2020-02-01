@@ -1,7 +1,10 @@
-import React, { useCallback } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 import { Page, Zabos } from './Profile.styled';
@@ -13,7 +16,7 @@ import { GroupType } from '../../../lib/propTypes';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { setCurrentGroup } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff } from '../../../lib/utils';
+import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
@@ -21,6 +24,9 @@ const GroupProfile = ({ profile }) => {
   } = profile;
   const dispatch = useDispatch ();
   const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
+  const descRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
   const isMyGroupProfile = !!members.find (obj => obj.user === myUserId);
   const toUpload = useCallback (() => {
@@ -60,7 +66,15 @@ const GroupProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{name}</h1>
-            <p>{description || '아직 소개가 없습니다.'}</p>
+            {
+              showTooltip
+                ? (
+                  <Tooltip title={description}>
+                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  </Tooltip>
+                )
+                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            }
             {
               isMyGroupProfile
                 ? (
