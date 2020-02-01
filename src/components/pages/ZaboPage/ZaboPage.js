@@ -48,7 +48,7 @@ const StatBox = ({ stat }) => {
   const src = icons[type][active ? 'filled' : 'empty'];
   const throttledAction = useMemo (() => throttle (() => {
     dispatch (toggleActions[type] (zaboId));
-  }, 200), []);
+  }, 200), [zaboId]);
 
   const onClick = e => {
     e.preventDefault ();
