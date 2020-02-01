@@ -29,8 +29,11 @@ ZaboPageWrapper.TitleImage = styled.section`
   height: 100%;
   margin-right: 48px;
   position: relative;
+  border-radius: 8px;
+  overflow: hidden;
   @media (max-width: 640px) {
     margin-right: 0;
+    border-radius: 0px;
   }
   img {
     width: 100%;
