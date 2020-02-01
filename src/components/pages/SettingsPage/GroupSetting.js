@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import {
   PageWrapper, SubHeading, FormGroup, Label,
-  Note, Button, Success, Error, Submit, Hr,
+  Note, Success, Error, Submit, Hr,
 } from './Setting.styled';
 import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
 import InputBase from '../../atoms/InputBase';
@@ -29,10 +29,7 @@ const ProfileForm = ({ initialValue }) => {
 
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
-    const data = {};
-    data.name = name;
-    data.description = description;
-    dispatch (updateGroupInfo (data))
+    dispatch (updateGroupInfo ({ name, description }))
       .then ((info) => setSuccess (true))
       .catch (err => setError (err));
   }, [state]);
