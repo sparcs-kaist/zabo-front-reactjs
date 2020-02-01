@@ -8,6 +8,7 @@ import Container from 'atoms/Container';
 import logo from 'static/logo/logo.svg';
 import { isAuthedSelector } from '../../../lib/utils';
 import HeaderWrapper from './Header.styled';
+import SearchBar from '../SearchBar';
 
 const containerStyle = css`
   position: absolute;
@@ -52,6 +53,13 @@ const Header = ({
               <img alt="logo" src={logo} style={{ width: '70px', height: '30px' }} />
             </NavLink>
           )}
+        </div>
+        <div
+          style={{
+            alignItems: 'flex-start', flex: '1', height: '50px', overflow: 'visible', marginTop: '12px',
+          }}
+        >
+          <SearchBar isOpen />
         </div>
         {rightGroup}
       </Container>

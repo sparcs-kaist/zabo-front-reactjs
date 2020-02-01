@@ -55,6 +55,7 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 500px;
   h1 {
     font-size: 28px;
     font-weight: bold;
@@ -195,7 +196,8 @@ Groups.ListItem = styled (Link)`
   }
 `;
 
-export const Zabos = styled.section`
+// TODO: Refactor dups
+export const Zabos = styled.section` 
   width: 1032px;
   @media (max-width: 640px) {
     margin-top: 64px;

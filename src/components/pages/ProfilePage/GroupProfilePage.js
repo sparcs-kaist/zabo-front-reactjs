@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { Page, Group, Zabos } from './Profile.styled';
+import { Page, Zabos } from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 import ProfileStats from '../../organisms/ProfileStats';
@@ -21,10 +21,11 @@ const GroupProfile = ({ profile }) => {
   } = profile;
   const dispatch = useDispatch ();
   const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
+
   const isMyGroupProfile = !!members.find (obj => obj.user === myUserId);
   const toUpload = useCallback (() => {
     dispatch (setCurrentGroup (name));
-  }, [name]);
+  }, [name, dispatch]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
@@ -82,7 +83,8 @@ const GroupProfile = ({ profile }) => {
         </Page.Header.Right>
       </Page.Header>
       <Zabos>
-        <h1>업로드한 자보</h1>
+        <h1>업로드한 자보 <small>{zabosCount}</small></h1>
+        <ZaboList type="group" query={name} />
       </Zabos>
     </Page>
   );

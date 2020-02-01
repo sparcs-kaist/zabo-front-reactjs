@@ -13,23 +13,39 @@ ZaboCardStyle.Poster = styled.div`
   display: flex;
   position: relative;
   cursor: pointer;
-
-  img {
-    border-radius: 4px;
-    position: absolute;
-    top: 0;
-    left: 0;
+  overflow: hidden;
+  border-radius: 4px;
+  &:hover {
+    .hover-show {
+      visibility: visible;
+    }
   }
 `;
 
-ZaboCardStyle.Poster.Overlay = styled.div`
+ZaboCardStyle.Poster.Image = styled.img`
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
+`;
+
+ZaboCardStyle.Poster.Dimmer = styled.div`
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%; 
   background-color: rgba(0, 0, 0, .03);
+`;
+
+ZaboCardStyle.Poster.Overlay = styled.div`
+  visibility: hidden;
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%; 
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
+`;
+
+ZaboCardStyle.Poster.Overlay.StatLocator = styled.div`
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
 `;
 
 ZaboCardStyle.DueDate = styled.div`

@@ -127,48 +127,6 @@ ZaboPageWrapper.Info.Header = styled.section`
   }
 `;
 
-ZaboPageWrapper.Info.Box = styled.button`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  color: #143441;
-  margin: 28px 8px 72px 0;
-  min-width: 86px;
-  height: 40px;
-  border-radius: 4px;
-  border: 1px solid #143441;
-  padding: 0 16px;
-  @media (max-width: 640px) {
-    width: 72px;
-    height: 38px;
-    min-width: 72px;
-    padding: 0 11.83px;
-    font-size: 14px;
-    margin: 24px 8px 64px 0;
-  }
-
-  img {
-    width: 20px;
-    height: 18px;
-    @media (max-width: 640px) {
-      width: 18px;
-      height: 16.5px;
-    }
-  }
-  p {
-    width: 100%;
-    padding-left: 8px;
-    text-align: center;
-    margin: 0;
-    line-height: 18px;
-    @media (max-width: 640px) {
-      padding-left: 5.83px;
-      line-height: 16px;
-    }
-  }
-`;
-
 ZaboPageWrapper.Info.Body = styled.section`
   color: #202020;
   .borderLine {
