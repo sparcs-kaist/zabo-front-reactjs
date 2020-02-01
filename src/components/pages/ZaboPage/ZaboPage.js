@@ -77,9 +77,9 @@ StatBox.propTypes = {
 };
 
 const ZaboPage = (props) => {
-  const { zabo, zaboId, isAuthenticated } = props;
+  const { zabo, zaboId } = props;
   const {
-    title, owner, endAt, createdAt, description, category = [], photos = [{}],
+    title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0,
   } = zabo;
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
@@ -131,23 +131,18 @@ const ZaboPage = (props) => {
           <ZaboPageWrapper.Info.Body>
             <section>
               <div className="borderLine"> </div>
-              {
-                owner
-                && (
-                <div className="owner">
-                  <Link to={`/${owner.name}`}>
-                    {
+              <div className="owner">
+                <Link to={`/${owner.name}`}>
+                  {
                       ('profilePhoto' in owner)
                         ? <img src={owner.profilePhoto} alt="group profile photo" />
                         : <img src={groupDefaultProfile} alt="default profile img" />
                     }
-                    <p>{owner.name || 'anonymous'}</p>
-                    <div className="specialChar">&middot;</div>
-                  </Link>
-                  <p className="follow">팔로잉</p>
-                </div>
-                )
-              }
+                  <p>{owner.name || 'anonymous'}</p>
+                  <div className="specialChar">&middot;</div>
+                </Link>
+                <p className="follow">팔로잉</p>
+              </div>
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
