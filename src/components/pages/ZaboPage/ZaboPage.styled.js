@@ -40,7 +40,6 @@ ZaboPageWrapper.TitleImage = styled.section`
     height: auto;
     border-radius: 8px;
     vertical-align: top;
-    /* opacity: 0.97; */
     @media (max-width: 640px) {
       border-radius: 0;
     }
@@ -51,7 +50,7 @@ ZaboPageWrapper.Info = styled.section`
   flex: 1.05;
   height: 100%;
   @media (max-width: 640px) {
-    padding: 24px 16px;
+    padding: 24px 16px 0 16px;
   }
 `;
 
@@ -63,7 +62,7 @@ ZaboPageWrapper.Info.Header = styled.section`
     li {
       display: inline-block;
       border-radius: 2px;
-      padding: 4px 6px;
+      padding: 4px 5px;
       margin-right: 8px;
       background: #EEEEEE;
       color: #5C5C5C;
@@ -76,10 +75,13 @@ ZaboPageWrapper.Info.Header = styled.section`
     display: inline-block;
     font-size: 28px;
     font-weight: bold;
+    color: #143441;
     margin: 12px 20px 12px 0;
     vertical-align: middle;
     @media (max-width: 640px) {
       font-size: 24px;
+      margin-right: 12px;
+      margin-bottom: 10px;
     } 
   }
   .zabo-page-header-title-group {
@@ -91,7 +93,7 @@ ZaboPageWrapper.Info.Header = styled.section`
     }
   }
   .due-date {
-    margin-top: 16px;
+    margin-top: 15px;
     display: inline-block;
     width: 58px;
     height: 26px;
@@ -128,6 +130,7 @@ ZaboPageWrapper.Info.Header = styled.section`
 ZaboPageWrapper.Info.Box = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
   font-size: 16px;
   color: #143441;
   margin: 28px 8px 72px 0;
@@ -135,37 +138,51 @@ ZaboPageWrapper.Info.Box = styled.button`
   height: 40px;
   border-radius: 4px;
   border: 1px solid #143441;
-  padding: 11px 16px;
+  padding: 0 16px;
   @media (max-width: 640px) {
     width: 72px;
     height: 38px;
+    min-width: 72px;
+    padding: 0 11.83px;
     font-size: 14px;
+    margin: 24px 8px 64px 0;
   }
 
   img {
     width: 20px;
     height: 18px;
     @media (max-width: 640px) {
-      width: 22px;
-      height: 22px;
+      width: 18px;
+      height: 16.5px;
     }
   }
-  div {
+  p {
     width: 100%;
-    line-height: 15px;
     padding-left: 8px;
     text-align: center;
+    margin: 0;
+    line-height: 18px;
+    @media (max-width: 640px) {
+      padding-left: 5.83px;
+      line-height: 16px;
+    }
   }
 `;
 
 ZaboPageWrapper.Info.Body = styled.section`
   color: #202020;
   .borderLine {
-    border: .5px solid #292929;
+    border: 0.5px solid #E9E9E9;
   }
 
   .owner {
     color: #202020;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    @media (max-width: 640px) {
+      height: 56px;
+    }
     img {
       width: 32px;
       height: 32px;
@@ -177,6 +194,7 @@ ZaboPageWrapper.Info.Body = styled.section`
       display: inline-block;
       vertical-align: middle;
       padding: 0 8px;
+      color: #202020;
       &.follow { font-size: 14px; }
     }
     .specialChar {
@@ -188,13 +206,15 @@ ZaboPageWrapper.Info.Body = styled.section`
 
   .contents {
     padding-top: 28px;
-    font-size: 14px;
+    @media (max-width: 640px) {
+      padding-top: 24px;
+    }
   }
 `;
 
 ZaboPageWrapper.Recommend = styled.section`
   width: 1032px;
-  margin-top: 102.78px;
+  margin-top: 100.78px;
   @media (max-width: 640px) {
     margin-top: 64px;
     padding: 0 16px;
@@ -204,8 +224,11 @@ ZaboPageWrapper.Recommend = styled.section`
   h1 {
     font-size: 24px;
     font-weight: bold;
+    margin-top: 0;
+    margin-bottom: 16px;
+    color: #363636;
     @media (max-width: 640px) {
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 `;

@@ -62,7 +62,7 @@ const StatBox = ({ stat }) => {
   return (
     <ZaboPageWrapper.Info.Box onClick={onClick}>
       <img src={src} alt="icon image" />
-      <div>{count}</div>
+      <p>{count}</p>
     </ZaboPageWrapper.Info.Box>
   );
 };
