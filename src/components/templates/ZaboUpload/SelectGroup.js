@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
@@ -6,11 +6,6 @@ import styled from 'styled-components';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Avatar from '@material-ui/core/Avatar';
-import ImageIcon from '@material-ui/icons/Image';
-import Divider from '@material-ui/core/Divider';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { setCurrentGroup } from '../../../store/reducers/auth';
@@ -132,19 +127,20 @@ InsetDividers.defaultProps = {
 
 
 const SelectGroup = () => {
-  const groupsInfo = useSelector (state => state.getIn (['auth', 'info', 'groups']));
+  const groupsInfoImmutable = useSelector (state => state.getIn (['auth', 'info', 'groups']));
+  const groupsInfo = useMemo (() => groupsInfoImmutable.toJS (), [groupsInfoImmutable]);
 
   return (
     <SelectGroupWrapper>
       <h1>그룹 선택하기</h1>
-      {groupsInfo.size
+      {groupsInfo.length
         ? (
           <div>
             <p>
               자보를 업로드할 소속 그룹을 선택해주세요.
             </p>
             <InsetDividers
-              groupsInfo={groupsInfo.toJS ()}
+              groupsInfo={groupsInfo}
             />
           </div>
         )

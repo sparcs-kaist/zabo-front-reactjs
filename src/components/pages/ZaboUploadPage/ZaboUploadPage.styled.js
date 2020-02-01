@@ -19,6 +19,7 @@ PageWrapper.Contents = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 1032px;
+  height: 100%;
 `;
 
 export const TitleStyle = styled.section``;

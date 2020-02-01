@@ -15,6 +15,8 @@ import './grid-layout.scss';
 import { gridLayoutCompareFunction, loadImageFile } from '../../../lib/utils';
 import useSetState from '../../../hooks/useSetState';
 
+import uploadImg from '../../../static/images/uploadImg.png';
+
 const ResponsiveGridLayout = WidthProvider (Responsive);
 
 const baseStyle = {
@@ -22,16 +24,14 @@ const baseStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '20px',
-  borderWidth: 2,
-  borderRadius: 2,
+  justifyContent: 'center',
+  borderRadius: '8px',
   borderColor: '#eeeeee',
-  borderStyle: 'dashed',
   backgroundColor: '#fafafa',
   color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out',
-  minHeight: '70vh',
+  minHeight: '400px',
 };
 
 const activeStyle = {
@@ -119,6 +119,40 @@ const ThumbImage = styled.img`
 `;
 
 const Wrapper = styled.section`
+  h1 {
+    margin: 20px 0 16px 0;
+    font-size: 28px;
+    line-height: 32px;
+    color: #363636;
+  }
+  p {
+    color: #202020;
+    padding-bottom: 8px;
+    margin: 0;
+    &.placeholder {
+      color: #8F8F8F;
+    }
+  }
+  .buttonDiv {
+    display: block;
+    width: 100%;
+    text-align: right;
+    button {
+    width: 93px;
+    background: #F8F8F8;
+    border: 1.5px solid #143441;
+    border-radius: 15px;
+    padding: 8px 12px;
+    font-size: 12px;
+    line-height: 12px;
+    margin-bottom: 8px;
+  }
+  }
+  img.uploadIcon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 12px;
+  }
   .responsive-grid-layout {
     width: 100%;
   }
@@ -348,14 +382,11 @@ const UploadImages = props => {
   const gridLayoutStyle = files.length ? {} : { height: 0 };
   return (
     <Wrapper>
-      <h4>
-        <ul>
-          <li>이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다.</li>
-          <li>이미지를 드래그하여 순서를 변경할 수 있습니다. 첫 번째 이미지는 대표 이미지로 설정됩니다.</li>
-          <li>모든 이미지의 좌우 비율은 대표 이미지의 비율에 맞추어 조정됩니다.</li>
-          <li>대표 이미지의 가로 세로 비율은 1:2 ~ 2:1을 넘을 수 없습니다. 비율이 넘는 이미지는 자동 편집됩니다</li>
-        </ul>
-      </h4>
+      <h1>자보 올리기</h1>
+      <p>이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다)</p>
+      <div className="buttonDiv">
+        <button>파일 선택하기</button>
+      </div>
       <div {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
@@ -398,7 +429,15 @@ const UploadImages = props => {
             {thumbs}
           </ResponsiveGridLayout>
         </aside>
-        <p style={{ justifySelf: 'flex-end' }}>Drag drop some files/folder here, or click to select</p>
+        {
+          files.length === 0
+            ? (
+              <div>
+                <img className="uploadIcon" src={uploadImg} alt="upload image icon" />
+                <p className="placeholder">원하는 이미지를 끌어다 놓으세요</p>
+              </div>
+            ) : ''
+        }
       </div>
     </Wrapper>
   );
