@@ -55,6 +55,7 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  max-width: 500px;
   h1 {
     font-size: 28px;
     font-weight: bold;
