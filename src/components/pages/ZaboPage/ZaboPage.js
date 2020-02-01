@@ -102,7 +102,11 @@ const ZaboPage = (props) => {
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
       <ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.TitleImage>
-          <Carousel imageUrls={photos.map (({ url }) => url)} ratio={photos[0].width / photos[0].height} />
+          <Carousel
+            imageUrls={photos.map (({ url }) => url)}
+            ratio={photos[0].width / photos[0].height}
+            overlay
+          />
         </ZaboPageWrapper.TitleImage>
         <ZaboPageWrapper.Info>
           <ZaboPageWrapper.Info.Header>
@@ -139,9 +143,9 @@ const ZaboPage = (props) => {
                         : <img src={groupDefaultProfile} alt="default profile img" />
                     }
                   <p>{owner.name || 'anonymous'}</p>
-                  <div className="specialChar">&middot;</div>
                 </Link>
-                <p className="follow">팔로잉</p>
+                {/* <div className="specialChar">&middot;</div> */}
+                {/* <p className="follow" /> */}
               </div>
               <div className="borderLine"> </div>
             </section>

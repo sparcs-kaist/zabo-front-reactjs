@@ -32,15 +32,6 @@ ZaboPageWrapper.TitleImage = styled.section`
   @media (max-width: 640px) {
     margin-right: 0;
   }
-  .imageOverlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(0,0,0,0.03);
-    width: 100%;
-    height: 100%;
-  }
-
   img {
     width: 100%;
     height: auto;
