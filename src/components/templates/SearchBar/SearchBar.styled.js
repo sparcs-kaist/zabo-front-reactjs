@@ -88,7 +88,15 @@ SearchBarWrapper.Body = styled.div`
   ${props => (props.searchFocused ? css`` : css`
     display: none;
   `)}
-  padding: ${props => (!props.search ? '36px 16px' : '24px 16px')};
+  ${props => (
+    !props.search ? css`
+      padding: 36px 16px;
+    ` : props.isResultsEmpty ? css`
+          padding: 0 16px;
+        ` : css`
+          padding: 24px 16px;
+        `
+  )}
 
   h3 {
     margin: 0 0 8px 0;

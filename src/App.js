@@ -10,6 +10,7 @@ import {
   NotFound,
   ProfilePage,
   AdminPage,
+  SearchPage,
 } from 'components/pages';
 import AuthCallback from 'organisms/AuthCallback';
 import WindowResizeListener from 'containers/WindowResizeListener';
@@ -32,6 +33,7 @@ const App = () => (
       <Route path="/zabo/:route?" component={ScrollToTop} />
       <Route path="/" exact component={AuthCallback} />
       <Switch>
+        <Route path="/search" component={SearchPage} />
         <Route path="/zabo/upload" component={ZaboUploadPage} />
         <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
         <PublicRoute path="/auth" component={AuthPage} />

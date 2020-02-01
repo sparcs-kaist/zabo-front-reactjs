@@ -1,10 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import axios from 'lib/axios';
-
+import queryString from 'query-string';
 import searchIcon from 'static/images/search-icon-navy.png';
+
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 import { TAGS } from '../../../lib/variables';
@@ -18,6 +19,7 @@ const searchAPI = text => {
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
 const SearchBar = ({ isOpen, options }) => {
+  const history = useHistory ();
   const [state, setState, onChangeHandler] = useSetState ({
     search: '',
     zaboSearch: [],
@@ -56,6 +58,13 @@ const SearchBar = ({ isOpen, options }) => {
     }));
   };
 
+  const _handleKeyDown = e => {
+    const stringified = queryString.stringify ({ query: search });
+    if (e.key === 'Enter') {
+      history.push (`/search?${stringified}`);
+    }
+  };
+
   const _handleFocus = e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
@@ -73,8 +82,19 @@ const SearchBar = ({ isOpen, options }) => {
   };
 
   const onTagClick = e => {
-    console.log ('value: ', e.target.value);
+    const { value: query } = e.target.value;
+    setState ({ search: query });
+    // if (searchResults[query]) {
+    //   // load from caching
+    //   _updateResults (searchResults[query]);
+    // }
+    // const data = await searchAPI (query);
+    // route -> query로 만든 SearchPage 생성, 보내기 -> 거기서 searchAPI쏘기!
   };
+
+  const isZaboSearchEmpty = zaboSearch.length === 0;
+  const isUploaderSearchEmpty = uploaderSearch.length === 0;
+  const isResultsEmpty = isZaboSearchEmpty && isUploaderSearchEmpty;
 
   const searchWithTagComponent = (
     <div>
@@ -89,36 +109,40 @@ const SearchBar = ({ isOpen, options }) => {
 
   const searchResultComponent = (
     <div>
-      <h3>자보</h3>
-      <ul>
-        {zaboSearch.map ((zabo, idx) => (
-          <li key={idx}>
-            <Link to={`/zabo/${zabo._id}`}>{zabo.title}</Link>
-          </li>
-        ))}
-        {zaboSearch.length === 0 && <li>No Results</li>}
-      </ul>
-      <h3>그룹</h3>
-      <ul>
-        {uploaderSearch.map ((uploader, idx) => (
-          <li key={idx}>
-            <Link to={`/group/${uploader.name}`}>{uploader.name}</Link>
-          </li>
-        ))}
-        {uploaderSearch.length === 0 && <li>No Results</li>}
-      </ul>
-      <h3>Keyword</h3>
+      {!isZaboSearchEmpty && (
+        <div>
+          <h3>자보</h3>
+          <ul>
+            {zaboSearch.map ((zabo, idx) => (
+              <li key={idx}>
+                <Link to={`/zabo/${zabo._id}`}>{zabo.title}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {!isUploaderSearchEmpty && (
+        <div>
+          <h3>그룹</h3>
+          <ul>
+            {uploaderSearch.map ((uploader, idx) => (
+              <li key={idx}>
+                <Link to={`/${uploader.name}`}>{uploader.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+      {/* <h3>Keyword</h3>
       <ul>
         {keywordSearch.map ((keyword, idx) => (
           <li key={idx}>
             <Link to="/">{keyword}</Link>
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
-
-  console.log ('searchFocused: ', searchFocused);
 
   return (
     <SearchBarContainer onClick={_handleFocus}>
@@ -131,13 +155,18 @@ const SearchBar = ({ isOpen, options }) => {
               type="text"
               placeholder="자보, 그룹, #태그 검색"
               onChange={_handleChange}
+              onKeyDown={_handleKeyDown}
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
           <img className="search-icon" src={searchIcon} alt="search icon" />
         </SearchBarWrapper.Header>
         <div className="divider"> </div>
-        <SearchBarWrapper.Body search={search} searchFocused={searchFocused}>
+        <SearchBarWrapper.Body
+          search={search}
+          searchFocused={searchFocused}
+          isResultsEmpty={isResultsEmpty}
+        >
           {
             !search
               ? searchWithTagComponent
