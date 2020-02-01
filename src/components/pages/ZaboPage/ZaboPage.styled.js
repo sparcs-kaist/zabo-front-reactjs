@@ -125,39 +125,6 @@ ZaboPageWrapper.Info.Header = styled.section`
   }
 `;
 
-ZaboPageWrapper.Info.Box = styled.button`
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  color: #143441;
-  margin: 28px 8px 72px 0;
-  min-width: 86px;
-  height: 40px;
-  border-radius: 4px;
-  border: 1px solid #143441;
-  padding: 11px 16px;
-  @media (max-width: 640px) {
-    width: 72px;
-    height: 38px;
-    font-size: 14px;
-  }
-
-  img {
-    width: 20px;
-    height: 18px;
-    @media (max-width: 640px) {
-      width: 22px;
-      height: 22px;
-    }
-  }
-  div {
-    width: 100%;
-    line-height: 15px;
-    padding-left: 8px;
-    text-align: center;
-  }
-`;
-
 ZaboPageWrapper.Info.Body = styled.section`
   color: #202020;
   .borderLine {

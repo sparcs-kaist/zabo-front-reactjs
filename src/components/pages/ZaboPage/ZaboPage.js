@@ -1,80 +1,20 @@
-import React, { useMemo } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
-import throttle from 'lodash.throttle';
 
 import ZaboList from 'templates/ZaboList';
 import Header from 'templates/Header';
 import Carousel from 'react-airbnb-carousel';
 
 import StyledQuill from '../../organisms/StyledQuill';
+import StatBox from '../../molecules/StatBox';
 
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
-import { getLabeledTimeDiff, isAuthedSelector, to2Digits } from '../../../lib/utils';
-import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
+import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import likeImg from '../../../static/images/like.svg';
-import emptyLikeImg from '../../../static/images/likeEmpty.svg';
-import bookmarkImg from '../../../static/images/bookmakr.svg';
-import emptyBookmarkImg from '../../../static/images/bookmarkEmpty.svg';
-
-const icons = {
-  pin: {
-    filled: bookmarkImg,
-    empty: emptyBookmarkImg,
-  },
-  like: {
-    filled: likeImg,
-    empty: emptyLikeImg,
-  },
-};
-
-const toggleActions = {
-  pin: toggleZaboPin,
-  like: toggleZaboLike,
-};
-
-const StatBox = ({ stat }) => {
-  const {
-    type, count, zaboId, active,
-  } = stat;
-  const dispatch = useDispatch ();
-  const isAuthed = useSelector (isAuthedSelector);
-  const history = useHistory ();
-  const src = icons[type][active ? 'filled' : 'empty'];
-  const throttledAction = useMemo (() => throttle (() => {
-    dispatch (toggleActions[type] (zaboId));
-  }, 200), [zaboId]);
-
-  const onClick = e => {
-    e.preventDefault ();
-    if (isAuthed) throttledAction ();
-    else {
-      alert ('로그인이 필요합니다.');
-      history.push ('/auth/login');
-    }
-  };
-
-  return (
-    <ZaboPageWrapper.Info.Box onClick={onClick}>
-      <img src={src} alt="icon image" />
-      <div>{count}</div>
-    </ZaboPageWrapper.Info.Box>
-  );
-};
-
-StatBox.propTypes = {
-  stat: PropTypes.shape ({
-    type: PropTypes.oneOf (Object.keys (icons)).isRequired,
-    count: PropTypes.number.isRequired,
-    zaboId: PropTypes.number.isRequired,
-    active: PropTypes.bool.isRequired,
-  }).isRequired,
-};
 
 const ZaboPage = (props) => {
   const { zabo, zaboId } = props;

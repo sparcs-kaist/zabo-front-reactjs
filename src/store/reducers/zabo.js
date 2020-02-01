@@ -1,7 +1,6 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
-import uniqBy from 'lodash.uniqby';
 
 import * as ZaboAPI from '../../lib/api/zabo';
 
@@ -52,15 +51,16 @@ export default handleActions (
         const key = relatedTo || 'main';
 
         const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = zaboList.map (zabo => zabo._id);
 
         if (!lastSeen) {
           return state
-            .updateIn (['lists', key], prevList => fromJS (uniqBy ([...zaboList, ...(prevList || List ([])).toJS ()], '_id')))
-            .update ('zabos', zabos => zabos.merge (zaboMap));
+            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+            .setIn (['lists', key], fromJS (zaboIds));
         }
         return state
-          .updateIn (['lists', key], prevList => prevList.merge (fromJS (zaboList)))
-          .update ('zabos', zabos => zabos.merge (zaboMap));
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .updateIn (['lists', key], prevList => prevList.merge (fromJS (zaboIds)));
       },
     }),
     ...pender ({
@@ -70,28 +70,25 @@ export default handleActions (
         const { lastSeen } = action.meta;
 
         const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = pins.map (pin => pin._id);
 
         if (!lastSeen) {
           return state
-            .setIn (['lists', 'pins'], fromJS (pins))
-            .update ('zabos', zabos => zabos.merge (zaboMap));
+            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+            .setIn (['lists', 'pins'], fromJS (zaboIds));
         }
         return state
-          .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (pins)))
-          .update ('zabos', zabos => zabos.merge (zaboMap));
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (zaboIds)));
       },
     }),
     ...pender ({
       type: TOGGLE_ZABO_PIN,
-      onSuccess: (state, action) => {
-        const zaboId = action.meta;
-        const result = action.payload;
-        return state.updateIn (['zabos', zaboId], zabo => zabo.merge (result));
-      },
+      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
     }),
     ...pender ({
       type: TOGGLE_ZABO_LIKE,
-      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (action.payload)),
+      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
     }),
 
   },

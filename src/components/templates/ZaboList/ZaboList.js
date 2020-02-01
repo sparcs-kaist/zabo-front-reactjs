@@ -45,7 +45,7 @@ const loader = (
   </Loader>
 );
 
-class ZaboList extends PureComponent {
+class ZaboList extends React.Component {
   masonry = React.createRef ()
 
   state = { hasNext: true }
@@ -63,9 +63,9 @@ class ZaboList extends PureComponent {
 
   fetch = next => {
     const {
-      type, getZaboList, getPins, relatedTo, zaboList,
+      type, getZaboList, getPins, relatedTo, zaboIdList,
     } = this.props;
-    const lastSeen = next ? (zaboList[zaboList.length - 1] || {})._id : undefined;
+    const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
     const fetches = {
       main: () => getZaboList ({ lastSeen }),
       related: () => getZaboList ({ lastSeen, relatedTo }),
@@ -75,13 +75,14 @@ class ZaboList extends PureComponent {
   }
 
   fetchNext = () => {
-    this.fetch (true).then (zaboList => {
-      if (zaboList.length === 0) this.setState ({ hasNext: false });
-    });
+    this.fetch (true)
+      .then (zaboList => {
+        if (zaboList.length === 0) this.setState ({ hasNext: false });
+      });
   }
 
   render () {
-    const { zaboList, type } = this.props;
+    const { zaboIdList, type } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
@@ -97,8 +98,8 @@ class ZaboList extends PureComponent {
           sizes={sizes}
           threshold={800}
         >
-          {zaboList.map (zabo => (
-            <ZaboCard key={zabo._id} zabo={zabo} />
+          {zaboIdList.map (zaboId => (
+            <ZaboCard key={zaboId} zaboId={zaboId} />
           ))}
         </MasonryZaboList>
         {hasNext || <Feedback />}
@@ -108,10 +109,15 @@ class ZaboList extends PureComponent {
 }
 
 ZaboList.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  zaboList: PropTypes.array.isRequired,
+  zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins']).isRequired,
+  getZaboList: PropTypes.func.isRequired,
+  getPins: PropTypes.func.isRequired,
+  relatedTo: PropTypes.string,
 };
 
-ZaboList.defaultProps = {};
+ZaboList.defaultProps = {
+  relatedTo: '',
+};
 
 export default withStackMaster (ZaboList);
