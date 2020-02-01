@@ -12,13 +12,11 @@ import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 const ZaboCard = ({ zaboId }) => {
   if (!zaboId) return null;
   const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
-  console.log ({ zaboImmutable });
   const zabo = useMemo (() => zaboImmutable.toJS (), [zaboImmutable]);
   const {
     _id, photos, title, owner, createdAt, endAt, views,
     likesCount, isLiked, pinsCount, isPinned,
   } = zabo;
-  console.log (zabo);
 
   const timePast = getLabeledTimeDiff (createdAt, true, true, true, true, false, false);
   const daysLeft = moment (endAt).diff (moment (), 'days');
