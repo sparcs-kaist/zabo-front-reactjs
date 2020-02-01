@@ -69,7 +69,7 @@ class ZaboList extends React.Component {
     const fetches = {
       main: () => getZaboList ({ lastSeen }),
       related: () => getZaboList ({ lastSeen, relatedTo: query }),
-      pins: () => getPins ({ lastSeen }),
+      pins: () => getPins ({ username: query, lastSeen }),
       group: () => getGroupZaboList ({ groupName: query, lastSeen }),
     };
     return fetches[type] ()

@@ -138,7 +138,7 @@ const UserProfile = ({ profile }) => {
       <Zabos>
         <h1>저장한 자보</h1>
         <p>전체 자보</p>
-        <ZaboList type="pins" />
+        <ZaboList type="pins" query={username} />
       </Zabos>
     </Page>
   );
