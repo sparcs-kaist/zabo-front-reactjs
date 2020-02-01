@@ -31,6 +31,9 @@ const StyledQuill = styled (ReactQuill)`
     : css`
     .ql-container {
       .ql-editor {
+        font-size: 14px;
+        line-height: 18px;
+        color: #202020;
         padding: 0;
       }
     }
