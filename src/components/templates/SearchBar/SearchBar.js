@@ -156,6 +156,7 @@ const SearchBar = ({ isOpen, options }) => {
         <SearchBarWrapper.Header>
           <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
             <input
+              autoComplete="off"
               id="search-input"
               type="text"
               placeholder="자보, 그룹, #태그 검색"
