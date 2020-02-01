@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -13,7 +13,7 @@ import StyledQuill from '../../organisms/StyledQuill';
 
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
-import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
+import { getLabeledTimeDiff, isAuthedSelector, to2Digits } from '../../../lib/utils';
 import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -43,6 +43,8 @@ const StatBox = ({ stat }) => {
     type, count, zaboId, active,
   } = stat;
   const dispatch = useDispatch ();
+  const isAuthed = useSelector (isAuthedSelector);
+  const history = useHistory ();
   const src = icons[type][active ? 'filled' : 'empty'];
   const throttledAction = useMemo (() => throttle (() => {
     dispatch (toggleActions[type] (zaboId));
@@ -50,7 +52,11 @@ const StatBox = ({ stat }) => {
 
   const onClick = e => {
     e.preventDefault ();
-    throttledAction ();
+    if (isAuthed) throttledAction ();
+    else {
+      alert ('로그인이 필요합니다.');
+      history.push ('/auth/login');
+    }
   };
 
   return (
@@ -71,7 +77,7 @@ StatBox.propTypes = {
 };
 
 const ZaboPage = (props) => {
-  const { zabo, zaboId } = props;
+  const { zabo, zaboId, isAuthenticated } = props;
   const {
     title, owner, endAt, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0,
