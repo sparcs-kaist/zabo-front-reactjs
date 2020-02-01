@@ -134,7 +134,7 @@ const alertOnce = (message) => {
 const UploadImages = props => {
   const reduxDispatch = useDispatch ();
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const files = filesImmutable.toJS ();
+  const files = useMemo (() => filesImmutable.toJS (), [filesImmutable]);
   const setFiles = newFiles => reduxDispatch (setImages (newFiles));
   const [widthInfo, setWidthInfo] = useState ({
     width: 0,

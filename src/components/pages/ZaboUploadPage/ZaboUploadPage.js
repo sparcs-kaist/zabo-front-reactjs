@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useRef, forwardRef,
+  useCallback, useEffect, useRef, forwardRef, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -54,7 +54,7 @@ const Footer = (props) => {
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const info = infoImmutable.toJS ();
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const { title, desc, expDate } = info;
 
   const validatedNext = useCallback (() => {

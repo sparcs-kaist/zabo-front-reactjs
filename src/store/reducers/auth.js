@@ -60,15 +60,24 @@ export default handleActions (
         const decoded = jwt.decode (token);
         storage.setItem ('token', token);
         axios.updateToken (token);
-        return state.set ('jwt', fromJS (decoded)).set ('info', fromJS (user));
+        const currentGroup = user.groups.find (group => group._id === user.currentGroup);
+        if (currentGroup) user.currentGroup = currentGroup;
+        return state
+          .set ('jwt', fromJS (decoded))
+          .set ('info', fromJS (user));
       },
     }),
     ...pender ({
       type: CHECK_AUTH,
       onPending: (state, action) => state.set ('jwt', fromJS (jwt.decode (action.meta))),
-      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const user = action.payload;
+        const currentGroup = user.groups.find (group => group._id === user.currentGroup);
+        if (currentGroup) user.currentGroup = currentGroup;
+        return state.set ('info', fromJS (user));
+      },
     }),
-    [LOGOUT]: (state, action) => {
+    [LOGOUT]: (state) => {
       storage.removeItem ('token');
       axios.updateToken ('');
       window.location.href = '/';
@@ -76,19 +85,30 @@ export default handleActions (
     },
     ...pender ({
       type: SET_CURRENT_GROUP,
-      onSuccess: (state, action) => state.setIn (['info', 'currentGroup'], fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const { currentGroup: currentGroupId } = action.payload;
+        const currentGroup = state.getIn (['info', 'groups']).find (group => group.get ('_id') === currentGroupId);
+        return state.setIn (['info', 'currentGroup'], currentGroup);
+      },
     }),
     ...pender ({
       type: REMOVE_GROUP_USER,
-      onSuccess: (state, action) => state.setIn (['info', 'currentGroup', 'members'], fromJS (action.payload.members)),
+      onSuccess: (state, action) => {
+        const { members } = action.payload;
+        return state.setIn (['info', 'currentGroup', 'members'], fromJS (members));
+      },
     }),
     ...pender ({
       type: UPDATE_USER_INFO,
-      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
+      onSuccess: (state, action) => state.update ('info', prev => prev.merge (fromJS (action.payload))),
     }),
     ...pender ({
       type: UPDATE_GROUP_INFO,
-      onSuccess: (state, action) => state.set ('info', fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const { name } = action.meta;
+        const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === name);
+        return state.updateIn (['info', 'groups', groupIndex], prev => prev.merge (fromJS (action.payload)));
+      },
     }),
   },
   initialState,

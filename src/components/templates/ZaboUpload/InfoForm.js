@@ -1,16 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-
 import StyledQuill from '../../organisms/StyledQuill';
-
 import { setInfo } from '../../../store/reducers/upload';
-
-import { TAGS } from '../../../lib/variables';
-
 import { InfoFormWrapper } from './InfoForm.styled';
 import { gridLayoutCompareFunction } from '../../../lib/utils';
 
@@ -19,6 +15,10 @@ const InfoForm = () => {
   const [preview, setPreview] = useState ();
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+  const {
+    title, desc, expDate, tags,
+  } = info;
 
   useEffect (() => {
     const imageFiles = imageFilesImmutable.toJS ();
@@ -35,30 +35,25 @@ const InfoForm = () => {
     };
   }, [imageFilesImmutable]);
 
-  const info = infoImmutable.toJS ();
-  const {
-    title, desc, expDate, tags,
-  } = info;
-
   const setState = useCallback (updates => {
     dispatch (setInfo ({ ...info, ...updates }));
-  }, [infoImmutable]);
+  }, [info]);
 
   const handleChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
-  }, [infoImmutable]);
+  }, [setState]);
 
   const handleQuillChange = useCallback (e => {
     setState ({ desc: e });
-  }, [desc, setState]);
+  }, [setState]);
 
   const onTagClick = useCallback (name => {
     const clone = tags.map (tag => (tag.name === name
-      ? Object.assign (tag, { clicked: !tag.clicked })
+      ? ({ ...tag, clicked: !tag.clicked })
       : tag));
     setState ({ tags: clone });
-  }, [tags]);
+  }, [setState, tags]);
 
   return (
     <InfoFormWrapper>

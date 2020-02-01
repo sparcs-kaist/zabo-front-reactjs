@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -58,12 +58,12 @@ const UploadProcess = (props) => {
   const setProgress = x => { console.log ({ x }); setProgress2 (x); };
   const [error, setError] = useState (null);
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const info = infoImmutable.toJS ();
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
     title, desc, expDate, tags,
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const imageFiles = imageFilesImmutable.toJS ();
+  const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
   const sortedImageFiles = imageFiles.slice ();
   sortedImageFiles.sort (gridLayoutCompareFunction);
 

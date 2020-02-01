@@ -10,7 +10,7 @@ const api = {
 
 const GET_PROFILE = 'profile/GET_PROFILE';
 
-export const getProfile = createAction (GET_PROFILE, api.fetchProfile, (...meta) => meta);
+export const getProfile = createAction (GET_PROFILE, api.fetchProfile, meta => meta);
 
 const initialState = Map ({
   profiles: Map ({}),
@@ -21,14 +21,13 @@ export default handleActions ({
     type: GET_PROFILE,
     onSuccess: (state, action) => {
       const profile = action.payload;
-      const [name, clear] = action.meta;
-      const added = state.setIn (['profiles', name], fromJS (profile));
-      if (clear) return added.deleteIn (['profiles', clear]);
-      return added;
+      const name = action.meta;
+      return state.setIn (['profiles', name], fromJS (profile));
     },
     onFailure: (state, action) => {
       const error = action.payload;
-      return state.setIn (['profiles', action.meta], fromJS ({ error }));
+      const name = action.meta;
+      return state.setIn (['profiles', name], fromJS (error));
     },
   }),
 }, initialState);

@@ -1,12 +1,14 @@
 import React, {
-  useCallback, useEffect, useState, useRef,
+  useCallback, useEffect, useState, useMemo,
 } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { NotFound } from 'pages';
 import {
   PageWrapper, SubHeading, FormGroup, Label,
-  Note, Success, Error, Submit, Hr,
+  Note, Error, Submit, Hr,
 } from './Setting.styled';
 import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
 import InputBase from '../../atoms/InputBase';
@@ -21,16 +23,19 @@ import useSetState from '../../../hooks/useSetState';
 
 const ProfileForm = ({ initialValue }) => {
   const dispatch = useDispatch ();
+  const history = useHistory ();
   const [state, setState, onChange] = useSetState (initialValue);
   useEffect (() => setState (initialValue), [initialValue]);
   const [error, setError] = useState ();
-  const [success, setSuccess] = useState (false);
   const { name, description } = state;
 
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
-    dispatch (updateGroupInfo ({ name, description }))
-      .then ((info) => setSuccess (true))
+    dispatch (updateGroupInfo ({ curName: initialValue.name, name, description }))
+      .then ((info) => {
+        history.replace (`/settings/group/${name}`);
+        history.push (`/${name}`);
+      })
       .catch (err => setError (err));
   }, [state]);
 
@@ -65,27 +70,32 @@ const ProfileForm = ({ initialValue }) => {
         <Note>한 줄 자기소개를 작성해주세요.</Note>
       </FormGroup>
       {error && <Error>{error.message}</Error>}
-      {success && <Success>성공</Success>}
       <Submit type="submit">변경 사항 저장하기</Submit>
     </form>
   );
 };
 
+ProfileForm.propTypes = {
+  initialValue: PropTypes.shape ({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+  }).isRequired,
+};
+
 const GroupProfileSetting = (props) => {
   const dispatch = useDispatch ();
   const { groupName } = props;
-  const prevProfile = useRef ();
 
   useEffect (() => {
-    const clear = false;
-    dispatch (getProfile (groupName, clear))
+    dispatch (getProfile (groupName))
       .then (() => {})
       .catch (error => {});
   }, [groupName]);
 
   const profileImmutable = useSelector (state => state.getIn (['profile', 'profiles', groupName]));
-  const profile = profileImmutable ? profileImmutable.toJS () : prevProfile.current || {};
-  if (profileImmutable) prevProfile.current = profile;
+  const profile = useMemo (() => (profileImmutable ? profileImmutable.toJS () : null), [profileImmutable]);
+  if (!profile) return null;
+  if (profile.error) return <NotFound />;
   const {
     name = '', profilePhoto, backgroundPhoto, description = '',
   } = profile;
