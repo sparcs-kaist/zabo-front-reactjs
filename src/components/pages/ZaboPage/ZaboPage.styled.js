@@ -124,7 +124,6 @@ ZaboPageWrapper.Info.Header = styled.section`
 
 ZaboPageWrapper.Info.Box = styled.button`
   display: flex;
-  justify-content: center;
   align-items: center;
   font-size: 16px;
   color: #143441;
@@ -133,7 +132,7 @@ ZaboPageWrapper.Info.Box = styled.button`
   height: 40px;
   border-radius: 4px;
   border: 1px solid #143441;
-  padding: 8px 14px;
+  padding: 11px 16px;
   @media (max-width: 640px) {
     width: 72px;
     height: 38px;
@@ -141,23 +140,25 @@ ZaboPageWrapper.Info.Box = styled.button`
   }
 
   img {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 18px;
     @media (max-width: 640px) {
       width: 22px;
       height: 22px;
     }
   }
   div {
+    width: 100%;
     line-height: 15px;
-    padding-left: 4px;
+    padding-left: 8px;
+    text-align: center;
   }
 `;
 
 ZaboPageWrapper.Info.Body = styled.section`
   color: #202020;
   .borderLine {
-    border: .5px solid #D7D7D7;
+    border: .5px solid #292929;
   }
 
   .owner {

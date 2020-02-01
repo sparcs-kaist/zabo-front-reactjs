@@ -17,10 +17,10 @@ import { getLabeledTimeDiff, isAuthedSelector, to2Digits } from '../../../lib/ut
 import { toggleZaboPin, toggleZaboLike } from '../../../store/reducers/zabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import likeImg from '../../../static/images/like.png';
-import emptyLikeImg from '../../../static/images/emptyLike.png';
-import bookmarkImg from '../../../static/images/bookmark.png';
-import emptyBookmarkImg from '../../../static/images/emptyBookmark.png';
+import likeImg from '../../../static/images/like.svg';
+import emptyLikeImg from '../../../static/images/likeEmpty.svg';
+import bookmarkImg from '../../../static/images/bookmakr.svg';
+import emptyBookmarkImg from '../../../static/images/bookmarkEmpty.svg';
 
 const icons = {
   pin: {
