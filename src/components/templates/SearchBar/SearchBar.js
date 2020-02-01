@@ -147,7 +147,7 @@ const SearchBar = ({ isOpen, options }) => {
   return (
     <SearchBarContainer onClick={_handleFocus}>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper searchFocused={searchFocused}>
+      <SearchBarWrapper id="wrapper" searchFocused={searchFocused}>
         <SearchBarWrapper.Header>
           <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
             <input

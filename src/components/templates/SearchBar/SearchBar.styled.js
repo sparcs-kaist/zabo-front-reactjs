@@ -34,8 +34,22 @@ export const SearchBarWrapper = styled.div`
     position: relative;
     border: .5px solid #E9E9E9;
   }
+  @media (max-width: 640px) {
+    width: 180px;
+    max-width: 100%;
+  }
   ${props => (props.searchFocused ? css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+
+    @media (max-width: 640px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+    }
   ` : css`
   `)}
 `;
