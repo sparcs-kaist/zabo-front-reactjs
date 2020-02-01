@@ -55,30 +55,31 @@ class ZaboList extends React.Component {
   }
 
   componentDidUpdate (prevProps) {
-    const { relatedTo } = this.props;
-    if (relatedTo !== prevProps.relatedTo) {
+    const { query } = this.props;
+    if (query !== prevProps.query) {
       this.fetch ();
     }
   }
 
   fetch = next => {
     const {
-      type, getZaboList, getPins, relatedTo, zaboIdList,
+      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList,
     } = this.props;
     const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
     const fetches = {
       main: () => getZaboList ({ lastSeen }),
-      related: () => getZaboList ({ lastSeen, relatedTo }),
+      related: () => getZaboList ({ lastSeen, relatedTo: query }),
       pins: () => getPins ({ lastSeen }),
+      group: () => getGroupZaboList ({ groupName: query, lastSeen }),
     };
-    return fetches[type] ();
-  }
-
-  fetchNext = () => {
-    this.fetch (true)
+    return fetches[type] ()
       .then (zaboList => {
         if (zaboList.length === 0) this.setState ({ hasNext: false });
       });
+  }
+
+  fetchNext = () => {
+    this.fetch (true);
   }
 
   render () {
@@ -110,14 +111,15 @@ class ZaboList extends React.Component {
 
 ZaboList.propTypes = {
   zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
-  type: PropTypes.oneOf (['main', 'related', 'pins']).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins', 'group']).isRequired,
   getZaboList: PropTypes.func.isRequired,
   getPins: PropTypes.func.isRequired,
-  relatedTo: PropTypes.string,
+  getGroupZaboList: PropTypes.func.isRequired,
+  query: PropTypes.string,
 };
 
 ZaboList.defaultProps = {
-  relatedTo: '',
+  query: '',
 };
 
 export default withStackMaster (ZaboList);

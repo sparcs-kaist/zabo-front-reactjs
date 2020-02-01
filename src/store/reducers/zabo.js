@@ -11,6 +11,7 @@ const GET_ZABO = 'zabo/GET_ZABO';
 const GET_PINS = 'zabo/GET_PINS';
 const TOGGLE_ZABO_PIN = 'zabo/TOGGLE_ZABO_PIN';
 const TOGGLE_ZABO_LIKE = 'zabo/TOGGLE_ZABO_LIKE';
+const GET_GROUP_ZABO_LIST = 'zabo/GET_GROUP_ZABO_LIST';
 
 // Action creator : action 객체를 만들어주는 함수
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
@@ -19,10 +20,12 @@ export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
 export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, meta => meta);
 export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, meta => meta);
+export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, meta => meta);
 
 // 초기값 설정
 const initialState = Map ({
   lists: Map ({
+    // Using group name as a key, keys in this map should be RESERVED as name in server side
     pins: List ([]),
     main: List ([]),
   }),
@@ -90,7 +93,18 @@ export default handleActions (
       type: TOGGLE_ZABO_LIKE,
       onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
     }),
-
+    ...pender ({
+      type: GET_GROUP_ZABO_LIST,
+      onSuccess: (state, action) => {
+        const zabos = action.payload;
+        const { groupName } = action.meta;
+        const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = zabos.map (zabo => zabo._id);
+        return state
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .setIn (['lists', groupName], fromJS (zaboIds));
+      },
+    }),
   },
   initialState,
 );

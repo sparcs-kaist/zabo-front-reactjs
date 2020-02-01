@@ -196,7 +196,8 @@ Groups.ListItem = styled (Link)`
   }
 `;
 
-export const Zabos = styled.section`
+// TODO: Refactor dups
+export const Zabos = styled.section` 
   width: 1032px;
   @media (max-width: 640px) {
     margin-top: 64px;
