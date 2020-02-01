@@ -15,3 +15,4 @@ export const ProfilePage = loadable (/* webpackPrefetch: true */ () => import ('
 export const ZaboPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboPage'));
 export const NotFound = loadable (/* webpackPrefetch: true */ () => import ('./NotFound'));
 export const AdminPage = loadable (/* webpackPrefetch: true */ () => import ('./AdminPage'));
+export const SearchPage = loadable (/* webpackPrefetch: true */ () => import ('./SearchPage'));
