@@ -18,15 +18,16 @@ import {
   PageWrapper, TitleStyle, FooterStyle,
 } from './ZaboUploadPage.styled';
 import rightArrow from '../../../static/images/rightArrow.png';
+import rightGrayArrow from '../../../static/images/rightGrayArrow.png';
 
-const SlideTitle = () => {
+const SlideTitle = ({ step }) => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기', '업로드 완료'];
 
   const titleTemplate = titleList.map ((elem, idx) => (
-    <div key={elem}>
+    <TitleStyle.elem key={elem} step={idx <= step}>
       <p>{ idx + 1 }. { elem }</p>
-      { idx !== 3 ? <img src={rightArrow} alt="right arrow" /> : '' }
-    </div>
+      { idx !== 3 ? <img src={idx < step ? rightArrow : rightGrayArrow} alt="right arrow" /> : '' }
+    </TitleStyle.elem>
   ));
   return (
     <TitleStyle>
@@ -86,7 +87,7 @@ const Footer = (props) => {
       <div className="container">
         <div className="slide-action-group">
           {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button type="button" className="next" onClick={validatedNext} disabled={!isValid}>제출하기</button>
+          <button type="button" className="next" onClick={validatedNext} disabled={!isValid}>다음</button>
         </div>
       </div>
     </FooterStyle>
@@ -102,20 +103,15 @@ Footer.propTypes = {
 const ZaboUploadPage = () => {
   const dispatch = useDispatch ();
   const step = useSelector (state => state.getIn (['upload', 'step']));
-  const { infoWritten, groupSelected, imagesSelected } = useSelector (state => state.get ('upload')).toJS ();
   const setStep = (newStep => dispatch (setReduxStep (newStep)));
-  useEffect (() => {
-    const newStep = !groupSelected ? 0 : !imagesSelected ? 1 : !infoWritten ? 2 : 3;
-    setStep (newStep);
-  }, [groupSelected, imagesSelected, infoWritten]);
   const next = useCallback (() => setStep (step + 1), [step]);
   const prev = useCallback (() => setStep (step - 1), [step]);
   const slideActions = { next, prev };
 
-  useEffect (() => {
-    // window.onbeforeunload = () => true;
-    // window.onbeforeunload = undefined
-  }, []);
+  // useEffect (() => {
+  //   window.onbeforeunload = () => true;
+  //   // window.onbeforeunload = undefined;
+  // }, []);
 
   useEffect (() => () => {
     dispatch (reset ());
@@ -123,13 +119,13 @@ const ZaboUploadPage = () => {
 
   return (
     <PageWrapper>
-      <Header rightGroup={<Header.AuthButton />} />
+      <Header rightGroup={<Header.AuthButton />} scrollHeader />
       <Prompt
         when
         message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
       />
       <PageWrapper.Contents>
-        <SlideTitle />
+        <SlideTitle step={step} />
         <SlideView step={step} />
       </PageWrapper.Contents>
       <Footer {...slideActions} step={step} />

@@ -1,24 +1,42 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const PageWrapper = styled.div`
-  padding-top: 64px;
+  padding-top: 48px;
   padding-bottom: 74px;
+  min-width: 1072px;
+  @media (max-width: 640px) {
+    min-width: 100%;
+    padding: 0;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 PageWrapper.Contents = styled.div`
-  padding: 0 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 1032px;
 `;
 
-export const TitleStyle = styled.section`
-  div {
-    display: inline-block;
-  }
+export const TitleStyle = styled.section``;
+
+TitleStyle.elem = styled.div`
+  display: inline-block;
 
   p {
     display: inline-block;
     vertical-align: middle;
+    font-size: 16px;
+    transition: color 0.3s;
+    ${props => (props.step ? css`
+        color: #143441;
+    ` : css`
+        color: #BCBCBC;
+    `)}
   }
-
   img {
     width: 24px;
     height: 24px;
@@ -33,7 +51,7 @@ export const FooterStyle = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid black;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
   height: 74px;
   align-items: center;
   background: white;
@@ -63,9 +81,14 @@ export const FooterStyle = styled.div`
     margin-right: 24px;
   }
   .next {
-    background: #EE726B;
+    border: none;
+    background: #F8F8F8;
     font-weight: bold;
-    color: #FFFFFF;  
+    color: #8F8F8F;
+    &:hover {
+      background: #143441;
+      color: white;
+    }
     &:disabled {
       background: #cccccc;
       cursor: not-allowed;
