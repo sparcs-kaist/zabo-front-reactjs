@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import moment from 'moment';
 import { UserType, GroupType } from '../../../lib/propTypes';
 import {
   Page, Groups, Zabos,
@@ -108,7 +107,9 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            <p>{description || '아직 소개가 없습니다.'}</p>
+            <Tooltip title={description}>
+              <p>{description || '아직 소개가 없습니다.'}</p>
+            </Tooltip>
             {isMyProfile && (
             <section>
               <button className="logout" type="button" onClick={logout}>로그아웃</button>
