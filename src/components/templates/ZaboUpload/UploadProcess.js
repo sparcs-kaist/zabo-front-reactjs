@@ -64,11 +64,11 @@ const UploadProcess = (props) => {
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
-  const sortedImageFiles = imageFiles.slice ();
-  sortedImageFiles.sort (gridLayoutCompareFunction);
 
   const upload = useCallback (async e => {
     e.preventDefault ();
+    const sortedImageFiles = imageFiles.slice ();
+    sortedImageFiles.sort (gridLayoutCompareFunction);
     const { width, height } = await imageFileGetWidthHeight (sortedImageFiles[0]);
     let ratio = width / height;
     if (ratio > 2) ratio = 2;
