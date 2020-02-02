@@ -50,18 +50,20 @@ const Icon = styled.img`
   height: 18px;
   @media (max-width: 640px) {
     width: 18px;
-    height: 16px;
+    height: 16.5px;
   }
 `;
 
-const Label = styled.div`
+const Label = styled.p`
   width: 100%;
   line-height: 18px;
-  padding-left: 8px;
   text-align: center;
+  padding-left: 8px;
+  margin: 0;
   font-size: 16px;
   @media (max-width: 640px) {
-    line-height: 16px;
+    padding-left: 5.83px;
+    line-height: 18px;
     font-size: 14px;
   }
 `;
@@ -69,17 +71,22 @@ const Label = styled.div`
 const Button = styled.button`
   display: flex;
   align-items: center;
+  justify-content: center;
+  font-size: 16px;
   color: #143441;
   margin: 28px 8px 72px 0;
   min-width: 86px;
   height: 40px;
   border-radius: 4px;
   border: 1px solid #143441;
-  padding: 11px 16px;
+  padding: 0 16px;
   @media (max-width: 640px) {
     width: 72px;
     height: 38px;
+    min-width: 72px;
+    padding: 0 11.83px;
     font-size: 14px;
+    margin: 24px 8px 64px 0;
   }
 `;
 
@@ -141,10 +148,10 @@ const StatBox = ({ stat, type, ...props }) => {
 
 StatBox.propTypes = {
   stat: PropTypes.shape ({
-    type: PropTypes.oneOf (Object.keys (icons)).isRequired,
-    count: PropTypes.number.isRequired,
-    zaboId: PropTypes.number.isRequired,
-    active: PropTypes.bool.isRequired,
+    type: PropTypes.oneOf (['pin', 'like']).isRequired,
+    count: PropTypes.number,
+    zaboId: PropTypes.string.isRequired,
+    active: PropTypes.bool,
   }).isRequired,
   type: PropTypes.oneOf (['button', 'text']),
 };

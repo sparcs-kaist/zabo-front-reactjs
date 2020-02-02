@@ -11,7 +11,7 @@ Stats.elem = styled.div`
 
   h3 {
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 800;
     color: #143441;
     text-align: center;
     margin: 0 0 6px 0;
@@ -27,6 +27,7 @@ Stats.elem = styled.div`
     h3 { 
       font-size: 16px;
       margin-bottom: 4px;
+      font-weight: bold;
     }
     div { font-size: 12px }
     @media (max-width: 640px) {

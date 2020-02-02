@@ -9,6 +9,7 @@ import ZaboListWrapper from './ZaboList.styled';
 import ZaboCard from '../../organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
+import { ZaboType } from '../../../lib/propTypes';
 
 const sizes = [
   { columns: 2, gutter: 16 },
@@ -55,29 +56,31 @@ class ZaboList extends PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    const { relatedTo } = this.props;
-    if (relatedTo !== prevProps.relatedTo) {
+    const { query } = this.props;
+    if (query !== prevProps.query) {
       this.fetch ();
     }
   }
 
   fetch = next => {
     const {
-      type, getZaboList, getPins, relatedTo, zaboList,
+      type, getZaboList, getPins, query, zaboList, getGroupZaboList,
     } = this.props;
     const lastSeen = next ? (zaboList[zaboList.length - 1] || {})._id : undefined;
     const fetches = {
       main: () => getZaboList ({ lastSeen }),
-      related: () => getZaboList ({ lastSeen, relatedTo }),
-      pins: () => getPins ({ lastSeen }),
+      related: () => getZaboList ({ lastSeen, relatedTo: query }),
+      pins: () => getPins ({ username: query, lastSeen }),
+      group: () => getGroupZaboList ({ groupName: query, lastSeen }),
     };
-    return fetches[type] ();
+    return fetches[type] ()
+      .then (zaboList => {
+        if (zaboList.length === 0) this.setState ({ hasNext: false });
+      });
   }
 
   fetchNext = () => {
-    this.fetch (true).then (zaboList => {
-      if (zaboList.length === 0) this.setState ({ hasNext: false });
-    });
+    this.fetch (true);
   }
 
   render () {
@@ -108,10 +111,16 @@ class ZaboList extends PureComponent {
 }
 
 ZaboList.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  zaboList: PropTypes.array.isRequired,
+  zaboList: PropTypes.arrayOf (ZaboType).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins', 'group']).isRequired,
+  getZaboList: PropTypes.func.isRequired,
+  getPins: PropTypes.func.isRequired,
+  getGroupZaboList: PropTypes.func.isRequired,
+  query: PropTypes.string,
 };
 
-ZaboList.defaultProps = {};
+ZaboList.defaultProps = {
+  query: '',
+};
 
 export default withStackMaster (ZaboList);

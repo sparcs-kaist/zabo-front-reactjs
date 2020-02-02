@@ -1,10 +1,13 @@
-import React, { useCallback } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { Page, Group, Zabos } from './Profile.styled';
+import { Page, Zabos } from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 import ProfileStats from '../../organisms/ProfileStats';
@@ -13,18 +16,20 @@ import { GroupType } from '../../../lib/propTypes';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { setCurrentGroup } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff } from '../../../lib/utils';
+import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description, myRole,
   } = profile;
   const dispatch = useDispatch ();
-  const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
-  const isMyGroupProfile = !!members.find (obj => obj.user === myUserId);
+  const descRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
+
   const toUpload = useCallback (() => {
     dispatch (setCurrentGroup (name));
-  }, [name]);
+  }, [name, dispatch]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
@@ -38,11 +43,10 @@ const GroupProfile = ({ profile }) => {
     value: timePast,
   }];
 
-  const rightGroup = isMyGroupProfile
+  const rightGroup = myRole
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
-  // TODO: need to add ZaboList type with groupUpload Zabolists
   // TODO: add short, long description <- need to implement server (change schema)
 
   return (
@@ -59,14 +63,27 @@ const GroupProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{name}</h1>
-            <p>{description || '아직 소개가 없습니다.'}</p>
             {
-              isMyGroupProfile
+              showTooltip
+                ? (
+                  <Tooltip title={description}>
+                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  </Tooltip>
+                )
+                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            }
+            {
+              myRole
                 ? (
                   <section>
-                    <Link to={`/settings/group/${name}`}>
+                    <Link to={`/settings/group/${name}/profile`}>
                       <button className="edit" type="button">프로필 편집</button>
                     </Link>
+                    {myRole === 'admin' && (
+                    <Link to={`/settings/group/${name}/members`}>
+                      <button className="edit" type="button">멤버 관리</button>
+                    </Link>
+                    )}
                     <Link to="/zabo/upload">
                       <button onClick={toUpload} type="button">업로드</button>
                     </Link>
@@ -82,14 +99,15 @@ const GroupProfile = ({ profile }) => {
         </Page.Header.Right>
       </Page.Header>
       <Zabos>
-        <h1>업로드한 자보</h1>
+        <h1>업로드한 자보 <small>{zabosCount}</small></h1>
+        <ZaboList type="group" query={name} />
       </Zabos>
     </Page>
   );
 };
 
 GroupProfile.propTypes = {
-  profile: PropTypes.shape (GroupType).isRequired,
+  profile: GroupType.isRequired,
 };
 
 export default GroupProfile;

@@ -101,14 +101,14 @@ const ZaboPage = (props) => {
       </ZaboPageWrapper.TwoCol>
       <ZaboPageWrapper.Recommend>
         <h1>연관 있는 자보</h1>
-        <ZaboList type="related" relatedTo={zaboId} key={zaboId} />
+        <ZaboList type="related" query={zaboId} zaboId={zaboId} />
       </ZaboPageWrapper.Recommend>
     </ZaboPageWrapper>
   );
 };
 
 ZaboPage.propTypes = {
-  zabo: PropTypes.shape (ZaboType).isRequired,
+  zabo: ZaboType.isRequired,
   zaboId: PropTypes.string.isRequired,
 };
 

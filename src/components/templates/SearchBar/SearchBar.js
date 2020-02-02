@@ -11,12 +11,9 @@ import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 import { TAGS } from '../../../lib/variables';
 import useSetState from '../../../hooks/useSetState';
+import { searchAPI } from '../../../lib/api/search';
 
 /* ==== search bar debounce ==== */
-const searchAPI = text => {
-  if (!text) return Promise.resolve ({ zabos: [], groups: [], categories: [] });
-  return axios.get (`/search?query=${encodeURIComponent (text)}`);
-};
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
 const SearchBar = ({ isOpen, options }) => {

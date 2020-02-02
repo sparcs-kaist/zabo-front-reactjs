@@ -1,11 +1,12 @@
-import React, { useCallback } from 'react';
+import React, {
+  useEffect, useCallback, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import moment from 'moment';
 import { UserType, GroupType } from '../../../lib/propTypes';
 import {
   Page, Groups, Zabos,
@@ -20,7 +21,7 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff, isAdminSelector } from '../../../lib/utils';
+import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const GroupBox = ({ group }) => {
   const {
@@ -56,7 +57,7 @@ const GroupBox = ({ group }) => {
 };
 
 GroupBox.propTypes = {
-  group: PropTypes.shape (GroupType).isRequired,
+  group: GroupType.isRequired,
 };
 
 
@@ -69,6 +70,9 @@ const UserProfile = ({ profile }) => {
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
+  const descRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{
@@ -108,7 +112,15 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            <p>{description || '아직 소개가 없습니다.'}</p>
+            {
+              showTooltip
+                ? (
+                  <Tooltip title={description}>
+                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  </Tooltip>
+                )
+                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            }
             {isMyProfile && (
             <section>
               <button className="logout" type="button" onClick={logout}>로그아웃</button>
@@ -137,14 +149,14 @@ const UserProfile = ({ profile }) => {
       <Zabos>
         <h1>저장한 자보</h1>
         <p>전체 자보</p>
-        <ZaboList type="pins" />
+        <ZaboList type="pins" query={username} />
       </Zabos>
     </Page>
   );
 };
 
 UserProfile.propTypes = {
-  profile: PropTypes.shape (UserType).isRequired,
+  profile: UserType.isRequired,
 };
 
 export default UserProfile;

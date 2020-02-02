@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect,
+  useCallback, useEffect, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -87,7 +87,7 @@ ProfileForm.propTypes = {
 
 const UserProfileSetting = (props) => {
   const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
-  const info = infoImmutable.toJS ();
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
     username = '', profilePhoto, backgroundPhoto, description = '',
   } = info;

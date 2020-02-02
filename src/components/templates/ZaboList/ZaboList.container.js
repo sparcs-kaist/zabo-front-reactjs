@@ -1,11 +1,9 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
 
 import toJS from 'hoc/toJS';
-import { listTypes } from 'lib/variables';
-import { getPins, getZaboList } from 'store/reducers/zabo';
+import { getPins, getZaboList, getGroupZaboList } from 'store/reducers/zabo';
 
 import ZaboList from './ZaboList';
 
@@ -13,6 +11,7 @@ const reduxKey = {
   main: () => ['zabo', 'lists', 'main'],
   related: id => ['zabo', 'lists', id],
   pins: () => ['zabo', 'lists', 'pins'],
+  group: name => ['zabo', 'lists', name],
 };
 
 class ZaboListContainer extends PureComponent {
@@ -23,25 +22,24 @@ class ZaboListContainer extends PureComponent {
 
 ZaboListContainer.propTypes = {
   ...ZaboList.propTypes,
-  type: PropTypes.oneOf (listTypes),
 };
 
 ZaboListContainer.defaultProps = {
   ...ZaboList.defaultProps,
-  type: 'main',
 };
 
 const emptyList = List ([]);
 const mapStateToProps = (state, ownProps) => {
-  const { type, relatedTo } = ownProps;
+  const { type, query } = ownProps;
   return {
-    zaboList: state.getIn (reduxKey[type] (relatedTo)) || emptyList,
+    zaboList: state.getIn (reduxKey[type] (query)) || emptyList,
   };
 };
 
 const mapDispatchToProps = {
   getPins,
   getZaboList,
+  getGroupZaboList,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (toJS (ZaboListContainer));

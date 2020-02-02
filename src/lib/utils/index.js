@@ -112,3 +112,5 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
               : (isShow (showMonths, monthsDiff) ? `${monthsDiff}개월 전` : momentLabel)
   );
 };
+
+export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;

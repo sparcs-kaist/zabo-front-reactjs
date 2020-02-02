@@ -1,16 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
-
 import StyledQuill from '../../organisms/StyledQuill';
-
 import { setInfo } from '../../../store/reducers/upload';
-
-import { TAGS } from '../../../lib/variables';
-
 import { InfoFormWrapper } from './InfoForm.styled';
 import { gridLayoutCompareFunction } from '../../../lib/utils';
 
@@ -19,6 +15,10 @@ const InfoForm = () => {
   const [preview, setPreview] = useState ();
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+  const {
+    title, desc, expDate, tags,
+  } = info;
 
   useEffect (() => {
     const imageFiles = imageFilesImmutable.toJS ();
@@ -35,30 +35,25 @@ const InfoForm = () => {
     };
   }, [imageFilesImmutable]);
 
-  const info = infoImmutable.toJS ();
-  const {
-    title, desc, expDate, tags,
-  } = info;
-
   const setState = useCallback (updates => {
     dispatch (setInfo ({ ...info, ...updates }));
-  }, [infoImmutable]);
+  }, [info]);
 
   const handleChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
-  }, [infoImmutable]);
+  }, [setState]);
 
   const handleQuillChange = useCallback (e => {
     setState ({ desc: e });
-  }, [desc, setState]);
+  }, [setState]);
 
   const onTagClick = useCallback (name => {
     const clone = tags.map (tag => (tag.name === name
-      ? Object.assign (tag, { clicked: !tag.clicked })
+      ? ({ ...tag, clicked: !tag.clicked })
       : tag));
     setState ({ tags: clone });
-  }, [tags]);
+  }, [setState, tags]);
 
   return (
     <InfoFormWrapper>
@@ -75,10 +70,10 @@ const InfoForm = () => {
         <InfoFormWrapper.Info>
           <section className="zabo-title">
             <div className="label">제목</div>
-            <InputBase
+            <input
+              className="title-input"
               required
-              placeholder="포스터 제목을 입력해주세요."
-              multiline
+              placeholder="자보 제목을 입력해주세요."
               name="title"
               value={title}
               onChange={handleChange}
@@ -91,7 +86,7 @@ const InfoForm = () => {
                 theme="bubble"
                 value={desc}
                 onChange={handleQuillChange}
-                placeholder="포스터 설명을 작성해주세요."
+                placeholder="자보에 대한 설명을 작성해 세요."
                 modules={{
                   toolbar: [
                     ['bold', 'underline', 'strike'],
@@ -99,7 +94,6 @@ const InfoForm = () => {
                     ['link'],
                   ],
                 }}
-                style={{ marginTop: '0.5em', marginBottom: '2em' }}
               />
             </InfoFormWrapper.Editor>
           </section>
@@ -120,12 +114,13 @@ const InfoForm = () => {
                   fullWidth
                   ampm={false}
                   invalidDateMessage={<p>잘못된 형식입니다.</p>}
+                  style={{ height: '38px' }}
                 />
               </MuiPickersUtilsProvider>
             </div>
           </section>
           <section className="zabo-keywords">
-            <div className="label">태그</div>
+            <div className="label label-tag">태그</div>
             <div className="tags">
               {tags.map (item => (
                 <div

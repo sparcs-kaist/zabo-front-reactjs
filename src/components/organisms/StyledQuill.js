@@ -10,7 +10,12 @@ const StyledQuill = styled (ReactQuill)`
       font-family: NanumSquare, Arial, sans-serif;
       ol { padding-left: 0; }
       ul { padding-left: 0; }
-      li { padding-left: 1em; }
+      li {
+         padding-left: 1em;
+         &::before {
+           font-family: NotoSans, Arial, sans-serif;
+         }
+       }
   ${(() => {
     let result = '';
     for (let i = 1; i <= 8; i += 1) {
@@ -24,13 +29,27 @@ const StyledQuill = styled (ReactQuill)`
   
   ${props => (!props.readOnly ? css`
     .ql-container {
-      border: 1px solid rgb(169, 169, 169);
-      border-radius: 3px;
+      border: 0;
+      margin: 8px 0 18px 0;
+      .ql-editor {
+        border-radius: 4px;
+        min-height: 142px;
+        padding: 11px 16px;
+        background-color: #F4F4F4;
+        font-size: 14px;
+        color: #202020;
+        &::placeholder {
+          color: #8F8F8F;
+        }
+      }
     }
   `
     : css`
     .ql-container {
       .ql-editor {
+        font-size: 14px;
+        line-height: 18px;
+        color: #202020;
         padding: 0;
       }
     }
