@@ -120,7 +120,7 @@ const InfoForm = () => {
             </div>
           </section>
           <section className="zabo-keywords">
-            <div className="label">태그</div>
+            <div className="label label-tag">태그</div>
             <div className="tags">
               {tags.map (item => (
                 <div

@@ -1,11 +1,13 @@
 import styled from 'styled-components';
 
 const InfoFormWrapper = styled.div`
+  padding-bottom: 60px;
   /*label on all inputs*/
   .label {
     font-size: 18px;
     font-weight: bold;
     color: #363636;
+    &.label-tag { margin-bottom: 12px }
   }
   /*container for all inputs*/
   .inputContainer {
@@ -48,7 +50,7 @@ const InfoFormWrapper = styled.div`
   .tag {
     font-size: 16px;
     line-height: 18px;
-    margin: 12px 8px 8px 0px;
+    margin: 0 8px 8px 0;
     padding: 10px 14px;
     border-radius: 4px;
     cursor: pointer;
@@ -117,6 +119,8 @@ const InfoFormWrapper = styled.div`
   /* ============ Responsive CSS ============ */
   /* ======================================== */
   @media (min-width: 640px) {
+    .label.label-tag { margin-bottom: 8px }
+    .tag { margin: 0 12px 10px 0 }
     .headerLow {
       width: 100%;
       display: flex;
@@ -160,6 +164,13 @@ InfoFormWrapper.Header = styled.section`
     padding-bottom: 36px;
     margin: 0;
   }
+  @media (max-width: 640px) {
+    h1 {
+      margin: 24px 0 12px 0;
+      font-size: 24px;
+    }
+    p { padding-bottom: 40px }
+  }
 `;
 
 InfoFormWrapper.TwoCol = styled.section`
@@ -169,7 +180,6 @@ InfoFormWrapper.TwoCol = styled.section`
   min-height: 70vh;
   @media (max-width: 640px) {
     flex-direction: column;
-    padding: 0 12px;
   }
 `;
 
@@ -177,10 +187,20 @@ InfoFormWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
   margin-right: 48px;
+  background-color: #F4F4F4;
+  border-radius: 8px;
+  padding: 12px;
   img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+  }
+  @media (max-width: 640px) {
+    border-radius: 4px;
+    margin: 0;
+    img {
+      border-radius: 4px;
+    }
   }
 `;
 
@@ -201,6 +221,9 @@ InfoFormWrapper.Info = styled.section`
     &::placeholder {
       color: #8F8F8F;
     }
+  }
+  @media (max-width: 640px) {
+    margin-top: 24px;
   }
 `;
 

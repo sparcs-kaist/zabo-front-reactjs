@@ -6,7 +6,7 @@ export const PageWrapper = styled.div`
   min-width: 1072px;
   @media (max-width: 640px) {
     min-width: 100%;
-    padding: 0;
+    padding: 36px 16px;
   }
 
   display: flex;
@@ -20,6 +20,9 @@ PageWrapper.Contents = styled.div`
   justify-content: center;
   width: 1032px;
   height: 100%;
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
 export const TitleStyle = styled.section``;
@@ -44,6 +47,17 @@ TitleStyle.elem = styled.div`
     height: 24px;
     vertical-align: middle;
     margin: 0 8px;
+  }
+  @media (max-width: 640px) {
+    p { 
+      font-size: 14px;
+      margin: 0;
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      margin: 0 4px;
+    }
   }
 `;
 
@@ -103,6 +117,15 @@ export const FooterStyle = styled.div`
     &.true:disabled {
       background: #cccccc;
       color: #8F8F8F;
+    }
+  }
+
+  @media (max-width: 640px) {
+    height: 60px;
+    button {
+      width: 122px;
+      height: 40px;
+      font-size: 14px;
     }
   }
 `;
