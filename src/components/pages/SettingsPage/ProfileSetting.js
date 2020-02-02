@@ -62,7 +62,7 @@ const ProfileForm = ({ initialValue }) => {
         <FormGroup.Label>
           <label htmlFor="user-profile-name">이름</label>
         </FormGroup.Label>
-        <FormControl error>
+        <FormControl style={{ width: '100%' }} error>
           <input
             id="user-profile-name"
             type="text"

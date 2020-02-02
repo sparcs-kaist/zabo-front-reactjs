@@ -13,6 +13,9 @@ const FooterWrapper = styled.footer`
   flex-direction: column;
   justify-content: center;
   box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+  @media (max-width: 640px) {
+    height: 60px;
+  }
 `;
 
 export default FooterWrapper;

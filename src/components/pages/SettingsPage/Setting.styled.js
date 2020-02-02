@@ -5,7 +5,7 @@ export const Page = styled.section`
   min-width: 1072px;
   @media (max-width: 640px) {
     min-width: 100%;
-    padding: 36px 0 60px 0;
+    padding: 36px 16px 60px 16px;
   }
 
   display: flex;
@@ -28,6 +28,15 @@ Page.Body = styled.div`
     padding-bottom: 36px;
     color: #202020;
   }
+  @media (max-width: 640px) {
+    width: 100%;
+    h1 {
+      padding-bottom: 12px;
+      font-size: 24px;
+      line-height: 27px;
+    }
+    p { padding-bottom: 32px }
+  }
 `;
 
 Page.Body.ProfileInfo = styled.div`
@@ -37,6 +46,7 @@ Page.Body.ProfileInfo = styled.div`
     width: 120px;
     height: 120px;
     display: block;
+    border-radius: 50%;
   }
   button {
     height: 30px;
@@ -53,6 +63,15 @@ Page.Body.ProfileInfo = styled.div`
       color: #F8F8F8;
     } */
   }
+  @media (max-width: 640px) {
+    img {
+      width: 105px;
+      height: 105px;
+    }
+    button {
+      margin: 12px 0 32px 0;
+    }
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -67,6 +86,11 @@ export const FormGroup = styled.div`
     background-color: #F4F4F4;
     font-size: 16px;
     line-height: 16px;
+    font-weight: bold;
+    color: #363636;
+  }
+  @media (max-width: 640px) {
+    input { width: 100% }
   }
 `;
 
