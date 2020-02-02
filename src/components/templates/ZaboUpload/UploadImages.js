@@ -149,13 +149,15 @@ const Wrapper = styled.section`
   }
   p {
     margin: 0;
-    /* .placeholder-web { margin: 0 } */
     &.placeholder-mobile { 
       font-size: 14px;
       display: none;
     }
   }
-  .base-component { min-height: 400px }
+  .base-component {
+    min-height: 400px;
+    padding: 20px;
+  }
 
   .responsive-grid-layout {
     width: 100%;
@@ -175,7 +177,10 @@ const Wrapper = styled.section`
       &.placeholder-web { display: none }
       &.placeholder-mobile { display: block }
     }
-    .base-component { min-height: 235px }
+    .base-component {
+      min-height: 235px;
+      padding: 0;
+    }
   }
 `;
 
