@@ -1,11 +1,11 @@
 import React, {
-  useCallback, useEffect, useState, useMemo,
+  useCallback, useEffect, useState,
 } from 'react';
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import { NotFound } from 'pages';
+import withGroupProfile from './withGroupProfile';
 import {
   PageWrapper, SubHeading, FormGroup, Label,
   Note, Error, Submit, Hr,
@@ -16,10 +16,10 @@ import Header from '../../templates/Header';
 
 import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import { getProfile } from '../../../store/reducers/profile';
 import { updateGroupInfo } from '../../../store/reducers/auth';
 
 import useSetState from '../../../hooks/useSetState';
+import { GroupType } from '../../../lib/propTypes';
 
 const ProfileForm = ({ initialValue }) => {
   const dispatch = useDispatch ();
@@ -33,7 +33,7 @@ const ProfileForm = ({ initialValue }) => {
     e.preventDefault ();
     dispatch (updateGroupInfo ({ curName: initialValue.name, name, description }))
       .then ((info) => {
-        history.replace (`/settings/group/${name}`);
+        history.replace (`/settings/group/${name}/profile`);
         history.push (`/${name}`);
       })
       .catch (err => setError (err));
@@ -82,20 +82,7 @@ ProfileForm.propTypes = {
   }).isRequired,
 };
 
-const GroupProfileSetting = (props) => {
-  const dispatch = useDispatch ();
-  const { groupName } = props;
-
-  useEffect (() => {
-    dispatch (getProfile (groupName))
-      .then (() => {})
-      .catch (error => {});
-  }, [groupName]);
-
-  const profileImmutable = useSelector (state => state.getIn (['profile', 'profiles', groupName]));
-  const profile = useMemo (() => (profileImmutable ? profileImmutable.toJS () : null), [profileImmutable]);
-  if (!profile) return null;
-  if (profile.error) return <NotFound />;
+const GroupProfileSetting = ({ profile }) => {
   const {
     name = '', profilePhoto, backgroundPhoto, description = '',
   } = profile;
@@ -134,7 +121,7 @@ const GroupProfileSetting = (props) => {
 };
 
 GroupProfileSetting.propTypes = {
-  groupName: PropTypes.string.isRequired,
+  profile: GroupType.isRequired,
 };
 
-export default GroupProfileSetting;
+export default withGroupProfile (GroupProfileSetting, true);

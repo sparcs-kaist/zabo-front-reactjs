@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -20,15 +20,13 @@ import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description, myRole,
   } = profile;
   const dispatch = useDispatch ();
-  const myUserId = useSelector (state => state.getIn (['auth', 'info', '_id']));
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
-  const isMyGroupProfile = !!members.find (obj => obj.user === myUserId);
   const toUpload = useCallback (() => {
     dispatch (setCurrentGroup (name));
   }, [name, dispatch]);
@@ -45,11 +43,10 @@ const GroupProfile = ({ profile }) => {
     value: timePast,
   }];
 
-  const rightGroup = isMyGroupProfile
+  const rightGroup = myRole
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
-  // TODO: need to add ZaboList type with groupUpload Zabolists
   // TODO: add short, long description <- need to implement server (change schema)
 
   return (
@@ -76,12 +73,17 @@ const GroupProfile = ({ profile }) => {
                 : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
             }
             {
-              isMyGroupProfile
+              myRole
                 ? (
                   <section>
-                    <Link to={`/settings/group/${name}`}>
+                    <Link to={`/settings/group/${name}/profile`}>
                       <button className="edit" type="button">프로필 편집</button>
                     </Link>
+                    {myRole === 'admin' && (
+                    <Link to={`/settings/group/${name}/members`}>
+                      <button className="edit" type="button">멤버 관리</button>
+                    </Link>
+                    )}
                     <Link to="/zabo/upload">
                       <button onClick={toUpload} type="button">업로드</button>
                     </Link>

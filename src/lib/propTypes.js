@@ -27,6 +27,7 @@ export const GroupType = {
     followerCount: PropTypes.number,
     recentUploadDate: PropTypes.string,
   }),
+  myRole: PropTypes.oneOf (['admin', 'editor']),
 };
 
 export const UserType = {
