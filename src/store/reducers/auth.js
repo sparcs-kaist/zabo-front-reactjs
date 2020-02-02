@@ -14,7 +14,6 @@ const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
 const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';
 const SET_CURRENT_GROUP = 'user/SET_CURRENT_GROUP';
-const REMOVE_GROUP_USER = 'group/REMOVE_GROUP_USER';
 
 // Action creator
 export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPI.loginCallback);
@@ -23,7 +22,6 @@ export const logout = createAction (LOGOUT);
 export const updateUserInfo = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfo, meta => meta);
 export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfo, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, AuthAPI.setCurrentGroup);
-export const removeGroupUser = createAction (REMOVE_GROUP_USER, AuthAPI.removeGroupUser);
 
 /*
  * group : { _id: String, name: String, members: [member] }
@@ -89,13 +87,6 @@ export default handleActions (
         const { currentGroup: currentGroupId } = action.payload;
         const currentGroup = state.getIn (['info', 'groups']).find (group => group.get ('_id') === currentGroupId);
         return state.setIn (['info', 'currentGroup'], currentGroup);
-      },
-    }),
-    ...pender ({
-      type: REMOVE_GROUP_USER,
-      onSuccess: (state, action) => {
-        const { members } = action.payload;
-        return state.setIn (['info', 'currentGroup', 'members'], fromJS (members));
       },
     }),
     ...pender ({
