@@ -107,7 +107,7 @@ const GroupProfile = ({ profile }) => {
 };
 
 GroupProfile.propTypes = {
-  profile: PropTypes.shape (GroupType).isRequired,
+  profile: GroupType.isRequired,
 };
 
 export default GroupProfile;

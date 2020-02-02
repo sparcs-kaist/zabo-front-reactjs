@@ -108,7 +108,7 @@ const ZaboPage = (props) => {
 };
 
 ZaboPage.propTypes = {
-  zabo: PropTypes.shape (ZaboType).isRequired,
+  zabo: ZaboType.isRequired,
   zaboId: PropTypes.string.isRequired,
 };
 

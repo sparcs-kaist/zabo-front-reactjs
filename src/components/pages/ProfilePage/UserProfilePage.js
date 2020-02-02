@@ -57,7 +57,7 @@ const GroupBox = ({ group }) => {
 };
 
 GroupBox.propTypes = {
-  group: PropTypes.shape (GroupType).isRequired,
+  group: GroupType.isRequired,
 };
 
 
@@ -156,7 +156,7 @@ const UserProfile = ({ profile }) => {
 };
 
 UserProfile.propTypes = {
-  profile: PropTypes.shape (UserType).isRequired,
+  profile: UserType.isRequired,
 };
 
 export default UserProfile;

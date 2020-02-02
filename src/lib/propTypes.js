@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 
-export const ZaboType = {
+export const ZaboType = PropTypes.shape ({
   title: PropTypes.string,
   owner: PropTypes.shape ({
     name: PropTypes.string,
@@ -17,9 +17,9 @@ export const ZaboType = {
   endAt: PropTypes.string,
   isLiked: PropTypes.bool,
   isPinned: PropTypes.bool,
-};
+});
 
-export const GroupType = {
+export const GroupType = PropTypes.shape ({
   name: PropTypes.string,
   profilePhoto: PropTypes.string,
   stats: PropTypes.shape ({ // TODO: Generate stats in server
@@ -28,9 +28,9 @@ export const GroupType = {
     recentUploadDate: PropTypes.string,
   }),
   myRole: PropTypes.oneOf (['admin', 'editor']),
-};
+});
 
-export const UserType = {
+export const UserType = PropTypes.shape ({
   email: PropTypes.string,
   username: PropTypes.string,
   description: PropTypes.string,
@@ -46,12 +46,12 @@ export const UserType = {
     pins: PropTypes.array,
   })),
   currentGroup: PropTypes.oneOfType ([
-    PropTypes.shape (GroupType),
+    GroupType,
     PropTypes.string,
   ]),
   groups: PropTypes.arrayOf (
     PropTypes.oneOfType ([
-      PropTypes.shape (GroupType),
+      GroupType,
       PropTypes.string,
     ]),
   ),
@@ -59,4 +59,4 @@ export const UserType = {
     likesCount: PropTypes.number,
     followingsCount: PropTypes.number,
   }),
-};
+});
