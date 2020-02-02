@@ -58,9 +58,9 @@ Page.Header.Left.UserInfo = styled.div`
   max-width: 500px;
   h1 {
     font-size: 28px;
-    font-weight: bold;
     color: #143441;
     margin: 0;
+    font-weight: 800;
   }
   p {
     display: inline-block;
@@ -112,9 +112,9 @@ export const Groups = styled.section`
   h1 {
     display: inline-block;
     font-size: 22px;
-    font-weight: bold;
     color: #363636;
     margin: 0 0 16px 0;
+    font-weight: 800;
   }
 
   @media (max-width: 640px) {
@@ -172,12 +172,12 @@ Groups.ListItem = styled (Link)`
   .group-name {
     width: 100%;
     font-size: 18px;
-    font-weight: bold;
     color: #143441;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin: 0 0 14px 0;
+    font-weight: 800;
   }
 
   @media (max-width: 640px) {
@@ -207,7 +207,7 @@ export const Zabos = styled.section`
   h1 {
     display: inline-block;
     font-size: 22px;
-    font-weight: bold;
+    font-weight: 800;
     color: #363636;
     margin: 0 0 20px 0;
   }
