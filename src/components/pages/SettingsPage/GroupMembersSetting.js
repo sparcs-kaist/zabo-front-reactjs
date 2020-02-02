@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
 
@@ -7,6 +8,7 @@ import withGroupProfile from './withGroupProfile';
 import { GroupType } from '../../../lib/propTypes';
 import useSetState from '../../../hooks/useSetState';
 import { searchUsers } from '../../../lib/api/search';
+import * as profileActions from '../../../store/reducers/profile';
 
 const debouncedSearchAPI = AwesomeDebouncePromise (searchUsers, 300);
 
@@ -36,6 +38,7 @@ const customStyles = {
 };
 
 const GroupMembersSetting = ({ profile }) => {
+  const dispatch = useDispatch ();
   const { name, members } = profile;
   const [state, setState, onChange] = useSetState ({
     query: '',
@@ -53,10 +56,16 @@ const GroupMembersSetting = ({ profile }) => {
     callback (options);
   }, [members]);
 
-  const submit = useCallback (() => {
+  const addMember = useCallback (() => {
     const { userOption: { value: userId }, roleOption: { value: role } } = state;
-    console.log (userId, role);
-  }, [state]);
+    dispatch (profileActions.addGroupMember ({ groupName: name, userId, role }));
+  }, [state, dispatch]);
+  const updateMember = useCallback ((userId, role) => {
+    dispatch (profileActions.updateGroupMember ({ groupName: name, userId, role }));
+  }, [dispatch]);
+  const removeMember = useCallback ((userId) => {
+    dispatch (profileActions.removeGroupMember ({ groupName: name, userId }));
+  }, [dispatch]);
   const { userOption, roleOption } = state;
 
   return (
@@ -79,7 +88,7 @@ const GroupMembersSetting = ({ profile }) => {
         onChange={newOption => setState ({ roleOption: newOption })}
         isSearchable
       />
-      <button onClick={submit}>추가</button>
+      <button onClick={addMember}>추가</button>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         {
           members.map (({ role, user }) => {
@@ -92,6 +101,9 @@ const GroupMembersSetting = ({ profile }) => {
                 {username} <br />
                 {koreanName || name} <br />
                 {role}
+                <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
+                <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
+                <button onClick={() => removeMember (user._id)}>삭제</button>
               </div>
             );
           })
