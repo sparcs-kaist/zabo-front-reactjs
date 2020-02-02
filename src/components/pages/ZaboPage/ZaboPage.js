@@ -101,7 +101,7 @@ const ZaboPage = (props) => {
       </ZaboPageWrapper.TwoCol>
       <ZaboPageWrapper.Recommend>
         <h1>연관 있는 자보</h1>
-        <ZaboList type="related" query={zaboId} zaboId={zaboId} />
+        <ZaboList type="related" query={zaboId} key={zaboId} />
       </ZaboPageWrapper.Recommend>
     </ZaboPageWrapper>
   );
