@@ -21,12 +21,12 @@ import rightArrow from '../../../static/images/rightArrow.png';
 import rightGrayArrow from '../../../static/images/rightGrayArrow.png';
 
 const SlideTitle = ({ step }) => {
-  const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기', '업로드 완료'];
+  const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];
 
   const titleTemplate = titleList.map ((elem, idx) => (
     <TitleStyle.elem key={elem} step={idx <= step}>
       <p>{ idx + 1 }. { elem }</p>
-      { idx !== 3 ? <img src={idx < step ? rightArrow : rightGrayArrow} alt="right arrow" /> : '' }
+      { idx !== 2 ? <img src={idx < step ? rightArrow : rightGrayArrow} alt="right arrow" /> : '' }
     </TitleStyle.elem>
   ));
   return (
@@ -81,13 +81,16 @@ const Footer = (props) => {
   }, [step, currentGroup, filesImmutable, infoImmutable]);
 
   const isValid = validCheck ();
+  const isSubmit = step >= 2;
 
   return (
     <FooterStyle>
       <div className="container">
         <div className="slide-action-group">
           {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button type="button" className="next" onClick={validatedNext} disabled={!isValid}>다음</button>
+          <button type="button" className={`next ${isSubmit}`} onClick={validatedNext} disabled={!isValid}>
+            { isSubmit ? '제출하기' : '다음' }
+          </button>
         </div>
       </div>
     </FooterStyle>

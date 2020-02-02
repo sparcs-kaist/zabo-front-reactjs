@@ -10,7 +10,12 @@ const StyledQuill = styled (ReactQuill)`
       font-family: NanumSquare, Arial, sans-serif;
       ol { padding-left: 0; }
       ul { padding-left: 0; }
-      li { padding-left: 1em; }
+      li {
+         padding-left: 1em;
+         &::before {
+           font-family: NotoSans, Arial, sans-serif;
+         }
+       }
   ${(() => {
     let result = '';
     for (let i = 1; i <= 8; i += 1) {

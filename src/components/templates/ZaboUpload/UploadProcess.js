@@ -65,8 +65,8 @@ const UploadProcess = (props) => {
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
 
-  const upload = useCallback (async e => {
-    e.preventDefault ();
+  const upload = useCallback (async () => {
+    // e.preventDefault ();
     const sortedImageFiles = imageFiles.slice ();
     sortedImageFiles.sort (gridLayoutCompareFunction);
     const { width, height } = await imageFileGetWidthHeight (sortedImageFiles[0]);
@@ -99,21 +99,23 @@ const UploadProcess = (props) => {
       });
   }, [infoImmutable, imageFilesImmutable]);
 
+  upload ();
+
   return (
     <ProcessWrapper>
-      <div className="container">
+      {/* <div className="container">
         <button onClick={upload}>Confirm</button>
         {progress && <h1>{progress}</h1>}
         {error && <div className="error">{error.message}</div>}
-      </div>
+      </div> */}
       {!!progress && (
         <Loading>
           <Loading.Active style={{ width: `${progress}%` }} />
           <Loading.Inactive />
         </Loading>
       )}
-      {progress === 100 && '성공'}
-      {progress && <LoadingDialog />}
+      {/* {progress === 100 && '성공'}
+      {progress && <LoadingDialog />} */}
     </ProcessWrapper>
   );
 };
