@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useState, useRef, useMemo,
+  useCallback, useState, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,14 +9,11 @@ import debounce from 'lodash.debounce';
 
 import { validateName } from '../../../lib/utils';
 import {
-  PageWrapper, SubHeading, FormGroup, Label,
-  Note, Success, Error, Submit, Hr,
+  Page, FormGroup, Submit, Success, Error,
 } from './Setting.styled';
-import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
-import InputBase from '../../atoms/InputBase';
 import Header from '../../templates/Header';
+import Footer from '../../templates/Footer';
 
-import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import { updateUserInfo } from '../../../store/reducers/auth';
 
@@ -62,11 +59,11 @@ const ProfileForm = ({ initialValue }) => {
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label>
-          <label htmlFor="user-profile-name">별칭</label>
-        </Label>
+        <FormGroup.Label>
+          <label htmlFor="user-profile-name">이름</label>
+        </FormGroup.Label>
         <FormControl error>
-          <InputBase
+          <input
             id="user-profile-name"
             type="text"
             name="username"
@@ -79,24 +76,22 @@ const ProfileForm = ({ initialValue }) => {
               : ''
           }
         </FormControl>
-        <Note>유저이름 변경</Note>
       </FormGroup>
       <FormGroup>
-        <Label>
-          <label htmlFor="user-profile-description">한 줄 자기소개</label>
-        </Label>
-        <InputBase
+        <FormGroup.Label>
+          <label htmlFor="user-profile-description">한줄 소개</label>
+        </FormGroup.Label>
+        <input
           id="user-profile-description"
           type="text"
           name="description"
           value={description}
           onChange={onChange}
         />
-        <Note>한 줄 자기소개를 작성해주세요.</Note>
       </FormGroup>
       {error && <Error>{error.error}</Error>}
       {success && <Success>성공</Success>}
-      <Submit type="submit">변경 사항 저장하기</Submit>
+      <Footer buttonGroup={<Submit type="submit">수정하기</Submit>} scrollFooter />
     </form>
   );
 };
@@ -116,37 +111,22 @@ const UserProfileSetting = (props) => {
   } = info;
 
   return (
-    <PageWrapper>
-      <Header rightGroup={<Header.AuthButton />} />
-      <ProfilePage.Header>
-        <ProfilePage.Header.BackPhoto>
-          {
-            backgroundPhoto
-              ? <div style={{ backgroundImage: `url(${backgroundPhoto})` }}> </div>
-              : <div style={{ backgroundImage: `url(${defaultBackground})` }}> </div>
-          }
-        </ProfilePage.Header.BackPhoto>
-        <ProfilePage.Header.ProfilePhoto>
+    <Page>
+      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Page.Body>
+        <h1>프로필 편집</h1>
+        <p>프로필을 수정할 수 있습니다.</p>
+        <Page.Body.ProfileInfo>
           {
             profilePhoto
               ? <img src={profilePhoto} alt="profile photo" />
               : <img src={defaultProfile} alt="default profile img" />
           }
-        </ProfilePage.Header.ProfilePhoto>
-        <ProfilePage.Header.UserInfo>
-          {username}
-        </ProfilePage.Header.UserInfo>
-      </ProfilePage.Header>
-
-      <SubHeading>
-        <SubHeading.Text>프로필 설정</SubHeading.Text>
-      </SubHeading>
-
-      <ProfileForm initialValue={{ username, description }} />
-      <Hr />
-      <h3>그룹 보이기 / 숨기기</h3>
-      <h3>저장한 자보 보이기 / 숨기기</h3>
-    </PageWrapper>
+          <button>사진 바꾸기</button>
+        </Page.Body.ProfileInfo>
+        <ProfileForm initialValue={{ username, description }} />
+      </Page.Body>
+    </Page>
   );
 };
 

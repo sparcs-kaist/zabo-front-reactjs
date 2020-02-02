@@ -9,7 +9,7 @@ import withGroupProfile from './withGroupProfile';
 import {
   PageWrapper, SubHeading, FormGroup, Label,
   Note, Error, Submit, Hr,
-} from './Setting.styled';
+} from './Old.Setting.styled';
 import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
 import InputBase from '../../atoms/InputBase';
 import Header from '../../templates/Header';
