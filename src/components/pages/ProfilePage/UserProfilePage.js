@@ -1,13 +1,19 @@
-import React from 'react';
+import React, {
+  useEffect, useCallback, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
-import { UserType } from '../../../lib/propTypes';
-import { Page, Groups, Stats } from './Profile.styled';
+
+import { UserType, GroupType } from '../../../lib/propTypes';
+import {
+  Page, Groups, Zabos,
+} from './Profile.styled';
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
+import ProfileStats from '../../organisms/ProfileStats';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -15,67 +21,82 @@ import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-
-const ProfileStats = ({ statsNames, statsNums, smallV }) => {
-  const cName = smallV ? 'mini' : '';
-  return (
-    <Stats>
-      {
-        statsNums.map ((elem, idx) => (
-          <Stats.elem key={idx} className={cName}>
-            <h3>{elem}</h3>
-            <div>{statsNames[idx]}</div>
-          </Stats.elem>
-        ))
-      }
-    </Stats>
-  );
-};
+import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const GroupBox = ({ group }) => {
-  const statsNames = ['자보', '팔로워', '최근 업로드'];
-  const statsNums = [263, 263, 23];
+  const {
+    name, profilePhoto, zabosCount, followersCount, recentUpload,
+  } = group;
+  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
+  const stats = [{
+    name: '자보',
+    value: zabosCount,
+  }, {
+    name: '팔로워',
+    value: followersCount,
+  }, {
+    name: '최근 업로드',
+    value: timePast,
+  }];
 
   return (
-    <Groups.ListItem>
+    <Groups.ListItem to={name}>
       {
-        group.profilePhoto
-          ? <img src={group.profilePhoto} alt="group profile photo" />
+        profilePhoto
+          ? <img src={profilePhoto} alt="group profile photo" />
           : <img src={groupDefaultProfile} alt="default group profile photo" />
       }
       <section>
-        <Tooltip title={group.name}>
-          <div className="group-name">{group.name}</div>
+        <Tooltip title={name}>
+          <div className="group-name">{name}</div>
         </Tooltip>
-        <ProfileStats statsNames={statsNames} statsNums={statsNums} smallV />
+        <ProfileStats stats={stats} smallV />
       </section>
     </Groups.ListItem>
   );
 };
 
+GroupBox.propTypes = {
+  group: PropTypes.shape (GroupType).isRequired,
+};
+
+
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, likesNum,
+    username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {},
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const isMyProfile = (myUsername === username);
+  const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
+  const descRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
-  const statsNames = ['저장한 자보', '좋아하는 자보', '팔로잉'];
-  const statsNums = [100, likesNum, 100];
+  const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
+  const stats = [{
+    name: '저장한 자보',
+    value: pinsCount,
+  }, {
+    name: '좋아하는 자보',
+    value: likesCount,
+  }, {
+    name: '팔로잉',
+    value: followingsCount,
+  }];
 
   const rightGroup = isMyProfile
     ? <Link to="/settings/profile"><SettingsIcon /></Link>
     : <Header.AuthButton />;
 
   // TODO : need to change scroll value; consider mobile app version
-  const leftScrollClick = () => {
-    document.getElementById ('groupsList').scrollLeft -= 1000;
-  };
-  const rightScrollClick = () => {
-    document.getElementById ('groupsList').scrollLeft += 1000;
-  };
+  const leftScrollClick = useCallback (() => {
+    document.getElementById ('groupsList').scrollLeft -= 622;
+  }, []);
+  const rightScrollClick = useCallback (() => {
+    document.getElementById ('groupsList').scrollLeft += 622;
+  }, []);
 
   return (
     <Page>
@@ -91,19 +112,28 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            <p>{description || '아직 소개가 없습니다.'}</p>
+            {
+              showTooltip
+                ? (
+                  <Tooltip title={description}>
+                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  </Tooltip>
+                )
+                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            }
+            {isMyProfile && (
             <section>
-              {isMyProfile && <button className="logout" type="button" onClick={logout}>로그아웃</button>}
-              {isMyProfile && (
-                <Link to="/settings/profile">
-                  <button className="edit" type="button">프로필 편집</button>
-                </Link>
-              )}
+              <button className="logout" type="button" onClick={logout}>로그아웃</button>
+              <Link to="/settings/profile">
+                <button className="edit" type="button">프로필 편집</button>
+              </Link>
+              {isAdmin && (<Link to="/admin"><button className="admin" type="button">어드민</button></Link>)}
             </section>
+            )}
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
         <Page.Header.Right>
-          <ProfileStats statsNames={statsNames} statsNums={statsNums} />
+          <ProfileStats stats={stats} />
         </Page.Header.Right>
       </Page.Header>
       <Groups>
@@ -113,14 +143,14 @@ const UserProfile = ({ profile }) => {
           <img onClick={rightScrollClick} src={rightScroll} alt="right scroll button" />
         </Groups.ScrollBtn>
         <Groups.List id="groupsList">
-          {groups.map (group => (
-            <Link to={group.name} key={group.name}>
-              <GroupBox group={group} />
-            </Link>
-          ))}
+          {groups.map (group => <GroupBox group={group} key={group.name} />)}
         </Groups.List>
-        <ZaboList type="pins" />
       </Groups>
+      <Zabos>
+        <h1>저장한 자보</h1>
+        <p>전체 자보</p>
+        <ZaboList type="pins" query={username} />
+      </Zabos>
     </Page>
   );
 };

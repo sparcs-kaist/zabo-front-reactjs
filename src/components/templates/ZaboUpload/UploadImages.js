@@ -15,6 +15,8 @@ import './grid-layout.scss';
 import { gridLayoutCompareFunction, loadImageFile } from '../../../lib/utils';
 import useSetState from '../../../hooks/useSetState';
 
+import uploadImg from '../../../static/images/uploadImg.png';
+
 const ResponsiveGridLayout = WidthProvider (Responsive);
 
 const baseStyle = {
@@ -22,16 +24,12 @@ const baseStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '20px',
-  borderWidth: 2,
-  borderRadius: 2,
+  borderRadius: '8px',
   borderColor: '#eeeeee',
-  borderStyle: 'dashed',
   backgroundColor: '#fafafa',
   color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out',
-  minHeight: '70vh',
 };
 
 const activeStyle = {
@@ -119,9 +117,114 @@ const ThumbImage = styled.img`
 `;
 
 const Wrapper = styled.section`
+  h1 {
+    margin: 20px 0 16px 0;
+    font-size: 28px;
+    line-height: 32px;
+    color: #363636;
+    font-weight: 800;
+  }
+  .buttonDiv {
+    display: block;
+    width: 100%;
+    text-align: right;
+    button {
+      width: 93px;
+      background: #F8F8F8;
+      border: 1.5px solid #143441;
+      border-radius: 15px;
+      padding: 8px 12px;
+      font-size: 12px;
+      line-height: 12px;
+      margin-bottom: 8px;
+    }
+  }
+  .upload-placeholder {
+    text-align: center;
+  }
+  img.upload-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 12px;
+  }
+  p {
+    margin: 0;
+    &.placeholder-mobile { 
+      font-size: 14px;
+      display: none;
+    }
+  }
+  .base-component {
+    position: relative;
+    min-height: 400px;
+    padding: 20px;
+  }
+
   .responsive-grid-layout {
     width: 100%;
   }
+
+  @media (max-width: 640px) {
+    h1 {
+      margin: 24px 0 12px 0;
+      font-size: 24px;
+    }
+    .buttonDiv { display: none }
+    .img.upload-icon {
+      width: 16px;
+      height: 16px;
+    }
+    p {
+      &.placeholder-web { display: none }
+      &.placeholder-mobile { display: block }
+    }
+    .base-component {
+      min-height: 235px;
+      padding: 0;
+    }
+  }
+`;
+
+Wrapper.Subtitle = styled.div`
+  .subtitle1, .subtitle2 {
+    display: inline-block;
+    font-size: 16px;
+    color: #202020;   
+    margin: 0;
+    &.placeholder {
+      color: #8F8F8F;
+    }
+  }
+  .subtitle-star { 
+    display: none;
+    font-size: 12px;
+  }
+  @media (max-width: 640px) {
+    .subtitle1 { display: block }
+    .subtitle2 { 
+      font-size: 12px;
+      margin: 10px 0 40px 0;
+    }
+    .subtitle-star { display: inline-block }
+  }
+`;
+Wrapper.Subtitle.Sub = styled.div`
+  display: inline-block;
+`;
+
+Wrapper.Placeholder = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${props => (props.noFile ? css`
+  ` : css`
+    display: none;
+  `)}
 `;
 
 let alerted;
@@ -134,7 +237,7 @@ const alertOnce = (message) => {
 const UploadImages = props => {
   const reduxDispatch = useDispatch ();
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const files = filesImmutable.toJS ();
+  const files = useMemo (() => filesImmutable.toJS (), [filesImmutable]);
   const setFiles = newFiles => reduxDispatch (setImages (newFiles));
   const [widthInfo, setWidthInfo] = useState ({
     width: 0,
@@ -299,7 +402,7 @@ const UploadImages = props => {
   }, [cols, dispatch]);
 
   const {
-    getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
+    getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, open,
   } = useDropzone ({
     accept: 'image/*',
     onDrop: acceptedFiles => {
@@ -348,11 +451,18 @@ const UploadImages = props => {
   const gridLayoutStyle = files.length ? {} : { height: 0 };
   return (
     <Wrapper>
-      <h4>
-        이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다) <br />
-        가로 세로 비율은 1:2 ~ 2:1을 넘을 수 없습니다.
-      </h4>
-      <div {...getRootProps ({ style })}>
+      <h1>자보 올리기</h1>
+      <Wrapper.Subtitle>
+        <div className="subtitle1">이미지를 업로드하세요. &nbsp;</div>
+        <Wrapper.Subtitle.Sub>
+          <div className="subtitle-star">*</div>
+          <div className="subtitle2">최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다)</div>
+        </Wrapper.Subtitle.Sub>
+      </Wrapper.Subtitle>
+      <div className="buttonDiv">
+        <button onClick={open}>파일 선택하기</button>
+      </div>
+      <div className="base-component" {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
@@ -394,7 +504,13 @@ const UploadImages = props => {
             {thumbs}
           </ResponsiveGridLayout>
         </aside>
-        <p style={{ justifySelf: 'flex-end' }}>Drag drop some files/folder here, or click to select</p>
+        <Wrapper.Placeholder noFile={files.length === 0}>
+          <div className="upload-placeholder">
+            <img className="upload-icon" src={uploadImg} alt="upload image icon" />
+            <p className="placeholder-web">원하는 이미지를 끌어다 놓으세요</p>
+            <p className="placeholder-mobile">탭하여 이미지 업로드 하기</p>
+          </div>
+        </Wrapper.Placeholder>
       </div>
     </Wrapper>
   );

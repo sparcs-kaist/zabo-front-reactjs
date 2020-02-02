@@ -10,7 +10,7 @@ import debounce from 'lodash.debounce';
 import { validateName } from '../../../lib/utils';
 import {
   PageWrapper, SubHeading, FormGroup, Label,
-  Input, Note, Button, Success, Error, Submit, Hr,
+  Note, Success, Error, Submit, Hr,
 } from './Setting.styled';
 import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
 import InputBase from '../../atoms/InputBase';
@@ -18,29 +18,35 @@ import Header from '../../templates/Header';
 
 import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import defaultProfile from '../../../static/images/defaultProfile.png';
-import { getProfile } from '../../../store/reducers/profile';
 import { updateUserInfo } from '../../../store/reducers/auth';
 
 import useSetState from '../../../hooks/useSetState';
 
 const ProfileForm = ({ initialValue }) => {
   const dispatch = useDispatch ();
-  const [state, setState, onChange] = useSetState (initialValue);
-  useEffect (() => setState (initialValue), [initialValue]);
-  const [error, setError] = useState ();
-  const [success, setSuccess] = useState (false);
+  const [state, setState, onChangeHandler] = useSetState ({
+    ...initialValue,
+    success: false,
+    error: null,
+  });
+
   const [nameInvalid, setNameInvalid] = useState (false);
-  const { username, description } = state;
+  const {
+    username, description, error, success,
+  } = state;
 
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
-    const data = {};
-    if (username !== initialValue.username) data.username = username;
-    if (description !== initialValue.description) data.description = description;
-    dispatch (updateUserInfo (data))
-      .then (() => setSuccess (true))
-      .catch (err => setError (err));
-  }, [state]);
+    const update = { username, description };
+    dispatch (updateUserInfo (update))
+      .then (() => setState ({ ...update, error: null, success: true }))
+      .catch (error => setState ({ ...update, success: false, error }));
+  }, [username, description]);
+
+  const onChange = (e) => {
+    setState ({ success: false, error: null });
+    onChangeHandler (e);
+  };
 
   const nameDebounce = useMemo (() => debounce (() => {
     // TODO: username: current e.target.username is not applying...
@@ -88,7 +94,7 @@ const ProfileForm = ({ initialValue }) => {
         />
         <Note>한 줄 자기소개를 작성해주세요.</Note>
       </FormGroup>
-      {error && <Error>{error.message}</Error>}
+      {error && <Error>{error.error}</Error>}
       {success && <Success>성공</Success>}
       <Submit type="submit">변경 사항 저장하기</Submit>
     </form>
@@ -103,25 +109,11 @@ ProfileForm.propTypes = {
 };
 
 const UserProfileSetting = (props) => {
-  const dispatch = useDispatch ();
-  const myName = useSelector (state => state.getIn (['auth', 'info', 'username']));
-  const prevMyNameRef = useRef ('');
-  const prevMyName = prevMyNameRef.current;
-  const prevProfile = useRef ();
-  useEffect (() => {
-    const clear = myName !== prevMyName ? prevMyName : undefined;
-    dispatch (getProfile (myName, clear))
-      .then (() => {
-        prevMyNameRef.current = myName;
-      })
-      .catch (error => {});
-  }, [myName]);
-  const profileImmutable = useSelector (state => state.getIn (['profile', 'profiles', myName]));
-  const profile = profileImmutable ? profileImmutable.toJS () : prevProfile.current || {};
-  if (profileImmutable) prevProfile.current = profile;
+  const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
     username = '', profilePhoto, backgroundPhoto, description = '',
-  } = profile;
+  } = info;
 
   return (
     <PageWrapper>

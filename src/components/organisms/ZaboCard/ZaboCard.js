@@ -1,18 +1,37 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import ZaboCardStyle from './ZaboCard.styled';
+import StatBox from '../../molecules/StatBox';
 
-import { to2Digits } from '../../../lib/utils';
-import { ZaboType } from '../../../lib/propTypes';
+import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 
-const ZaboCard = ({ zabo }) => {
+const ZaboCard = ({ zaboId }) => {
+  if (!zaboId) return null;
+  const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
+  const zabo = useMemo (() => zaboImmutable.toJS (), [zaboImmutable]);
   const {
-    _id, photos, title, owner, endAt,
+    _id, photos, title, owner, createdAt, endAt, views,
+    likesCount, isLiked, pinsCount, isPinned,
   } = zabo;
-  const diff = moment (endAt).diff (moment (), 'days');
+
+  const timePast = getLabeledTimeDiff (createdAt, true, true, true, true, false, false);
+  const daysLeft = moment (endAt).diff (moment (), 'days');
+
+  const stats = [{
+    type: 'like',
+    count: likesCount,
+    zaboId: _id,
+    active: isLiked,
+  }, {
+    type: 'pin',
+    count: pinsCount,
+    zaboId: _id,
+    active: isPinned,
+  }];
 
   return (
     <ZaboCardStyle>
@@ -22,21 +41,30 @@ const ZaboCard = ({ zabo }) => {
             paddingTop: `${(photos[0].height / photos[0].width) * 100}%`,
           }}
         >
-          <img width="100%" src={photos[0].url} alt="zabo" />
-          <ZaboCardStyle.Poster.Overlay />
+          <ZaboCardStyle.Poster.Image width="100%" src={photos[0].url} alt="zabo" />
+          <ZaboCardStyle.Poster.Dimmer />
+          <ZaboCardStyle.Poster.Overlay className="hover-show">
+            <ZaboCardStyle.Poster.Overlay.StatLocator>
+              {stats.map (stat => (
+                <StatBox key={stat.type} type="text" stat={stat} />
+              ))}
+            </ZaboCardStyle.Poster.Overlay.StatLocator>
+          </ZaboCardStyle.Poster.Overlay>
+          {daysLeft > 0 && <ZaboCardStyle.DueDate>D{to2Digits (-daysLeft, true)}</ZaboCardStyle.DueDate>}
+
         </ZaboCardStyle.Poster>
       </Link>
       <ZaboCardStyle.Writings>
-        <div className="top">
-          <Link to={`/zabo/${_id}`}>
-            <div className="title">{title}</div>
-          </Link>
-          {diff > 0 && <div className="due-date">D{to2Digits (-diff, true)}</div>}
+        <Link to={`/zabo/${_id}`}>
+          <div className="title">
+            <span>{title}</span>
+          </div>
+        </Link>
+        <div className="card-meta">
+          {timePast} &middot; {`조회수 ${(views || 0).toLocaleString ()}`}
         </div>
-        <div>
-          <Link to={owner ? `/${owner.name}` : '#'}>
-            <span className="author">{owner ? owner.name : 'anonymous'}</span>
-          </Link>
+        <div className="author">
+          <span><Link to={owner ? `/${owner.name}` : '#'}>{owner ? owner.name : 'anonymous'}</Link></span>
         </div>
       </ZaboCardStyle.Writings>
     </ZaboCardStyle>
@@ -44,7 +72,7 @@ const ZaboCard = ({ zabo }) => {
 };
 
 ZaboCard.propTypes = {
-  zabo: PropTypes.shape (ZaboType),
+  zaboId: PropTypes.string.isRequired,
 };
 
 export default ZaboCard;

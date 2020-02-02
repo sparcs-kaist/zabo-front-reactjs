@@ -1,4 +1,6 @@
-import React, { useState, useCallback } from 'react';
+import React, {
+  useState, useCallback, useMemo, useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -58,17 +60,17 @@ const UploadProcess = (props) => {
   const setProgress = x => { console.log ({ x }); setProgress2 (x); };
   const [error, setError] = useState (null);
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const info = infoImmutable.toJS ();
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
     title, desc, expDate, tags,
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const imageFiles = imageFilesImmutable.toJS ();
-  const sortedImageFiles = imageFiles.slice ();
-  sortedImageFiles.sort (gridLayoutCompareFunction);
+  const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
 
-  const upload = useCallback (async e => {
-    e.preventDefault ();
+  const upload = useCallback (async () => {
+    // e.preventDefault ();
+    const sortedImageFiles = imageFiles.slice ();
+    sortedImageFiles.sort (gridLayoutCompareFunction);
     const { width, height } = await imageFileGetWidthHeight (sortedImageFiles[0]);
     let ratio = width / height;
     if (ratio > 2) ratio = 2;
@@ -99,21 +101,25 @@ const UploadProcess = (props) => {
       });
   }, [infoImmutable, imageFilesImmutable]);
 
+  useEffect (() => {
+    upload ();
+  }, []);
+
   return (
     <ProcessWrapper>
-      <div className="container">
+      {/* <div className="container">
         <button onClick={upload}>Confirm</button>
         {progress && <h1>{progress}</h1>}
         {error && <div className="error">{error.message}</div>}
-      </div>
+      </div> */}
       {!!progress && (
         <Loading>
           <Loading.Active style={{ width: `${progress}%` }} />
           <Loading.Inactive />
         </Loading>
       )}
-      {progress === 100 && '성공'}
-      {progress && <LoadingDialog />}
+      {/* {progress === 100 && '성공'}
+      {progress && <LoadingDialog />} */}
     </ProcessWrapper>
   );
 };

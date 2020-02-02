@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export const Page = styled.section`
   padding: 120px 0 80px 0;
@@ -26,6 +27,7 @@ Page.Header = styled.section`
 
 Page.Header.Left = styled.section`
   display: flex;
+  flex: 1;
   @media (max-width: 640px) {
     justify-content: flex-start;
     margin-bottom: 60px;
@@ -42,6 +44,7 @@ Page.Header.Left.ProfilePhoto = styled.div`
   img {
     width: 120px;
     height: 120px;
+    border-radius: 50%;
     @media (max-width: 640px) {
       width: 105px;
       height: 105px;
@@ -53,11 +56,13 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
+  max-width: 500px;
   h1 {
     font-size: 28px;
-    font-weight: bold;
     color: #143441;
     margin: 0;
+    font-weight: 800;
   }
   p {
     display: inline-block;
@@ -76,6 +81,7 @@ Page.Header.Left.UserInfo = styled.div`
     padding: 8px 12px;
     border-radius: 15px;
     margin-right: 6px;
+    background-color: #F8F8F8;
     &.logout {
       border: 1px solid #797979;
       color: #797979;
@@ -96,7 +102,7 @@ Page.Header.Right = styled.section`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 1;
+  /* flex: 1; */
   @media (max-width: 640px) {
     justify-content: center;
   }
@@ -108,8 +114,9 @@ export const Groups = styled.section`
   h1 {
     display: inline-block;
     font-size: 22px;
-    font-weight: bold;
+    color: #363636;
     margin: 0 0 16px 0;
+    font-weight: 800;
   }
 
   @media (max-width: 640px) {
@@ -122,27 +129,24 @@ export const Groups = styled.section`
   }
 `;
 
-Groups.ScrollBtn = styled.div`
-  @media (max-width: 640px) {
-    visibility: hidden;
-  }
-  float: right;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-  }
-`;
-
 Groups.List = styled.div`
+  scroll-behavior: smooth;
   width: 100%;
   padding: 3px;
   overflow-x: scroll;
   /* overflow-y: visible; */
   white-space: nowrap;
+  
+  /* hide scroll bar */
+  /* -webkit- (Chrome, Safari, newer versions of Opera) */
+  &::-webkit-scrollbar { width: 0 !important }
+  /* Firefox */
+  scrollbar-width: none;
+  /* -ms- (Internet Explorer +10) */
+  -ms-overflow-style: none;
 `;
 
-Groups.ListItem = styled.div`
+Groups.ListItem = styled (Link)`
   display: inline-block;
   width: 297px;
   height: 126px;
@@ -153,7 +157,7 @@ Groups.ListItem = styled.div`
   &:last-child {
     margin-right: 0;
   }
-
+  
   img {
     width: 70px;
     height: 70px;
@@ -166,12 +170,12 @@ Groups.ListItem = styled.div`
   .group-name {
     width: 100%;
     font-size: 18px;
-    font-weight: bold;
     color: #143441;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     margin: 0 0 14px 0;
+    font-weight: 800;
   }
 
   @media (max-width: 640px) {
@@ -190,49 +194,40 @@ Groups.ListItem = styled.div`
   }
 `;
 
-export const Stats = styled.section`
-  display: inline-block;
+Groups.ScrollBtn = styled.div`
+  @media (max-width: 640px) {
+    visibility: hidden;
+  }
+  float: right;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+    }
+  }
 `;
 
-Stats.elem = styled.div`
-  display: inline-block;
-  border-right: 1px solid #E9E9E9;
-  padding: 0 18px;
-
-  h3 {
-    font-size: 22px;
-    font-weight: bold;
-    color: #143441;
-    text-align: center;
-    margin: 0 0 6px 0;
-  }
-  div {
-    font-size: 14px;
-    color: #8F8F8F;
-    text-align: center;
-  }
-
-  &.mini {
+// TODO: Refactor dups
+export const Zabos = styled.section` 
+  width: 1032px;
+  @media (max-width: 640px) {
+    margin-top: 64px;
     padding: 0 16px;
-    h3 { 
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-    div { font-size: 12px }
-    @media (max-width: 640px) {
-      padding: 0 12px;
-      h3 {
-        font-size: 14px;
-        margin-bottom: 3px;
-      }
-      div { font-size: 10px }
-    }
+    width: 100%;
   }
-  &:nth-child(1) {
-    padding-left: 0;
+  h1 {
+    display: inline-block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #363636;
+    margin: 0 0 20px 0;
   }
-  &:nth-child(3) {
-    padding-right: 0;
-    border-right: none;
-  }
+`;
+
+Zabos.ZaboList = styled.div`
+  .masonry { margin: 0 }
 `;

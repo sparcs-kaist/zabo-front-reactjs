@@ -6,8 +6,9 @@ import { NavLink, useHistory } from 'react-router-dom';
 import SVG from 'atoms/SVG';
 import Container from 'atoms/Container';
 import logo from 'static/logo/logo.svg';
-import { selectAuthenticated } from '../../../lib/utils';
+import { isAuthedSelector } from '../../../lib/utils';
 import HeaderWrapper from './Header.styled';
+import SearchBar from '../SearchBar';
 
 const containerStyle = css`
   position: absolute;
@@ -53,6 +54,13 @@ const Header = ({
             </NavLink>
           )}
         </div>
+        <div
+          style={{
+            alignItems: 'flex-start', flex: '1', height: '50px', overflow: 'visible', marginTop: '12px',
+          }}
+        >
+          <SearchBar isOpen />
+        </div>
         {rightGroup}
       </Container>
     </HeaderWrapper>
@@ -72,7 +80,7 @@ Header.defaultProps = {
 };
 
 Header.AuthButton = () => {
-  const isAuthenticated = useSelector (selectAuthenticated);
+  const isAuthenticated = useSelector (isAuthedSelector);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
 
   return (

@@ -1,6 +1,17 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-const SearchBarWrapper = styled.div`
+export const SearchBarContainer = styled.div`
+  width: 100%;
+  #dimmer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+`;
+
+export const SearchBarWrapper = styled.div`
   @font-face {
     font-family: "NanumSquareRegular";
     src: url(../../../lib/fonts/NanumSquareRegular.ttf) format("truetype");
@@ -9,105 +20,151 @@ const SearchBarWrapper = styled.div`
     font-family: "NanumSquareBold";
     src: url(../../../lib/fonts/NanumSquareBold.ttf) format("truetype");
   }
-
-  z-index: 1;
-  width: 100%;
   display: flex;
   flex-direction: column;
+  z-index: 1;
+  /* width: 582px; */
+  width: 70%;
+  max-height: 439px;
+  overflow-y: scroll;
 
-  .search {
-    height: 40px;
-    display: flex;
+  background-color: white;
+  border-radius: 4px;
+  
+  float: right;
+  margin-right: 12px;
+
+  .divider {
+    margin: 0 6px;
     position: relative;
-    cursor: text;
+    border: .5px solid #E9E9E9;
   }
+  @media (max-width: 640px) {
+    width: 180px;
+    max-width: 100%;
+  }
+  ${props => (props.searchFocused ? css`
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 
-  .search-bar {
-    width: 100%;
-    border-radius: 4px;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+    @media (max-width: 640px) {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      max-height: 100%;
+      border-radius: 0;
+    }
+  ` : css`
+  `)}
+`;
 
-  .search-input {
-    width: calc(100% - 60px);
-    height: 90%;
-    border: none;
-    outline: none;
-    margin-left: 15px;
-    background-color: #f4f4f4;
-    font-size: 16px;
-  }
-  .search-input::placeholder {
-    font-size: 16px;
-  }
+SearchBarWrapper.Header = styled.div`
+  height: 38px;
+  position: relative;
+  top: 0;
 
-  .search-icon {
+  img {
     position: absolute;
-    right: 16px;
-    height: 16px;
     display: block;
     align-self: center;
-  }
-
-  .search-Button {
-    background-color: black;
-    margin-left: 1rem;
-    width: 100px;
-    height: auto;
-  }
-
-  .search-result {
-    overflow: hidden;
-    margin-left: 10px;
-    &.show {
-      height: auto;
-      max-height: 1000px;
+    &.search-icon {
+      top: 12px;
+      left: 16px;
+      height: 16px;
     }
-    &.hide {
-      max-height: 0;
-    }
-  }
-  h3 {
-    color: #8f8f8f;
-    font-size: 12px;
-    font-weight: lighter;
-    margin-bottom: 3px;
-  }
-  ul {
-    padding: 0px;
-  }
-  li {
-    padding: 10px 0px 10px 0px;
-    list-style: none;
-    /* margin: 10px; */
-    border-bottom: 1px solid #efefef;
-    font-size: 16px;
-    color: #143441;
-    :last-child {
-      border-bottom: 0px;
-      padding-bottom: 15px;
-    }
-    :first-child {
-      padding-top: 0px;
-    }
-  }
-  .keyword-result {
-    width: 100%;
-    li {
-      /* border: 1px solid black; */
-      border-radius: 5px;
-      display: inline-block;
-      padding: 5px 10px 5px 10px;
-      margin-right: 10px;
-      margin-top: 10px;
-      background: #143441;
-      color: #ffffff;
-      font-size: 14px;
+    &.cancel-icon {
+      top: 7px;
+      right: 12px;
+      height: 24px;
     }
   }
 `;
 
-export default SearchBarWrapper;
+SearchBarWrapper.Header.SearchBar = styled.div`
+  input {
+    width: 100%;
+    padding: 10px 48px;
+    font-size: 16px;
+    line-height: 18px;
+    color: #202020;
+    border: 0;
+    &:focus {
+      outline: none;
+    }
+    &::placeholder {
+      color: #BCBCBC;
+    }
+  }
+  ${props => (props.searchFocused ? css`
+    input {
+      border-radius: 0;
+      background-color: white;
+    }
+  ` : css`
+    input {
+      border-radius: 4px;
+      background-color: #F4F4F4;
+    }
+  `)}
+`;
+
+SearchBarWrapper.Body = styled.div`
+  position: relative;
+  ${props => (props.searchFocused ? css`` : css`
+    display: none;
+  `)}
+  ${props => (
+    !props.search ? css`
+      padding: 36px 16px;
+    ` : props.isResultsEmpty ? css`
+          padding: 0 16px;
+        ` : css`
+          padding: 24px 16px;
+        `
+  )}
+
+  h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    color: #8F8F8F;
+  }
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 24px 0;
+    li {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 40px;
+      margin: 0 -16px;
+      padding: 0 16px;
+      &:hover, &:focus {
+        background-color: #F4F4F4;
+      }
+      a {
+        line-height: 40px;
+        width: 100%;
+      }
+    }
+  }
+`;
+
+SearchBarWrapper.Body.TagBtn = styled.div`
+  margin-top: 20px;
+
+  button.tag-button {
+    font-size: 16px;
+    line-height: 18px;
+    color:  #143441;
+    padding: 10px 14px;
+    margin: 0 12px 10px 0;
+    border: 1px solid #143441;
+    border-radius: 4px;
+    &:hover, &:focus {
+      color: white;
+      background-color: #143441;
+    }
+  }
+`;

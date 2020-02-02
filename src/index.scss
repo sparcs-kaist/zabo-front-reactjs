@@ -1,5 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Just+Another+Hand');
-@import url('https://fonts.googleapis.com/css?family=Anton');
+@font-face {
+  font-family: 'NanumSquare';
+  font-weight: 300;
+  src: url(lib/fonts/NanumSquareLight.ttf) format('truetype');
+}
+
+@font-face {
+  font-family: 'NanumSquare';
+  font-weight: 800;
+  src: url(lib/fonts/NanumSquareExtraBold.ttf) format('truetype');
+}
 
 @font-face {
   font-family: 'NanumSquare';

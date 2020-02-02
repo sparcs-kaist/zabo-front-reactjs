@@ -15,7 +15,7 @@ class ZaboPageContainer extends PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    const { zaboId } = this.props;
+    const { zaboId, getZabo } = this.props;
     if (prevProps.zaboId !== zaboId) {
       getZabo (zaboId);
     }

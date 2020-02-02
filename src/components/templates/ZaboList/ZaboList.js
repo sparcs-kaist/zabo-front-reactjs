@@ -45,7 +45,7 @@ const loader = (
   </Loader>
 );
 
-class ZaboList extends PureComponent {
+class ZaboList extends React.Component {
   masonry = React.createRef ()
 
   state = { hasNext: true }
@@ -55,40 +55,42 @@ class ZaboList extends PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    const { relatedTo } = this.props;
-    if (relatedTo !== prevProps.relatedTo) {
+    const { query } = this.props;
+    if (query !== prevProps.query) {
       this.fetch ();
     }
   }
 
   fetch = next => {
     const {
-      type, getZaboList, getPins, relatedTo, zaboList,
+      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList,
     } = this.props;
-    const lastSeen = next ? (zaboList[zaboList.length - 1] || {})._id : undefined;
+    const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
     const fetches = {
       main: () => getZaboList ({ lastSeen }),
-      related: () => getZaboList ({ lastSeen, relatedTo }),
-      pins: () => getPins ({ lastSeen }),
+      related: () => getZaboList ({ lastSeen, relatedTo: query }),
+      pins: () => getPins ({ username: query, lastSeen }),
+      group: () => getGroupZaboList ({ groupName: query, lastSeen }),
     };
-    return fetches[type] ();
+    return fetches[type] ()
+      .then (zaboList => {
+        if (zaboList.length === 0) this.setState ({ hasNext: false });
+      });
   }
 
   fetchNext = () => {
-    this.fetch (true).then (zaboList => {
-      if (zaboList.length === 0) this.setState ({ hasNext: false });
-    });
+    this.fetch (true);
   }
 
   render () {
-    const { zaboList } = this.props;
+    const { zaboIdList, type } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
     return (
       <ZaboListWrapper>
         <MasonryZaboList
-          className="masonry"
+          className={`masonry masonry-${type}`}
           initialLoad={false}
           hasMore={hasNext}
           loadMore={fetchNext} // called on useWindow (scrollLister)
@@ -97,8 +99,8 @@ class ZaboList extends PureComponent {
           sizes={sizes}
           threshold={800}
         >
-          {zaboList.map (zabo => (
-            <ZaboCard key={zabo._id} zabo={zabo} />
+          {zaboIdList.map (zaboId => (
+            <ZaboCard key={zaboId} zaboId={zaboId} />
           ))}
         </MasonryZaboList>
         {hasNext || <Feedback />}
@@ -108,10 +110,16 @@ class ZaboList extends PureComponent {
 }
 
 ZaboList.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  zaboList: PropTypes.array.isRequired,
+  zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins', 'group']).isRequired,
+  getZaboList: PropTypes.func.isRequired,
+  getPins: PropTypes.func.isRequired,
+  getGroupZaboList: PropTypes.func.isRequired,
+  query: PropTypes.string,
 };
 
-ZaboList.defaultProps = {};
+ZaboList.defaultProps = {
+  query: '',
+};
 
 export default withStackMaster (ZaboList);

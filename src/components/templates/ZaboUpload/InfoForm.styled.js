@@ -1,22 +1,28 @@
 import styled from 'styled-components';
 
 const InfoFormWrapper = styled.div`
+  padding-bottom: 60px;
   /*label on all inputs*/
   .label {
     font-size: 18px;
-    color: #202020;
+    font-weight: bold;
+    color: #363636;
+    &.label-tag { margin-bottom: 12px }
   }
   /*container for all inputs*/
   .inputContainer {
     width: 100%;
-    margin: 8px 0 24px 0;
-    padding: 9px 10px;
+    margin: 8px 0 18px 0;
+    padding: 10px 16px;
     border-radius: 4px;
     background-color: #f4f4f4;
+    input {
+      padding: 0;
+    }
   }
 
   .oneLineInput {
-    height: 48px;
+    height: 38px;
   }
 
   /* ========= Inputs ========= */
@@ -42,10 +48,12 @@ const InfoFormWrapper = styled.div`
     flex-flow: row wrap;
   }
   .tag {
-    font-size: 14px;
-    margin: 10px 10px 0px 0px;
-    padding: 4.5px 10px;
-    border-radius: 3px;
+    font-size: 16px;
+    line-height: 18px;
+    margin: 0 8px 8px 0;
+    padding: 10px 14px;
+    border-radius: 4px;
+    cursor: pointer;
   }
   .tag:hover {
     color: white;
@@ -111,6 +119,8 @@ const InfoFormWrapper = styled.div`
   /* ============ Responsive CSS ============ */
   /* ======================================== */
   @media (min-width: 640px) {
+    .label.label-tag { margin-bottom: 8px }
+    .tag { margin: 0 12px 10px 0 }
     .headerLow {
       width: 100%;
       display: flex;
@@ -144,12 +154,23 @@ const InfoFormWrapper = styled.div`
 
 InfoFormWrapper.Header = styled.section`
   h1 {
+    margin: 20px 0 16px 0;
     font-size: 28px;
-    margin: 20px 0 0 0;
+    line-height: 32px;
+    color: #363636;
+    font-weight: 800;
   }
   p {
     color: #202020;
-    margin: 15px 0 35px 0;
+    padding-bottom: 36px;
+    margin: 0;
+  }
+  @media (max-width: 640px) {
+    h1 {
+      margin: 24px 0 12px 0;
+      font-size: 24px;
+    }
+    p { padding-bottom: 40px }
   }
 `;
 
@@ -160,25 +181,54 @@ InfoFormWrapper.TwoCol = styled.section`
   min-height: 70vh;
   @media (max-width: 640px) {
     flex-direction: column;
-    padding: 0 12px;
   }
 `;
 
 InfoFormWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
-  margin-right: 24px;
+  margin-right: 48px;
+  background-color: #F4F4F4;
+  border-radius: 8px;
+  padding: 12px;
   img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+  }
+  @media (max-width: 640px) {
+    border-radius: 4px;
+    margin: 0;
+    img {
+      border-radius: 4px;
+    }
   }
 `;
 
 InfoFormWrapper.Info = styled.section`
   flex: 1;
   height: 100%;
+  input.title-input {
+    width: 100%;
+    height: 38px;
+    margin: 8px 0 18px 0;
+    padding: 11px 16px;
+    border-radius: 4px;
+    background-color: #F4F4F4;
+    color: #202020;
+    border: 0;
+    outline: none;
+    font-size: 14px;
+    &::placeholder {
+      color: #8F8F8F;
+    }
+  }
+  @media (max-width: 640px) {
+    margin-top: 24px;
+  }
 `;
+
+InfoFormWrapper.Editor = styled.section``;
 
 export {
   InfoFormWrapper,

@@ -1,36 +1,31 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
-import uniqBy from 'lodash.uniqby';
 
 import * as ZaboAPI from '../../lib/api/zabo';
-
-/*
- * Reducer: 이 파일은 리듀서 '함수', action creator - dispatch(action) 이 들어오면 action 을 처리한다.
- *          State 와 Action 을 받아서 새로운 State 를 렌더링.
- *
- * 밖의 index.js 에서 이 reducer 함수를 createStore 에 넣어서 전체 STORE 를 만듦.
- */
 
 // Action types
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
 const GET_ZABO = 'zabo/GET_ZABO';
 const GET_PINS = 'zabo/GET_PINS';
-const LIKE_ZABO = 'zabo/LIKE_ZABO';
-const DELETE_LIKE = 'zabo/DELETE_LIKE';
+const TOGGLE_ZABO_PIN = 'zabo/TOGGLE_ZABO_PIN';
+const TOGGLE_ZABO_LIKE = 'zabo/TOGGLE_ZABO_LIKE';
+const GET_GROUP_ZABO_LIST = 'zabo/GET_GROUP_ZABO_LIST';
 
 // Action creator : action 객체를 만들어주는 함수
-//   ㄴ 왜 함수? 그때 그때 보낼 사진, 제목, 설명 등이 다르니까!
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
-export const likeZabo = createAction (LIKE_ZABO, ZaboAPI.likeZabo, meta => meta);
+export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, meta => meta);
+export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, meta => meta);
+export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, meta => meta);
 
 // 초기값 설정
 const initialState = Map ({
   lists: Map ({
+    // Using group name as a key, keys in this map should be RESERVED as name in server side
     pins: List ([]),
     main: List ([]),
   }),
@@ -59,15 +54,16 @@ export default handleActions (
         const key = relatedTo || 'main';
 
         const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = zaboList.map (zabo => zabo._id);
 
         if (!lastSeen) {
           return state
-            .updateIn (['lists', key], prevList => fromJS (uniqBy ([...zaboList, ...(prevList || List ([])).toJS ()], '_id')))
-            .update ('zabos', zabos => zabos.merge (zaboMap));
+            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+            .setIn (['lists', key], fromJS (zaboIds));
         }
         return state
-          .updateIn (['lists', key], prevList => prevList.merge (fromJS (zaboList)))
-          .update ('zabos', zabos => zabos.merge (zaboMap));
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .updateIn (['lists', key], prevList => prevList.merge (fromJS (zaboIds)));
       },
     }),
     ...pender ({
@@ -76,27 +72,39 @@ export default handleActions (
         const pins = action.payload;
         const { lastSeen } = action.meta;
 
-        const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }));
+        const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = pins.map (pin => pin._id);
 
         if (!lastSeen) {
           return state
-            .updateIn (['lists', 'pins'], prevList => fromJS (uniqBy ([...pins, ...(prevList || List ([])).toJS ()], '_id')))
-            .update ('zabos', zabos => zabos.merge (zaboMap));
+            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+            .setIn (['lists', 'pins'], fromJS (zaboIds));
         }
         return state
-          .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (pins)))
-          .update ('zabos', zabos => zabos.merge (zaboMap));
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (zaboIds)));
       },
     }),
     ...pender ({
-      type: LIKE_ZABO,
+      type: TOGGLE_ZABO_PIN,
+      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
+    }),
+    ...pender ({
+      type: TOGGLE_ZABO_LIKE,
+      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
+    }),
+    ...pender ({
+      type: GET_GROUP_ZABO_LIST,
       onSuccess: (state, action) => {
-        const zaboId = action.meta;
-        const newLiked = action.payload;
-        return state.setIn (['zabos', zaboId, 'isLiked'], newLiked);
+        const zabos = action.payload;
+        const { groupName } = action.meta;
+        const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = zabos.map (zabo => zabo._id);
+        return state
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .setIn (['lists', groupName], fromJS (zaboIds));
       },
     }),
-
   },
   initialState,
 );

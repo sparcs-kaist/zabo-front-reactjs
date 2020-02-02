@@ -1,29 +1,63 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const PageWrapper = styled.div`
-  padding-top: 64px;
+  padding-top: 48px;
   padding-bottom: 74px;
+  min-width: 1072px;
+  @media (max-width: 640px) {
+    min-width: 100%;
+    padding: 36px 16px;
+  }
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 PageWrapper.Contents = styled.div`
-  padding: 0 15%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 1032px;
+  height: 100%;
+  @media (max-width: 640px) {
+    width: 100%;
+  }
 `;
 
-export const TitleStyle = styled.section`
-  div {
-    display: inline-block;
-  }
+export const TitleStyle = styled.section``;
+
+TitleStyle.elem = styled.div`
+  display: inline-block;
 
   p {
     display: inline-block;
     vertical-align: middle;
+    font-size: 16px;
+    transition: color 0.3s;
+    ${props => (props.step ? css`
+        color: #143441;
+        font-weight: bold;
+    ` : css`
+        color: #BCBCBC;
+    `)}
   }
-
   img {
     width: 24px;
     height: 24px;
     vertical-align: middle;
     margin: 0 8px;
+  }
+  @media (max-width: 640px) {
+    p { 
+      font-size: 14px;
+      margin: 0;
+    }
+    img {
+      width: 16px;
+      height: 16px;
+      margin: 0 4px;
+    }
   }
 `;
 
@@ -33,7 +67,7 @@ export const FooterStyle = styled.div`
   left: 0;
   bottom: 0;
   width: 100%;
-  border-top: 1px solid black;
+  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
   height: 74px;
   align-items: center;
   background: white;
@@ -63,12 +97,31 @@ export const FooterStyle = styled.div`
     margin-right: 24px;
   }
   .next {
-    background: #EE726B;
+    border: none;
     font-weight: bold;
-    color: #FFFFFF;  
+    background: #143441;
+    color: white;
     &:disabled {
-      background: #cccccc;
+      background: #F8F8F8;
+      color: #8F8F8F;
       cursor: not-allowed;
+    }
+    /* isSubmit : step === 2 case */
+    &.true {
+      background: #FF5D5D;
+    }
+    &.true:disabled {
+      background: #cccccc;
+      color: #8F8F8F;
+    }
+  }
+
+  @media (max-width: 640px) {
+    height: 60px;
+    button {
+      width: 122px;
+      height: 40px;
+      font-size: 14px;
     }
   }
 `;
