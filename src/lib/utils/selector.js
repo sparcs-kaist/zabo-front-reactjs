@@ -22,3 +22,9 @@ export const tokenTimeLeft = createSelector (decodedTokenSelector, decodedTokenL
 export const isAdminSelector = state => state.getIn (['auth', 'info', 'isAdmin']);
 export const authPendingSelector = state => state.get ('pender').pending[CHECK_AUTH];
 export const isAdminOrPendingSelector = state => [isAdminSelector (state), authPendingSelector (state)];
+
+const zabosSelector = (state, zaboIds) => [state.getIn (['zabo', 'zabos']), zaboIds];
+const zabosComputer = ([zabos, zaboIds]) => zaboIds.map (id => zabos.get (id));
+
+// TODO: Factory function (due to cache size of 1)
+export const zaboListFromIdsSelector = createSelector (zabosSelector, zabosComputer);

@@ -9,6 +9,7 @@ import ZaboListWrapper from './ZaboList.styled';
 import ZaboCard from '../../organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
+import { ZaboType } from '../../../lib/propTypes';
 
 const sizes = [
   { columns: 2, gutter: 16 },
@@ -83,7 +84,7 @@ class ZaboList extends React.Component {
   }
 
   render () {
-    const { zaboIdList, type } = this.props;
+    const { zabos, type } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
@@ -99,8 +100,8 @@ class ZaboList extends React.Component {
           sizes={sizes}
           threshold={800}
         >
-          {zaboIdList.map (zaboId => (
-            <ZaboCard key={zaboId} zaboId={zaboId} />
+          {zabos.map (zabo => (
+            <ZaboCard key={zabo._id} zabo={zabo} />
           ))}
         </MasonryZaboList>
         {hasNext || <Feedback />}
@@ -110,6 +111,7 @@ class ZaboList extends React.Component {
 }
 
 ZaboList.propTypes = {
+  zabos: PropTypes.arrayOf (ZaboType).isRequired,
   zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
   type: PropTypes.oneOf (['main', 'related', 'pins', 'group']).isRequired,
   getZaboList: PropTypes.func.isRequired,

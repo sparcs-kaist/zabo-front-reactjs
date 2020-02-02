@@ -5,6 +5,7 @@ import toJS from 'hoc/toJS';
 import { getPins, getZaboList, getGroupZaboList } from 'store/reducers/zabo';
 
 import ZaboList from './ZaboList';
+import { zaboListFromIdsSelector } from '../../../lib/utils';
 
 const reduxKey = {
   main: () => ['zabo', 'lists', 'main'],
@@ -19,6 +20,7 @@ const mapStateToProps = (state, ownProps) => {
   const zaboIdList = state.getIn (reduxKey[type] (query)) || emptyList;
   return {
     zaboIdList,
+    zabos: zaboListFromIdsSelector (state, zaboIdList),
   };
 };
 

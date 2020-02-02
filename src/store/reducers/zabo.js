@@ -1,6 +1,7 @@
 import { createAction, handleActions } from 'redux-actions';
 import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
+import uniq from 'lodash.uniq';
 
 import * as ZaboAPI from '../../lib/api/zabo';
 
@@ -61,12 +62,12 @@ export default handleActions (
 
         if (!lastSeen) {
           return state
-            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-            .setIn (['lists', key], fromJS (zaboIds));
+            .updateIn (['lists', key], prevList => fromJS (uniq ([...zaboIds, ...(prevList ? prevList.toJS () : [])])))
+            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)));
         }
         return state
           .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .updateIn (['lists', key], prevList => prevList.merge (fromJS (zaboIds)));
+          .updateIn (['lists', key], prevList => fromJS (uniq ([...(prevList ? prevList.toJS () : []), ...zaboIds])));
       },
     }),
     ...pender ({
