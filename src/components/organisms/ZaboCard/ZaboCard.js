@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
@@ -6,9 +8,11 @@ import ZaboCardStyle from './ZaboCard.styled';
 import StatBox from '../../molecules/StatBox';
 
 import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
-import { ZaboType } from '../../../lib/propTypes';
 
-const ZaboCard = ({ zabo }) => {
+const ZaboCard = ({ zaboId }) => {
+  if (!zaboId) return null;
+  const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
+  const zabo = useMemo (() => zaboImmutable.toJS (), [zaboImmutable]);
   const {
     _id, photos, title, owner, createdAt, endAt, views,
     likesCount, isLiked, pinsCount, isPinned,
@@ -68,7 +72,7 @@ const ZaboCard = ({ zabo }) => {
 };
 
 ZaboCard.propTypes = {
-  zabo: ZaboType,
+  zaboId: PropTypes.string.isRequired,
 };
 
 export default ZaboCard;
