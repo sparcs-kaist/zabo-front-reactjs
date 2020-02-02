@@ -24,7 +24,6 @@ const baseStyle = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  justifyContent: 'center',
   borderRadius: '8px',
   borderColor: '#eeeeee',
   backgroundColor: '#fafafa',
@@ -123,6 +122,7 @@ const Wrapper = styled.section`
     font-size: 28px;
     line-height: 32px;
     color: #363636;
+    font-weight: 800;
   }
   .buttonDiv {
     display: block;
@@ -155,6 +155,7 @@ const Wrapper = styled.section`
     }
   }
   .base-component {
+    position: relative;
     min-height: 400px;
     padding: 20px;
   }
@@ -209,6 +210,21 @@ Wrapper.Subtitle = styled.div`
 `;
 Wrapper.Subtitle.Sub = styled.div`
   display: inline-block;
+`;
+
+Wrapper.Placeholder = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  ${props => (props.noFile ? css`
+  ` : css`
+    display: none;
+  `)}
 `;
 
 let alerted;
@@ -488,16 +504,13 @@ const UploadImages = props => {
             {thumbs}
           </ResponsiveGridLayout>
         </aside>
-        {
-          files.length === 0
-            ? (
-              <div className="upload-placeholder">
-                <img className="upload-icon" src={uploadImg} alt="upload image icon" />
-                <p className="placeholder-web">원하는 이미지를 끌어다 놓으세요</p>
-                <p className="placeholder-mobile">탭하여 이미지 업로드 하기</p>
-              </div>
-            ) : ''
-        }
+        <Wrapper.Placeholder noFile={files.length === 0}>
+          <div className="upload-placeholder">
+            <img className="upload-icon" src={uploadImg} alt="upload image icon" />
+            <p className="placeholder-web">원하는 이미지를 끌어다 놓으세요</p>
+            <p className="placeholder-mobile">탭하여 이미지 업로드 하기</p>
+          </div>
+        </Wrapper.Placeholder>
       </div>
     </Wrapper>
   );

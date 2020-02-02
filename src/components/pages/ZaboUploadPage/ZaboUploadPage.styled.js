@@ -98,20 +98,16 @@ export const FooterStyle = styled.div`
   }
   .next {
     border: none;
-    background: #F8F8F8;
     font-weight: bold;
-    color: #8F8F8F;
-    &:hover {
-      background: #143441;
-      color: white;
-    }
+    background: #143441;
+    color: white;
     &:disabled {
-      background: #cccccc;
+      background: #F8F8F8;
       color: #8F8F8F;
       cursor: not-allowed;
     }
     /* isSubmit : step === 2 case */
-    &.true:hover {
+    &.true {
       background: #FF5D5D;
     }
     &.true:disabled {

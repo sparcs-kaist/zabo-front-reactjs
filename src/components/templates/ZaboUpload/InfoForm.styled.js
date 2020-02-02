@@ -158,6 +158,7 @@ InfoFormWrapper.Header = styled.section`
     font-size: 28px;
     line-height: 32px;
     color: #363636;
+    font-weight: 800;
   }
   p {
     color: #202020;

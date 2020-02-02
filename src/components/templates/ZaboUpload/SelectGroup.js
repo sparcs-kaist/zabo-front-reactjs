@@ -17,11 +17,13 @@ const SelectGroupWrapper = styled.div`
     font-size: 28px;
     line-height: 32px;
     color: #363636;
+    font-weight: 800;
   }
   h3 {
     margin: 0 0 8px 0;
     font-size: 18px;
     color: #143441;
+    font-weight: 800;
   }
   p {
     color: #202020;
