@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import MasonryZaboList from 'react-masonry-infinite';
@@ -9,7 +9,6 @@ import ZaboListWrapper from './ZaboList.styled';
 import ZaboCard from '../../organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
-import { ZaboType } from '../../../lib/propTypes';
 
 const sizes = [
   { columns: 2, gutter: 16 },
