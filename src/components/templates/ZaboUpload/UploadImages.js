@@ -126,8 +126,7 @@ const Wrapper = styled.section`
     color: #363636;
   }
   p {
-    color: #202020;
-    padding-bottom: 8px;
+    color: #202020;   
     margin: 0;
     &.placeholder {
       color: #8F8F8F;
@@ -333,7 +332,7 @@ const UploadImages = props => {
   }, [cols, dispatch]);
 
   const {
-    getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject,
+    getRootProps, getInputProps, isDragActive, isDragAccept, isDragReject, open,
   } = useDropzone ({
     accept: 'image/*',
     onDrop: acceptedFiles => {
@@ -385,7 +384,7 @@ const UploadImages = props => {
       <h1>자보 올리기</h1>
       <p>이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다)</p>
       <div className="buttonDiv">
-        <button>파일 선택하기</button>
+        <button onClick={open}>파일 선택하기</button>
       </div>
       <div {...getRootProps ({ style })}>
         <input {...getInputProps ()} />

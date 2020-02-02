@@ -70,10 +70,10 @@ const InfoForm = () => {
         <InfoFormWrapper.Info>
           <section className="zabo-title">
             <div className="label">제목</div>
-            <InputBase
+            <input
+              className="title-input"
               required
-              placeholder="포스터 제목을 입력해주세요."
-              multiline
+              placeholder="자보 제목을 입력해주세요."
               name="title"
               value={title}
               onChange={handleChange}
@@ -86,7 +86,7 @@ const InfoForm = () => {
                 theme="bubble"
                 value={desc}
                 onChange={handleQuillChange}
-                placeholder="포스터 설명을 작성해주세요."
+                placeholder="자보에 대한 설명을 작성해 세요."
                 modules={{
                   toolbar: [
                     ['bold', 'underline', 'strike'],
@@ -94,7 +94,6 @@ const InfoForm = () => {
                     ['link'],
                   ],
                 }}
-                style={{ marginTop: '0.5em', marginBottom: '2em' }}
               />
             </InfoFormWrapper.Editor>
           </section>
@@ -115,6 +114,7 @@ const InfoForm = () => {
                   fullWidth
                   ampm={false}
                   invalidDateMessage={<p>잘못된 형식입니다.</p>}
+                  style={{ height: '38px' }}
                 />
               </MuiPickersUtilsProvider>
             </div>

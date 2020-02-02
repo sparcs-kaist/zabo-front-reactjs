@@ -34,6 +34,7 @@ TitleStyle.elem = styled.div`
     transition: color 0.3s;
     ${props => (props.step ? css`
         color: #143441;
+        font-weight: bold;
     ` : css`
         color: #BCBCBC;
     `)}

@@ -24,8 +24,19 @@ const StyledQuill = styled (ReactQuill)`
   
   ${props => (!props.readOnly ? css`
     .ql-container {
-      border: 1px solid rgb(169, 169, 169);
-      border-radius: 3px;
+      border: 0;
+      margin: 8px 0 18px 0;
+      .ql-editor {
+        border-radius: 4px;
+        min-height: 142px;
+        padding: 11px 16px;
+        background-color: #F4F4F4;
+        font-size: 14px;
+        color: #202020;
+        &::placeholder {
+          color: #8F8F8F;
+        }
+      }
     }
   `
     : css`

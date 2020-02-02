@@ -4,19 +4,23 @@ const InfoFormWrapper = styled.div`
   /*label on all inputs*/
   .label {
     font-size: 18px;
-    color: #202020;
+    font-weight: bold;
+    color: #363636;
   }
   /*container for all inputs*/
   .inputContainer {
     width: 100%;
-    margin: 8px 0 24px 0;
-    padding: 9px 10px;
+    margin: 8px 0 18px 0;
+    padding: 10px 16px;
     border-radius: 4px;
     background-color: #f4f4f4;
+    input {
+      padding: 0;
+    }
   }
 
   .oneLineInput {
-    height: 48px;
+    height: 38px;
   }
 
   /* ========= Inputs ========= */
@@ -42,10 +46,12 @@ const InfoFormWrapper = styled.div`
     flex-flow: row wrap;
   }
   .tag {
-    font-size: 14px;
-    margin: 10px 10px 0px 0px;
-    padding: 4.5px 10px;
-    border-radius: 3px;
+    font-size: 16px;
+    line-height: 18px;
+    margin: 12px 8px 8px 0px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    cursor: pointer;
   }
   .tag:hover {
     color: white;
@@ -144,12 +150,15 @@ const InfoFormWrapper = styled.div`
 
 InfoFormWrapper.Header = styled.section`
   h1 {
+    margin: 20px 0 16px 0;
     font-size: 28px;
-    margin: 20px 0 0 0;
+    line-height: 32px;
+    color: #363636;
   }
   p {
     color: #202020;
-    margin: 15px 0 35px 0;
+    padding-bottom: 36px;
+    margin: 0;
   }
 `;
 
@@ -167,7 +176,7 @@ InfoFormWrapper.TwoCol = styled.section`
 InfoFormWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
-  margin-right: 24px;
+  margin-right: 48px;
   img {
     width: 100%;
     height: auto;
@@ -178,6 +187,21 @@ InfoFormWrapper.TitleImage = styled.section`
 InfoFormWrapper.Info = styled.section`
   flex: 1;
   height: 100%;
+  input.title-input {
+    width: 100%;
+    height: 38px;
+    margin: 8px 0 18px 0;
+    padding: 11px 16px;
+    border-radius: 4px;
+    background-color: #F4F4F4;
+    color: #202020;
+    border: 0;
+    outline: none;
+    font-size: 14px;
+    &::placeholder {
+      color: #8F8F8F;
+    }
+  }
 `;
 
 InfoFormWrapper.Editor = styled.section``;
