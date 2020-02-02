@@ -148,9 +148,9 @@ const StatBox = ({ stat, type, ...props }) => {
 
 StatBox.propTypes = {
   stat: PropTypes.shape ({
-    type: PropTypes.oneOf (Object.keys (icons)).isRequired,
+    type: PropTypes.oneOf (['pin', 'like']).isRequired,
     count: PropTypes.number.isRequired,
-    zaboId: PropTypes.number.isRequired,
+    zaboId: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
   }).isRequired,
   type: PropTypes.oneOf (['button', 'text']),
