@@ -44,18 +44,35 @@ const SelectGroupWrapper = styled.div`
     font-size: 14px;
     color: #202020;
   }
+  @media (max-width: 640px) {
+    h1 {
+      margin: 24px 0 12px 0;
+      font-size: 24px;
+    }
+    p { padding-bottom: 28px }
+    img {
+      width: 60px;
+      height: 60px;
+      margin-right: 12px;
+    }
+    h3 { font-size: 16px }
+    .subtitle { font-size: 14px }
+  }
 `;
 
 const useStyles = makeStyles (theme => ({
   root: {
     width: '100%',
-    maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
     padding: 0,
   },
   item: {
     width: '582px',
     height: '106px',
+    '@media (max-width:640px)': {
+      width: '100%',
+      height: '84px',
+    },
     '&.Mui-selected': {
       backgroundColor: '#F4F4F4',
     },
