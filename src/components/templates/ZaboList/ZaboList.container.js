@@ -34,9 +34,8 @@ ZaboListContainer.defaultProps = {
 const emptyList = List ([]);
 const mapStateToProps = (state, ownProps) => {
   const { type, relatedTo } = ownProps;
-  const zaboIdList = state.getIn (reduxKey[type] (relatedTo)) || emptyList;
   return {
-    zaboIdList,
+    zaboList: state.getIn (reduxKey[type] (relatedTo)) || emptyList,
   };
 };
 
