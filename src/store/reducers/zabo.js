@@ -37,7 +37,10 @@ export default handleActions (
   {
     ...pender ({
       type: UPLOAD_ZABO,
-      onSuccess: (state, action) => state,
+      onSuccess: (state, action) => {
+        const zabo = action.payload;
+        return state.setIn (['zabos', zabo._id], fromJS (zabo));
+      },
     }),
     ...pender ({
       type: GET_ZABO,

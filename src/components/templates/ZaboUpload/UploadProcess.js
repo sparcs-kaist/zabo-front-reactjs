@@ -91,8 +91,9 @@ const UploadProcess = (props) => {
     dispatch (
       uploadZabo (formData, percentCompleted => setProgress (percentCompleted)),
     )
-      .then (res => {
-        history.push ('/');
+      .then (zabo => {
+        console.log ('upload done', zabo);
+        history.push (`/zabo/${zabo._id}`);
       })
       .catch (err => {
         console.error (err);

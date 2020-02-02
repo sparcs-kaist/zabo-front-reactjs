@@ -221,8 +221,7 @@ Wrapper.Placeholder = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  ${props => (props.noFile ? css`
-  ` : css`
+  ${props => (props.noFile ? '' : css`
     display: none;
   `)}
 `;
@@ -258,7 +257,7 @@ const UploadImages = props => {
     alertOnce ('대표 이미지의 사진 비율이 너무 크거나 작습니다. 최대 비율에 맞게 조정되었습니다.');
     setShowAlert (false);
   }
-  const dd = useMemo (() => debounce (setShowAlert, 2000), []);
+  const dd = useMemo (() => debounce (setShowAlert, 500), []);
 
   const addImages = useCallback (acceptedFiles => {
     setFiles ([
