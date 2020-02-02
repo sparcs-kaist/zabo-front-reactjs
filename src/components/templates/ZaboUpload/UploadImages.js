@@ -31,7 +31,6 @@ const baseStyle = {
   color: '#bdbdbd',
   outline: 'none',
   transition: 'border .24s ease-in-out',
-  minHeight: '400px',
 };
 
 const activeStyle = {
@@ -125,36 +124,86 @@ const Wrapper = styled.section`
     line-height: 32px;
     color: #363636;
   }
+  .buttonDiv {
+    display: block;
+    width: 100%;
+    text-align: right;
+    button {
+      width: 93px;
+      background: #F8F8F8;
+      border: 1.5px solid #143441;
+      border-radius: 15px;
+      padding: 8px 12px;
+      font-size: 12px;
+      line-height: 12px;
+      margin-bottom: 8px;
+    }
+  }
+  .upload-placeholder {
+    text-align: center;
+  }
+  img.upload-icon {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 12px;
+  }
   p {
+    margin: 0;
+    /* .placeholder-web { margin: 0 } */
+    &.placeholder-mobile { 
+      font-size: 14px;
+      display: none;
+    }
+  }
+  .base-component { min-height: 400px }
+
+  .responsive-grid-layout {
+    width: 100%;
+  }
+
+  @media (max-width: 640px) {
+    h1 {
+      margin: 24px 0 12px 0;
+      font-size: 24px;
+    }
+    .buttonDiv { display: none }
+    .img.upload-icon {
+      width: 16px;
+      height: 16px;
+    }
+    p {
+      &.placeholder-web { display: none }
+      &.placeholder-mobile { display: block }
+    }
+    .base-component { min-height: 235px }
+  }
+`;
+
+Wrapper.Subtitle = styled.div`
+  .subtitle1, .subtitle2 {
+    display: inline-block;
+    font-size: 16px;
     color: #202020;   
     margin: 0;
     &.placeholder {
       color: #8F8F8F;
     }
   }
-  .buttonDiv {
-    display: block;
-    width: 100%;
-    text-align: right;
-    button {
-    width: 93px;
-    background: #F8F8F8;
-    border: 1.5px solid #143441;
-    border-radius: 15px;
-    padding: 8px 12px;
+  .subtitle-star { 
+    display: none;
     font-size: 12px;
-    line-height: 12px;
-    margin-bottom: 8px;
   }
+  @media (max-width: 640px) {
+    .subtitle1 { display: block }
+    .subtitle2 { 
+      font-size: 12px;
+      margin: 10px 0 40px 0;
+    }
+    .subtitle-star { display: inline-block }
   }
-  img.uploadIcon {
-    width: 24px;
-    height: 24px;
-    margin-bottom: 12px;
-  }
-  .responsive-grid-layout {
-    width: 100%;
-  }
+`;
+Wrapper.Subtitle.Sub = styled.div`
+  display: inline-block;
 `;
 
 let alerted;
@@ -382,11 +431,17 @@ const UploadImages = props => {
   return (
     <Wrapper>
       <h1>자보 올리기</h1>
-      <p>이미지를 업로드하세요. 최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다)</p>
+      <Wrapper.Subtitle>
+        <div className="subtitle1">이미지를 업로드하세요. &nbsp;</div>
+        <Wrapper.Subtitle.Sub>
+          <div className="subtitle-star">*</div>
+          <div className="subtitle2">최대 20장까지 업로드 가능합니다. (이미지 사이즈는 첫 대표 이미지의 크기로 설정됩니다)</div>
+        </Wrapper.Subtitle.Sub>
+      </Wrapper.Subtitle>
       <div className="buttonDiv">
         <button onClick={open}>파일 선택하기</button>
       </div>
-      <div {...getRootProps ({ style })}>
+      <div className="base-component" {...getRootProps ({ style })}>
         <input {...getInputProps ()} />
         <aside style={thumbsContainer} onClick={e => e.stopPropagation ()}>
           <ResponsiveGridLayout
@@ -431,9 +486,10 @@ const UploadImages = props => {
         {
           files.length === 0
             ? (
-              <div>
-                <img className="uploadIcon" src={uploadImg} alt="upload image icon" />
-                <p className="placeholder">원하는 이미지를 끌어다 놓으세요</p>
+              <div className="upload-placeholder">
+                <img className="upload-icon" src={uploadImg} alt="upload image icon" />
+                <p className="placeholder-web">원하는 이미지를 끌어다 놓으세요</p>
+                <p className="placeholder-mobile">탭하여 이미지 업로드 하기</p>
               </div>
             ) : ''
         }

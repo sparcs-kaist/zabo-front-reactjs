@@ -69,7 +69,7 @@ const useStyles = makeStyles (theme => ({
   item: {
     width: '582px',
     height: '106px',
-    '@media (max-width:640px)': {
+    '@media (max-width: 640px)': {
       width: '100%',
       height: '84px',
     },
