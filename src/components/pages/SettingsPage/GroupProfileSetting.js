@@ -7,14 +7,11 @@ import { useDispatch } from 'react-redux';
 
 import withGroupProfile from './withGroupProfile';
 import {
-  PageWrapper, SubHeading, FormGroup, Label,
-  Note, Error, Submit, Hr,
-} from './Old.Setting.styled';
-import { Page as ProfilePage } from '../ProfilePage/OldProfile.styled';
-import InputBase from '../../atoms/InputBase';
+  Page, FormGroup, Submit, Error,
+} from './Setting.styled';
 import Header from '../../templates/Header';
+import Footer from '../../templates/Footer';
 
-import defaultBackground from '../../../static/hd/zhangjiajie-snow.jpg';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import { updateGroupInfo } from '../../../store/reducers/auth';
 
@@ -27,10 +24,11 @@ const ProfileForm = ({ initialValue }) => {
   const [state, setState, onChange] = useSetState (initialValue);
   useEffect (() => setState (initialValue), [initialValue]);
   const [error, setError] = useState ();
-  const { name, description } = state;
+  const { name, description, subtitle } = state;
 
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
+    // TODO need to update 'subtitle' together
     dispatch (updateGroupInfo ({ curName: initialValue.name, name, description }))
       .then ((info) => {
         history.replace (`/settings/group/${name}/profile`);
@@ -42,23 +40,22 @@ const ProfileForm = ({ initialValue }) => {
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label>
-          <label htmlFor="user-profile-name">별칭</label>
-        </Label>
-        <InputBase
+        <FormGroup.Label>
+          <label htmlFor="user-profile-name">그룹명</label>
+        </FormGroup.Label>
+        <input
           id="user-profile-name"
           type="text"
           name="name"
           value={name}
           onChange={onChange}
         />
-        <Note>유저이름 변경</Note>
       </FormGroup>
       <FormGroup>
-        <Label>
-          <label htmlFor="user-profile-description">소개글</label>
-        </Label>
-        <InputBase
+        <FormGroup.Label>
+          <label htmlFor="user-profile-description">그룹 한줄 소개</label>
+        </FormGroup.Label>
+        <input
           placeholder="소개글을 추가해주세요."
           multiline
           rows="5"
@@ -67,10 +64,9 @@ const ProfileForm = ({ initialValue }) => {
           value={description}
           onChange={onChange}
         />
-        <Note>한 줄 자기소개를 작성해주세요.</Note>
       </FormGroup>
       {error && <Error>{error.message}</Error>}
-      <Submit type="submit">변경 사항 저장하기</Submit>
+      <Footer buttonGroup={<Submit type="submit">수정하기</Submit>} scrollFooter />
     </form>
   );
 };
@@ -84,39 +80,26 @@ ProfileForm.propTypes = {
 
 const GroupProfileSetting = ({ profile }) => {
   const {
-    name = '', profilePhoto, backgroundPhoto, description = '',
+    name = '', profilePhoto, description = '', subtitle = '',
   } = profile;
 
   return (
-    <PageWrapper>
-      <Header rightGroup={<Header.AuthButton />} />
-      <ProfilePage.Header>
-        <ProfilePage.Header.BackPhoto>
-          {
-            backgroundPhoto
-              ? <div style={{ backgroundImage: `url(${backgroundPhoto})` }}> </div>
-              : <div style={{ backgroundImage: `url(${defaultBackground})` }}> </div>
-          }
-        </ProfilePage.Header.BackPhoto>
-        <ProfilePage.Header.ProfilePhoto>
+    <Page>
+      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Page.Body>
+        <h1>그룹 프로필 편집</h1>
+        <p>그룹 프로필을 수정할 수 있습니다.</p>
+        <Page.Body.ProfileInfo>
           {
             profilePhoto
               ? <img src={profilePhoto} alt="profile photo" />
               : <img src={groupDefaultProfile} alt="default profile img" />
           }
-        </ProfilePage.Header.ProfilePhoto>
-        <ProfilePage.Header.UserInfo>
-          {name}
-        </ProfilePage.Header.UserInfo>
-      </ProfilePage.Header>
-
-      <SubHeading>
-        <SubHeading.Text>프로필 설정</SubHeading.Text>
-      </SubHeading>
-
-      <ProfileForm initialValue={{ name, description }} />
-      <Hr />
-    </PageWrapper>
+          <button>사진 바꾸기</button>
+        </Page.Body.ProfileInfo>
+        <ProfileForm initialValue={{ name, description }} />
+      </Page.Body>
+    </Page>
   );
 };
 
