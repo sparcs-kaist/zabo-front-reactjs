@@ -27,6 +27,7 @@ Page.Header = styled.section`
 
 Page.Header.Left = styled.section`
   display: flex;
+  flex: 1;
   @media (max-width: 640px) {
     justify-content: flex-start;
     margin-bottom: 60px;
@@ -55,6 +56,7 @@ Page.Header.Left.UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 100%;
   max-width: 500px;
   h1 {
     font-size: 28px;
@@ -100,7 +102,7 @@ Page.Header.Right = styled.section`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  flex: 1;
+  /* flex: 1; */
   @media (max-width: 640px) {
     justify-content: center;
   }
@@ -127,18 +129,6 @@ export const Groups = styled.section`
   }
 `;
 
-Groups.ScrollBtn = styled.div`
-  @media (max-width: 640px) {
-    visibility: hidden;
-  }
-  float: right;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-  }
-`;
-
 Groups.List = styled.div`
   scroll-behavior: smooth;
   width: 100%;
@@ -146,6 +136,14 @@ Groups.List = styled.div`
   overflow-x: scroll;
   /* overflow-y: visible; */
   white-space: nowrap;
+  
+  /* hide scroll bar */
+  /* -webkit- (Chrome, Safari, newer versions of Opera) */
+  &::-webkit-scrollbar { width: 0 !important }
+  /* Firefox */
+  scrollbar-width: none;
+  /* -ms- (Internet Explorer +10) */
+  -ms-overflow-style: none;
 `;
 
 Groups.ListItem = styled (Link)`
@@ -192,6 +190,23 @@ Groups.ListItem = styled (Link)`
     .group-name {
       font-size: 16px;
       margin: 0 0 12px 0;
+    }
+  }
+`;
+
+Groups.ScrollBtn = styled.div`
+  @media (max-width: 640px) {
+    visibility: hidden;
+  }
+  float: right;
+  img {
+    width: 30px;
+    height: 30px;
+    margin-left: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
     }
   }
 `;
