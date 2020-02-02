@@ -222,7 +222,8 @@ Wrapper.Placeholder = styled.div`
   align-items: center;
   justify-content: center;
   ${props => (props.noFile ? '' : css`
-    display: none;
+    position: relative;
+    height: 80px;
   `)}
 `;
 

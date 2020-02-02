@@ -46,6 +46,16 @@ const SelectGroupWrapper = styled.div`
     font-size: 14px;
     color: #202020;
   }
+  li:hover {
+    h3 { color: #143441 }
+    .subtitle { color: #202020 }
+  }
+  li.Mui-selected, li.Mui-selected:hover {
+    background-color: #143441;
+    h3, .subtitle {
+      color: white;
+    }
+  }
   @media (max-width: 640px) {
     h1 {
       margin: 24px 0 12px 0;
@@ -76,7 +86,7 @@ const useStyles = makeStyles (theme => ({
       height: '84px',
     },
     '&.Mui-selected': {
-      backgroundColor: '#F4F4F4',
+      backgroundColor: '#143441',
     },
     '&:hover': {
       backgroundColor: '#F4F4F4',
