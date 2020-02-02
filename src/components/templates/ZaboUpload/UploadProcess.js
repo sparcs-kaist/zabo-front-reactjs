@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useMemo } from 'react';
+import React, {
+  useState, useCallback, useMemo, useEffect,
+} from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
@@ -99,7 +101,9 @@ const UploadProcess = (props) => {
       });
   }, [infoImmutable, imageFilesImmutable]);
 
-  upload ();
+  useEffect (() => {
+    upload ();
+  }, []);
 
   return (
     <ProcessWrapper>
