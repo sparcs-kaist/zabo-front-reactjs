@@ -1,4 +1,3 @@
-import React, { PureComponent } from 'react';
 import { List } from 'immutable';
 import { connect } from 'react-redux';
 
@@ -12,20 +11,6 @@ const reduxKey = {
   related: id => ['zabo', 'lists', id],
   pins: () => ['zabo', 'lists', 'pins'],
   group: name => ['zabo', 'lists', name],
-};
-
-class ZaboListContainer extends PureComponent {
-  render () {
-    return <ZaboList {...this.props} />;
-  }
-}
-
-ZaboListContainer.propTypes = {
-  ...ZaboList.propTypes,
-};
-
-ZaboListContainer.defaultProps = {
-  ...ZaboList.defaultProps,
 };
 
 const emptyList = List ([]);
@@ -43,4 +28,4 @@ const mapDispatchToProps = {
   getGroupZaboList,
 };
 
-export default connect (mapStateToProps, mapDispatchToProps) (toJS (ZaboListContainer));
+export default connect (mapStateToProps, mapDispatchToProps) (toJS (ZaboList));
