@@ -75,8 +75,10 @@ Page.Body.ProfileInfo = styled.div`
 `;
 
 export const FormGroup = styled.div`
+  width: 582px;
   input {
-    width: 582px;
+    font-family: "NanumSquare", sans-serif;
+    width: 100%;
     height: 38px;
     padding: 10px 16px;
     margin: 8px 0 18px 0;
@@ -90,7 +92,7 @@ export const FormGroup = styled.div`
     color: #363636;
   }
   @media (max-width: 640px) {
-    input { width: 100% }
+    width: 100%;
   }
 `;
 

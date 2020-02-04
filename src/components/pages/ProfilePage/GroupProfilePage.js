@@ -20,7 +20,7 @@ import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description, myRole,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole,
   } = profile;
   const dispatch = useDispatch ();
   const descRef = useRef (null);

@@ -4,7 +4,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-
+import StyledQuill from '../../organisms/StyledQuill';
 import withGroupProfile from './withGroupProfile';
 import {
   Page, FormGroup, Submit, Error,
@@ -29,13 +29,19 @@ const ProfileForm = ({ initialValue }) => {
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
     // TODO need to update 'subtitle' together
-    dispatch (updateGroupInfo ({ curName: initialValue.name, name, description }))
+    dispatch (updateGroupInfo ({
+      curName: initialValue.name, name, description, subtitle,
+    }))
       .then ((info) => {
         history.replace (`/settings/group/${name}/profile`);
         history.push (`/${name}`);
       })
       .catch (err => setError (err));
   }, [state]);
+
+  const onChangeDescription = e => {
+    setState ({ description: e });
+  };
 
   return (
     <form onSubmit={handleSubmit}>
@@ -56,13 +62,29 @@ const ProfileForm = ({ initialValue }) => {
           <label htmlFor="user-profile-description">그룹 한줄 소개</label>
         </FormGroup.Label>
         <input
-          placeholder="소개글을 추가해주세요."
-          multiline
-          rows="5"
-          fullWidth
-          name="description"
-          value={description}
+          placeholder="그룹에 대해 한줄로 설명해주세요."
+          name="subtitle"
+          value={subtitle}
           onChange={onChange}
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormGroup.Label>
+          <label htmlFor="user-profile-description">그룹 설명</label>
+        </FormGroup.Label>
+        <StyledQuill
+          placeholder="그룹에 대해 자세하게 설명해주세요."
+          value={description}
+          onChange={onChangeDescription}
+          theme="bubble"
+          modules={{
+            toolbar: [
+              ['bold', 'underline', 'strike'],
+              [{ list: 'ordered' }, { list: 'bullet' }, { indent: '+1' }, { indent: '-1' }],
+              ['link'],
+            ],
+          }}
+          groupSetting
         />
       </FormGroup>
       {error && <Error>{error.message}</Error>}
@@ -99,7 +121,7 @@ const GroupProfileSetting = ({ profile }) => {
           }
           <button>사진 바꾸기</button>
         </Page.Body.ProfileInfo>
-        <ProfileForm initialValue={{ name, description }} />
+        <ProfileForm initialValue={{ name, description, subtitle }} />
       </Page.Body>
     </Page>
   );
