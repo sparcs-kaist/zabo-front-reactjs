@@ -38,7 +38,7 @@ const ZaboPage = (props) => {
   }];
 
   return (
-    <ZaboPageWrapper>
+    <ZaboPageWrapper key={zaboId}>
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
       <ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.TitleImage>
