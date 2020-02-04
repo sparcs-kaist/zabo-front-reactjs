@@ -50,7 +50,7 @@ SlideView.propTypes = {
   step: PropTypes.number.isRequired,
 };
 
-const FooterChildren = (props) => {
+const FooterChild = (props) => {
   const { prev, next, step } = props;
   const dispatch = useDispatch ();
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
@@ -98,7 +98,7 @@ const FooterChildren = (props) => {
   );
 };
 
-FooterChildren.propTypes = {
+FooterChild.propTypes = {
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
@@ -133,7 +133,7 @@ const ZaboUploadPage = () => {
         <SlideView step={step} />
       </PageWrapper.Contents>
       <Footer scrollFooter>
-        <FooterChildren {...slideActions} step={step} />
+        <FooterChild {...slideActions} step={step} />
       </Footer>
     </PageWrapper>
   );
