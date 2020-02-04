@@ -66,7 +66,9 @@ const ProfileForm = ({ initialValue }) => {
         />
       </FormGroup>
       {error && <Error>{error.message}</Error>}
-      <Footer buttonGroup={<Submit type="submit">수정하기</Submit>} scrollFooter />
+      <Footer scrollFooter>
+        <Submit type="submit">수정하기</Submit>
+      </Footer>
     </form>
   );
 };

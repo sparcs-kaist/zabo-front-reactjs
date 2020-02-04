@@ -62,13 +62,8 @@ TitleStyle.elem = styled.div`
 `;
 
 export const FooterStyle = styled.div`
-  display: flex;
-  position: fixed;
-  left: 0;
-  bottom: 0;
+  display: inline-block;
   width: 100%;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-  height: 74px;
   align-items: center;
   background: white;
   
@@ -117,7 +112,6 @@ export const FooterStyle = styled.div`
   }
 
   @media (max-width: 640px) {
-    height: 60px;
     button {
       width: 122px;
       height: 40px;

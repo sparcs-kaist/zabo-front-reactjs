@@ -91,7 +91,9 @@ const ProfileForm = ({ initialValue }) => {
       </FormGroup>
       {error && <Error>{error.error}</Error>}
       {success && <Success>성공</Success>}
-      <Footer buttonGroup={<Submit type="submit">수정하기</Submit>} scrollFooter />
+      <Footer scrollFooter>
+        <Submit type="submit">수정하기</Submit>
+      </Footer>
     </form>
   );
 };

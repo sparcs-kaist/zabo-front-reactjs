@@ -10,6 +10,7 @@ import SwipeableViews from 'react-swipeable-views';
 
 import ZaboUpload from '../../templates/ZaboUpload';
 import Header from '../../templates/Header';
+import Footer from '../../templates/Footer';
 import {
   setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten, reset,
 } from '../../../store/reducers/upload';
@@ -49,7 +50,7 @@ SlideView.propTypes = {
   step: PropTypes.number.isRequired,
 };
 
-const Footer = (props) => {
+const FooterChildren = (props) => {
   const { prev, next, step } = props;
   const dispatch = useDispatch ();
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
@@ -131,7 +132,9 @@ const ZaboUploadPage = () => {
         <SlideTitle step={step} />
         <SlideView step={step} />
       </PageWrapper.Contents>
-      <Footer {...slideActions} step={step} />
+      <Footer scrollFooter>
+        <FooterChildren {...slideActions} step={step} />
+      </Footer>
     </PageWrapper>
   );
 };

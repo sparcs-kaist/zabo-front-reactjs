@@ -18,7 +18,7 @@ const containerStyle = css`
   `)}
 `;
 
-const Footer = ({ buttonGroup, scrollFooter }) => {
+const Footer = ({ scrollFooter, children }) => {
   const [left, setLeft] = useState (0);
   useEffect (() => {
     const listener = () => setLeft (-window.pageXOffset);
@@ -31,15 +31,15 @@ const Footer = ({ buttonGroup, scrollFooter }) => {
     <FooterWrapper>
       <Container ownStyle={containerStyle} style={style} scrollHeader={scrollFooter}>
         <div> </div>
-        {buttonGroup}
+        {children}
       </Container>
     </FooterWrapper>
   );
 };
 
 Footer.propTypes = {
-  buttonGroup: PropTypes.element,
   scrollFooter: PropTypes.bool,
+  children: PropTypes.element,
 };
 
 export default Footer;
