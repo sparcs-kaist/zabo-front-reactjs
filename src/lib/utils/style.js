@@ -15,7 +15,7 @@ export const media = Object.keys (mediaSizes).reduce ((acc, label) => {
   return acc;
 }, {});
 
-export const get = prop => props => props[prop] || props.theme[prop];
+export const get = (prop, defaultValue) => props => props[prop] || props.theme[prop] || defaultValue;
 export const getSize = prop => props => (typeof props[prop] === 'number' ? `${props[prop]}px` : props[prop]);
 
 export const cx = (...classNames) => {

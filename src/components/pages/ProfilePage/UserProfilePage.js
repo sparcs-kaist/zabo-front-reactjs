@@ -1,7 +1,6 @@
 import React, {
   useEffect, useCallback, useRef, useState,
 } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -14,6 +13,7 @@ import {
 import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 import ProfileStats from '../../organisms/ProfileStats';
+import Button from '../../atoms/Button';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
@@ -123,11 +123,11 @@ const UserProfile = ({ profile }) => {
             }
             {isMyProfile && (
             <section>
-              <button className="logout" type="button" onClick={logout}>로그아웃</button>
-              <Link to="/settings/profile">
-                <button className="edit" type="button">프로필 편집</button>
-              </Link>
-              {isAdmin && (<Link to="/admin"><button className="admin" type="button">어드민</button></Link>)}
+              <Button.Group>
+                <Button onClick={logout}>로그아웃</Button>
+                <Button to="/settings/profile" border="main">프로필 편집</Button>
+                {isAdmin && (<Button to="/admin">어드민</Button>)}
+              </Button.Group>
             </section>
             )}
           </Page.Header.Left.UserInfo>
