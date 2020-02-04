@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import debounce from 'lodash.debounce';
 
-import { validateName } from '../../../lib/utils';
+import { validateName, dataURLToBlob } from '../../../lib/utils';
 import {
   Page, FormGroup, Submit, Success, Error,
 } from './Setting.styled';
@@ -15,7 +15,7 @@ import Header from '../../templates/Header';
 import Footer from '../../templates/Footer';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
-import { updateUserInfo } from '../../../store/reducers/auth';
+import { updateUserInfo, updateUserProfilePhoto } from '../../../store/reducers/auth';
 
 import useSetState from '../../../hooks/useSetState';
 
@@ -29,7 +29,7 @@ const ProfileForm = ({ initialValue }) => {
 
   const [nameInvalid, setNameInvalid] = useState (false);
   const {
-    username, description, error, success,
+    username, description, newProfilePhoto, error, success,
   } = state;
 
   const handleSubmit = useCallback (e => {
@@ -38,7 +38,16 @@ const ProfileForm = ({ initialValue }) => {
     dispatch (updateUserInfo (update))
       .then (() => setState ({ ...update, error: null, success: true }))
       .catch (error => setState ({ ...update, success: false, error }));
-  }, [username, description]);
+
+    if (newProfilePhoto) {
+      const formData = new FormData ();
+      formData.append ('img', formData);
+
+      dispatch (updateUserProfilePhoto (formData))
+        .then (() => console.log ('photo update succeed'))
+        .catch (error => console.log ('error occured'));
+    }
+  }, [username, description, newProfilePhoto]);
 
   const onChange = (e) => {
     setState ({ success: false, error: null });
@@ -108,9 +117,17 @@ ProfileForm.propTypes = {
 const UserProfileSetting = (props) => {
   const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const {
-    username = '', profilePhoto, backgroundPhoto, description = '',
-  } = info;
+  const { username = '', profilePhoto, description = '' } = info;
+
+  const [profilePreview, setProfilePreview] = useState (profilePhoto);
+  const [newProfilePhoto, setNewProfilePhoto] = useState ({});
+
+  const handlePhotoChange = e => {
+    const file = e.target.files[0];
+    const preview = URL.createObjectURL (file);
+    setNewProfilePhoto (file);
+    setProfilePreview (preview);
+  };
 
   return (
     <Page>
@@ -121,12 +138,13 @@ const UserProfileSetting = (props) => {
         <Page.Body.ProfileInfo>
           {
             profilePhoto
-              ? <img src={profilePhoto} alt="profile photo" />
+              ? <img src={profilePreview} alt="profile photo" />
               : <img src={defaultProfile} alt="default profile img" />
           }
+          <input type="file" name="profilePhoto" accept="image" onChange={handlePhotoChange} />
           <button>사진 바꾸기</button>
         </Page.Body.ProfileInfo>
-        <ProfileForm initialValue={{ username, description }} />
+        <ProfileForm initialValue={{ username, description, newProfilePhoto }} />
       </Page.Body>
     </Page>
   );
