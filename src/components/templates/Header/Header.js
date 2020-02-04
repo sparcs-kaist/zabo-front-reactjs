@@ -92,7 +92,7 @@ Header.AuthButton = () => {
           </NavLink>
         </div>
       ) : (
-        <NavLink to="/auth/login">Login</NavLink>
+        <a href="/api/auth/login">Login</a>
       )}
     </div>
   );

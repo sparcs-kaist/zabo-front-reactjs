@@ -9,7 +9,7 @@ class AuthCallback extends PureComponent {
     if (code && state) {
       loginCallback (code, state)
         .then ((res) => {
-          history.replace ('/');
+          history.replace (`/${res.user.username}`);
         })
         .catch ((error) => {
           alert (error.message);

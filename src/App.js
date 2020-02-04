@@ -36,7 +36,6 @@ const App = () => (
         <Route path="/search" component={SearchPage} />
         <Route path="/zabo/upload" component={ZaboUploadPage} />
         <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
-        <PublicRoute path="/auth" component={AuthPage} />
         <PrivateRoute path="/settings" component={SettingsPage} />
         <AdminRoute path="/admin" component={AdminPage} />
         <Route path="/" exact component={HomePage} />
