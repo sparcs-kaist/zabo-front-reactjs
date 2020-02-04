@@ -132,8 +132,12 @@ ZaboPageWrapper.Info.Body = styled.section`
   .borderLine {
     border: 0.5px solid #E9E9E9;
   }
-
+  
   .owner {
+    display: flex;
+  }
+
+  .owner-link {
     color: #202020;
     height: 64px;
     display: flex;
@@ -145,15 +149,25 @@ ZaboPageWrapper.Info.Body = styled.section`
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      margin-right: 2px;
-      vertical-align: middle;
+      margin-right: 10px;
     }
-    p { 
-      display: inline-block;
-      vertical-align: middle;
-      padding: 0 8px;
-      color: #202020;
-      &.follow { font-size: 14px; }
+    
+    .owner-label {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .owner-group { 
+        font-size: 16px;
+        line-height: 18px;
+        color: #202020;
+        &.follow { font-size: 14px; }
+      }
+      .owner-creator {
+        margin-top: 2px;
+        font-size: 12px;
+        line-height: 14px;
+        color: #666666;
+      }
     }
     .specialChar {
       display: inline-block;

@@ -20,7 +20,7 @@ const ZaboPage = (props) => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
-    isLiked, likesCount, isPinned, pinsCount, views = 0,
+    isLiked, likesCount, isPinned, pinsCount, views = 0, isMyZabo, createdBy,
   } = zabo;
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
   const due = moment (endAt).diff (moment (), 'days');
@@ -76,13 +76,16 @@ const ZaboPage = (props) => {
             <section>
               <div className="borderLine"> </div>
               <div className="owner">
-                <Link to={`/${owner.name}`}>
+                <Link to={`/${owner.name}`} className="owner-link">
                   {
-                      ('profilePhoto' in owner)
-                        ? <img src={owner.profilePhoto} alt="group profile photo" />
-                        : <img src={groupDefaultProfile} alt="default profile img" />
-                    }
-                  <p>{owner.name || 'anonymous'}</p>
+                    ('profilePhoto' in owner)
+                      ? <img src={owner.profilePhoto} alt="group profile photo" />
+                      : <img src={groupDefaultProfile} alt="default profile img" />
+                  }
+                  <div className="owner-label">
+                    <div className="owner-group">{owner.name || 'anonymous'}</div>
+                    {isMyZabo && <div className="owner-creator">게시자 {createdBy.username}</div>}
+                  </div>
                 </Link>
                 {/* <div className="specialChar">&middot;</div> */}
                 {/* <p className="follow" /> */}
@@ -110,6 +113,7 @@ const ZaboPage = (props) => {
 ZaboPage.propTypes = {
   zabo: ZaboType.isRequired,
   zaboId: PropTypes.string.isRequired,
+  isMyZabo: PropTypes.bool.isRequired,
 };
 
 export default ZaboPage;
