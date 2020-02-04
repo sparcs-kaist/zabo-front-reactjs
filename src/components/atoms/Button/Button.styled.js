@@ -84,17 +84,17 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 40px;
-  outline: none;
-  font-size: 14px;
-  border-radius: 3px;
-  background-color: white;
-  border: 1px solid white;
   width: 100%;
+  height: 30px;
+  font-size: 12px;
+  border-radius: 15px;
+  background-color: #F8F8F8;
+  border: 1px solid #797979;
+  outline: none;
 
   ${media.tablet`
-    height: 48px;
-    font-size: 16px;
+    height: 30px;
+    font-size: 12px;
     ${props => props.xSmall && 'width: 120px'};
     ${props => props.small && 'width: 180px'};
     ${props => props.normal && 'width: 240px'};
@@ -118,9 +118,13 @@ const StyledButton = styled.button`
 `;
 
 StyledButton.propTypes = {
+  xSmall: PropTypes.bool,
+  small: PropTypes.bool,
+  normal: PropTypes.bool,
+  large: PropTypes.bool,
   blue: PropTypes.bool,
   blueBorder: PropTypes.bool,
-  bluewhite: PropTypes.bool,
+  blueWhite: PropTypes.bool,
   white: PropTypes.bool,
   whiteBorder: PropTypes.bool,
   redBorder: PropTypes.bool,
@@ -131,9 +135,13 @@ StyledButton.propTypes = {
 };
 
 StyledButton.defaultProps = {
+  xSmall: false,
+  small: false,
+  normal: false,
+  large: false,
   blue: false,
   blueBorder: false,
-  bluewhite: false,
+  blueWhite: false,
   white: false,
   whiteBorder: false,
   redBorder: false,
