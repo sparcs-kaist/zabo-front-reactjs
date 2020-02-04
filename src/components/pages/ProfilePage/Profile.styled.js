@@ -17,11 +17,11 @@ export const Page = styled.section`
 Page.Header = styled.section`
   display: flex;
   width: 1032px;
-  margin-bottom: 120px;
+  margin-bottom: 24px;
   @media (max-width: 640px) {
     flex-direction: column;
     width: 100%;
-    margin-bottom: 60px;
+    margin-bottom: 24px;
   }
 `;
 
@@ -106,6 +106,25 @@ Page.Header.Right = styled.section`
   @media (max-width: 640px) {
     justify-content: center;
   }
+`;
+
+Page.Body = styled.div`
+  width: 1032px;
+  padding-left: 156px;
+  @media (max-width: 640px) {
+    width: 100%;
+    padding: 0 24px;
+  }
+`;
+
+Page.Body.User = styled.div`
+  margin-bottom: 96px;
+`;
+
+Page.Body.Group = styled.div`
+  margin-bottom: 131px;
+  border-top: 1px solid #E9E9E9;
+  padding-top: 16px;
 `;
 
 export const Groups = styled.section`
