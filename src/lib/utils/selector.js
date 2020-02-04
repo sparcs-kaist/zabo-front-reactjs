@@ -28,3 +28,8 @@ const zabosComputer = ([zabos, zaboIds]) => zaboIds.map (id => zabos.get (id));
 
 // TODO: Factory function (due to cache size of 1)
 export const zaboListFromIdsSelector = createSelector (zabosSelector, zabosComputer);
+
+const zaboSelector = (state, zaboId) => state.getIn (['zabo', 'zabos', zaboId]);
+const ownGroupsSelector = (state) => state.getIn (['auth', 'info', 'groups']);
+const isMyZabo = (zabo, groups) => !!groups.find (group => zabo && group.get ('_id') === zabo.getIn (['owner', '_id']));
+export const isMyZaboSelector = createSelector ([zaboSelector, ownGroupsSelector], isMyZabo);
