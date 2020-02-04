@@ -98,7 +98,7 @@ const FooterChildren = (props) => {
   );
 };
 
-Footer.propTypes = {
+FooterChildren.propTypes = {
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
