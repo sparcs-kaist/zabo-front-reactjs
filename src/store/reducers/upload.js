@@ -3,7 +3,7 @@ import { fromJS, Map, List } from 'immutable';
 
 import storage from 'lib/storage';
 
-import { TAGS } from '../../lib/variables';
+import { CATEGORIES } from '../../lib/variables';
 
 // action types
 const INITIALIZE = 'upload/INITIALIZE';
@@ -42,10 +42,11 @@ const initialState = Map ({
   images: List ([]),
   info: Map ({
     title: '',
-    desc: '',
-    expDate: date,
-    tags: List (TAGS.map (tag => ({ name: tag, clicked: false }))),
+    description: '',
+    endAt: date,
+    category: List (CATEGORIES.map (tag => ({ name: tag, clicked: false }))),
   }),
+  edit: Map ({}),
   showModal: false,
 });
 

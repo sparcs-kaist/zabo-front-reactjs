@@ -1,8 +1,8 @@
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
+import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import InputBase from 'atoms/InputBase';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import MomentUtils from '@date-io/moment';
 import StyledQuill from '../../organisms/StyledQuill';
@@ -10,50 +10,25 @@ import { setInfo } from '../../../store/reducers/upload';
 import { InfoFormWrapper } from './InfoForm.styled';
 import { gridLayoutCompareFunction } from '../../../lib/utils';
 
-const InfoForm = () => {
-  const dispatch = useDispatch ();
-  const [preview, setPreview] = useState ();
-  const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+const Form = ({ state, setState, preview }) => {
   const {
-    title, desc, expDate, tags,
-  } = info;
-
-  useEffect (() => {
-    const imageFiles = imageFilesImmutable.toJS ();
-    const sortedImageFiles = imageFiles.slice ();
-    sortedImageFiles.sort (gridLayoutCompareFunction);
-    const titleImageFile = sortedImageFiles[0];
-    let url = '';
-    if (titleImageFile) {
-      url = URL.createObjectURL (titleImageFile);
-    }
-    setPreview (url);
-    return () => {
-      URL.revokeObjectURL (url);
-    };
-  }, [imageFilesImmutable]);
-
-  const setState = useCallback (updates => {
-    dispatch (setInfo ({ ...info, ...updates }));
-  }, [info]);
-
-  const handleChange = useCallback (e => {
+    title, description, endAt, category,
+  } = state;
+  const onChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
   }, [setState]);
 
-  const handleQuillChange = useCallback (e => {
-    setState ({ desc: e });
+  const onQuillChange = useCallback (e => {
+    setState ({ description: e });
   }, [setState]);
 
   const onTagClick = useCallback (name => {
-    const clone = tags.map (tag => (tag.name === name
+    const clone = category.map (tag => (tag.name === name
       ? ({ ...tag, clicked: !tag.clicked })
       : tag));
-    setState ({ tags: clone });
-  }, [setState, tags]);
+    setState ({ category: clone });
+  }, [setState, category]);
 
   return (
     <InfoFormWrapper>
@@ -76,7 +51,7 @@ const InfoForm = () => {
               placeholder="자보 제목을 입력해주세요."
               name="title"
               value={title}
-              onChange={handleChange}
+              onChange={onChange}
             />
           </section>
           <section className="zabo-description-quill">
@@ -84,8 +59,8 @@ const InfoForm = () => {
             <InfoFormWrapper.Editor>
               <StyledQuill
                 theme="bubble"
-                value={desc}
-                onChange={handleQuillChange}
+                value={description}
+                onChange={onQuillChange}
                 placeholder="자보에 대한 설명을 작성해 세요."
                 modules={{
                   toolbar: [
@@ -103,8 +78,8 @@ const InfoForm = () => {
               <MuiPickersUtilsProvider utils={MomentUtils}>
                 <KeyboardDateTimePicker
                   required
-                  value={expDate}
-                  onChange={value => setState ({ expDate: value })}
+                  value={endAt}
+                  onChange={value => setState ({ endAt: value })}
                   InputProps={{
                     disableUnderline: true,
                   }}
@@ -122,7 +97,7 @@ const InfoForm = () => {
           <section className="zabo-keywords">
             <div className="label label-tag">태그</div>
             <div className="tags">
-              {tags.map (item => (
+              {category.map (item => (
                 <div
                   key={item.name}
                   onClick={() => onTagClick (item.name)}
@@ -138,5 +113,56 @@ const InfoForm = () => {
     </InfoFormWrapper>
   );
 };
+
+Form.propTypes = {
+  state: PropTypes.shape ({
+    title: PropTypes.string,
+    description: PropTypes.string,
+    endAt: PropTypes.string,
+    category: PropTypes.arrayOf (PropTypes.shape ({
+      name: PropTypes.string,
+      clicked: PropTypes.bool,
+    })),
+  }).isRequired,
+  setState: PropTypes.func.isRequired,
+  preview: PropTypes.string.isRequired,
+};
+
+const InfoForm = () => {
+  const dispatch = useDispatch ();
+  const [preview, setPreview] = useState ();
+  const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
+  const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
+  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+
+  useEffect (() => {
+    const imageFiles = imageFilesImmutable.toJS ();
+    const sortedImageFiles = imageFiles.slice ();
+    sortedImageFiles.sort (gridLayoutCompareFunction);
+    const titleImageFile = sortedImageFiles[0];
+    let url = '';
+    if (titleImageFile) {
+      url = URL.createObjectURL (titleImageFile);
+    }
+    setPreview (url);
+    return () => {
+      URL.revokeObjectURL (url);
+    };
+  }, [imageFilesImmutable]);
+
+  const setState = useCallback (updates => {
+    dispatch (setInfo ({ ...info, ...updates }));
+  }, [info]);
+
+  return (
+    <Form
+      state={info}
+      setState={setState}
+      preview={preview}
+    />
+  );
+};
+
+InfoForm.Form = Form;
 
 export default InfoForm;

@@ -14,14 +14,14 @@ import pToP from '../../../hoc/paramsToProps';
 const SettingsWrapper = styled.section``;
 
 const Main = () => {
-  const match = useRouteMatch ();
+  const { path } = useRouteMatch ();
   return (
     <SettingsWrapper>
       <Switch>
-        <Redirect exact from={`${match.url}/group/:groupName`} to={`${match.url}/group/:groupName/profile`} />
-        <Route path={`${match.url}/group/:groupName/profile`} component={pToP (GroupProfileSetting)} />
-        <Route path={`${match.url}/group/:groupName/members`} component={pToP (GroupMembersSetting)} />
-        <Route path={`${match.url}/profile`} component={ProfileSetting} />
+        <Redirect exact from={`${path}/group/:groupName`} to={`${path}/group/:groupName/profile`} />
+        <Route path={`${path}/group/:groupName/profile`} component={pToP (GroupProfileSetting)} />
+        <Route path={`${path}/group/:groupName/members`} component={pToP (GroupMembersSetting)} />
+        <Route path={`${path}/profile`} component={ProfileSetting} />
         <NotFound />
       </Switch>
     </SettingsWrapper>

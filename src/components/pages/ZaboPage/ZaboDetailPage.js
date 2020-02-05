@@ -1,10 +1,9 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import ZaboList from 'templates/ZaboList';
-import Header from 'templates/Header';
 import Carousel from 'react-airbnb-carousel';
 
 import StyledQuill from '../../organisms/StyledQuill';
@@ -13,12 +12,13 @@ import StatBox from '../../molecules/StatBox';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 import { ZaboType } from '../../../lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
+import withZabo from './withZabo';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import Button from '../../atoms/Button';
-import { NotFound } from '../index';
 
-const Content = (props) => {
+const ZaboDetailPage = (props) => {
+  const { url } = useRouteMatch ();
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
@@ -93,7 +93,7 @@ const Content = (props) => {
                 {isMyZabo
                 && (
                 <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
-                  <Button to="edit" border="main">게시물 수정</Button>
+                  <Button to={`${url}/edit`} border="main">게시물 수정</Button>
                   <Button
                     background="point"
                     border="none"
@@ -126,25 +126,9 @@ const Content = (props) => {
   );
 };
 
-Content.propTypes = {
+ZaboDetailPage.propTypes = {
   zabo: ZaboType.isRequired,
   zaboId: PropTypes.string.isRequired,
-  isMyZabo: PropTypes.bool.isRequired,
 };
 
-const ZaboPage = (props) => {
-  const { zabo, zaboId } = props;
-  const content = !zabo ? null : zabo.error ? <NotFound /> : <Content {...props} />;
-  return (
-    <ZaboPageWrapper key={zaboId}>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
-      {content}
-    </ZaboPageWrapper>
-  );
-};
-
-ZaboPage.propTypes = {
-  ...Content.propTypes,
-};
-
-export default ZaboPage;
+export default withZabo (ZaboDetailPage);

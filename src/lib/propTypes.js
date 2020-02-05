@@ -17,6 +17,7 @@ export const ZaboType = PropTypes.shape ({
   endAt: PropTypes.string,
   isLiked: PropTypes.bool,
   isPinned: PropTypes.bool,
+  isMyZabo: PropTypes.bool,
 });
 
 export const GroupType = PropTypes.shape ({

@@ -9,7 +9,7 @@ import cancelIcon from 'static/images/cancel.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
-import { TAGS } from '../../../lib/variables';
+import { CATEGORIES } from '../../../lib/variables';
 import useSetState from '../../../hooks/useSetState';
 import { searchAPI } from '../../../lib/api/search';
 
@@ -102,7 +102,7 @@ const SearchBar = ({ isOpen, options }) => {
     <div>
       <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
       <SearchBarWrapper.Body.TagBtn>
-        {TAGS.map ((tag, idx) => (
+        {CATEGORIES.map ((tag, idx) => (
           <button key={idx} value={tag} className="tag-button" onClick={onTagClick}>{tag}</button>
         ))}
       </SearchBarWrapper.Body.TagBtn>

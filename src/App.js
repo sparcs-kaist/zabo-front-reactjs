@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PWAPrompt from 'templates/PWAPrompt';
 import {
-  AuthPage,
   HomePage,
   SettingsPage,
   ZaboUploadPage,

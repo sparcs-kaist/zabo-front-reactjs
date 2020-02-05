@@ -57,7 +57,7 @@ const FooterChild = (props) => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const { title, desc, expDate } = info;
+  const { title, description, endAt } = info;
 
   const validatedNext = useCallback (() => {
     if (step === 0) {
@@ -76,7 +76,7 @@ const FooterChild = (props) => {
     } if (step === 1) {
       return !!filesImmutable.size;
     } if (step === 2) {
-      return (title && desc && expDate);
+      return (title && description && endAt);
     }
     return false;
   }, [step, currentGroup, filesImmutable, infoImmutable]);
