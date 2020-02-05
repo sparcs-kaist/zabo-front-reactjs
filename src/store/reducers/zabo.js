@@ -8,6 +8,7 @@ import * as ZaboAPI from '../../lib/api/zabo';
 // Action types
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
+const PATCH_ZABO = 'zabo/PATCH_ZABO';
 const GET_ZABO = 'zabo/GET_ZABO';
 const GET_PINS = 'zabo/GET_PINS';
 const TOGGLE_ZABO_PIN = 'zabo/TOGGLE_ZABO_PIN';
@@ -16,6 +17,7 @@ const GET_GROUP_ZABO_LIST = 'zabo/GET_GROUP_ZABO_LIST';
 
 // Action creator : action 객체를 만들어주는 함수
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
+export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, meta => meta);
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
 export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
 export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
@@ -41,6 +43,13 @@ export default handleActions (
       onSuccess: (state, action) => {
         const zabo = action.payload;
         return state.setIn (['zabos', zabo._id], fromJS (zabo));
+      },
+    }),
+    ...pender ({
+      type: PATCH_ZABO,
+      onSuccess: (state, action) => {
+        const { zaboId } = action.meta;
+        return state.updateIn (['zabos', zaboId], prev => prev.merge (fromJS (action.payload)));
       },
     }),
     ...pender ({

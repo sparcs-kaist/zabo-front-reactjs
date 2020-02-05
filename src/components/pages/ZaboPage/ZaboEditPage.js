@@ -1,6 +1,9 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, {
+  useEffect, useState,
+} from 'react';
 import PropTypes from 'prop-types';
-import { Prompt } from 'react-router-dom';
+import { Prompt, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { FooterStyle, PageWrapper, TitleStyle } from '../ZaboUploadPage/ZaboUploadPage.styled';
 import rightGrayArrow from '../../../static/images/rightGrayArrow.png';
 import ZaboUpload from '../../templates/ZaboUpload';
@@ -9,6 +12,7 @@ import withZabo from './withZabo';
 import useSetState from '../../../hooks/useSetState';
 import { CATEGORIES } from '../../../lib/variables';
 import { ZaboType } from '../../../lib/propTypes';
+import { patchZabo } from '../../../store/reducers/zabo';
 
 const SlideTitle = () => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];
@@ -43,10 +47,14 @@ FooterChild.propTypes = {
   submit: PropTypes.func.isRequired,
 };
 
-const ZaboEditPage = ({ zabo }) => {
+const ZaboEditPage = ({ zaboId, zabo }) => {
+  const dispatch = useDispatch ();
+  const history = useHistory ();
+  const [changed, setChanged] = useState (false);
+  const [submit, setSubmit] = useState (false);
   useEffect (() => {
-    window.onbeforeunload = () => true;
-  }, []);
+    window.onbeforeunload = () => (changed ? true : undefined);
+  }, [changed]);
   const { photos: [{ url: preview }] } = zabo;
   const catWithSharp = zabo.category.map (cat => `#${cat}`);
   const newCat = CATEGORIES.map (tag => ({ name: tag, clicked: catWithSharp.indexOf (tag) >= 0 }));
@@ -57,18 +65,35 @@ const ZaboEditPage = ({ zabo }) => {
     category: newCat,
   });
   const {
-    title, description, endAt, category,
+    title, description, endAt,
   } = state;
 
-  const submit = useCallback (() => {
-  }, []);
+  useEffect (() => {
+    if (!submit) return;
+    if (changed) {
+      setChanged (false);
+      return;
+    }
+    const data = { ...state };
+    data.category = data.category.filter (t => t.clicked).map (t => t.name).join ('');
+    dispatch (patchZabo ({ zaboId, data }))
+      .then (() => {
+        history.push (`/zabo/${zaboId}`);
+      });
+  }, [state, submit, changed]);
 
-  const isValid = title && description && endAt;
+  const isValid = !!(title && description && endAt);
+
+  useEffect (() => {
+    if (zabo.title !== title || zabo.description !== description || zabo.endAt !== endAt) {
+      setChanged (true);
+    }
+  }, [state]);
 
   return (
     <PageWrapper>
       <Prompt
-        when
+        when={changed}
         message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
       />
       <PageWrapper.Contents>
@@ -80,13 +105,14 @@ const ZaboEditPage = ({ zabo }) => {
         />
       </PageWrapper.Contents>
       <Footer scrollFooter>
-        <FooterChild isValid={isValid} submit={submit} />
+        <FooterChild isValid={isValid} submit={() => setSubmit (true)} />
       </Footer>
     </PageWrapper>
   );
 };
 
 ZaboEditPage.propTypes = {
+  zaboId: PropTypes.string.isRequired,
   zabo: ZaboType.isRequired,
 };
 
