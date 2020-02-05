@@ -18,6 +18,7 @@ const StyledButton = styled.button`
   height: 30px;
   font-size: 12px;
   border-radius: 15px;
+  color: ${props => colors[props.color] || props.color || colors.textMain};
   background-color: ${props => colors[props.background] || props.background || colors.gray3};
   border: 1px solid ${props => colors[props.border] || props.border || colors.gray60};
   outline: none;
@@ -57,6 +58,7 @@ StyledButton.propTypes = {
   large: PropTypes.bool,
   width: PropTypes.oneOfType ([PropTypes.string, PropTypes.number]),
   disabled: PropTypes.bool,
+  color: PropTypes.oneOf (Object.keys (colors)),
   background: PropTypes.oneOf (Object.keys (colors)),
   border: PropTypes.oneOf (Object.keys (colors)),
 };
@@ -67,14 +69,17 @@ StyledButton.defaultProps = {
   normal: false,
   large: false,
   disabled: false,
-  background: 'grey1',
-  border: 'grey1',
+  color: 'textMain',
+  background: 'gray3',
+  border: 'gray50',
 };
 
 export const ButtonGroup = styled.div`
   display: flex;
   button + button {
-    margin-left: 6px;
+    margin-left: ${props => (
+    props.gutter ? getSize ('gutter') (props)
+      : '6px')};
   }
 `;
 
