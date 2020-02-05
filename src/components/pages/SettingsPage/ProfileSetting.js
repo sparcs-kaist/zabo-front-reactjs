@@ -16,7 +16,7 @@ import Header from '../../templates/Header';
 import Footer from '../../templates/Footer';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
-import { updateUserInfo, updateUserProfilePhoto } from '../../../store/reducers/auth';
+import { updateUserInfo, updateUserInfoWithImage } from '../../../store/reducers/auth';
 
 import useSetState from '../../../hooks/useSetState';
 
@@ -40,17 +40,15 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     // Can think of situation where username change has failed but profile has been changed.
     e.preventDefault ();
     const update = { username, description };
-    const updateCalls = [
-      dispatch (updateUserInfo (update)),
-    ];
+    let updateCall = () => dispatch (updateUserInfo (update));
     if (newProfilePhoto) {
       const formData = new FormData ();
       formData.append ('img', newProfilePhoto);
-      updateCalls.push (
-        dispatch (updateUserProfilePhoto (formData)),
-      );
+      formData.append ('username', username);
+      formData.append ('description', description);
+      updateCall = () => dispatch (updateUserInfoWithImage (formData));
     }
-    Promise.all (updateCalls)
+    updateCall ()
       .then (() => history.push (`/${username}`))
       .catch (error => setState ({ ...update, success: false, error }));
   }, [username, description, newProfilePhoto]);
