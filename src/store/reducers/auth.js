@@ -23,8 +23,8 @@ export const logout = createAction (LOGOUT);
 export const updateUserInfo = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfo, meta => meta);
 export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfoWithImage, meta => meta);
 export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfo, meta => meta);
+export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfoWithImage, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, AuthAPI.setCurrentGroup);
-export const updateGroupProfilePhoto = createAction (UPDATE_GROUP_PROFILEPHOTO, AuthAPI.updateGroupProfilePhoto, meta => meta);
 
 /*
  * group : { _id: String, name: String, members: [member] }
