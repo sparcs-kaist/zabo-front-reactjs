@@ -5,7 +5,7 @@ import { isAuthedSelector, isAdminOrPendingSelector } from 'lib/utils';
 
 export const PrivateRoute = (({ component: Component, render, ...rest }) => {
   const isAuthenticated = useSelector (isAuthedSelector);
-  console.log ('private');
+  // TODO: Return loading while auth info not fetched
   return (
     <Route
       {...rest}
@@ -24,7 +24,6 @@ PrivateRoute.defaultProps = Route.defaultProps;
 
 export const PublicRoute = ({ component: Component, render, ...rest }) => {
   const isAuthenticated = useSelector (isAuthedSelector);
-  console.log ('public');
   return (
     <Route
       {...rest}
