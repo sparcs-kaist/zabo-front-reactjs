@@ -62,7 +62,7 @@ const UploadProcess = (props) => {
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
-    title, desc, expDate, tags,
+    title, description, endAt, category,
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
@@ -82,10 +82,10 @@ const UploadProcess = (props) => {
       formData.append ('img', blob);
     });
     formData.append ('title', title);
-    formData.append ('description', desc);
-    formData.append ('endAt', expDate);
-    const uTags = tags.filter (t => t.clicked).map (t => t.name).join ('');
-    formData.append ('category', uTags);
+    formData.append ('description', description);
+    formData.append ('endAt', endAt);
+    const uCats = category.filter (c => c.clicked).map (t => t.name).join ('');
+    formData.append ('category', uCats);
 
     // uploadZabo from this.props
     dispatch (
