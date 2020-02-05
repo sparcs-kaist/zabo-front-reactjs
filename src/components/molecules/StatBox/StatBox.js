@@ -61,6 +61,10 @@ const Label = styled.p`
   padding-left: 8px;
   margin: 0;
   font-size: 16px;
+  &.textLabel {
+    font-size: 14px;
+    padding-left: 7px;
+  }
   @media (max-width: 640px) {
     padding-left: 5.83px;
     line-height: 18px;
@@ -94,12 +98,8 @@ const Text = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
-  min-width: 86px;
+  min-width: 53px;
   height: 40px;
-  @media (max-width: 640px) {
-    width: 72px;
-    height: 38px;
-  }
   ${Label} {
     font-weight: 800;
     font-size: 14px;
@@ -134,7 +134,7 @@ const StatBox = ({ stat, type, ...props }) => {
     return (
       <Text onClick={onClick} {...props}>
         <Icon src={src} alt="icon image" />
-        <Label>{count}</Label>
+        <Label className="textLabel">{count}</Label>
       </Text>
     );
   }

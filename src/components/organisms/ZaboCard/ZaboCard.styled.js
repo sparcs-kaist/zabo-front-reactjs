@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import StatBox from '../../molecules/StatBox';
 
 /* ============ Zabo ============ */
 const ZaboCardStyle = styled.div`
@@ -18,6 +19,11 @@ ZaboCardStyle.Poster = styled.div`
   &:hover {
     .hover-show {
       visibility: visible;
+    }
+  }
+  @media (max-width: 640px) {
+    &:hover {
+      .dimmer, .hover-show { display: none }
     }
   }
 `;
@@ -46,6 +52,9 @@ ZaboCardStyle.Poster.Overlay.StatLocator = styled.div`
   bottom: 16px;
   right: 16px;
   display: flex;
+  .stat-box:first-child {
+    margin-right: 17px;
+  }
 `;
 
 ZaboCardStyle.DueDate = styled.div`

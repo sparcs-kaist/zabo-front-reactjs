@@ -42,11 +42,11 @@ const ZaboCard = ({ zaboId }) => {
           }}
         >
           <ZaboCardStyle.Poster.Image width="100%" src={photos[0].url} alt="zabo" />
-          <ZaboCardStyle.Poster.Dimmer />
+          <ZaboCardStyle.Poster.Dimmer className="dimmer" />
           <ZaboCardStyle.Poster.Overlay className="hover-show">
             <ZaboCardStyle.Poster.Overlay.StatLocator>
               {stats.map (stat => (
-                <StatBox key={stat.type} type="text" stat={stat} />
+                <StatBox className="stat-box" key={stat.type} type="text" stat={stat} />
               ))}
             </ZaboCardStyle.Poster.Overlay.StatLocator>
           </ZaboCardStyle.Poster.Overlay>
