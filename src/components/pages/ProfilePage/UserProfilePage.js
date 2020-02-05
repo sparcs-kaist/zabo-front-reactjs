@@ -136,6 +136,10 @@ const UserProfile = ({ profile }) => {
           <ProfileStats stats={stats} />
         </Page.Header.Right>
       </Page.Header>
+      <Page.Body>
+        <Page.Body.User>
+        </Page.Body.User>
+      </Page.Body>
       <Groups>
         <h1>소속 그룹</h1>
         <Groups.ScrollBtn>

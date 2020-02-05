@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
+import StyledQuill from '../../organisms/StyledQuill';
 
 import { Page, Zabos } from './Profile.styled';
 import Header from '../../templates/Header';
@@ -20,7 +21,7 @@ import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description, myRole,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole,
   } = profile;
   const dispatch = useDispatch ();
   const descRef = useRef (null);
@@ -66,11 +67,11 @@ const GroupProfile = ({ profile }) => {
             {
               showTooltip
                 ? (
-                  <Tooltip title={description}>
-                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                  <Tooltip title={subtitle}>
+                    <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
                   </Tooltip>
                 )
-                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+                : <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
             }
             {
               myRole
@@ -98,6 +99,15 @@ const GroupProfile = ({ profile }) => {
           <ProfileStats stats={stats} />
         </Page.Header.Right>
       </Page.Header>
+      <Page.Body>
+        <Page.Body.Group>
+          <StyledQuill
+            theme="bubble"
+            readOnly
+            value={description}
+          />
+        </Page.Body.Group>
+      </Page.Body>
       <Zabos>
         <h1>업로드한 자보 <small>{zabosCount}</small></h1>
         <ZaboList type="group" query={name} />

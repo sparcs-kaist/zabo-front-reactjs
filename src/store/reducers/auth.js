@@ -14,13 +14,16 @@ const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
 const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';
 const SET_CURRENT_GROUP = 'user/SET_CURRENT_GROUP';
+const UPDATE_GROUP_PROFILEPHOTO = 'group/UPDATE_GROUP_PROFILEPHOTO';
 
 // Action creator
 export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPI.loginCallback);
 export const checkAuth = createAction (CHECK_AUTH, AuthAPI.checkAuth, meta => meta);
 export const logout = createAction (LOGOUT);
 export const updateUserInfo = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfo, meta => meta);
+export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, AuthAPI.updateUserInfoWithImage, meta => meta);
 export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfo, meta => meta);
+export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, AuthAPI.updateGroupInfoWithImage, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, AuthAPI.setCurrentGroup);
 
 /*
@@ -98,6 +101,14 @@ export default handleActions (
       onSuccess: (state, action) => {
         const { name } = action.meta;
         const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === name);
+        return state.updateIn (['info', 'groups', groupIndex], prev => prev.merge (fromJS (action.payload)));
+      },
+    }),
+    ...pender ({
+      type: UPDATE_GROUP_PROFILEPHOTO,
+      onSuccess: (state, action) => {
+        const { groupName } = action.meta;
+        const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === groupName);
         return state.updateIn (['info', 'groups', groupIndex], prev => prev.merge (fromJS (action.payload)));
       },
     }),

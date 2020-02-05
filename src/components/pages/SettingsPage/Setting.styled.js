@@ -48,7 +48,10 @@ Page.Body.ProfileInfo = styled.div`
     display: block;
     border-radius: 50%;
   }
-  button {
+  label {
+    display: inline-block;
+  }
+  button, .button {
     height: 30px;
     font-size: 12px;
     font-weight: bold;
@@ -58,6 +61,7 @@ Page.Body.ProfileInfo = styled.div`
     border-radius: 15px;
     border: 1px solid #143441;
     background-color: #F8F8F8;
+    cursor: pointer;
     /* &:hover {
       background-color: #143441;
       color: #F8F8F8;
@@ -68,15 +72,17 @@ Page.Body.ProfileInfo = styled.div`
       width: 105px;
       height: 105px;
     }
-    button {
+    button, .button {
       margin: 12px 0 32px 0;
     }
   }
 `;
 
 export const FormGroup = styled.div`
+  width: 582px;
   input {
-    width: 582px;
+    font-family: "NanumSquare", sans-serif;
+    width: 100%;
     height: 38px;
     padding: 10px 16px;
     margin: 8px 0 18px 0;
@@ -90,7 +96,7 @@ export const FormGroup = styled.div`
     color: #363636;
   }
   @media (max-width: 640px) {
-    input { width: 100% }
+    width: 100%;
   }
 `;
 

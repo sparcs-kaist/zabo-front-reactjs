@@ -53,7 +53,19 @@ const StyledQuill = styled (ReactQuill)`
         padding: 0;
       }
     }
-`)};
+  `)};
+
+  ${props => (props.groupSetting ? css`
+    .ql-container .ql-editor p {
+      font-weight: bold;
+      color: #363636;
+      font-size: 16px;
+      @media (max-width: 640px) {
+        font-size: 14px;
+      }
+    }
+  ` : css`
+  `)};
 `;
 
 export default StyledQuill;
