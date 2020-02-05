@@ -3,11 +3,12 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import debounce from 'lodash.debounce';
 
-import { validateName, dataURLToBlob } from '../../../lib/utils';
+import { validateName, dataURLToBlob, cropImage } from '../../../lib/utils';
 import {
   Page, FormGroup, Submit, Success, Error,
 } from './Setting.styled';
@@ -19,8 +20,9 @@ import { updateUserInfo, updateUserProfilePhoto } from '../../../store/reducers/
 
 import useSetState from '../../../hooks/useSetState';
 
-const ProfileForm = ({ initialValue }) => {
+const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();
+  const history = useHistory ();
   const [state, setState, onChangeHandler] = useSetState ({
     ...initialValue,
     success: false,
@@ -29,24 +31,28 @@ const ProfileForm = ({ initialValue }) => {
 
   const [nameInvalid, setNameInvalid] = useState (false);
   const {
-    username, description, newProfilePhoto, error, success,
+    username, description, error, success,
   } = state;
 
   const handleSubmit = useCallback (e => {
+    // TODO: If user info updates and profile photo updates are called at one,
+    // server should handle these together for better user experience.
+    // Can think of situation where username change has failed but profile has been changed.
     e.preventDefault ();
     const update = { username, description };
-    dispatch (updateUserInfo (update))
-      .then (() => setState ({ ...update, error: null, success: true }))
-      .catch (error => setState ({ ...update, success: false, error }));
-
+    const updateCalls = [
+      dispatch (updateUserInfo (update)),
+    ];
     if (newProfilePhoto) {
       const formData = new FormData ();
-      formData.append ('img', formData);
-
-      dispatch (updateUserProfilePhoto (formData))
-        .then (() => console.log ('photo update succeed'))
-        .catch (error => console.log ('error occured'));
+      formData.append ('img', newProfilePhoto);
+      updateCalls.push (
+        dispatch (updateUserProfilePhoto (formData)),
+      );
     }
+    Promise.all (updateCalls)
+      .then (() => history.push (`/${username}`))
+      .catch (error => setState ({ ...update, success: false, error }));
   }, [username, description, newProfilePhoto]);
 
   const onChange = (e) => {
@@ -101,7 +107,7 @@ const ProfileForm = ({ initialValue }) => {
       {error && <Error>{error.error}</Error>}
       {success && <Success>성공</Success>}
       <Footer scrollFooter>
-        <Submit type="submit">수정하기</Submit>
+        <Submit type="submit">수정 완료</Submit>
       </Footer>
     </form>
   );
@@ -112,6 +118,8 @@ ProfileForm.propTypes = {
     username: PropTypes.string,
     description: PropTypes.string,
   }).isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  newProfilePhoto: PropTypes.object,
 };
 
 const UserProfileSetting = (props) => {
@@ -120,13 +128,14 @@ const UserProfileSetting = (props) => {
   const { username = '', profilePhoto, description = '' } = info;
 
   const [profilePreview, setProfilePreview] = useState (profilePhoto);
-  const [newProfilePhoto, setNewProfilePhoto] = useState ({});
+  const [newProfilePhoto, setNewProfilePhoto] = useState (null);
 
-  const handlePhotoChange = e => {
+  const handlePhotoChange = async e => {
     const file = e.target.files[0];
-    const preview = URL.createObjectURL (file);
-    setNewProfilePhoto (file);
-    setProfilePreview (preview);
+    const imageSrc = await cropImage (file, 1);
+    const blob = dataURLToBlob (imageSrc);
+    setNewProfilePhoto (blob);
+    setProfilePreview (imageSrc);
   };
 
   return (
@@ -137,14 +146,25 @@ const UserProfileSetting = (props) => {
         <p>프로필을 수정할 수 있습니다.</p>
         <Page.Body.ProfileInfo>
           {
-            profilePhoto
+            profilePreview
               ? <img src={profilePreview} alt="profile photo" />
               : <img src={defaultProfile} alt="default profile img" />
           }
-          <input type="file" name="profilePhoto" accept="image" onChange={handlePhotoChange} />
-          <button>사진 바꾸기</button>
+          <input
+            id="profile-photo"
+            type="file"
+            name="profilePhoto"
+            accept="image/*"
+            onChange={handlePhotoChange}
+            style={{ display: 'none' }}
+          />
+          <label
+            htmlFor="profile-photo"
+          >
+            <div className="button">사진 바꾸기</div>
+          </label>
         </Page.Body.ProfileInfo>
-        <ProfileForm initialValue={{ username, description, newProfilePhoto }} />
+        <ProfileForm initialValue={{ username, description }} newProfilePhoto={newProfilePhoto} />
       </Page.Body>
     </Page>
   );

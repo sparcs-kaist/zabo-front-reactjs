@@ -110,7 +110,7 @@ export default handleActions (
       onSuccess: (state, action) => state.update ('info', prev => prev.merge (fromJS (action.payload))),
     }),
     ...pender ({
-      type: UPDATE_USER_PROFILEPHOTO,
+      type: UPDATE_GROUP_PROFILEPHOTO,
       onSuccess: (state, action) => {
         const { name } = action.meta;
         const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === name);
