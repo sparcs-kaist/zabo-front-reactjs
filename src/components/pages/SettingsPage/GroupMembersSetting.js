@@ -3,6 +3,10 @@ import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
 
+import { makeStyles } from '@material-ui/core/styles';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import withGroupProfile from './withGroupProfile';
 import { GroupType } from '../../../lib/propTypes';
@@ -89,26 +93,28 @@ const GroupMembersSetting = ({ profile }) => {
         isSearchable
       />
       <button onClick={addMember}>추가</button>
-      <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <List>
         {
           members.map (({ role, user }) => {
             const {
               username, name, koreanName, profilePhoto,
             } = user;
             return (
-              <div key={user._id} style={{ border: '1px solid black' }}>
-                <img src={profilePhoto} style={{ width: '20px', height: '20px', borderRadius: '50%' }} />
-                {username} <br />
-                {koreanName || name} <br />
-                {role}
-                <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
-                <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
-                <button onClick={() => removeMember (user._id)}>삭제</button>
-              </div>
+              <React.Fragment key={user._id}>
+                <ListItem>
+                  <img src={profilePhoto} style={{ width: '20px', height: '20px', borderRadius: '50%' }} />
+                  {username} <br />
+                  {koreanName || name} <br />
+                  {role}
+                  <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
+                  <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
+                  <button onClick={() => removeMember (user._id)}>삭제</button>
+                </ListItem>
+              </React.Fragment>
             );
           })
         }
-      </div>
+      </List>
     </div>
   );
 };

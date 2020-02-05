@@ -40,6 +40,7 @@ const SelectGroupWrapper = styled.div`
     width: 70px;
     height: 70px;
     margin-right: 16px;
+    border-radius: 50%;
   }
   .subtitle {
     height: 16px;
@@ -99,7 +100,6 @@ const InsetDividers = ({ groupsInfo }) => {
   const classes = useStyles ();
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
   const dispatch = useDispatch ();
-  const { profilePhoto, subtitle } = groupsInfo;
 
   const updateGroup = useCallback ((groupName) => {
     dispatch (setCurrentGroup (groupName))
@@ -112,7 +112,7 @@ const InsetDividers = ({ groupsInfo }) => {
       {
         groupsInfo.map ((info, i) => {
           const {
-            _id, name, lastUpdated,
+            _id, name, lastUpdated, subtitle, profilePhoto,
           } = info;
           return (
             <React.Fragment key={_id}>
@@ -130,7 +130,6 @@ const InsetDividers = ({ groupsInfo }) => {
                   <h3>{name}</h3>
                   <div className="subtitle">{subtitle}</div>
                 </div>
-                {/* <ListItemText primary={name} secondary={lastUpdated} /> */}
               </ListItem>
               {i !== groupsInfo.length - 1 && <div className="divider"> </div>}
             </React.Fragment>
