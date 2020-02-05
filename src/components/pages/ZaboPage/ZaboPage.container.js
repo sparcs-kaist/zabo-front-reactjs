@@ -31,11 +31,10 @@ ZaboPageContainer.propTypes = {
   zaboId: PropTypes.string.isRequired,
 };
 
-const emptyMap = Map ({});
 const mapStateToProps = (state, ownProps) => {
   const { zaboId } = ownProps;
   return {
-    zabo: state.getIn (['zabo', 'zabos', zaboId]) || emptyMap,
+    zabo: state.getIn (['zabo', 'zabos', zaboId]),
   };
 };
 

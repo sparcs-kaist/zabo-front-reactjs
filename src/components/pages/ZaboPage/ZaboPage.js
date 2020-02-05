@@ -15,8 +15,10 @@ import { ZaboType } from '../../../lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
 
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
+import Button from '../../atoms/Button';
+import { NotFound } from '../index';
 
-const ZaboPage = (props) => {
+const Content = (props) => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
@@ -38,8 +40,7 @@ const ZaboPage = (props) => {
   }];
 
   return (
-    <ZaboPageWrapper key={zaboId}>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+    <>
       <ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.TitleImage>
           <Carousel
@@ -89,6 +90,21 @@ const ZaboPage = (props) => {
                 </Link>
                 {/* <div className="specialChar">&middot;</div> */}
                 {/* <p className="follow" /> */}
+                {isMyZabo
+                && (
+                <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
+                  <Button to="edit" border="main">게시물 수정</Button>
+                  <Button
+                    background="point"
+                    border="none"
+                    color="white"
+                    onClick={() => {
+                      alert ('삭제하시겠습니까?');
+                    }}
+                  >게시물 삭제
+                  </Button>
+                </Button.Group>
+                )}
               </div>
               <div className="borderLine"> </div>
             </section>
@@ -106,14 +122,29 @@ const ZaboPage = (props) => {
         <h1>연관 있는 자보</h1>
         <ZaboList type="related" query={zaboId} key={zaboId} />
       </ZaboPageWrapper.Recommend>
+    </>
+  );
+};
+
+Content.propTypes = {
+  zabo: ZaboType.isRequired,
+  zaboId: PropTypes.string.isRequired,
+  isMyZabo: PropTypes.bool.isRequired,
+};
+
+const ZaboPage = (props) => {
+  const { zabo, zaboId } = props;
+  const content = !zabo ? null : zabo.error ? <NotFound /> : <Content {...props} />;
+  return (
+    <ZaboPageWrapper key={zaboId}>
+      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      {content}
     </ZaboPageWrapper>
   );
 };
 
 ZaboPage.propTypes = {
-  zabo: ZaboType.isRequired,
-  zaboId: PropTypes.string.isRequired,
-  isMyZabo: PropTypes.bool.isRequired,
+  ...Content.propTypes,
 };
 
 export default ZaboPage;

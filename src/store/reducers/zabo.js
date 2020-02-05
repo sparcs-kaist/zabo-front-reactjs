@@ -49,6 +49,11 @@ export default handleActions (
         const zabo = action.payload;
         return state.setIn (['zabos', zabo._id], fromJS (zabo));
       },
+      onFailure: (state, action) => {
+        const error = action.payload;
+        const zaboId = action.meta;
+        return state.setIn (['zabos', zaboId], fromJS (error));
+      },
     }),
     ...pender ({
       type: GET_ZABO_LIST,

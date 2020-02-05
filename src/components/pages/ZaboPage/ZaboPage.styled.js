@@ -135,6 +135,7 @@ ZaboPageWrapper.Info.Body = styled.section`
   
   .owner {
     display: flex;
+    align-items: center;
   }
 
   .owner-link {
