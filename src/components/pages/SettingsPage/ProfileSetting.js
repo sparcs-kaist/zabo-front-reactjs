@@ -35,9 +35,6 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   } = state;
 
   const handleSubmit = useCallback (e => {
-    // TODO: If user info updates and profile photo updates are called at one,
-    // server should handle these together for better user experience.
-    // Can think of situation where username change has failed but profile has been changed.
     e.preventDefault ();
     const update = { username, description };
     let updateCall = () => dispatch (updateUserInfo (update));
