@@ -1,8 +1,7 @@
-import React from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import axios from 'lib/axios';
 import queryString from 'query-string';
 import searchIcon from 'static/images/search-icon-navy.png';
 import cancelIcon from 'static/images/cancel.png';
@@ -17,6 +16,8 @@ import { searchAPI } from '../../../lib/api/search';
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
 const SearchBar = ({ isOpen, options }) => {
+  const isMounted = useRef (true);
+  useEffect (() => () => { isMounted.current = false; }, []);
   const history = useHistory ();
   const [state, setState, onChangeHandler] = useSetState ({
     search: '',
@@ -40,21 +41,25 @@ const SearchBar = ({ isOpen, options }) => {
     });
   };
 
-  const _handleChange = async e => {
+  const _handleChange = useCallback (e => {
     const { value: query } = e.target;
     setState ({ search: query });
     if (searchResults[query]) {
-      // load from caching
+      // load from caching : show temporal search cached results
       _updateResults (searchResults[query]);
+      // donot return; TO get new updated search result
     }
-    const data = await searchAPIDebounced (query);
-    _updateResults (data);
-    setState (prevState => ({
-      searchResults: {
-        [query]: data,
-      },
-    }));
-  };
+    searchAPIDebounced (query)
+      .then (data => {
+        if (!isMounted.current) return;
+        _updateResults (data);
+        setState (prevState => ({
+          searchResults: {
+            [query]: data,
+          },
+        }));
+      }).catch (err => console.log ('change error'));
+  }, [setState, searchResults, isMounted, _updateResults, searchAPIDebounced]);
 
   const _handleKeyDown = e => {
     const stringified = queryString.stringify ({ query: search });
@@ -63,32 +68,26 @@ const SearchBar = ({ isOpen, options }) => {
     }
   };
 
-  const _handleFocus = e => {
+  const _handleFocus = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
     setState ({
       searchFocused: true,
     });
-  };
+  }, [setState]);
 
-  const _handleBlur = e => {
+  const _handleBlur = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
     setState ({
       searchFocused: false,
     });
-  };
+  }, [setState]);
 
-  const onTagClick = e => {
+  const onTagClick = useCallback (e => {
     const { value: query } = e.target.value;
     setState ({ search: query });
-    // if (searchResults[query]) {
-    //   // load from caching
-    //   _updateResults (searchResults[query]);
-    // }
-    // const data = await searchAPI (query);
-    // route -> query로 만든 SearchPage 생성, 보내기 -> 거기서 searchAPI쏘기!
-  };
+  }, [setState]);
 
   const onCancelClick = e => {
     setState ({ search: '' });
