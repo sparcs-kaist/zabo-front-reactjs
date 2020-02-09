@@ -1,17 +1,18 @@
 import React, {
-  useState, useCallback, useMemo, useEffect,
+  useCallback, useEffect,
+  useMemo, useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
 
-import LoadingDialog from './Loading';
-
-import { uploadZabo } from '../../../store/reducers/zabo';
+import { uploadZabo } from 'store/reducers/zabo';
 import {
   cropImage, dataURLToBlob, gridLayoutCompareFunction, imageFileGetWidthHeight,
-} from '../../../lib/utils';
+} from 'lib/utils';
+
+import LoadingDialog from './Loading';
 
 const ProcessWrapper = styled.section`
   width: 100%;

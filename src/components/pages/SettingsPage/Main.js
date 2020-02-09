@@ -1,15 +1,16 @@
 import React from 'react';
 import {
-  Switch, Route, useRouteMatch, Redirect,
+  Redirect,
+  Route, Switch, useRouteMatch,
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { NotFound } from 'components/pages';
-import ProfileSetting from './ProfileSetting';
-import GroupProfileSetting from './GroupProfileSetting';
-import GroupMembersSetting from './GroupMembersSetting';
+import { NotFound } from 'pages';
 
 import pToP from '../../../hoc/paramsToProps';
+import GroupMembersSetting from './GroupMembersSetting';
+import GroupProfileSetting from './GroupProfileSetting';
+import ProfileSetting from './ProfileSetting';
 
 const SettingsWrapper = styled.section``;
 

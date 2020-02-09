@@ -1,24 +1,27 @@
 import React, {
-  useCallback, useState, useMemo,
+  useCallback, useMemo,
+  useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import debounce from 'lodash.debounce';
 
-import { validateName, dataURLToBlob, cropImage } from '../../../lib/utils';
-import {
-  Page, FormGroup, Submit, Success, Error,
-} from './Setting.styled';
-import Header from '../../templates/Header';
-import Footer from '../../templates/Footer';
+import Footer from 'templates/Footer';
+import Header from 'templates/Header';
 
-import defaultProfile from '../../../static/images/defaultProfile.png';
-import { updateUserInfo, updateUserInfoWithImage } from '../../../store/reducers/auth';
+import { updateUserInfo, updateUserInfoWithImage } from 'store/reducers/auth';
+import { cropImage, dataURLToBlob, validateName } from 'lib/utils';
+
+import defaultProfile from 'static/images/defaultProfile.png';
 
 import useSetState from '../../../hooks/useSetState';
+import {
+  Error,
+  FormGroup, Page, Submit, Success,
+} from './Setting.styled';
 
 const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();

@@ -1,27 +1,28 @@
 import React, {
-  useEffect, useCallback, useRef, useState,
+  useCallback, useEffect, useRef, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { UserType, GroupType } from '../../../lib/propTypes';
+import Button from 'atoms/Button';
+import ProfileStats from 'organisms/ProfileStats';
+import Header from 'templates/Header';
+import ZaboList from 'templates/ZaboList';
+
+import { logout as logoutAction } from 'store/reducers/auth';
+import { GroupType, UserType } from 'lib/propTypes';
+import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from 'lib/utils';
+
+import defaultProfile from 'static/images/defaultProfile.png';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+import leftScroll from 'static/images/leftScroll.png';
+import rightScroll from 'static/images/rightScroll.png';
+
 import {
-  Page, Groups, Zabos,
+  Groups, Page, Zabos,
 } from './Profile.styled';
-import Header from '../../templates/Header';
-import ZaboList from '../../templates/ZaboList';
-import ProfileStats from '../../organisms/ProfileStats';
-import Button from '../../atoms/Button';
-
-import defaultProfile from '../../../static/images/defaultProfile.png';
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import leftScroll from '../../../static/images/leftScroll.png';
-import rightScroll from '../../../static/images/rightScroll.png';
-
-import { logout as logoutAction } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const GroupBox = ({ group }) => {
   const {

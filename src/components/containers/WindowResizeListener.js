@@ -3,8 +3,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import toJS from 'hoc/toJS';
-import { addWindowResizeListener } from '../../lib/utils/throttle';
-import { setWindowSize } from '../../store/reducers/app';
+import { addWindowResizeListener } from 'lib/utils/throttle';
+import { setWindowSize } from 'store/reducers/app';
 
 class WindowResizeListener extends React.Component {
   listener = () => {}

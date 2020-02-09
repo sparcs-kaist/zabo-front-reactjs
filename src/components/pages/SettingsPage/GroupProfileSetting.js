@@ -1,23 +1,26 @@
 import React, {
   useCallback, useEffect, useState,
 } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import StyledQuill from '../../organisms/StyledQuill';
-import withGroupProfile from './withGroupProfile';
-import {
-  Page, FormGroup, Submit, Error,
-} from './Setting.styled';
-import Header from '../../templates/Header';
-import Footer from '../../templates/Footer';
 
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import { updateGroupInfo, updateGroupInfoWithImage } from '../../../store/reducers/auth';
+import StyledQuill from 'organisms/StyledQuill';
+import Footer from 'templates/Footer';
+import Header from 'templates/Header';
+
+import { updateGroupInfo, updateGroupInfoWithImage } from 'store/reducers/auth';
+import { GroupType } from 'lib/propTypes';
+import { cropImage, dataURLToBlob } from 'lib/utils';
+
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import useSetState from '../../../hooks/useSetState';
-import { GroupType } from '../../../lib/propTypes';
-import { cropImage, dataURLToBlob } from '../../../lib/utils';
+import {
+  Error,
+  FormGroup, Page, Submit,
+} from './Setting.styled';
+import withGroupProfile from './withGroupProfile';
 
 const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();

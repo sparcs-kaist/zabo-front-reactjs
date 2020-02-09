@@ -1,35 +1,29 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+
+import ErrorBoundary from 'components/ErrorBoundary';
+import AuthCallback from 'organisms/AuthCallback';
 import PWAPrompt from 'templates/PWAPrompt';
 import {
+  AdminPage,
   HomePage,
-  SettingsPage,
-  ZaboUploadPage,
-  ZaboPage,
   NotFound,
   ProfilePage,
-  AdminPage,
   SearchPage,
-} from 'components/pages';
-import AuthCallback from 'organisms/AuthCallback';
-import WindowResizeListener from 'containers/WindowResizeListener';
-import ScrollToTop from 'containers/ScrollToTop';
+  SettingsPage,
+  ZaboPage,
+  ZaboUploadPage,
+} from 'pages';
 
+import { AdminRoute, PrivateRoute } from 'hoc/AuthRoutes';
 import pToP from 'hoc/paramsToProps';
-import ErrorBoundary from './components/ErrorBoundary';
 
 import AppWrapper from './App.styled';
-
-import { AdminRoute, PrivateRoute, PublicRoute } from './hoc/AuthRoutes';
-
-import 'lib/channel_io';
 
 const App = () => (
   <AppWrapper>
     <ErrorBoundary>
-      <WindowResizeListener />
       <PWAPrompt />
-      <Route path="/zabo/:route?" component={ScrollToTop} />
       <Route path="/" exact component={AuthCallback} />
       <Switch>
         <Route path="/search" component={SearchPage} />

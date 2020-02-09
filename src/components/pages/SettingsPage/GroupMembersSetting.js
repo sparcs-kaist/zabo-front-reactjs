@@ -1,20 +1,20 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import List from 'organisms/List';
 import SearchSelect from 'organisms/SearchSelect';
 import Header from 'templates/Header';
 
-import { Page } from './Setting.styled';
+import * as profileActions from 'store/reducers/profile';
+import { searchUsers } from 'lib/api/search';
+import { GroupType } from 'lib/propTypes';
 
-import withGroupProfile from './withGroupProfile';
-import { GroupType } from '../../../lib/propTypes';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+
 import useSetState from '../../../hooks/useSetState';
-import { searchUsers } from '../../../lib/api/search';
-import * as profileActions from '../../../store/reducers/profile';
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
+import { Page } from './Setting.styled';
+import withGroupProfile from './withGroupProfile';
 
 const debouncedSearchAPI = AwesomeDebouncePromise (searchUsers, 300);
 

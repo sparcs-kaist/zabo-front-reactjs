@@ -1,6 +1,6 @@
+import { fromJS, Map } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
-import { fromJS, Map } from 'immutable';
 
 import axios from 'lib/axios';
 

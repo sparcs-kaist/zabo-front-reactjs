@@ -1,7 +1,8 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { isAuthedSelector, isAdminOrPendingSelector } from 'lib/utils';
+
+import { isAdminOrPendingSelector, isAuthedSelector } from 'lib/utils';
 
 export const PrivateRoute = (({ component: Component, render, ...rest }) => {
   const isAuthenticated = useSelector (isAuthedSelector);

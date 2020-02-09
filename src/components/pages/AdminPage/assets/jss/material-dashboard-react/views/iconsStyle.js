@@ -1,8 +1,8 @@
 import {
   boxShadow,
-  whiteColor,
   grayColor,
   hexToRgb,
+  whiteColor,
 } from '../../material-dashboard-react';
 
 const iconsStyle = {

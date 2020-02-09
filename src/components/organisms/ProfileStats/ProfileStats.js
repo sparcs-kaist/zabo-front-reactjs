@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Stats } from './ProfileStats.styled';
 
 const ProfileStats = ({ stats, smallV }) => (

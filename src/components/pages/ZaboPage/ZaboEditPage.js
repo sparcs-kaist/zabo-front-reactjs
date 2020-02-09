@@ -4,15 +4,19 @@ import React, {
 import PropTypes from 'prop-types';
 import { Prompt, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { FooterStyle, PageWrapper, TitleStyle } from '../ZaboUploadPage/ZaboUploadPage.styled';
-import rightGrayArrow from '../../../static/images/rightGrayArrow.png';
-import ZaboUpload from '../../templates/ZaboUpload';
-import Footer from '../../templates/Footer';
-import withZabo from './withZabo';
+
+import Footer from 'templates/Footer';
+import ZaboUpload from 'templates/ZaboUpload';
+
+import { patchZabo } from 'store/reducers/zabo';
+import { ZaboType } from 'lib/propTypes';
+import { CATEGORIES } from 'lib/variables';
+
+import rightGrayArrow from 'static/images/rightGrayArrow.png';
+
 import useSetState from '../../../hooks/useSetState';
-import { CATEGORIES } from '../../../lib/variables';
-import { ZaboType } from '../../../lib/propTypes';
-import { patchZabo } from '../../../store/reducers/zabo';
+import { FooterStyle, PageWrapper, TitleStyle } from '../ZaboUploadPage/ZaboUploadPage.styled';
+import withZabo from './withZabo';
 
 const SlideTitle = () => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];

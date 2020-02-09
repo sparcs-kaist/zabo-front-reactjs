@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { makeStyles } from '@material-ui/core';
 import MaterialList from '@material-ui/core/List';
 import MaterialListItem from '@material-ui/core/ListItem';
-import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles (theme => ({
   root: {

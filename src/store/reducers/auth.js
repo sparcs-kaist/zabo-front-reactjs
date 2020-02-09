@@ -1,11 +1,11 @@
-import { createAction, handleActions } from 'redux-actions';
-import { Map, fromJS, List } from 'immutable';
-import { pender } from 'redux-pender';
+import { fromJS, List, Map } from 'immutable';
 import jwt from 'jsonwebtoken';
+import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
+
+import * as AuthAPI from 'lib/api/auth';
 import axios from 'lib/axios';
 import storage from 'lib/storage';
-
-import * as AuthAPI from '../../lib/api/auth';
 
 // Action types
 const LOGIN_CALLBACK = 'auth/LOGIN_CALLBACK';

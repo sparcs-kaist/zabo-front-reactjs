@@ -1,6 +1,7 @@
 import { List } from 'immutable';
+
+import serializer from 'lib/immutable';
 import storage from 'lib/storage';
-import serializer from '../lib/immutable';
 
 const persistUpload = store => next => action => {
   const result = next (action);

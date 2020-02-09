@@ -6,18 +6,19 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
-import StyledQuill from '../../organisms/StyledQuill';
+
+import ProfileStats from 'organisms/ProfileStats';
+import StyledQuill from 'organisms/StyledQuill';
+import Header from 'templates/Header';
+import ZaboList from 'templates/ZaboList';
+
+import { setCurrentGroup } from 'store/reducers/auth';
+import { GroupType } from 'lib/propTypes';
+import { getLabeledTimeDiff, isElementOverflown } from 'lib/utils';
+
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import { Page, Zabos } from './Profile.styled';
-import Header from '../../templates/Header';
-import ZaboList from '../../templates/ZaboList';
-import ProfileStats from '../../organisms/ProfileStats';
-
-import { GroupType } from '../../../lib/propTypes';
-
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import { setCurrentGroup } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff, isElementOverflown } from '../../../lib/utils';
 
 const GroupProfile = ({ profile }) => {
   const {

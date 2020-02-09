@@ -1,10 +1,12 @@
-import store from 'store';
 import 'devtools-detect';
+import 'lib/channel_io';
+
+import store from 'store';
 import { checkAuth } from 'store/reducers/auth';
-import storage from 'lib/storage';
+import { initialize } from 'store/reducers/upload';
 import axios from 'lib/axios';
-import serializer from './lib/immutable';
-import { initialize } from './store/reducers/upload';
+import serializer from 'lib/immutable';
+import storage from 'lib/storage';
 
 const pwaInstallPromptListener = () => {
   window.addEventListener ('beforeinstallprompt', e => {
@@ -60,7 +62,7 @@ export default () => {
 };
 
 window.addEventListener ('devtoolschange', () => {
-  // import ('./static/images/recruitAscii').then (asciiArt => {
+  // import ('static/images/recruitAscii').then (asciiArt => {
   //   console.log (asciiArt.default);
   // });
 });

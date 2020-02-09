@@ -1,17 +1,18 @@
 import React from 'react';
-import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import axios from 'lib/axios';
 import queryString from 'query-string';
-import searchIcon from 'static/images/search-icon-navy.png';
+
+import { searchAPI } from 'lib/api/search';
+import axios from 'lib/axios';
+import { CATEGORIES } from 'lib/variables';
+
 import cancelIcon from 'static/images/cancel.png';
+import searchIcon from 'static/images/search-icon-navy.png';
 
-import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
-
-import { CATEGORIES } from '../../../lib/variables';
 import useSetState from '../../../hooks/useSetState';
-import { searchAPI } from '../../../lib/api/search';
+import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);

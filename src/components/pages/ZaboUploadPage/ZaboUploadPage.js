@@ -1,25 +1,31 @@
 import React, {
-  useCallback, useEffect, useRef, forwardRef, useMemo,
+  forwardRef, useCallback, useEffect, useMemo,
+  useRef,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import {
-  useRouteMatch, Prompt,
+  Prompt,
+  useRouteMatch,
 } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
 
-import ZaboUpload from '../../templates/ZaboUpload';
-import Header from '../../templates/Header';
-import Footer from '../../templates/Footer';
-import {
-  setStep as setReduxStep, setGroupSelected, setImagesSeleted, setInfoWritten, reset,
-} from '../../../store/reducers/upload';
+import Footer from 'templates/Footer';
+import Header from 'templates/Header';
+import ZaboUpload from 'templates/ZaboUpload';
 
 import {
-  PageWrapper, TitleStyle, FooterStyle,
+  reset,
+  setGroupSelected, setImagesSeleted, setInfoWritten, setStep as setReduxStep,
+} from 'store/reducers/upload';
+
+import rightArrow from 'static/images/rightArrow.png';
+import rightGrayArrow from 'static/images/rightGrayArrow.png';
+
+import {
+  FooterStyle,
+  PageWrapper, TitleStyle,
 } from './ZaboUploadPage.styled';
-import rightArrow from '../../../static/images/rightArrow.png';
-import rightGrayArrow from '../../../static/images/rightGrayArrow.png';
 
 const SlideTitle = ({ step }) => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];

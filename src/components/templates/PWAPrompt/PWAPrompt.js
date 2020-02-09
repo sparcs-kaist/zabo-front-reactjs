@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 
 import appIcon from 'static/logo/sparcs.svg';
+
 import PWAPromptWrapper from './PWAPrompt.styled';
 
 
