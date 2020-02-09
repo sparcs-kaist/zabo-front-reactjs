@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
 import { searchAPI } from '../../../lib/api/search';
+import { Page } from './SearchPage.styled';
 import Header from '../../templates/Header';
+import GroupList from '../../organisms/GroupList';
 import useSetState from '../../../hooks/useSetState';
 
 const SearchPage = () => {
@@ -26,22 +28,18 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
-    const data = searchAPI (query);
-    _updateResults (data);
+    searchAPI (query)
+      .then (data => _updateResults (data))
+      .catch (err => console.log (err));
   }, []);
 
   return (
-    <div>
+    <Page>
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
-      <h1>그룹 검색 결과</h1>
-      {/* <Groups>
-        <h1>그룹 검색 결과</h1>
-        <Groups.ScrollBtn>
-        </Groups.ScrollBtn>
-        <Groups.List id="groupsList">
-        </Groups.List>
-      </Groups> */}
-    </div>
+      <Page.Body>
+        <GroupList type="search" groups={uploaderSearch} />
+      </Page.Body>
+    </Page>
   );
 };
 

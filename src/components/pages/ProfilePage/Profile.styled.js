@@ -121,71 +121,20 @@ Page.Body.User = styled.div`
 `;
 
 Page.Body.Group = styled.div`
-  margin-bottom: 131px;
+  margin-bottom: 59px;
   border-top: 1px solid #E9E9E9;
   padding-top: 16px;
-`;
-
-export const Groups = styled.section`
-  width: 1032px;
-  margin-bottom: 78px;
-  h1 {
-    display: inline-block;
-    font-size: 22px;
-    color: #363636;
-    margin: 0 0 16px 0;
-    font-weight: 800;
-  }
-
   @media (max-width: 640px) {
-    width: 100%;
-    padding: 0 16px;
-    h1 {
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-  }
-`;
-
-Groups.List = styled.div`
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 3px;
-  overflow-x: scroll;
-  /* overflow-y: visible; */
-  white-space: nowrap;
-  
-  /* hide scroll bar */
-  /* -webkit- (Chrome, Safari, newer versions of Opera) */
-  &::-webkit-scrollbar { width: 0 !important }
-  /* Firefox */
-  scrollbar-width: none;
-  /* -ms- (Internet Explorer +10) */
-  -ms-overflow-style: none;
-`;
-
-Groups.ScrollBtn = styled.div`
-  @media (max-width: 640px) {
-    visibility: hidden;
-  }
-  float: right;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-    border-radius: 50%;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-    }
+    margin-bottom: 0;
   }
 `;
 
 // TODO: Refactor dups
 export const Zabos = styled.section` 
   width: 1032px;
+  margin-top: 72px;
   @media (max-width: 640px) {
-    margin-top: 64px;
+    margin-top: 60px;
     padding: 0 16px;
     width: 100%;
   }
