@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { UserType, GroupType } from '../../../lib/propTypes';
+import { UserType } from '../../../lib/propTypes';
 import {
   Page, Groups, Zabos,
 } from './Profile.styled';
@@ -14,52 +14,14 @@ import Header from '../../templates/Header';
 import ZaboList from '../../templates/ZaboList';
 import ProfileStats from '../../organisms/ProfileStats';
 import Button from '../../atoms/Button';
+import GroupBox from '../../organisms/GroupBox';
 
 import defaultProfile from '../../../static/images/defaultProfile.png';
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 import leftScroll from '../../../static/images/leftScroll.png';
 import rightScroll from '../../../static/images/rightScroll.png';
 
 import { logout as logoutAction } from '../../../store/reducers/auth';
-import { getLabeledTimeDiff, isAdminSelector, isElementOverflown } from '../../../lib/utils';
-
-const GroupBox = ({ group }) => {
-  const {
-    name, profilePhoto, zabosCount, followersCount, recentUpload,
-  } = group;
-  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
-  const stats = [{
-    name: '자보',
-    value: zabosCount,
-  }, {
-    name: '팔로워',
-    value: followersCount,
-  }, {
-    name: '최근 업로드',
-    value: timePast,
-  }];
-
-  return (
-    <Groups.ListItem to={name}>
-      {
-        profilePhoto
-          ? <img src={profilePhoto} alt="group profile photo" />
-          : <img src={groupDefaultProfile} alt="default group profile photo" />
-      }
-      <section>
-        <Tooltip title={name}>
-          <div className="group-name">{name}</div>
-        </Tooltip>
-        <ProfileStats stats={stats} smallV />
-      </section>
-    </Groups.ListItem>
-  );
-};
-
-GroupBox.propTypes = {
-  group: GroupType.isRequired,
-};
-
+import { isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const UserProfile = ({ profile }) => {
   const {
