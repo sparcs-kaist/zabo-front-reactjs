@@ -4,8 +4,8 @@ import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
 
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import List from 'organisms/List';
 import { Page } from './Setting.styled';
-import UserList from './List';
 
 import Header from '../../templates/Header';
 
@@ -95,7 +95,7 @@ const GroupMembersSetting = ({ profile }) => {
           isSearchable
         />
         <button onClick={addMember}>추가</button>
-        <UserList
+        <List
           dataSource={members}
           renderItem={
             ({ role, user }) => {
@@ -103,7 +103,7 @@ const GroupMembersSetting = ({ profile }) => {
                 username, name, koreanName, profilePhoto,
               } = user;
               return (
-                <UserList.Item key={user._id}>
+                <List.GroupMemberItem key={user._id}>
                   {
                       profilePhoto
                         ? <img src={profilePhoto} alt="profile photo" />
@@ -116,7 +116,7 @@ const GroupMembersSetting = ({ profile }) => {
                   <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
                   <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
                   <button onClick={() => removeMember (user._id)}>삭제</button>
-                </UserList.Item>
+                </List.GroupMemberItem>
               );
             }
           }

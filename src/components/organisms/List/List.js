@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import MaterialList from '@material-ui/core/List';
+import MaterialListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core';
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 
 const useStyles = makeStyles (theme => ({
   root: {
@@ -29,7 +28,7 @@ const useStyles = makeStyles (theme => ({
   },
 }));
 
-const StyledList = styled (List)`
+const StyledList = styled (MaterialList)`
   h3 {
     margin: 0 0 8px 0;
     font-size: 18px;
@@ -73,7 +72,7 @@ const StyledList = styled (List)`
   }
 `;
 
-const UserList = ({ dataSource, renderItem }) => {
+const List = ({ dataSource, renderItem }) => {
   const classes = useStyles ();
   return (
     <StyledList className={classes.root}>
@@ -82,22 +81,22 @@ const UserList = ({ dataSource, renderItem }) => {
   );
 };
 
-UserList.Item = (props) => {
+List.GroupMemberItem = (props) => {
   const classes = useStyles ();
   return (
-    <ListItem className={classes.item} {...props} />
+    <MaterialListItem className={classes.item} {...props} />
   );
 };
 
-UserList.propTypes = {
+List.propTypes = {
   dataSource: PropTypes.arrayOf (PropTypes.shape ({
 
   })).isRequired,
   renderItem: PropTypes.func,
 };
 
-UserList.defaultProps = {
+List.defaultProps = {
   renderItem: (item) => <div key={item}>{item}</div>,
 };
 
-export default UserList;
+export default List;
