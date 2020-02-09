@@ -161,7 +161,7 @@ const SelectGroup = () => {
   return (
     <SelectGroupWrapper>
       <h1>그룹 선택하기</h1>
-      {groupsInfo.length
+      {(groupsInfo && groupsInfo.length)
         ? (
           <div>
             <p>

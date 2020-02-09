@@ -1,11 +1,9 @@
 import React, {
-  useCallback, useEffect, useRef, forwardRef, useMemo,
+  useCallback, useEffect, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  useRouteMatch, Prompt,
-} from 'react-router-dom';
+import { Prompt } from 'react-router-dom';
 import SwipeableViews from 'react-swipeable-views';
 
 import ZaboUpload from '../../templates/ZaboUpload';
