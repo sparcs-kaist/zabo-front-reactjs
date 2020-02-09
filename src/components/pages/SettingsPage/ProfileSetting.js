@@ -55,15 +55,13 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     onChangeHandler (e);
   };
 
-  const nameDebounce = useMemo (() => debounce (() => {
-    // TODO: username: current e.target.username is not applying...
-    // need to use e.target.value, or call 'nameDebounce' function inside onChange function, or...
-    setNameInvalid (!validateName (username));
-  }, 800), [state.username]);
+  const debouncedNameValidate = useMemo (() => debounce (name => {
+    setNameInvalid (!validateName (name));
+  }, 800), []);
 
   const onChangeName = e => {
     onChange (e);
-    nameDebounce ();
+    debouncedNameValidate (e.target.value);
   };
 
   return (
