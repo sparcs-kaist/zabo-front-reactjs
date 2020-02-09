@@ -89,7 +89,7 @@ const GroupList = ({ type, groups }) => {
 
 GroupList.propTypes = {
   type: PropTypes.string.isRequired,
-  groups: PropTypes.arrayOf (PropTypes.GroupType).isRequired,
+  groups: PropTypes.arrayOf (GroupType).isRequired,
 };
 
 export default GroupList;
