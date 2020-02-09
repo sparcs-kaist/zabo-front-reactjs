@@ -2,24 +2,18 @@ import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 import { fromJS, Map } from 'immutable';
 
-import axios from 'lib/axios';
-
-const api = {
-  fetchProfile: (name) => axios.get (`/profile/${name}`),
-  addGroupMember: ({ groupName, userId, role }) => axios.put (`/group/${groupName}/member`, { userId, role }),
-  updateGroupMember: ({ groupName, userId, role }) => axios.post (`/group/${groupName}/member`, { userId, role }),
-  removeGroupUser: ({ groupName, userId }) => axios.delete (`/group/${groupName}/member`, { data: { userId } }),
-};
+import * as ProfileAPIs from '../../lib/api/profile';
+import * as GroupAPIs from '../../lib/api/group';
 
 const GET_PROFILE = 'profile/GET_PROFILE';
 const ADD_GROUP_MEMBER = 'profile/ADD_GROUP_MEMBER';
 const UPDATE_GROUP_MEMBER = 'profile/UPDATE_GROUP_MEMBER';
 const REMOVE_GROUP_MEMBER = 'profile/REMOVE_GROUP_MEMBER';
 
-export const getProfile = createAction (GET_PROFILE, api.fetchProfile, meta => meta);
-export const addGroupMember = createAction (ADD_GROUP_MEMBER, api.addGroupMember, meta => meta);
-export const updateGroupMember = createAction (UPDATE_GROUP_MEMBER, api.updateGroupMember, meta => meta);
-export const removeGroupMember = createAction (REMOVE_GROUP_MEMBER, api.removeGroupUser, meta => meta);
+export const getProfile = createAction (GET_PROFILE, ProfileAPIs.fetchProfile, meta => meta);
+export const addGroupMember = createAction (ADD_GROUP_MEMBER, GroupAPIs.addGroupMember, meta => meta);
+export const updateGroupMember = createAction (UPDATE_GROUP_MEMBER, GroupAPIs.updateGroupMember, meta => meta);
+export const removeGroupMember = createAction (REMOVE_GROUP_MEMBER, GroupAPIs.removeGroupUser, meta => meta);
 
 const initialState = Map ({
   profiles: Map ({}),
