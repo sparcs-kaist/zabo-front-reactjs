@@ -2,7 +2,9 @@ import { List } from 'immutable';
 import { connect } from 'react-redux';
 
 import toJS from 'hoc/toJS';
-import { getPins, getZaboList, getGroupZaboList } from 'store/reducers/zabo';
+import {
+  getPins, getZaboList, getGroupZaboList, getSearchZaboList,
+} from 'store/reducers/zabo';
 
 import ZaboList from './ZaboList';
 
@@ -11,6 +13,7 @@ const reduxKey = {
   related: id => ['zabo', 'lists', id],
   pins: () => ['zabo', 'lists', 'pins'],
   group: name => ['zabo', 'lists', name],
+  search: () => ['zabo', 'lists', 'search'],
 };
 
 const emptyList = List ([]);
@@ -26,6 +29,7 @@ const mapDispatchToProps = {
   getPins,
   getZaboList,
   getGroupZaboList,
+  getSearchZaboList,
 };
 
 export default connect (mapStateToProps, mapDispatchToProps) (toJS (ZaboList));

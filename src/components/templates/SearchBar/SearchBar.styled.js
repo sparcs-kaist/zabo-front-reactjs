@@ -150,21 +150,3 @@ SearchBarWrapper.Body = styled.div`
     }
   }
 `;
-
-SearchBarWrapper.Body.TagBtn = styled.div`
-  margin-top: 20px;
-
-  button.tag-button {
-    font-size: 16px;
-    line-height: 18px;
-    color:  #143441;
-    padding: 10px 14px;
-    margin: 0 12px 10px 0;
-    border: 1px solid #143441;
-    border-radius: 4px;
-    &:hover, &:focus {
-      color: white;
-      background-color: #143441;
-    }
-  }
-`;

@@ -7,8 +7,7 @@ import searchIcon from 'static/images/search-icon-navy.png';
 import cancelIcon from 'static/images/cancel.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
-
-import { CATEGORIES } from '../../../lib/variables';
+import TagList from '../../atoms/TagList';
 import useSetState from '../../../hooks/useSetState';
 import { searchAPI } from '../../../lib/api/search';
 
@@ -41,7 +40,7 @@ const SearchBar = ({ isOpen, options }) => {
     });
   };
 
-  const _handleChange = useCallback (e => {
+  const _handleChange = e => {
     const { value: query } = e.target;
     setState ({ search: query });
     if (searchResults[query]) {
@@ -59,11 +58,14 @@ const SearchBar = ({ isOpen, options }) => {
           },
         }));
       }).catch (err => console.log ('change error'));
-  }, [setState, searchResults, isMounted, _updateResults, searchAPIDebounced]);
+  };
 
   const _handleKeyDown = e => {
     const stringified = queryString.stringify ({ query: search });
     if (e.key === 'Enter') {
+      setState ({
+        searchFocused: false,
+      });
       history.push (`/search?${stringified}`);
     }
   };
@@ -100,11 +102,7 @@ const SearchBar = ({ isOpen, options }) => {
   const searchWithTagComponent = (
     <div>
       <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
-      <SearchBarWrapper.Body.TagBtn>
-        {CATEGORIES.map ((tag, idx) => (
-          <button key={idx} value={tag} className="tag-button" onClick={onTagClick}>{tag}</button>
-        ))}
-      </SearchBarWrapper.Body.TagBtn>
+      <TagList onClick={onTagClick} />
     </div>
   );
 
