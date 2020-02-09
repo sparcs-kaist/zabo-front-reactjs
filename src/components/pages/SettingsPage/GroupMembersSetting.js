@@ -36,6 +36,7 @@ const GroupMembersSetting = ({ profile }) => {
     const users = await debouncedSearchAPI (query);
     const outUsers = users.filter (user => !members.find (member => member._id === user._id));
     const options = outUsers.map (user => ({
+      ...user,
       value: user._id,
       label: `${user.username} - (${user.koreanName || user.name})`,
     }));
@@ -62,6 +63,7 @@ const GroupMembersSetting = ({ profile }) => {
         <p>관리자는 그룹의 멤버와 자보를 관리할 수 있으며, 편집자는 자보를 업로드 및 수정할 수 있습니다.</p>
 
         <SearchSelect
+          placeholder="멤버 추가하기"
           value={userOption}
           cacheOptions
           loadOptions={loadOptions}
