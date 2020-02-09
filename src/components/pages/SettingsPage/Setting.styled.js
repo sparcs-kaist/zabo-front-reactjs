@@ -120,6 +120,6 @@ export const Submit = styled.button`
 export const Success = styled.div`
   color: green;
 `;
-export const Error = styled.div`
+export const ErrorComponent = styled.div`
   color: red;
 `;

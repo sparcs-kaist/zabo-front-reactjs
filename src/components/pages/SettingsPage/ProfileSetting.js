@@ -6,11 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import debounce from 'lodash.debounce';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
-import { validateName, dataURLToBlob, cropImage } from '../../../lib/utils';
+import { dataURLToBlob, cropImage, validateName } from '../../../lib/utils';
 import {
-  Page, FormGroup, Submit, Success, Error,
+  Page, FormGroup, Submit, Success, ErrorComponent,
 } from './Setting.styled';
 import Header from '../../templates/Header';
 import Footer from '../../templates/Footer';
@@ -18,18 +18,34 @@ import Footer from '../../templates/Footer';
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import { updateUserInfo, updateUserInfoWithImage } from '../../../store/reducers/auth';
 
+import { validateName as validateNameAPI } from '../../../lib/api/profile';
+
 import useSetState from '../../../hooks/useSetState';
 
 const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
+
+  const debouncedValidateName = useMemo (() => {
+    const effectiveValidateName = ({ name }) => {
+      if (name === initialValue.username) {
+        return Promise.resolve (true);
+      }
+      if (!validateName (name)) {
+        return Promise.reject (new Error ('invalid'));
+      }
+      return validateNameAPI ({ name });
+    };
+    return AwesomeDebouncePromise (effectiveValidateName, 800);
+  }, [initialValue]);
+
   const [state, setState, onChangeHandler] = useSetState ({
     ...initialValue,
     success: false,
     error: null,
   });
 
-  const [nameInvalid, setNameInvalid] = useState (false);
+  const [nameInvalidError, setNameInvalid] = useState (false);
   const {
     username, description, error, success,
   } = state;
@@ -55,13 +71,11 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     onChangeHandler (e);
   };
 
-  const debouncedNameValidate = useMemo (() => debounce (name => {
-    setNameInvalid (!validateName (name));
-  }, 800), []);
-
   const onChangeName = e => {
     onChange (e);
-    debouncedNameValidate (e.target.value);
+    debouncedValidateName ({ name: e.target.value }) // TODO: Unsubscribe on unmount
+      .then (() => setNameInvalid (false))
+      .catch (setNameInvalid);
   };
 
   return (
@@ -79,8 +93,8 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
             onChange={onChangeName}
           />
           {
-            nameInvalid
-              ? <FormHelperText id="user-profile-error">Error</FormHelperText>
+            nameInvalidError
+              ? <FormHelperText id="user-profile-error">{nameInvalidError.message}</FormHelperText>
               : ''
           }
         </FormControl>
@@ -97,7 +111,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           onChange={onChange}
         />
       </FormGroup>
-      {error && <Error>{error.error}</Error>}
+      {error && <ErrorComponent>{error.message}</ErrorComponent>}
       {success && <Success>성공</Success>}
       <Footer scrollFooter>
         <Submit type="submit">수정 완료</Submit>

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import StyledQuill from '../../organisms/StyledQuill';
 import withGroupProfile from './withGroupProfile';
 import {
-  Page, FormGroup, Submit, Error,
+  Page, FormGroup, Submit, ErrorComponent,
 } from './Setting.styled';
 import Header from '../../templates/Header';
 import Footer from '../../templates/Footer';
@@ -97,7 +97,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           groupSetting
         />
       </FormGroup>
-      {error && <Error>{error.message}</Error>}
+      {error && <ErrorComponent>{error.message}</ErrorComponent>}
       <Footer scrollFooter>
         <Submit type="submit">수정하기</Submit>
       </Footer>
