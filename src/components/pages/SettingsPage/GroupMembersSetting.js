@@ -2,13 +2,11 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import AsyncSelect from 'react-select/async';
 import Select from 'react-select';
-import styled from 'styled-components';
 
-import { makeStyles } from '@material-ui/core/styles';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import { MemberSettingWrapper } from './Setting.styled';
+import { Page } from './Setting.styled';
+import UserList from './List';
+
 import Header from '../../templates/Header';
 
 import withGroupProfile from './withGroupProfile';
@@ -17,29 +15,6 @@ import useSetState from '../../../hooks/useSetState';
 import { searchUsers } from '../../../lib/api/search';
 import * as profileActions from '../../../store/reducers/profile';
 import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-
-const useStyles = makeStyles (theme => ({
-  root: {
-    width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    padding: 0,
-  },
-  item: {
-    width: '582px',
-    height: '106px',
-    '@media (max-width: 640px)': {
-      width: '100%',
-      height: '84px',
-    },
-    '&.Mui-selected': {
-      backgroundColor: '#143441',
-    },
-    '&:hover': {
-      backgroundColor: '#F4F4F4',
-      cursor: 'pointer',
-    },
-  },
-}));
 
 const debouncedSearchAPI = AwesomeDebouncePromise (searchUsers, 300);
 
@@ -69,7 +44,6 @@ const customStyles = {
 };
 
 const GroupMembersSetting = ({ profile }) => {
-  const classes = useStyles ();
   const dispatch = useDispatch ();
   const { name, members } = profile;
   const [state, setState, onChange] = useSetState ({
@@ -101,9 +75,9 @@ const GroupMembersSetting = ({ profile }) => {
   const { userOption, roleOption } = state;
 
   return (
-    <MemberSettingWrapper>
+    <Page>
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
-      <MemberSettingWrapper.Body>
+      <Page.Body>
         <h1>{name} 멤버 관리</h1>
         <p>관리자는 그룹의 멤버와 자보를 관리할 수 있으며, 편집자는 자보를 업로드 및 수정할 수 있습니다.</p>
         <AsyncSelect
@@ -121,36 +95,34 @@ const GroupMembersSetting = ({ profile }) => {
           isSearchable
         />
         <button onClick={addMember}>추가</button>
-        <List className={classes.root}>
-          {
-            members.map (({ role, user }, i) => {
+        <UserList
+          dataSource={members}
+          renderItem={
+            ({ role, user }) => {
               const {
                 username, name, koreanName, profilePhoto,
               } = user;
               return (
-                <React.Fragment key={user._id}>
-                  <ListItem className={classes.item}>
-                    {
+                <UserList.Item key={user._id}>
+                  {
                       profilePhoto
                         ? <img src={profilePhoto} alt="profile photo" />
                         : <img src={groupDefaultProfile} alt="default profile img" />
                     }
-                    <div>
-                      <h3>{username}</h3>
-                      <div className="role">{role}</div>
-                    </div>
-                    <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
-                    <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
-                    <button onClick={() => removeMember (user._id)}>삭제</button>
-                  </ListItem>
-                  {i !== members.length - 1 && <div className="divider"> </div>}
-                </React.Fragment>
+                  <div>
+                    <h3>{username}</h3>
+                    <div className="role">{role}</div>
+                  </div>
+                  <button onClick={() => updateMember (user._id, 'admin')}>관리자로</button>
+                  <button onClick={() => updateMember (user._id, 'editor')}>편집자로</button>
+                  <button onClick={() => removeMember (user._id)}>삭제</button>
+                </UserList.Item>
               );
-            })
+            }
           }
-        </List>
-      </MemberSettingWrapper.Body>
-    </MemberSettingWrapper>
+        />
+      </Page.Body>
+    </Page>
   );
 };
 
