@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import AsyncSelect from 'react-select/async';
-import Select from 'react-select';
 
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
-import List from 'organisms/List';
-import { Page } from './Setting.styled';
 
-import Header from '../../templates/Header';
+import List from 'organisms/List';
+import SearchSelect from 'organisms/SearchSelect';
+import Header from 'templates/Header';
+
+import { Page } from './Setting.styled';
 
 import withGroupProfile from './withGroupProfile';
 import { GroupType } from '../../../lib/propTypes';
@@ -22,26 +22,6 @@ const selectOptions = [
   { value: 'editor', label: '편집자' },
   { value: 'admin', label: '관리자' },
 ];
-
-// TODO: Style selectors
-const customStyles = {
-  option: (provided, state) => ({
-    ...provided,
-    borderBottom: '1px dotted pink',
-    color: state.isSelected ? 'red' : 'blue',
-    padding: 20,
-  }),
-  control: () => ({
-    // none of react-select's styles are passed to <Control />
-    width: 200,
-  }),
-  singleValue: (provided, state) => {
-    const opacity = state.isDisabled ? 0.5 : 1;
-    const transition = 'opacity 300ms';
-
-    return { ...provided, opacity, transition };
-  },
-};
 
 const GroupMembersSetting = ({ profile }) => {
   const dispatch = useDispatch ();
@@ -80,19 +60,13 @@ const GroupMembersSetting = ({ profile }) => {
       <Page.Body>
         <h1>{name} 멤버 관리</h1>
         <p>관리자는 그룹의 멤버와 자보를 관리할 수 있으며, 편집자는 자보를 업로드 및 수정할 수 있습니다.</p>
-        <AsyncSelect
+
+        <SearchSelect
           value={userOption}
           cacheOptions
           loadOptions={loadOptions}
           onInputChange={newValue => setState ({ query: newValue })}
           onChange={newOption => setState ({ userOption: newOption })}
-        />
-        <Select
-          styles={customStyles}
-          value={roleOption}
-          options={selectOptions}
-          onChange={newOption => setState ({ roleOption: newOption })}
-          isSearchable
         />
         <button onClick={addMember}>추가</button>
         <List
