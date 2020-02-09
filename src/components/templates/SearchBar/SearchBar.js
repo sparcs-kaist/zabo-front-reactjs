@@ -4,6 +4,7 @@ import { Link, useHistory } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import queryString from 'query-string';
 
+import useSetState from 'hooks/useSetState';
 import { searchAPI } from 'lib/api/search';
 import axios from 'lib/axios';
 import { CATEGORIES } from 'lib/variables';
@@ -11,7 +12,6 @@ import { CATEGORIES } from 'lib/variables';
 import cancelIcon from 'static/images/cancel.png';
 import searchIcon from 'static/images/search-icon-navy.png';
 
-import useSetState from '../../../hooks/useSetState';
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */

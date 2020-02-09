@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { components } from 'react-select';
 
 import Select from 'molecules/Select';
@@ -20,7 +20,7 @@ const customStyles = {
   },
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isFocused ? '#F4F4F4' : '#FFFFFF',
+    backgroundColor: state.isSelected ? '#F4F4F4' : '#FFFFFF',
     padding: '12px 16px',
     display: 'flex',
     alignItems: 'center',
@@ -29,6 +29,9 @@ const customStyles = {
       height: 32,
       marginRight: 10,
       borderRadius: '50%',
+    },
+    '&:hover': {
+      backgroundColor: '#F4F4F4',
     },
   }),
   control: (provided, state) => {
@@ -66,8 +69,14 @@ const customStyles = {
     padding: '2px 11px',
   }),
   menu: (provided, state) => ({
+    label: 'menu',
+    background: '#FFFFFF',
+    top: '100%',
+    position: 'absolute',
+    zIndex: 1,
     paddingTop: state.options.length ? 12 : 0,
     width: 388,
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',
   }),
 };
 

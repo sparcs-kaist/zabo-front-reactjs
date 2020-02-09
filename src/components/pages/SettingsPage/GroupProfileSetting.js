@@ -10,12 +10,12 @@ import Footer from 'templates/Footer';
 import Header from 'templates/Header';
 
 import { updateGroupInfo, updateGroupInfoWithImage } from 'store/reducers/auth';
+import useSetState from 'hooks/useSetState';
 import { GroupType } from 'lib/propTypes';
 import { cropImage, dataURLToBlob } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import useSetState from '../../../hooks/useSetState';
 import {
   Error,
   FormGroup, Page, Submit,

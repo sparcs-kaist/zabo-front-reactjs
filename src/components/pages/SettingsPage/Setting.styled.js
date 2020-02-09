@@ -123,3 +123,23 @@ export const Success = styled.div`
 export const Error = styled.div`
   color: red;
 `;
+
+export const AddMember = styled.section`
+  display: flex;
+  >div {
+    margin-right: 8px;
+  }
+  >button {
+    width: 78px;
+    height: 38px;
+    background: #143441;
+    border: 1px solid #143441;
+    box-sizing: border-box;
+    border-radius: 4px;
+    
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 18px;
+    color: #FFFFFF;
+  }
+`;

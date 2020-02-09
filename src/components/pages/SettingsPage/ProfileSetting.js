@@ -13,11 +13,11 @@ import Footer from 'templates/Footer';
 import Header from 'templates/Header';
 
 import { updateUserInfo, updateUserInfoWithImage } from 'store/reducers/auth';
+import useSetState from 'hooks/useSetState';
 import { cropImage, dataURLToBlob, validateName } from 'lib/utils';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
-import useSetState from '../../../hooks/useSetState';
 import {
   Error,
   FormGroup, Page, Submit, Success,

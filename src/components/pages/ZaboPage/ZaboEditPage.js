@@ -9,12 +9,12 @@ import Footer from 'templates/Footer';
 import ZaboUpload from 'templates/ZaboUpload';
 
 import { patchZabo } from 'store/reducers/zabo';
+import useSetState from 'hooks/useSetState';
 import { ZaboType } from 'lib/propTypes';
 import { CATEGORIES } from 'lib/variables';
 
 import rightGrayArrow from 'static/images/rightGrayArrow.png';
 
-import useSetState from '../../../hooks/useSetState';
 import { FooterStyle, PageWrapper, TitleStyle } from '../ZaboUploadPage/ZaboUploadPage.styled';
 import withZabo from './withZabo';
 
