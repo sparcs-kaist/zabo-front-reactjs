@@ -1,11 +1,11 @@
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import { GroupType } from '../../../lib/propTypes';
-import { getLabeledTimeDiff } from '../../../lib/utils';
+import { GroupType } from 'lib/propTypes';
+import { getLabeledTimeDiff } from 'lib/utils';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import { Group } from './GroupBox.styled';
 import ProfileStats from '../ProfileStats';
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
 
 const GroupBox = ({ group }) => {
   const {

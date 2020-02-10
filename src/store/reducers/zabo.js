@@ -3,8 +3,8 @@ import { Map, List, fromJS } from 'immutable';
 import { pender } from 'redux-pender';
 import uniq from 'lodash.uniq';
 
-import * as ZaboAPI from '../../lib/api/zabo';
-import * as SearchAPI from '../../lib/api/search';
+import * as ZaboAPI from 'lib/api/zabo';
+import * as SearchAPI from 'lib/api/search';
 
 // Action types
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';

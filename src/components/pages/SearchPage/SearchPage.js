@@ -3,14 +3,14 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import queryString from 'query-string';
 
-// import { searchAPI } from '../../../lib/api/search';
+// import { searchAPI } from lib/api/search';
 import { getSearch } from 'store/reducers/zabo';
+import Header from 'templates/Header';
+import GroupList from 'organisms/GroupList';
+import TagList from 'atoms/TagList';
+import ZaboList from 'templates/ZaboList';
+import useSetState from 'hooks/useSetState';
 import { Page, Zabos } from './SearchPage.styled';
-import Header from '../../templates/Header';
-import GroupList from '../../organisms/GroupList';
-import TagList from '../../atoms/TagList';
-import ZaboList from '../../templates/ZaboList';
-import useSetState from '../../../hooks/useSetState';
 
 const SearchPage = () => {
   const dispatch = useDispatch ();

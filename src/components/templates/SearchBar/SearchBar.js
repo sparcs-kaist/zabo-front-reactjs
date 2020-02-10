@@ -6,10 +6,10 @@ import queryString from 'query-string';
 import searchIcon from 'static/images/search-icon-navy.png';
 import cancelIcon from 'static/images/cancel.png';
 
+import TagList from 'atoms/TagList';
+import useSetState from 'hooks/useSetState';
+import { searchAPI } from 'lib/api/search';
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
-import TagList from '../../atoms/TagList';
-import useSetState from '../../../hooks/useSetState';
-import { searchAPI } from '../../../lib/api/search';
 
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);

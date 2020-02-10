@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { GroupType } from '../../../lib/propTypes';
+import { GroupType } from 'lib/propTypes';
+import leftScroll from 'static/images/leftScroll.png';
+import rightScroll from 'static/images/rightScroll.png';
 import GroupBox from '../GroupBox';
-import leftScroll from '../../../static/images/leftScroll.png';
-import rightScroll from '../../../static/images/rightScroll.png';
 
 export const Groups = styled.section`
   width: 1032px;

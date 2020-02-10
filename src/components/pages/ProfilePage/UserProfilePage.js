@@ -6,19 +6,19 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
-import { UserType } from '../../../lib/propTypes';
+import { UserType } from 'lib/propTypes';
+import Header from 'templates/Header';
+import ZaboList from 'templates/ZaboList';
+import ProfileStats from 'organisms/ProfileStats';
+import Button from 'atoms/Button';
+import GroupList from 'organisms/GroupList';
+
+import defaultProfile from 'static/images/defaultProfile.png';
+import { logout as logoutAction } from 'store/reducers/auth';
+import { isAdminSelector, isElementOverflown } from 'lib/utils';
 import {
   Page, Zabos,
 } from './Profile.styled';
-import Header from '../../templates/Header';
-import ZaboList from '../../templates/ZaboList';
-import ProfileStats from '../../organisms/ProfileStats';
-import Button from '../../atoms/Button';
-import GroupList from '../../organisms/GroupList';
-
-import defaultProfile from '../../../static/images/defaultProfile.png';
-import { logout as logoutAction } from '../../../store/reducers/auth';
-import { isAdminSelector, isElementOverflown } from '../../../lib/utils';
 
 const UserProfile = ({ profile }) => {
   const {
