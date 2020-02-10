@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import StatBox from '../../molecules/StatBox';
+
+import StatBox from 'molecules/StatBox';
 
 /* ============ Zabo ============ */
 const ZaboCardStyle = styled.div`

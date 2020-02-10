@@ -1,10 +1,11 @@
-import { List } from 'immutable';
 import { connect } from 'react-redux';
+import { List } from 'immutable';
 
-import toJS from 'hoc/toJS';
 import {
-  getPins, getZaboList, getGroupZaboList, getSearchZaboList,
+  getGroupZaboList, getPins, getSearchZaboList,
+  getZaboList,
 } from 'store/reducers/zabo';
+import toJS from 'hoc/toJS';
 
 import ZaboList from './ZaboList';
 

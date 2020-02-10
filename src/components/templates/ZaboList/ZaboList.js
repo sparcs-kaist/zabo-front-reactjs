@@ -1,14 +1,13 @@
 import React from 'react';
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import MasonryZaboList from 'react-masonry-infinite';
+import styled from 'styled-components';
 
 import Feedback from 'organisms/Feedback';
-import ZaboListWrapper from './ZaboList.styled';
-
-import ZaboCard from '../../organisms/ZaboCard';
+import ZaboCard from 'organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
+import ZaboListWrapper from './ZaboList.styled';
 
 const sizes = [
   { columns: 2, gutter: 16 },

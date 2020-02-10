@@ -2,13 +2,16 @@ import React, {
   useCallback, useEffect, useMemo, useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
-import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { useDispatch, useSelector } from 'react-redux';
 import MomentUtils from '@date-io/moment';
-import StyledQuill from '../../organisms/StyledQuill';
-import { setInfo } from '../../../store/reducers/upload';
+import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+
+import StyledQuill from 'organisms/StyledQuill';
+
+import { setInfo } from 'store/reducers/upload';
+import { gridLayoutCompareFunction } from 'lib/utils';
+
 import { InfoFormWrapper } from './InfoForm.styled';
-import { gridLayoutCompareFunction } from '../../../lib/utils';
 
 const Form = ({ state, setState, preview }) => {
   const {

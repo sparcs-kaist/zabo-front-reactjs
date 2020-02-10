@@ -1,10 +1,11 @@
 import React from 'react';
-import { useRouteMatch, Switch, Route } from 'react-router-dom';
-import { ZaboDetailPage, NotFound, ZaboEditPage } from 'pages';
-import Header from '../../templates/Header';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import { ZaboPageWrapper } from './ZaboPage.styled';
+import Header from 'templates/Header';
+import { NotFound, ZaboDetailPage, ZaboEditPage } from 'pages';
+
 import paramsToProps from '../../../hoc/paramsToProps';
+import { ZaboPageWrapper } from './ZaboPage.styled';
 
 const Main = () => {
   const { path } = useRouteMatch ();

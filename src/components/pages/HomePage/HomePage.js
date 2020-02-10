@@ -1,6 +1,8 @@
 import React, { PureComponent } from 'react';
-import ZaboList from 'templates/ZaboList';
+
 import Header from 'templates/Header';
+import ZaboList from 'templates/ZaboList';
+
 import HomePageWrapper from './HomePage.styled';
 
 class HomePage extends PureComponent {

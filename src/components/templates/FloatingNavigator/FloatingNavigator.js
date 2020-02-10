@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 
-import user from 'static/images/user.svg';
-import calendar from 'static/images/calendar.svg';
 import add from 'static/images/add.svg';
+import calendar from 'static/images/calendar.svg';
 import search from 'static/images/search-icon-navy.png';
+import user from 'static/images/user.svg';
+
 import FloatingNavigatorWrapper, { NavItem } from './FloatingNavigator.styled';
 
 class FloatingNavigator extends PureComponent {

@@ -1,21 +1,21 @@
 import React from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Link, useRouteMatch } from 'react-router-dom';
+import Carousel from 'react-airbnb-carousel';
 import moment from 'moment';
 
+import Button from 'atoms/Button';
+import StatBox from 'molecules/StatBox';
+import StyledQuill from 'organisms/StyledQuill';
 import ZaboList from 'templates/ZaboList';
-import Carousel from 'react-airbnb-carousel';
 
-import StyledQuill from '../../organisms/StyledQuill';
-import StatBox from '../../molecules/StatBox';
+import { ZaboType } from 'lib/propTypes';
+import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
-import { ZaboPageWrapper } from './ZaboPage.styled';
-import { ZaboType } from '../../../lib/propTypes';
-import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+
 import withZabo from './withZabo';
-
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import Button from '../../atoms/Button';
+import { ZaboPageWrapper } from './ZaboPage.styled';
 
 const ZaboDetailPage = (props) => {
   const { url } = useRouteMatch ();

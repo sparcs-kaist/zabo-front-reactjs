@@ -1,13 +1,14 @@
 import React from 'react';
-import FileCopy from '@material-ui/core/SvgIcon/SvgIcon';
 import { makeStyles } from '@material-ui/core';
-import GridContainer from './components/Grid/GridContainer';
+import FileCopy from '@material-ui/core/SvgIcon/SvgIcon';
+
 import Card from './components/Card/Card';
+import CardFooter from './components/Card/CardFooter';
 import CardHeader from './components/Card/CardHeader';
 import CardIcon from './components/Card/CardIcon';
-import CardFooter from './components/Card/CardFooter';
-import Danger from './components/Typography/Danger';
+import GridContainer from './components/Grid/GridContainer';
 import GridItem from './components/Grid/GridItem';
+import Danger from './components/Typography/Danger';
 
 const styles = {};
 

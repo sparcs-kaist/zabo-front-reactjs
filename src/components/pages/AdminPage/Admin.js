@@ -1,27 +1,27 @@
-import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-// creates a beautiful scrollbar
-import PerfectScrollbar from 'perfect-scrollbar';
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
+
+import React from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
+// creates a beautiful scrollbar
+import PerfectScrollbar from 'perfect-scrollbar';
 
 // import routes from 'routes';
 import logo from 'static/logo/logo.svg';
-import styles from './assets/jss/material-dashboard-react/layouts/adminStyle';
-import bgImage from './assets/img/sidebar-2.jpg';
-import Navbar from './components/Navbars/Navbar';
-import Footer from './components/Footer/Footer';
-import Sidebar from './components/Sidebar/Sidebar';
-import FixedPlugin from './components/FixedPlugin/FixedPlugin';
-
-import Dashboard from './Dashboard';
-import GroupAdminPage from './GroupAdminPage';
 
 import AdminWrapper from './Admin.styled';
+import bgImage from './assets/img/sidebar-2.jpg';
+import styles from './assets/jss/material-dashboard-react/layouts/adminStyle';
+import FixedPlugin from './components/FixedPlugin/FixedPlugin';
+import Footer from './components/Footer/Footer';
+import Navbar from './components/Navbars/Navbar';
+import Sidebar from './components/Sidebar/Sidebar';
+import Dashboard from './Dashboard';
+import GroupAdminPage from './GroupAdminPage';
 
 const routes = [
   {

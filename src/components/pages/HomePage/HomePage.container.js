@@ -1,9 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { getZaboList } from 'store/reducers/zabo';
 import toJS from 'hoc/toJS';
+
 import HomePage from './HomePage';
-import { getZaboList } from '../../../store/reducers/zabo';
 
 
 // deliver states(Redux) as props to the HomePage component

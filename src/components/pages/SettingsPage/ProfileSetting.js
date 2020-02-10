@@ -1,26 +1,29 @@
 import React, {
-  useCallback, useState, useMemo,
+  useCallback, useMemo,
+  useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
-import { dataURLToBlob, cropImage, validateName } from '../../../lib/utils';
+import Footer from 'templates/Footer';
+import Header from 'templates/Header';
+
+import { updateUserInfo, updateUserInfoWithImage } from 'store/reducers/auth';
+import useSetState from 'hooks/useSetState';
+import { validateName as validateNameAPI } from 'lib/api/profile';
+import { cropImage, dataURLToBlob, validateName } from 'lib/utils';
+
+import defaultProfile from 'static/images/defaultProfile.png';
+
 import {
-  Page, FormGroup, Submit, Success, ErrorComponent,
+  ErrorComponent,
+  FormGroup, Page, Submit, Success,
 } from './Setting.styled';
-import Header from '../../templates/Header';
-import Footer from '../../templates/Footer';
 
-import defaultProfile from '../../../static/images/defaultProfile.png';
-import { updateUserInfo, updateUserInfoWithImage } from '../../../store/reducers/auth';
-
-import { validateName as validateNameAPI } from '../../../lib/api/profile';
-
-import useSetState from '../../../hooks/useSetState';
 
 const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();

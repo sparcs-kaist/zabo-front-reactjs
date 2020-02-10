@@ -1,9 +1,9 @@
 import {
-  primaryColor,
   dangerColor,
-  successColor,
-  grayColor,
   defaultFont,
+  grayColor,
+  primaryColor,
+  successColor,
 } from '../../material-dashboard-react';
 
 const customInputStyle = {

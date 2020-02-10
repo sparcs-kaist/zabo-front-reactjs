@@ -1,46 +1,45 @@
+import './chartist.min.css';
+
 import React from 'react';
 // react plugin for creating charts
 import ChartistGraph from 'react-chartist';
-import './chartist.min.css';
+import Icon from '@material-ui/core/Icon';
 // @material-ui/core
 import { makeStyles } from '@material-ui/core/styles';
-import Icon from '@material-ui/core/Icon';
-// @material-ui/icons
-import Store from '@material-ui/icons/Store';
+import Accessibility from '@material-ui/icons/Accessibility';
+import AccessTime from '@material-ui/icons/AccessTime';
+import ArrowUpward from '@material-ui/icons/ArrowUpward';
+import BugReport from '@material-ui/icons/BugReport';
+import Cloud from '@material-ui/icons/Cloud';
+import Code from '@material-ui/icons/Code';
+import DateRange from '@material-ui/icons/DateRange';
 import FileCopy from '@material-ui/icons/FileCopy';
 import Info from '@material-ui/icons/Info';
-import Warning from '@material-ui/icons/Warning';
-import DateRange from '@material-ui/icons/DateRange';
 import LocalOffer from '@material-ui/icons/LocalOffer';
+// @material-ui/icons
+import Store from '@material-ui/icons/Store';
 import Update from '@material-ui/icons/Update';
-import ArrowUpward from '@material-ui/icons/ArrowUpward';
-import AccessTime from '@material-ui/icons/AccessTime';
-import Accessibility from '@material-ui/icons/Accessibility';
-import BugReport from '@material-ui/icons/BugReport';
-import Code from '@material-ui/icons/Code';
-import Cloud from '@material-ui/icons/Cloud';
-// core components
-import GridItem from './components/Grid/GridItem';
-import GridContainer from './components/Grid/GridContainer';
-import Table from './components/Table/Table';
-import Tasks from './components/Tasks/Tasks';
-import CustomTabs from './components/CustomTabs/CustomTabs';
-import Danger from './components/Typography/Danger';
-import Card from './components/Card/Card';
-import CardHeader from './components/Card/CardHeader';
-import CardIcon from './components/Card/CardIcon';
-import CardBody from './components/Card/CardBody';
-import CardFooter from './components/Card/CardFooter';
-
-import { bugs, website, server } from './variables/general';
-
-import {
-  dailySalesChart,
-  emailsSubscriptionChart,
-  completedTasksChart,
-} from './variables/charts';
+import Warning from '@material-ui/icons/Warning';
 
 import styles from './assets/jss/material-dashboard-react/views/dashboardStyle';
+import Card from './components/Card/Card';
+import CardBody from './components/Card/CardBody';
+import CardFooter from './components/Card/CardFooter';
+import CardHeader from './components/Card/CardHeader';
+import CardIcon from './components/Card/CardIcon';
+import CustomTabs from './components/CustomTabs/CustomTabs';
+import GridContainer from './components/Grid/GridContainer';
+// core components
+import GridItem from './components/Grid/GridItem';
+import Table from './components/Table/Table';
+import Tasks from './components/Tasks/Tasks';
+import Danger from './components/Typography/Danger';
+import {
+  completedTasksChart,
+  dailySalesChart,
+  emailsSubscriptionChart,
+} from './variables/charts';
+import { bugs, server, website } from './variables/general';
 
 const useStyles = makeStyles (styles);
 

@@ -1,14 +1,17 @@
-import React, { useRef, useEffect, useCallback } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { Link, useHistory } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import queryString from 'query-string';
-import searchIcon from 'static/images/search-icon-navy.png';
-import cancelIcon from 'static/images/cancel.png';
 
 import TagList from 'atoms/TagList';
+
 import useSetState from 'hooks/useSetState';
 import { searchAPI } from 'lib/api/search';
+
+import cancelIcon from 'static/images/cancel.png';
+import searchIcon from 'static/images/search-icon-navy.png';
+
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */

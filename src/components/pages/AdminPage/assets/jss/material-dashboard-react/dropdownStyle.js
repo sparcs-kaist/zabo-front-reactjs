@@ -1,11 +1,11 @@
 import {
-  primaryColor,
-  whiteColor,
-  primaryBoxShadow,
-  defaultFont,
   blackColor,
+  defaultFont,
   grayColor,
   hexToRgb,
+  primaryBoxShadow,
+  primaryColor,
+  whiteColor,
 } from '../material-dashboard-react';
 
 const dropdownStyle = theme => ({

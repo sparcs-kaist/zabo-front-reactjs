@@ -1,8 +1,8 @@
 import {
-  successColor,
-  whiteColor,
   grayColor,
   hexToRgb,
+  successColor,
+  whiteColor,
 } from '../../material-dashboard-react';
 
 const rtlStyle = {

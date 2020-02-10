@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
-import storage from '../../../lib/storage';
+import storage from 'lib/storage';
 
 export default Component => {
   class StackMaster extends React.Component {

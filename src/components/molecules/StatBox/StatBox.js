@@ -1,22 +1,21 @@
 import React, { useMemo } from 'react';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { useDispatch, useSelector } from 'react-redux';
-import throttle from 'lodash.throttle';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import styled from 'styled-components';
+import throttle from 'lodash.throttle';
 
-import { isAuthedSelector } from '../../../lib/utils';
-import { toggleZaboLike, toggleZaboPin } from '../../../store/reducers/zabo';
+import { toggleZaboLike, toggleZaboPin } from 'store/reducers/zabo';
+import { isAuthedSelector } from 'lib/utils';
 
-import bookmarkImg from '../../../static/images/bookmark.svg';
-import emptyBookmarkImg from '../../../static/images/bookmarkEmpty.svg';
-import likeImg from '../../../static/images/like.svg';
-import emptyLikeImg from '../../../static/images/likeEmpty.svg';
-
-import whiteBookmarkImg from '../../../static/images/whiteBookmark.svg';
-import whiteEmptyBookmarkImg from '../../../static/images/whiteBookmakrEmpty.svg';
-import whiteLikeImg from '../../../static/images/whiteLike.svg';
-import whiteEmptyLikeImg from '../../../static/images/whiteLikeEmpty.svg';
+import bookmarkImg from 'static/images/bookmark.svg';
+import emptyBookmarkImg from 'static/images/bookmarkEmpty.svg';
+import likeImg from 'static/images/like.svg';
+import emptyLikeImg from 'static/images/likeEmpty.svg';
+import whiteEmptyBookmarkImg from 'static/images/whiteBookmakrEmpty.svg';
+import whiteBookmarkImg from 'static/images/whiteBookmark.svg';
+import whiteLikeImg from 'static/images/whiteLike.svg';
+import whiteEmptyLikeImg from 'static/images/whiteLikeEmpty.svg';
 
 const icons = {
   colored: {

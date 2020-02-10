@@ -1,10 +1,9 @@
+import { Map } from 'immutable';
 import { applyMiddleware, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import penderMiddleware from 'redux-pender';
-import { Map } from 'immutable';
 
 import persist from './persist';
-
 import rootReducer from './reducers';
 
 const composeEnhancers = composeWithDevTools ({

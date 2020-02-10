@@ -1,11 +1,13 @@
 import React, { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { NotFound } from 'components/pages';
-import { getProfile } from '../../../store/reducers/profile';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 
-import UserProfile from './UserProfilePage';
+import { NotFound } from 'pages';
+
+import { getProfile } from 'store/reducers/profile';
+
 import GroupProfile from './GroupProfilePage';
+import UserProfile from './UserProfilePage';
 
 
 const ProfilePage = () => {

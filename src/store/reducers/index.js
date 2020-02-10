@@ -1,5 +1,5 @@
-import { penderReducer } from 'redux-pender';
 import { combineReducers } from 'redux-immutable';
+import { penderReducer } from 'redux-pender';
 // import immutableTransform from 'redux-persist-transform-immutable';
 // import storage from 'redux-persist/lib/storage';
 // import { persistReducer } from 'redux-persist';
