@@ -1,21 +1,22 @@
-import React, {
-  useEffect, useMemo, useState, useCallback, useReducer,
-} from 'react';
-import styled, { css } from 'styled-components';
-import { useSelector, useDispatch } from 'react-redux';
-import { useDropzone } from 'react-dropzone';
-import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
-import CloseIcon from '@material-ui/icons/Close';
-import throttle from 'lodash.throttle';
-import debounce from 'lodash.debounce';
-
-import { setImages } from '../../../store/reducers/upload';
-
 import './grid-layout.scss';
-import { gridLayoutCompareFunction, loadImageFile } from '../../../lib/utils';
-import useSetState from '../../../hooks/useSetState';
 
-import uploadImg from '../../../static/images/uploadImg.png';
+import React, {
+  useCallback, useEffect, useMemo, useReducer,
+  useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useDropzone } from 'react-dropzone';
+import styled, { css } from 'styled-components';
+import CloseIcon from '@material-ui/icons/Close';
+import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
+import debounce from 'lodash.debounce';
+import throttle from 'lodash.throttle';
+
+import { setImages } from 'store/reducers/upload';
+import useSetState from 'hooks/useSetState';
+import { gridLayoutCompareFunction, loadImageFile } from 'lib/utils';
+
+import uploadImg from 'static/images/uploadImg.png';
 
 const ResponsiveGridLayout = WidthProvider (Responsive);
 

@@ -1,13 +1,14 @@
 import React, { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
-import ZaboCardStyle from './ZaboCard.styled';
-import StatBox from '../../molecules/StatBox';
+import StatBox from 'molecules/StatBox';
 
-import { getLabeledTimeDiff, to2Digits } from '../../../lib/utils';
+import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
+
+import ZaboCardStyle from './ZaboCard.styled';
 
 const ZaboCard = ({ zaboId }) => {
   if (!zaboId) return null;

@@ -3,6 +3,9 @@
     "airbnb-base",
     "airbnb/rules/react"
   ],
+  "plugins": [
+    "simple-import-sort"
+  ],
   "parser": "babel-eslint",
   "parserOptions": {
     "ecmaVersion": 2018,
@@ -36,7 +39,44 @@
     "no-shadow": "warn",
     "max-len": ["warn", 150],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "func-names": "off"
+    "func-names": "off",
+    "simple-import-sort/sort": [
+      2,
+      {
+        "groups": [
+          ["^\\u0000"],
+          [
+            "^react$",
+            "^prop-types$",
+            "^react-router-dom$",
+            "^react-redux$",
+            "^react",
+            "^styled-components$",
+            "^[^.]"
+          ],
+          [
+            "^containers",
+            "^components",
+            "^atoms",
+            "^molecules",
+            "^organisms",
+            "^templates",
+            "^pages"
+          ],
+          [
+            "^store",
+            "^hoc",
+            "^hooks",
+            "^lib"
+          ],
+          [
+            "^(static)",
+            "^(?!(assets|static)($|/))\\w"
+          ],
+          ["^\\."]
+        ]
+      }
+    ]
   },
   "env": {
     "browser": true

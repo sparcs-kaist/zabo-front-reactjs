@@ -1,5 +1,5 @@
-import { createAction, handleActions } from 'redux-actions';
 import { fromJS, Map } from 'immutable';
+import { createAction, handleActions } from 'redux-actions';
 
 // action types
 const UPDATE_WINDOW_SIZE = 'app/UPDATE_WINDOW_SIZE';

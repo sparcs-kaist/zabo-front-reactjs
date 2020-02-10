@@ -1,14 +1,18 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { css } from 'styled-components';
-import { useSelector } from 'react-redux';
 import { NavLink, useHistory } from 'react-router-dom';
-import SVG from 'atoms/SVG';
+import { useSelector } from 'react-redux';
+import { css } from 'styled-components';
+
 import Container from 'atoms/Container';
+import SVG from 'atoms/SVG';
+
+import { isAuthedSelector } from 'lib/utils';
+
 import logo from 'static/logo/logo.svg';
-import { isAuthedSelector } from '../../../lib/utils';
-import HeaderWrapper from './Header.styled';
+
 import SearchBar from '../SearchBar';
+import HeaderWrapper from './Header.styled';
 
 const containerStyle = css`
   position: absolute;

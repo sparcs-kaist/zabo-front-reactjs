@@ -1,9 +1,9 @@
+import { fromJS, Map } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
-import { fromJS, Map } from 'immutable';
 
-import * as ProfileAPIs from '../../lib/api/profile';
 import * as GroupAPIs from '../../lib/api/group';
+import * as ProfileAPIs from '../../lib/api/profile';
 
 const GET_PROFILE = 'profile/GET_PROFILE';
 const ADD_GROUP_MEMBER = 'profile/ADD_GROUP_MEMBER';

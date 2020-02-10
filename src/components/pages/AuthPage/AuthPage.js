@@ -1,9 +1,8 @@
 import React, { PureComponent } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-
-import AuthPageWrapper from './AuthPage.styled';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
 import { LoginPage } from '../index';
+import AuthPageWrapper from './AuthPage.styled';
 
 class AuthPage extends PureComponent {
   render () {

@@ -1,15 +1,15 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import { makeStyles } from '@material-ui/core/styles';
 
-import groupDefaultProfile from '../../../static/images/groupDefaultProfile.png';
-import { setCurrentGroup } from '../../../store/reducers/auth';
-import { setGroupSelected } from '../../../store/reducers/upload';
+import { setCurrentGroup } from 'store/reducers/auth';
+import { setGroupSelected } from 'store/reducers/upload';
+
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 const SelectGroupWrapper = styled.div`
   h1 {

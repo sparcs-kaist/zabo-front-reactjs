@@ -2,13 +2,14 @@ import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import enTranslation from 'locales/en/translation.json';
 import koTranslation from 'locales/ko/translation.json';
+
 import Li from './i18next-react-li-postprocessor';
 import ReactPostProcessor from './i18next-react-react-postprocessor';
 
 
 i18n.on ('languageChanged', (lng) => {
   if (!lng.split ('-')) return;
-  if (lng.split ('-')[0] !== lng) return i18n.changeLanguage (lng.split ('-')[0]);
+  if (lng.split ('-')[0] !== lng) i18n.changeLanguage (lng.split ('-')[0]);
 });
 
 i18n

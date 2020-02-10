@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { CHECK_AUTH } from '../../store/reducers/auth';
+
+import { CHECK_AUTH } from 'store/reducers/auth';
 
 const decodedTokenSelector = state => state.getIn (['auth', 'jwt']);
 const isDecodedTokenAlive = decoded => {

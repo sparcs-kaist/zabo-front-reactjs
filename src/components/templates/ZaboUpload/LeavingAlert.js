@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { reset, setModal } from '../../../store/reducers/upload';
+
+import { reset, setModal } from 'store/reducers/upload';
 
 const LeavingAlert = () => {
   const dispatch = useDispatch ();

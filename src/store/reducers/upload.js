@@ -1,9 +1,8 @@
+import { fromJS, List, Map } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
-import { fromJS, Map, List } from 'immutable';
 
 import storage from 'lib/storage';
-
-import { CATEGORIES } from '../../lib/variables';
+import { CATEGORIES } from 'lib/variables';
 
 // action types
 const INITIALIZE = 'upload/INITIALIZE';

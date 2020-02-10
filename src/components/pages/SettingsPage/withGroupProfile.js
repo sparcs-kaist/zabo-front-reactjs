@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { NotFound } from 'pages';
-import { getProfile } from '../../../store/reducers/profile';
+
+import { getProfile } from 'store/reducers/profile';
 
 const withGroupProfile = (WrappedComponent, isPrivate = false) => (props) => {
   const dispatch = useDispatch ();

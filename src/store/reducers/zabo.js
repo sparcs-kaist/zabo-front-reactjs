@@ -1,9 +1,9 @@
-import { createAction, handleActions } from 'redux-actions';
-import { Map, List, fromJS } from 'immutable';
-import { pender } from 'redux-pender';
+import { fromJS, List, Map } from 'immutable';
 import uniq from 'lodash.uniq';
+import { createAction, handleActions } from 'redux-actions';
+import { pender } from 'redux-pender';
 
-import * as ZaboAPI from '../../lib/api/zabo';
+import * as ZaboAPI from 'lib/api/zabo';
 
 // Action types
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';

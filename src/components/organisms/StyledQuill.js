@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components';
-import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.bubble.css';
+
+import ReactQuill from 'react-quill';
+import styled, { css } from 'styled-components';
 
 const StyledQuill = styled (ReactQuill)`
   @import url(//fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap&subset=korean);

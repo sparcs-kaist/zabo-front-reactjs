@@ -1,10 +1,10 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 
+import { loginCallback } from 'store/reducers/auth';
 import toJS from 'hoc/toJS';
-import AuthCallback from './AuthCallback';
 
-import { loginCallback } from '../../../store/reducers/auth';
+import AuthCallback from './AuthCallback';
 
 class AuthCallbackContainer extends PureComponent {
   render () {

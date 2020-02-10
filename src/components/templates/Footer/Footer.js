@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { css } from 'styled-components';
+
 import Container from 'atoms/Container';
+
 import FooterWrapper from './Footer.styled';
 
 const containerStyle = css`

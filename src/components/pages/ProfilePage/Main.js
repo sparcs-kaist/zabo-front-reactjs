@@ -1,8 +1,9 @@
 import React from 'react';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
-import { Switch, Route, useRouteMatch } from 'react-router-dom';
 
-import { NotFound } from 'components/pages';
+import { NotFound } from 'pages';
+
 import ProfilePage from './ProfilePage';
 
 const ProfilePageWrapper = styled.section``;

@@ -1,7 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { NotFound } from 'pages';
-import { getZabo } from '../../../store/reducers/zabo';
+
+import { getZabo } from 'store/reducers/zabo';
 
 const withZabo = (WrappedComponent, isPrivate = false) => (props) => {
   const dispatch = useDispatch ();

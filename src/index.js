@@ -1,16 +1,15 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { ThemeProvider } from 'styled-components';
-
 import 'animate.css';
 import './index.scss';
 
-import store from './store';
+import React from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom';
+import { ThemeProvider } from 'styled-components';
+
+import store from 'store';
 
 import App from './App';
-
 import boot from './boot';
 
 // import * as serviceWorker from "./serviceWorker"

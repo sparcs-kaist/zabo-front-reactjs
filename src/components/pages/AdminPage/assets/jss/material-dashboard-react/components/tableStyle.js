@@ -1,12 +1,12 @@
 import {
-  warningColor,
-  primaryColor,
   dangerColor,
-  successColor,
-  infoColor,
-  roseColor,
-  grayColor,
   defaultFont,
+  grayColor,
+  infoColor,
+  primaryColor,
+  roseColor,
+  successColor,
+  warningColor,
 } from '../../material-dashboard-react';
 
 const tableStyle = theme => ({

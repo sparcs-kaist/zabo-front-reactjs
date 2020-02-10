@@ -1,7 +1,8 @@
-import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import { getSize, media } from '../../../lib/utils/style';
-import { colors } from '../../../lib/theme';
+import styled, { css } from 'styled-components';
+
+import { colors } from 'lib/theme';
+import { getSize, media } from 'lib/utils/style';
 
 export const disabled = css`
   background-color: #f7f8f9;
