@@ -7,32 +7,48 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import debounce from 'lodash.debounce';
+import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
 
 import { updateUserInfo, updateUserInfoWithImage } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';
+import { validateName as validateNameAPI } from 'lib/api/profile';
 import { cropImage, dataURLToBlob, validateName } from 'lib/utils';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
 import {
-  Error,
+  ErrorComponent,
   FormGroup, Page, Submit, Success,
 } from './Setting.styled';
+
 
 const ProfileForm = ({ initialValue, newProfilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
+
+  const debouncedValidateName = useMemo (() => {
+    const effectiveValidateName = ({ name }) => {
+      if (name === initialValue.username) {
+        return Promise.resolve (true);
+      }
+      if (!validateName (name)) {
+        return Promise.reject (new Error ('invalid'));
+      }
+      return validateNameAPI ({ name });
+    };
+    return AwesomeDebouncePromise (effectiveValidateName, 800);
+  }, [initialValue]);
+
   const [state, setState, onChangeHandler] = useSetState ({
     ...initialValue,
     success: false,
     error: null,
   });
 
-  const [nameInvalid, setNameInvalid] = useState (false);
+  const [nameInvalidError, setNameInvalid] = useState (false);
   const {
     username, description, error, success,
   } = state;
@@ -58,15 +74,11 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     onChangeHandler (e);
   };
 
-  const nameDebounce = useMemo (() => debounce (() => {
-    // TODO: username: current e.target.username is not applying...
-    // need to use e.target.value, or call 'nameDebounce' function inside onChange function, or...
-    setNameInvalid (!validateName (username));
-  }, 800), [state.username]);
-
   const onChangeName = e => {
     onChange (e);
-    nameDebounce ();
+    debouncedValidateName ({ name: e.target.value }) // TODO: Unsubscribe on unmount
+      .then (() => setNameInvalid (false))
+      .catch (setNameInvalid);
   };
 
   return (
@@ -84,8 +96,8 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
             onChange={onChangeName}
           />
           {
-            nameInvalid
-              ? <FormHelperText id="user-profile-error">Error</FormHelperText>
+            nameInvalidError
+              ? <FormHelperText id="user-profile-error">{nameInvalidError.message}</FormHelperText>
               : ''
           }
         </FormControl>
@@ -102,7 +114,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           onChange={onChange}
         />
       </FormGroup>
-      {error && <Error>{error.error}</Error>}
+      {error && <ErrorComponent>{error.message}</ErrorComponent>}
       {success && <Success>성공</Success>}
       <Footer scrollFooter>
         <Submit type="submit">수정 완료</Submit>

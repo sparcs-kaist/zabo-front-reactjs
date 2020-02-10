@@ -104,6 +104,7 @@ export const validateName = (name) => {
   const match = RESERVED_ROUTES_USERNAME_EXCEPTIONS.find (exception => exception === name.toLowerCase ());
   return !match;
 };
+
 export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showHours = true, showDays = 2, showWeeks = false, showMonths = false) => {
   const curMoment = moment ();
   const momentTime = moment (time);

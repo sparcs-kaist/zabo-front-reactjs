@@ -17,7 +17,7 @@ import { cropImage, dataURLToBlob } from 'lib/utils';
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import {
-  Error,
+  ErrorComponent,
   FormGroup, Page, Submit,
 } from './Setting.styled';
 import withGroupProfile from './withGroupProfile';
@@ -100,7 +100,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           groupSetting
         />
       </FormGroup>
-      {error && <Error>{error.message}</Error>}
+      {error && <ErrorComponent>{error.message}</ErrorComponent>}
       <Footer scrollFooter>
         <Submit type="submit">수정하기</Submit>
       </Footer>

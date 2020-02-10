@@ -1,11 +1,9 @@
 import React, {
-  forwardRef, useCallback, useEffect, useMemo,
-  useRef,
+  useCallback, useEffect, useMemo,
 } from 'react';
 import PropTypes from 'prop-types';
 import {
   Prompt,
-  useRouteMatch,
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
