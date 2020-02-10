@@ -155,10 +155,9 @@ export default handleActions (
         const { zabos } = data;
         const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zabos.map (zabo => zabo._id);
-        state
+        return state
           .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
           .setIn (['lists', 'search'], fromJS (zaboIds));
-        return data;
       },
     }),
   },
