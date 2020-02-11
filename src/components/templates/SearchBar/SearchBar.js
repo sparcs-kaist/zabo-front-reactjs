@@ -51,25 +51,32 @@ const SearchBar = ({ isOpen, options }) => {
       _updateResults (searchResults[query]);
       // donot return; TO get new updated search result
     }
-    searchAPIDebounced (query)
-      .then (data => {
-        if (!isMounted.current) return;
-        _updateResults (data);
-        setState (prevState => ({
-          searchResults: {
-            [query]: data,
-          },
-        }));
-      }).catch (err => console.log ('change error'));
+    if (query.trim ().length > 0) {
+      const stringified = queryString.stringify ({ query });
+      searchAPIDebounced (stringified)
+        .then (data => {
+          if (!isMounted.current) return;
+          _updateResults (data);
+          setState (prevState => ({
+            searchResults: {
+              [query]: data,
+            },
+          }));
+        }).catch (err => console.log ('change error'));
+    }
   };
 
   const _handleKeyDown = e => {
-    const stringified = queryString.stringify ({ query: search });
+    // searchBar input can only accept 'query text'
+    // category search can be done only by clicking tag button
     if (e.key === 'Enter') {
       setState ({
         searchFocused: false,
       });
-      history.push (`/search?${stringified}`);
+      if (search.trim ().length > 0) {
+        const stringified = queryString.stringify ({ query: search });
+        history.push (`/search?${stringified}`);
+      }
     }
   };
 
@@ -89,10 +96,12 @@ const SearchBar = ({ isOpen, options }) => {
     });
   }, [setState]);
 
-  const onTagClick = useCallback (e => {
-    const { value: query } = e.target.value;
-    setState ({ search: query });
-  }, [setState]);
+  const onTagClick = e => {
+    const { value } = e.target;
+    const category = value.slice (1);
+    const stringified = queryString.stringify ({ category });
+    history.push (`/search?${stringified}`);
+  };
 
   const onCancelClick = e => {
     setState ({ search: '' });
@@ -105,7 +114,7 @@ const SearchBar = ({ isOpen, options }) => {
   const searchWithTagComponent = (
     <div>
       <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
-      <TagList onClick={onTagClick} />
+      <TagList onTagClick={onTagClick} />
     </div>
   );
 

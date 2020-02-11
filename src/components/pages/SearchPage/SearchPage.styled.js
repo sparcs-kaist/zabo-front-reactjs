@@ -36,7 +36,3 @@ export const Zabos = styled.section`
     margin: 0;
   }
 `;
-
-Zabos.ZaboList = styled.div`
-  .masonry { margin: 0 }
-`;

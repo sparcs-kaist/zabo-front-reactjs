@@ -1,27 +1,34 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 import queryString from 'query-string';
 
 // import { searchAPI } from lib/api/search';
-import { getSearch } from 'store/reducers/zabo';
-import Header from 'templates/Header';
-import GroupList from 'organisms/GroupList';
 import TagList from 'atoms/TagList';
+import GroupList from 'organisms/GroupList';
+import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
+
+import { getSearch } from 'store/reducers/zabo';
 import useSetState from 'hooks/useSetState';
+
 import { Page, Zabos } from './SearchPage.styled';
 
 const SearchPage = () => {
   const dispatch = useDispatch ();
   const { search } = window.location;
-  const { query } = queryString.parse (search);
+  const { query, category } = queryString.parse (search);
+  // const [text, tags] = parseQuery (query);
+
   const [state, setState, onChange] = useSetState ({
     zaboSearch: [],
     uploaderSearch: [],
     keywordSearch: [],
+    clickedTags: [],
   });
-  const { zaboSearch, uploaderSearch, keywordSearch } = state;
+  const {
+    zaboSearch, uploaderSearch, keywordSearch, clickedTags,
+  } = state;
   const isZaboSearchEmpty = zaboSearch.length === 0;
 
   const _updateResults = data => {
@@ -34,13 +41,16 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
-    dispatch (getSearch (query))
+    dispatch (getSearch (search))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
-  }, [query]);
+  }, [search]);
 
-  const onTagClick = () => {
-    // console.log('tag clicked');
+  const onTagClick = e => {
+    const { value } = e.target;
+    setState (prevState => ({
+      clickedTags: [...prevState.clickedTags, value],
+    }));
   };
 
   return (
@@ -50,8 +60,9 @@ const SearchPage = () => {
         <GroupList type="search" groups={uploaderSearch} />
         <Zabos>
           <h1>전체 검색 결과</h1>
-          <TagList onClick={onTagClick} />
-          {!isZaboSearchEmpty && <ZaboList type="search" query={query} />}
+          <TagList onTagClick={onTagClick} />
+          <div style={{ marginTop: '28px' }}> </div>
+          {!isZaboSearchEmpty && <ZaboList type="search" query={search} />}
         </Zabos>
       </Page.Body>
     </Page>
