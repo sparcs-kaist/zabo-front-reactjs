@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+
 import { CATEGORIES } from 'lib/variables';
 
 const TagListWrapper = styled.div`
@@ -21,16 +22,16 @@ const TagListWrapper = styled.div`
   }
 `;
 
-const TagList = ({ onClick }) => (
+const TagList = ({ onTagClick }) => (
   <TagListWrapper>
     {CATEGORIES.map ((tag, idx) => (
-      <button key={idx} value={tag} onClick={onClick}>{tag}</button>
+      <button key={idx} value={tag} onClick={onTagClick}>{tag}</button>
     ))}
   </TagListWrapper>
 );
 
 TagList.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onTagClick: PropTypes.func.isRequired,
 };
 
 export default TagList;
