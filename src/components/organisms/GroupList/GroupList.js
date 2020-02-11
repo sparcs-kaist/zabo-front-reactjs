@@ -1,9 +1,12 @@
 import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
 import { GroupType } from 'lib/propTypes';
+
 import leftScroll from 'static/images/leftScroll.png';
 import rightScroll from 'static/images/rightScroll.png';
+
 import GroupBox from '../GroupBox';
 
 export const Groups = styled.section`
@@ -44,6 +47,9 @@ Groups.List = styled.div`
 `;
 
 Groups.ScrollBtn = styled.div`
+  ${props => (props.show ? css`` : css`
+    visibility: hidden;
+  `)}
   @media (max-width: 640px) {
     visibility: hidden;
   }
@@ -76,7 +82,7 @@ const GroupList = ({ type, groups }) => {
   return (
     <Groups>
       <h1>{text[type]}</h1>
-      <Groups.ScrollBtn>
+      <Groups.ScrollBtn show={groups.length > 3}>
         <img onClick={leftScrollClick} src={leftScroll} alt="left scroll button" />
         <img onClick={rightScrollClick} src={rightScroll} alt="right scroll button" />
       </Groups.ScrollBtn>
