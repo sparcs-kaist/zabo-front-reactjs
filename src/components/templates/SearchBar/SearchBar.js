@@ -19,6 +19,8 @@ const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
 const SearchBar = ({ isOpen, options }) => {
   const isMounted = useRef (true);
+  const inputRef = useRef (null);
+  // make isMounted 'false' when component unmounted
   useEffect (() => () => { isMounted.current = false; }, []);
   const history = useHistory ();
   const [state, setState, onChangeHandler] = useSetState ({
@@ -73,6 +75,9 @@ const SearchBar = ({ isOpen, options }) => {
       setState ({
         searchFocused: false,
       });
+      inputRef.current.blur ();
+      // prevent action by debounce api
+      isMounted.current = false;
       if (search.trim ().length > 0) {
         const stringified = queryString.stringify ({ query: search });
         history.push (`/search?${stringified}`);
@@ -113,7 +118,7 @@ const SearchBar = ({ isOpen, options }) => {
 
   const searchWithTagComponent = (
     <div>
-      <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
+      <h3>태그로 검색하기</h3>
       <TagList onTagClick={onTagClick} />
     </div>
   );
@@ -169,6 +174,7 @@ const SearchBar = ({ isOpen, options }) => {
               value={search}
               onChange={_handleChange}
               onKeyDown={_handleKeyDown}
+              ref={inputRef}
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
