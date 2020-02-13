@@ -71,7 +71,7 @@ class ZaboList extends React.Component {
       pins: () => getPins ({ username: query, lastSeen }),
       group: () => getGroupZaboList ({ groupName: query, lastSeen }),
       // search: () => (!lastSeen ? Promise.resolve (zaboIdList) : getSearchZaboList ({ text: query, lastSeen })),
-      search: () => Promise.resolve ('search'),
+      search: () => Promise.resolve ([]),
     };
     return fetches[type] ()
       .then (zaboList => {

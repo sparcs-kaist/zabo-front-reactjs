@@ -41,15 +41,16 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
-    dispatch (getSearch (search))
+    dispatch (getSearch ({ query, category }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
   }, [search]);
 
   const onTagClick = e => {
     const { value } = e.target;
+    const category = value.slice (1);
     setState (prevState => ({
-      clickedTags: [...prevState.clickedTags, value],
+      clickedTags: [...prevState.clickedTags, category],
     }));
   };
 

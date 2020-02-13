@@ -27,5 +27,6 @@ export const toggleZaboLike = zaboId => axios.post (`/zabo/${zaboId}/like`);
 export const getGroupZaboList = ({ groupName, lastSeen }) => axios.get (`/group/${groupName}/zabo/list`, { params: { lastSeen } });
 export const getSearchZaboList = ({ text, lastSeen }) => {
   if (!text) return Promise.resolve ({ zabos: [], groups: [], categories: [] });
-  return axios.get (`/search/zabo/list?query=${encodeURIComponent (text)}`, { params: { lastSeen } });
+  const { query, category } = text;
+  return axios.get (`/search/zabo/list?query=${encodeURIComponent (query)}&category=${encodeURIComponent (category)}`, { params: { lastSeen } });
 };
