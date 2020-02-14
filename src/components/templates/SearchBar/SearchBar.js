@@ -54,7 +54,6 @@ const SearchBar = ({ isOpen, options }) => {
       // donot return; TO get new updated search result
     }
     if (query.trim ().length > 0) {
-      // const stringified = queryString.stringify ({ query });
       searchAPIDebounced ({ query })
         .then (data => {
           if (!isMounted.current) return;

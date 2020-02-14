@@ -24,7 +24,7 @@ const SearchPage = () => {
     zaboSearch: [],
     uploaderSearch: [],
     keywordSearch: [],
-    clickedTags: [category],
+    clickedTags: [],
   });
   const {
     zaboSearch, uploaderSearch, keywordSearch, clickedTags,
@@ -41,10 +41,11 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
-    dispatch (getSearch ({ query, category: clickedTags }))
+    // to get new updated category list
+    dispatch (getSearch ({ query, category: [...clickedTags, category] }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
-  }, [search, clickedTags]);
+  }, [query, category, clickedTags]);
 
   const onTagClick = e => {
     const { value: category } = e.target;
@@ -71,7 +72,7 @@ const SearchPage = () => {
             clickedTags={clickedTags}
           />
           <div style={{ marginTop: '28px' }}> </div>
-          {!isZaboSearchEmpty && <ZaboList type="search" query={search} />}
+          {!isZaboSearchEmpty && <ZaboList type="search" />}
         </Zabos>
       </Page.Body>
     </Page>
