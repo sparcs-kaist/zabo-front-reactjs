@@ -102,8 +102,7 @@ const SearchBar = ({ isOpen, options }) => {
   }, [setState]);
 
   const onTagClick = e => {
-    const { value } = e.target;
-    const category = value.slice (1);
+    const { value: category } = e.target;
     const stringified = queryString.stringify ({ category });
     history.push (`/search?${stringified}`);
   };

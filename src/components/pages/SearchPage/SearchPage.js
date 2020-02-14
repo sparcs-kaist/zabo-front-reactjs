@@ -24,7 +24,7 @@ const SearchPage = () => {
     zaboSearch: [],
     uploaderSearch: [],
     keywordSearch: [],
-    clickedTags: [],
+    clickedTags: [category],
   });
   const {
     zaboSearch, uploaderSearch, keywordSearch, clickedTags,
@@ -41,17 +41,22 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
-    dispatch (getSearch ({ query, category }))
+    dispatch (getSearch ({ query, category: clickedTags }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
-  }, [search]);
+  }, [search, clickedTags]);
 
   const onTagClick = e => {
-    const { value } = e.target;
-    const category = value.slice (1);
-    setState (prevState => ({
-      clickedTags: [...prevState.clickedTags, category],
-    }));
+    const { value: category } = e.target;
+    if (clickedTags.includes (category)) {
+      setState (prevState => ({
+        clickedTags: prevState.clickedTags.filter (c => c !== category),
+      }));
+    } else {
+      setState (prevState => ({
+        clickedTags: [...prevState.clickedTags, category],
+      }));
+    }
   };
 
   return (
@@ -61,7 +66,10 @@ const SearchPage = () => {
         <GroupList type="search" groups={uploaderSearch} />
         <Zabos>
           <h1>전체 검색 결과</h1>
-          <TagList onTagClick={onTagClick} />
+          <TagList
+            onTagClick={onTagClick}
+            clickedTags={clickedTags}
+          />
           <div style={{ marginTop: '28px' }}> </div>
           {!isZaboSearchEmpty && <ZaboList type="search" query={search} />}
         </Zabos>
