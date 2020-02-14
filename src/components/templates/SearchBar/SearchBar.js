@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import queryString from 'query-string';
 
+import TagList from 'atoms/TagList';
+
 import useSetState from 'hooks/useSetState';
 import { searchAPI } from 'lib/api/search';
-import axios from 'lib/axios';
-import { CATEGORIES } from 'lib/variables';
 
 import cancelIcon from 'static/images/cancel.png';
 import searchIcon from 'static/images/search-icon-navy.png';
@@ -18,6 +18,10 @@ import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
 const SearchBar = ({ isOpen, options }) => {
+  const isMounted = useRef (true);
+  const inputRef = useRef (null);
+  // make isMounted 'false' when component unmounted
+  useEffect (() => () => { isMounted.current = false; }, []);
   const history = useHistory ();
   const [state, setState, onChangeHandler] = useSetState ({
     search: '',
@@ -41,54 +45,65 @@ const SearchBar = ({ isOpen, options }) => {
     });
   };
 
-  const _handleChange = async e => {
+  const _handleChange = e => {
     const { value: query } = e.target;
     setState ({ search: query });
     if (searchResults[query]) {
-      // load from caching
+      // load from caching : show temporal search cached results
       _updateResults (searchResults[query]);
+      // donot return; TO get new updated search result
     }
-    const data = await searchAPIDebounced (query);
-    _updateResults (data);
-    setState (prevState => ({
-      searchResults: {
-        [query]: data,
-      },
-    }));
+    if (query.trim ().length > 0) {
+      searchAPIDebounced ({ query })
+        .then (data => {
+          if (!isMounted.current) return;
+          _updateResults (data);
+          setState (prevState => ({
+            searchResults: {
+              [query]: data,
+            },
+          }));
+        }).catch (err => console.log ('change error'));
+    }
   };
 
   const _handleKeyDown = e => {
-    const stringified = queryString.stringify ({ query: search });
+    // searchBar input can only accept 'query text'
+    // category search can be done only by clicking tag button
     if (e.key === 'Enter') {
-      history.push (`/search?${stringified}`);
+      setState ({
+        searchFocused: false,
+      });
+      inputRef.current.blur ();
+      // prevent action by debounce api
+      isMounted.current = false;
+      if (search.trim ().length > 0) {
+        const stringified = queryString.stringify ({ query: search });
+        history.push (`/search?${stringified}`);
+      }
     }
   };
 
-  const _handleFocus = e => {
+  const _handleFocus = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
     setState ({
       searchFocused: true,
     });
-  };
+  }, [setState]);
 
-  const _handleBlur = e => {
+  const _handleBlur = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
     setState ({
       searchFocused: false,
     });
-  };
+  }, [setState]);
 
   const onTagClick = e => {
-    const { value: query } = e.target.value;
-    setState ({ search: query });
-    // if (searchResults[query]) {
-    //   // load from caching
-    //   _updateResults (searchResults[query]);
-    // }
-    // const data = await searchAPI (query);
-    // route -> query로 만든 SearchPage 생성, 보내기 -> 거기서 searchAPI쏘기!
+    const { value: category } = e.target;
+    const stringified = queryString.stringify ({ category });
+    history.push (`/search?${stringified}`);
   };
 
   const onCancelClick = e => {
@@ -101,12 +116,8 @@ const SearchBar = ({ isOpen, options }) => {
 
   const searchWithTagComponent = (
     <div>
-      <h3>태그로 검색하기 (현재 지원하지 않는 기능입니다)</h3>
-      <SearchBarWrapper.Body.TagBtn>
-        {CATEGORIES.map ((tag, idx) => (
-          <button key={idx} value={tag} className="tag-button" onClick={onTagClick}>{tag}</button>
-        ))}
-      </SearchBarWrapper.Body.TagBtn>
+      <h3>태그로 검색하기</h3>
+      <TagList onTagClick={onTagClick} />
     </div>
   );
 
@@ -161,6 +172,7 @@ const SearchBar = ({ isOpen, options }) => {
               value={search}
               onChange={_handleChange}
               onKeyDown={_handleKeyDown}
+              ref={inputRef}
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>

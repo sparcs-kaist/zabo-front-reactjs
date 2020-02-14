@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 export const Page = styled.section`
@@ -122,119 +121,20 @@ Page.Body.User = styled.div`
 `;
 
 Page.Body.Group = styled.div`
-  margin-bottom: 131px;
+  margin-bottom: 59px;
   border-top: 1px solid #E9E9E9;
   padding-top: 16px;
-`;
-
-export const Groups = styled.section`
-  width: 1032px;
-  margin-bottom: 78px;
-  h1 {
-    display: inline-block;
-    font-size: 22px;
-    color: #363636;
-    margin: 0 0 16px 0;
-    font-weight: 800;
-  }
-
   @media (max-width: 640px) {
-    width: 100%;
-    padding: 0 16px;
-    h1 {
-      font-size: 18px;
-      margin-bottom: 12px;
-    }
-  }
-`;
-
-Groups.List = styled.div`
-  scroll-behavior: smooth;
-  width: 100%;
-  padding: 3px;
-  overflow-x: scroll;
-  /* overflow-y: visible; */
-  white-space: nowrap;
-  
-  /* hide scroll bar */
-  /* -webkit- (Chrome, Safari, newer versions of Opera) */
-  &::-webkit-scrollbar { width: 0 !important }
-  /* Firefox */
-  scrollbar-width: none;
-  /* -ms- (Internet Explorer +10) */
-  -ms-overflow-style: none;
-`;
-
-Groups.ListItem = styled (Link)`
-  display: inline-block;
-  width: 297px;
-  height: 126px;
-  border-radius: 6px;
-  margin-right: 14px;
-  padding: 28px 14px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
-  &:last-child {
-    margin-right: 0;
-  }
-  
-  img {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    margin-right: 14px;
-  }
-  section {
-    display: inline-block;
-  }
-  .group-name {
-    width: 100%;
-    font-size: 18px;
-    color: #143441;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    margin: 0 0 14px 0;
-    font-weight: 800;
-  }
-
-  @media (max-width: 640px) {
-    width: 247px;
-    height: 108px;
-    padding: 24px 12px;
-    img {
-      width: 60px;
-      height: 60px;
-      margin-right: 12px;
-    }
-    .group-name {
-      font-size: 16px;
-      margin: 0 0 12px 0;
-    }
-  }
-`;
-
-Groups.ScrollBtn = styled.div`
-  @media (max-width: 640px) {
-    visibility: hidden;
-  }
-  float: right;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-    border-radius: 50%;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-    }
+    margin-bottom: 0;
   }
 `;
 
 // TODO: Refactor dups
 export const Zabos = styled.section` 
   width: 1032px;
+  margin-top: 72px;
   @media (max-width: 640px) {
-    margin-top: 64px;
+    margin-top: 60px;
     padding: 0 16px;
     width: 100%;
   }

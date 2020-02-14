@@ -62,7 +62,7 @@ class ZaboList extends React.Component {
 
   fetch = next => {
     const {
-      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList,
+      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList, getSearchZaboList,
     } = this.props;
     const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
     const fetches = {
@@ -70,6 +70,8 @@ class ZaboList extends React.Component {
       related: () => getZaboList ({ lastSeen, relatedTo: query }),
       pins: () => getPins ({ username: query, lastSeen }),
       group: () => getGroupZaboList ({ groupName: query, lastSeen }),
+      // search: () => (!lastSeen ? Promise.resolve (zaboIdList) : getSearchZaboList ({ text: query, lastSeen })),
+      search: () => Promise.resolve ([]),
     };
     return fetches[type] ()
       .then (zaboList => {
@@ -110,10 +112,11 @@ class ZaboList extends React.Component {
 
 ZaboList.propTypes = {
   zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
-  type: PropTypes.oneOf (['main', 'related', 'pins', 'group']).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins', 'group', 'search']).isRequired,
   getZaboList: PropTypes.func.isRequired,
   getPins: PropTypes.func.isRequired,
   getGroupZaboList: PropTypes.func.isRequired,
+  getSearchZaboList: PropTypes.func.isRequired,
   query: PropTypes.string,
 };
 
