@@ -10,6 +10,7 @@ import useSetState from 'hooks/useSetState';
 import { searchAPI } from 'lib/api/search';
 
 import cancelIcon from 'static/images/cancel.png';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import searchIcon from 'static/images/search-icon-navy.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
@@ -141,6 +142,11 @@ const SearchBar = ({ isOpen, options }) => {
           <ul>
             {uploaderSearch.map ((uploader, idx) => (
               <li key={idx}>
+                {
+                  uploader.profilePhoto
+                    ? <img src={uploader.profilePhoto} alt="group profile photo" />
+                    : <img src={groupDefaultProfile} alt="default group profile photo" />
+                }
                 <Link to={`/${uploader.name}`}>{uploader.name}</Link>
               </li>
             ))}
@@ -159,7 +165,7 @@ const SearchBar = ({ isOpen, options }) => {
   );
 
   return (
-    <SearchBarContainer onClick={_handleFocus}>
+    <SearchBarContainer>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
       <SearchBarWrapper searchFocused={searchFocused}>
         <SearchBarWrapper.Header>
@@ -171,6 +177,7 @@ const SearchBar = ({ isOpen, options }) => {
               placeholder="자보, 그룹, #태그 검색"
               value={search}
               onChange={_handleChange}
+              onClick={_handleFocus}
               onKeyDown={_handleKeyDown}
               ref={inputRef}
               {...options}

@@ -66,12 +66,13 @@ const SearchPage = () => {
       <Page.Body>
         <GroupList type="search" groups={uploaderSearch} />
         <Zabos>
-          <h1>전체 검색 결과</h1>
+          <h1>자보 검색 결과</h1>
           <TagList
+            type="search"
             onTagClick={onTagClick}
             clickedTags={clickedTags}
           />
-          <div style={{ marginTop: '28px' }}> </div>
+          <div className="emptySpace"> </div>
           {!isZaboSearchEmpty && <ZaboList type="search" />}
         </Zabos>
       </Page.Body>

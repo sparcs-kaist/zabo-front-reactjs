@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { CATEGORIES } from 'lib/variables';
 
-const TagListWrapper = styled.div`
+export const TagListWrapper = styled.div`
   margin-top: 20px;
 
   button {
@@ -23,9 +23,30 @@ const TagListWrapper = styled.div`
       background-color: white;
     }
   }
+  ${props => (props.type === 'search' ? css`
+    width: 100%;
+    scroll-behavior: smooth;
+    overflow-x: scroll;
+    white-space: nowrap;
+    /* hide scroll bar */
+    /* -webkit- (Chrome, Safari, newer versions of Opera) */
+    &::-webkit-scrollbar { width: 0 !important }
+    /* Firefox */
+    scrollbar-width: none;
+    /* -ms- (Internet Explorer +10) */
+    -ms-overflow-style: none;
+
+    button {
+      font-size: 14px;
+      padding: 8px 10px;
+      margin-right: 8px;
+      &:last-child { margin-right: 0 }
+    }
+  ` : css`
+  `)}
 `;
 
-const TagList = ({ onTagClick, clickedTags }) => {
+const TagList = ({ type, onTagClick, clickedTags }) => {
   const tagList = useMemo (() => (
     CATEGORIES.map ((tag, idx) => {
       const value = tag.slice (1);
@@ -44,18 +65,20 @@ const TagList = ({ onTagClick, clickedTags }) => {
   ), [clickedTags, onTagClick]);
 
   return (
-    <TagListWrapper>
+    <TagListWrapper type={type}>
       {tagList}
     </TagListWrapper>
   );
 };
 
 TagList.propTypes = {
+  type: PropTypes.string,
   onTagClick: PropTypes.func.isRequired,
   clickedTags: PropTypes.arrayOf (PropTypes.string),
 };
 
 TagList.defaultProps = {
+  type: '',
   clickedTags: [],
 };
 

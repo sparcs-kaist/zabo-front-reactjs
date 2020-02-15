@@ -15,7 +15,7 @@ export const Groups = styled.section`
     display: inline-block;
     font-size: 22px;
     color: #363636;
-    margin: 0 0 16px 0;
+    margin: 0 0 16px;
     font-weight: 800;
   }
 
