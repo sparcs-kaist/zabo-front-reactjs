@@ -41,14 +41,17 @@ const SearchPage = () => {
   };
 
   useEffect (() => {
+    setState ({ clickedTags: [category] });
+  }, [category]);
+
+  useEffect (() => {
     // to get new updated category list
-    dispatch (getSearch ({ query, category: [...clickedTags, category] }))
+    dispatch (getSearch ({ query, category: clickedTags }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
-  }, [query, category, clickedTags]);
+  }, [query, clickedTags]);
 
-  const onTagClick = e => {
-    const { value: category } = e.target;
+  const onTagClick = (category) => {
     if (clickedTags.includes (category)) {
       setState (prevState => ({
         clickedTags: prevState.clickedTags.filter (c => c !== category),

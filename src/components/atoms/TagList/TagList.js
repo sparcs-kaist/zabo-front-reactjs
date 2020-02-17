@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
@@ -47,6 +47,11 @@ export const TagListWrapper = styled.div`
 `;
 
 const TagList = ({ type, onTagClick, clickedTags }) => {
+  const handleClick = e => {
+    const { value: category } = e.target;
+    onTagClick (category);
+  };
+
   const tagList = useMemo (() => (
     CATEGORIES.map ((tag, idx) => {
       const value = tag.slice (1);
@@ -55,7 +60,7 @@ const TagList = ({ type, onTagClick, clickedTags }) => {
         <button
           key={idx}
           value={value}
-          onClick={onTagClick}
+          onClick={handleClick}
           className={cName}
         >
           {tag}

@@ -101,9 +101,11 @@ const SearchBar = ({ isOpen, options }) => {
     });
   }, [setState]);
 
-  const onTagClick = e => {
-    const { value: category } = e.target;
+  const onTagClick = (category) => {
     const stringified = queryString.stringify ({ category });
+    setState ({
+      searchFocused: false,
+    });
     history.push (`/search?${stringified}`);
   };
 
@@ -118,7 +120,7 @@ const SearchBar = ({ isOpen, options }) => {
   const searchWithTagComponent = (
     <div>
       <h3>태그로 검색하기</h3>
-      <TagList onTagClick={onTagClick} />
+      <TagList onTagClick={onTagClick} type="searchBar" />
     </div>
   );
 
