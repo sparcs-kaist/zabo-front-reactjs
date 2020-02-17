@@ -28,21 +28,19 @@ const SearchBar = ({ isOpen, options }) => {
     search: '',
     zaboSearch: [],
     uploaderSearch: [],
-    keywordSearch: [],
     searchResults: {},
     searchFocused: false,
   });
 
   const {
-    search, zaboSearch, searchResults, uploaderSearch, keywordSearch, searchFocused,
+    search, zaboSearch, searchResults, uploaderSearch, searchFocused,
   } = state;
 
   const _updateResults = data => {
-    const { zabos, groups, categories } = data;
+    const { zabos, groups } = data;
     setState ({
       zaboSearch: zabos,
       uploaderSearch: groups,
-      keywordSearch: categories,
     });
   };
 
@@ -155,14 +153,6 @@ const SearchBar = ({ isOpen, options }) => {
           </ul>
         </div>
       )}
-      {/* <h3>Keyword</h3>
-      <ul>
-        {keywordSearch.map ((keyword, idx) => (
-          <li key={idx}>
-            <Link to="/">{keyword}</Link>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 
