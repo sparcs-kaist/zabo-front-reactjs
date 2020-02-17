@@ -10,6 +10,7 @@ import useSetState from 'hooks/useSetState';
 import { searchAPI } from 'lib/api/search';
 
 import cancelIcon from 'static/images/cancel.png';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import searchIcon from 'static/images/search-icon-navy.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
@@ -27,21 +28,19 @@ const SearchBar = ({ isOpen, options }) => {
     search: '',
     zaboSearch: [],
     uploaderSearch: [],
-    keywordSearch: [],
     searchResults: {},
     searchFocused: false,
   });
 
   const {
-    search, zaboSearch, searchResults, uploaderSearch, keywordSearch, searchFocused,
+    search, zaboSearch, searchResults, uploaderSearch, searchFocused,
   } = state;
 
   const _updateResults = data => {
-    const { zabos, groups, categories } = data;
+    const { zabos, groups } = data;
     setState ({
       zaboSearch: zabos,
       uploaderSearch: groups,
-      keywordSearch: categories,
     });
   };
 
@@ -100,9 +99,11 @@ const SearchBar = ({ isOpen, options }) => {
     });
   }, [setState]);
 
-  const onTagClick = e => {
-    const { value: category } = e.target;
+  const onTagClick = (category) => {
     const stringified = queryString.stringify ({ category });
+    setState ({
+      searchFocused: false,
+    });
     history.push (`/search?${stringified}`);
   };
 
@@ -117,7 +118,7 @@ const SearchBar = ({ isOpen, options }) => {
   const searchWithTagComponent = (
     <div>
       <h3>태그로 검색하기</h3>
-      <TagList onTagClick={onTagClick} />
+      <TagList onTagClick={onTagClick} type="searchBar" />
     </div>
   );
 
@@ -141,25 +142,22 @@ const SearchBar = ({ isOpen, options }) => {
           <ul>
             {uploaderSearch.map ((uploader, idx) => (
               <li key={idx}>
+                {
+                  uploader.profilePhoto
+                    ? <img src={uploader.profilePhoto} alt="group profile photo" />
+                    : <img src={groupDefaultProfile} alt="default group profile photo" />
+                }
                 <Link to={`/${uploader.name}`}>{uploader.name}</Link>
               </li>
             ))}
           </ul>
         </div>
       )}
-      {/* <h3>Keyword</h3>
-      <ul>
-        {keywordSearch.map ((keyword, idx) => (
-          <li key={idx}>
-            <Link to="/">{keyword}</Link>
-          </li>
-        ))}
-      </ul> */}
     </div>
   );
 
   return (
-    <SearchBarContainer onClick={_handleFocus}>
+    <SearchBarContainer>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
       <SearchBarWrapper searchFocused={searchFocused}>
         <SearchBarWrapper.Header>
@@ -171,6 +169,7 @@ const SearchBar = ({ isOpen, options }) => {
               placeholder="자보, 그룹, #태그 검색"
               value={search}
               onChange={_handleChange}
+              onClick={_handleFocus}
               onKeyDown={_handleKeyDown}
               ref={inputRef}
               {...options}
