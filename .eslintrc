@@ -40,6 +40,10 @@
     "max-len": ["warn", 150],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "func-names": "off",
+    "no-plusplus": ["error", {
+      "allowForLoopAfterthoughts": true
+    }],
+    "no-trailing-spaces": "warn",
     "simple-import-sort/sort": [
       2,
       {

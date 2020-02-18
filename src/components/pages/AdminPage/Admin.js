@@ -16,7 +16,7 @@ import logo from 'static/logo/logo.svg';
 import AdminWrapper from './Admin.styled';
 import bgImage from './assets/img/sidebar-2.jpg';
 import styles from './assets/jss/material-dashboard-react/layouts/adminStyle';
-import FixedPlugin from './components/FixedPlugin/FixedPlugin';
+// import FixedPlugin from './components/FixedPlugin/FixedPlugin';
 import Footer from './components/Footer/Footer';
 import Navbar from './components/Navbars/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
@@ -139,14 +139,14 @@ export default function Admin ({ ...rest }) {
           <div className={classes.map}>{switchRoutes}</div>
         )}
         {getRoute () ? <Footer /> : null}
-        <FixedPlugin
-          handleImageClick={handleImageClick}
-          handleColorClick={handleColorClick}
-          bgColor={color}
-          bgImage={image}
-          handleFixedClick={handleFixedClick}
-          fixedClasses={fixedClasses}
-        />
+        {/* <FixedPlugin */}
+        {/*  handleImageClick={handleImageClick} */}
+        {/*  handleColorClick={handleColorClick} */}
+        {/*  bgColor={color} */}
+        {/*  bgImage={image} */}
+        {/*  handleFixedClick={handleFixedClick} */}
+        {/*  fixedClasses={fixedClasses} */}
+        {/* /> */}
       </div>
     </AdminWrapper>
   );
