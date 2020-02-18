@@ -12,6 +12,8 @@ import ZaboList from 'templates/ZaboList';
 import { getSearch } from 'store/reducers/zabo';
 import useSetState from 'hooks/useSetState';
 
+import searchIcon from 'static/images/search-icon-navy.png';
+
 import { Page, Zabos } from './SearchPage.styled';
 
 const SearchPage = () => {
@@ -23,32 +25,34 @@ const SearchPage = () => {
   const [state, setState, onChange] = useSetState ({
     zaboSearch: [],
     uploaderSearch: [],
-    keywordSearch: [],
     clickedTags: [],
   });
   const {
-    zaboSearch, uploaderSearch, keywordSearch, clickedTags,
+    zaboSearch, uploaderSearch, clickedTags,
   } = state;
   const isZaboSearchEmpty = zaboSearch.length === 0;
+  const isResultsEmpty = isZaboSearchEmpty && uploaderSearch.length === 0;
 
   const _updateResults = data => {
-    const { zabos, groups, categories } = data;
+    const { zabos, groups } = data;
     setState ({
       zaboSearch: zabos,
       uploaderSearch: groups,
-      keywordSearch: categories,
     });
   };
 
   useEffect (() => {
+    setState ({ clickedTags: [category] });
+  }, [category]);
+
+  useEffect (() => {
     // to get new updated category list
-    dispatch (getSearch ({ query, category: [...clickedTags, category] }))
+    dispatch (getSearch ({ query, category: clickedTags }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
-  }, [query, category, clickedTags]);
+  }, [query, clickedTags]);
 
-  const onTagClick = e => {
-    const { value: category } = e.target;
+  const onTagClick = (category) => {
     if (clickedTags.includes (category)) {
       setState (prevState => ({
         clickedTags: prevState.clickedTags.filter (c => c !== category),
@@ -64,16 +68,36 @@ const SearchPage = () => {
     <Page>
       <Header rightGroup={<Header.AuthButton />} scrollHeader />
       <Page.Body>
-        <GroupList type="search" groups={uploaderSearch} />
-        <Zabos>
-          <h1>전체 검색 결과</h1>
-          <TagList
-            onTagClick={onTagClick}
-            clickedTags={clickedTags}
-          />
-          <div style={{ marginTop: '28px' }}> </div>
-          {!isZaboSearchEmpty && <ZaboList type="search" />}
-        </Zabos>
+        {isResultsEmpty
+          ? (
+            <div className="empty-page">
+              <img src={searchIcon} alt="search icon" />
+              <div className="empty-text">
+                <div className="empty-query">{query || '#'.concat (category)}</div>
+                에 대한 검색결과가 없습니다.
+              </div>
+              <p>
+                없었어요?<br />
+                없어요<br />
+                아 있었는데?<br />
+                아니 없어요 그냥
+              </p>
+            </div>
+          ) : (
+            <div>
+              <GroupList type="search" groups={uploaderSearch} />
+              <Zabos>
+                <h1>자보 검색 결과</h1>
+                <TagList
+                  type="search"
+                  onTagClick={onTagClick}
+                  clickedTags={clickedTags}
+                />
+                <div className="emptySpace"> </div>
+                {!isZaboSearchEmpty && <ZaboList type="search" />}
+              </Zabos>
+            </div>
+          )}
       </Page.Body>
     </Page>
   );

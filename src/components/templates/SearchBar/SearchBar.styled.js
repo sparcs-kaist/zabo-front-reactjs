@@ -143,6 +143,12 @@ SearchBarWrapper.Body = styled.div`
       &:hover, &:focus {
         background-color: #F4F4F4;
       }
+      img {
+        width: 32px;
+        height: 32px;
+        margin-right: 10px;
+        border-radius: 50%;
+      }
       a {
         line-height: 40px;
         width: 100%;
