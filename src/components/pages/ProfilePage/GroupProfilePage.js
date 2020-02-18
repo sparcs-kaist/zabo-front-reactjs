@@ -13,6 +13,7 @@ import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
 import { setCurrentGroup } from 'store/reducers/auth';
+import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
 import { getLabeledTimeDiff, isElementOverflown } from 'lib/utils';
 
@@ -22,15 +23,18 @@ import { Page, Zabos } from './Profile.styled';
 
 const GroupProfile = ({ profile }) => {
   const {
-    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole,
+    name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole, following,
   } = profile;
   const dispatch = useDispatch ();
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
+  const follow = useCallback (() => {
+    dispatch (followProfile ({ name }));
+  }, [name]);
   useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
   const toUpload = useCallback (() => {
-    dispatch (setCurrentGroup (name));
+    dispatch (setCurrentGroup ({ name }));
   }, [name, dispatch]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
@@ -74,10 +78,12 @@ const GroupProfile = ({ profile }) => {
                 )
                 : <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
             }
-            {
+
+            <section>
+              {
               myRole
                 ? (
-                  <section>
+                  <>
                     <Link to={`/settings/group/${name}/profile`}>
                       <button className="edit" type="button">프로필 편집</button>
                     </Link>
@@ -89,11 +95,20 @@ const GroupProfile = ({ profile }) => {
                     <Link to="/zabo/upload">
                       <button onClick={toUpload} type="button">업로드</button>
                     </Link>
-                  </section>
-                ) : (
-                  ''
+                    {following
+                      ? <button onClick={follow} type="button">팔로우 취소</button>
+                      : <button onClick={follow} type="button">팔로우</button>}
+                  </>
+                )
+                : (
+                  <>
+                    {following
+                      ? <button onClick={follow} type="button">팔로우 취소</button>
+                      : <button onClick={follow} type="button">팔로우</button>}
+                  </>
                 )
             }
+            </section>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
         <Page.Header.Right>

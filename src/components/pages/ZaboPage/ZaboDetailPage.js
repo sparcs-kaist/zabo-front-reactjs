@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import moment from 'moment';
 
@@ -9,6 +10,7 @@ import StatBox from 'molecules/StatBox';
 import StyledQuill from 'organisms/StyledQuill';
 import ZaboList from 'templates/ZaboList';
 
+import { followProfile, getProfile } from 'store/reducers/profile';
 import { ZaboType } from 'lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
@@ -17,8 +19,81 @@ import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import withZabo from './withZabo';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 
-const ZaboDetailPage = (props) => {
+const OwnerInfo = ({ owner, isMyZabo, createdBy }) => {
   const { url } = useRouteMatch ();
+  const { name, profilePhoto } = owner;
+  const dispatch = useDispatch ();
+  useEffect (() => {
+    if (!name) return;
+    dispatch (getProfile (name));
+  }, [name]);
+  const follow = useCallback (() => {
+    if (!name) return;
+    dispatch (followProfile ({ name }));
+  }, [name]);
+  const following = useSelector (state => state.getIn (['profile', 'profiles', name, 'following']));
+
+  return (
+    <div className="owner">
+      <Link to={`/${name}`} className="owner-link">
+        {
+          ('profilePhoto' in owner)
+            ? <img src={profilePhoto} alt="group profile photo" />
+            : <img src={groupDefaultProfile} alt="default profile img" />
+        }
+        <div className="owner-label">
+          <div className="owner-group">{name || 'anonymous'}</div>
+          {isMyZabo && <div className="owner-creator">게시자 {createdBy.username}</div>}
+        </div>
+      </Link>
+      {
+        typeof following !== 'undefined'
+          && (
+            <>
+              <div className="specialChar">&middot;</div>
+              {
+              following
+                ? <p className="follow" onClick={follow}>팔로우 취소</p>
+                : <p className="follow" onClick={follow}>팔로우</p>
+            }
+            </>
+          )
+      }
+      {isMyZabo
+      && (
+        <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
+          <Button to={`${url}/edit`} border="main">게시물 수정</Button>
+          <Button
+            background="point"
+            border="none"
+            color="white"
+            onClick={() => {
+              alert ('삭제하시겠습니까?');
+            }}
+          >게시물 삭제
+          </Button>
+        </Button.Group>
+      )}
+    </div>
+  );
+};
+
+OwnerInfo.propTypes = {
+  isMyZabo: PropTypes.bool.isRequired,
+  owner: PropTypes.shape ({
+    name: PropTypes.string,
+    profilePhoto: PropTypes.string,
+  }).isRequired,
+  createdBy: PropTypes.shape ({
+    username: PropTypes.string,
+  }),
+};
+
+OwnerInfo.defaultProps = {
+  createdBy: {},
+};
+
+const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
@@ -76,36 +151,7 @@ const ZaboDetailPage = (props) => {
           <ZaboPageWrapper.Info.Body>
             <section>
               <div className="borderLine"> </div>
-              <div className="owner">
-                <Link to={`/${owner.name}`} className="owner-link">
-                  {
-                    ('profilePhoto' in owner)
-                      ? <img src={owner.profilePhoto} alt="group profile photo" />
-                      : <img src={groupDefaultProfile} alt="default profile img" />
-                  }
-                  <div className="owner-label">
-                    <div className="owner-group">{owner.name || 'anonymous'}</div>
-                    {isMyZabo && <div className="owner-creator">게시자 {createdBy.username}</div>}
-                  </div>
-                </Link>
-                {/* <div className="specialChar">&middot;</div> */}
-                {/* <p className="follow" /> */}
-                {isMyZabo
-                && (
-                <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
-                  <Button to={`${url}/edit`} border="main">게시물 수정</Button>
-                  <Button
-                    background="point"
-                    border="none"
-                    color="white"
-                    onClick={() => {
-                      alert ('삭제하시겠습니까?');
-                    }}
-                  >게시물 삭제
-                  </Button>
-                </Button.Group>
-                )}
-              </div>
+              <OwnerInfo isMyZabo={isMyZabo} owner={owner} createdBy={createdBy} />
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
