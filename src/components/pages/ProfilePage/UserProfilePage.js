@@ -1,4 +1,5 @@
 import React, {
+  useCallback,
   useEffect, useRef, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
@@ -13,6 +14,7 @@ import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
 import { logout as logoutAction } from 'store/reducers/auth';
+import { followProfile } from 'store/reducers/profile';
 import { UserType } from 'lib/propTypes';
 import { isAdminSelector, isElementOverflown } from 'lib/utils';
 
@@ -24,13 +26,16 @@ import {
 
 const UserProfile = ({ profile }) => {
   const {
-    username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {},
+    username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {}, following,
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
+  const follow = useCallback (() => {
+    dispatch (followProfile ({ name: username }));
+  }, [username]);
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
@@ -74,14 +79,20 @@ const UserProfile = ({ profile }) => {
                 )
                 : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
             }
-            {isMyProfile && (
-            <section>
-              <Button.Group>
-                <Button onClick={logout}>로그아웃</Button>
-                <Button to="/settings/profile" border="main">프로필 편집</Button>
-                {isAdmin && (<Button to="/admin">어드민</Button>)}
-              </Button.Group>
-            </section>
+            {isMyProfile ? (
+              <section>
+                <Button.Group>
+                  <Button onClick={logout}>로그아웃</Button>
+                  <Button to="/settings/profile" border="main">프로필 편집</Button>
+                  {isAdmin && (<Button to="/admin">어드민</Button>)}
+                </Button.Group>
+              </section>
+            ) : (
+              <sectino>
+                {following
+                  ? <button onClick={follow} type="button">팔로우 취소</button>
+                  : <button onClick={follow} type="button">팔로우</button>}
+              </sectino>
             )}
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>

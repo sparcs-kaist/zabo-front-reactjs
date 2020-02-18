@@ -170,13 +170,19 @@ ZaboPageWrapper.Info.Body = styled.section`
         color: #666666;
       }
     }
-    .specialChar {
-      display: inline-block;
-      color: #8F8F8F;
-      vertical-align: middle;
-    }
   }
-
+  .specialChar {
+    display: inline-block;
+    color: #8F8F8F;
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+  .follow {
+    font-size: 14px;
+    line-height: 16px;
+    color: #BCBCBC;
+    cursor: pointer;
+  }
   .contents {
     padding-top: 28px;
     @media (max-width: 640px) {
