@@ -15,12 +15,13 @@ const ZaboCard = ({ zaboId }) => {
   const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
   const zabo = useMemo (() => zaboImmutable.toJS (), [zaboImmutable]);
   const {
-    _id, photos, title, owner, createdAt, endAt, views,
+    _id, photos, title, owner, createdAt, schedule: schedules, views,
     likesCount, isLiked, pinsCount, isPinned,
   } = zabo;
+  const schedule = schedules[0];
 
   const timePast = getLabeledTimeDiff (createdAt, true, true, true, true, false, false);
-  const daysLeft = moment (endAt).diff (moment (), 'days');
+  const daysLeft = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
 
   const stats = [{
     type: 'like',

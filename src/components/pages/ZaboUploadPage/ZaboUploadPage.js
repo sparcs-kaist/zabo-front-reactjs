@@ -43,9 +43,9 @@ const SlideTitle = ({ step }) => {
 
 const SlideView = ({ step }) => (
   <SwipeableViews disabled index={step}>
+    <ZaboUpload.InfoForm />
     <ZaboUpload.SelectGroup />
     <ZaboUpload.UploadImage />
-    <ZaboUpload.InfoForm />
     <ZaboUpload.UploadProcess step={step} />
   </SwipeableViews>
 );
@@ -61,7 +61,7 @@ const FooterChild = (props) => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const { title, description, endAt } = info;
+  const { title, description, schedule } = info;
 
   const validatedNext = useCallback (() => {
     if (step === 0) {
@@ -80,7 +80,7 @@ const FooterChild = (props) => {
     } if (step === 1) {
       return !!filesImmutable.size;
     } if (step === 2) {
-      return (title && description && endAt);
+      return (title && description);
     }
     return false;
   }, [step, currentGroup, filesImmutable, infoImmutable]);

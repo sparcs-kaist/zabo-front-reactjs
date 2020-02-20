@@ -42,7 +42,12 @@ const initialState = Map ({
   info: Map ({
     title: '',
     description: '',
-    endAt: date,
+    schedule: List ([Map ({
+      title: '',
+      startAt: date,
+      endAt: date,
+      eventType: '행사',
+    })]),
     category: List (CATEGORIES.map (tag => ({ name: tag, clicked: false }))),
   }),
   edit: Map ({}),

@@ -13,7 +13,7 @@ export const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border: 1px solid #E9E9E9;
+  border-bottom: 1px solid #E9E9E9;
 
   a {
     display: flex;
