@@ -8,6 +8,7 @@ const InfoFormWrapper = styled.div`
     font-weight: bold;
     color: #363636;
     &.label-tag { margin-bottom: 12px }
+    &.small { font-size: 16px }
   }
   .semi-label {
     font-size: 16px;
@@ -252,7 +253,7 @@ InfoFormWrapper.Info.Schedule = styled.section`
     justify-content: flex-start;
     p {
       color: #363636;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: bold;
       margin: 0;
     }
@@ -264,7 +265,7 @@ InfoFormWrapper.Info.Schedule = styled.section`
 
   .body {
     margin-top: 38px;
-    padding-bottom: 20px;
+    padding-bottom: 36px;
     ${props => (props.isToggled ? css`
       visibility: visible;
       opacity: 1;

@@ -140,11 +140,11 @@ const Form = ({ state, setState, preview }) => {
             <div className="body">
               <div className="body-container">
                 <div className="schedule-title">
-                  <div className="label">일정 이름</div>
+                  <div className="label small">일정 이름</div>
                   <input
                     className="schedule-title-input"
                     required
-                    placeholder="행사명을 입력해주세요.(20자 제한)"
+                    placeholder="행사명을 입력해주세요. (20자 제한)"
                     maxLength="20"
                     name="title"
                     value={scheduleTitle}
@@ -152,7 +152,7 @@ const Form = ({ state, setState, preview }) => {
                   />
                 </div>
                 <div className="schedule-type">
-                  <div className="label" style={{ marginBottom: '8px' }}>분류</div>
+                  <div className="label small" style={{ marginBottom: '8px' }}>분류</div>
                   <SimpleSelect
                     value={typeOption}
                     options={typeOptions}
@@ -167,7 +167,7 @@ const Form = ({ state, setState, preview }) => {
                   />
                 </div>
               </div>
-              <div className="label">행사 시간</div>
+              <div className="label small">일정</div>
               <div className="inputContainer oneLineInput">
                 <MuiPickersUtilsProvider utils={MomentUtils}>
                   <KeyboardDateTimePicker
