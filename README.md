@@ -3,7 +3,7 @@
 <br />
 <p align="center">
   <a href="https://alpha.zabo.sparcs.org">
-    <img src="src/static/logo/Services-Zabo.svg" alt="Logo" height="150">
+    <img src="src/static/logo/logo.svg" alt="Logo" height="150">
   </a>
   
   <p align="center">
