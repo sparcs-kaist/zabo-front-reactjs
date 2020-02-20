@@ -12,6 +12,7 @@ export const uploadZabo = (formData, onUploadProgress = () => {}) => axios.post 
   },
 });
 export const patchZabo = ({ zaboId, data }) => axios.patch (`/zabo/${zaboId}`, data);
+export const deleteZabo = ({ zaboId }) => axios.delete (`/zabo/${zaboId}`);
 
 export const getZabo = id => axios.get (`/zabo/${id}`);
 export const getZaboList = ({ lastSeen, relatedTo }) => axios

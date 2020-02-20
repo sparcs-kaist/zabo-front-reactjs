@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 
 export const ZaboType = PropTypes.shape ({
+  _id: PropTypes.string,
   title: PropTypes.string,
   owner: PropTypes.shape ({
     name: PropTypes.string,
@@ -21,6 +22,7 @@ export const ZaboType = PropTypes.shape ({
 });
 
 export const GroupType = PropTypes.shape ({
+  _id: PropTypes.string,
   name: PropTypes.string,
   profilePhoto: PropTypes.string,
   stats: PropTypes.shape ({ // TODO: Generate stats in server
@@ -32,6 +34,7 @@ export const GroupType = PropTypes.shape ({
 });
 
 export const UserType = PropTypes.shape ({
+  _id: PropTypes.string,
   email: PropTypes.string,
   username: PropTypes.string,
   description: PropTypes.string,

@@ -17,6 +17,7 @@ const TOGGLE_ZABO_LIKE = 'zabo/TOGGLE_ZABO_LIKE';
 const GET_GROUP_ZABO_LIST = 'zabo/GET_GROUP_ZABO_LIST';
 const GET_SEARCH_ZABO_LIST = 'zabo/GET_SEARCH_ZABO_LIST';
 const GET_SEARCH = 'zabo/GET_SEARCH';
+const DELETE_ZABO = 'zabo/DELETE_ZABO';
 
 // Action creator : action 객체를 만들어주는 함수
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
@@ -29,6 +30,7 @@ export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZabo
 export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, meta => meta);
 export const getSearchZaboList = createAction (GET_SEARCH_ZABO_LIST, ZaboAPI.getSearchZaboList, meta => meta);
 export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, meta => meta);
+export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, meta => meta);
 
 // 초기값 설정
 const initialState = Map ({
@@ -57,6 +59,10 @@ export default handleActions (
         const { zaboId } = action.meta;
         return state.updateIn (['zabos', zaboId], prev => prev.merge (fromJS (action.payload)));
       },
+    }),
+    ...pender ({
+      type: DELETE_ZABO,
+      onSuccess: (state, action) => state,
     }),
     ...pender ({
       type: GET_ZABO,

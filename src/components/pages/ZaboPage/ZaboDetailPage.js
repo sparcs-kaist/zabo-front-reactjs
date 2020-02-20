@@ -11,6 +11,7 @@ import StyledQuill from 'organisms/StyledQuill';
 import ZaboList from 'templates/ZaboList';
 
 import { followProfile, getProfile } from 'store/reducers/profile';
+import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';
 import { ZaboType } from 'lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
@@ -19,7 +20,11 @@ import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import withZabo from './withZabo';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 
-const OwnerInfo = ({ owner, isMyZabo, createdBy }) => {
+const OwnerInfo = ({
+  zabo: {
+    owner, isMyZabo, createdBy = {}, _id,
+  },
+}) => {
   const { url } = useRouteMatch ();
   const { name, profilePhoto } = owner;
   const dispatch = useDispatch ();
@@ -31,6 +36,15 @@ const OwnerInfo = ({ owner, isMyZabo, createdBy }) => {
     if (!name) return;
     dispatch (followProfile ({ name }));
   }, [name]);
+  const deleteZabo = useCallback (() => {
+    dispatch (deleteZaboAction ({ zaboId: _id }))
+      .then (res => {
+        window.location.href = `/${owner.name}`;
+      })
+      .catch (error => {
+        alert ('Error');
+      });
+  });
   const following = useSelector (state => state.getIn (['profile', 'profiles', name, 'following']));
 
   return (
@@ -68,7 +82,7 @@ const OwnerInfo = ({ owner, isMyZabo, createdBy }) => {
             border="none"
             color="white"
             onClick={() => {
-              alert ('삭제하시겠습니까?');
+              deleteZabo ();
             }}
           >게시물 삭제
           </Button>
@@ -79,19 +93,10 @@ const OwnerInfo = ({ owner, isMyZabo, createdBy }) => {
 };
 
 OwnerInfo.propTypes = {
-  isMyZabo: PropTypes.bool.isRequired,
-  owner: PropTypes.shape ({
-    name: PropTypes.string,
-    profilePhoto: PropTypes.string,
-  }).isRequired,
-  createdBy: PropTypes.shape ({
-    username: PropTypes.string,
-  }),
+  zabo: ZaboType.isRequired,
 };
 
-OwnerInfo.defaultProps = {
-  createdBy: {},
-};
+OwnerInfo.defaultProps = {};
 
 const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
@@ -151,7 +156,7 @@ const ZaboDetailPage = (props) => {
           <ZaboPageWrapper.Info.Body>
             <section>
               <div className="borderLine"> </div>
-              <OwnerInfo isMyZabo={isMyZabo} owner={owner} createdBy={createdBy} />
+              <OwnerInfo isMyZabo={isMyZabo} zabo={zabo} />
               <div className="borderLine"> </div>
             </section>
             <section className="contents">
