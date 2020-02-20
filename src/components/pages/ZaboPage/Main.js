@@ -11,7 +11,7 @@ const Main = () => {
   const { path } = useRouteMatch ();
   return (
     <ZaboPageWrapper>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header type="upload" scrollHeader />
       <Switch>
         <Route exact path={`${path}`} component={paramsToProps (ZaboDetailPage)} />
         <Route path={`${path}/edit`} component={paramsToProps (ZaboEditPage)} />

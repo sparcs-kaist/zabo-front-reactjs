@@ -31,7 +31,7 @@ const SearchPage = () => {
     zaboSearch, uploaderSearch, clickedTags,
   } = state;
   const isZaboSearchEmpty = zaboSearch.length === 0;
-  const isResultsEmpty = isZaboSearchEmpty && uploaderSearch.length === 0;
+  const isResultsEmpty = query !== undefined && isZaboSearchEmpty && uploaderSearch.length === 0;
 
   const _updateResults = data => {
     const { zabos, groups } = data;
@@ -66,7 +66,7 @@ const SearchPage = () => {
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header type="upload" scrollHeader />
       <Page.Body>
         {isResultsEmpty
           ? (
@@ -94,7 +94,7 @@ const SearchPage = () => {
                   clickedTags={clickedTags}
                 />
                 <div className="emptySpace"> </div>
-                {!isZaboSearchEmpty && <ZaboList type="search" />}
+                {!isZaboSearchEmpty && <ZaboList type="search" key={clickedTags} />}
               </Zabos>
             </div>
           )}
