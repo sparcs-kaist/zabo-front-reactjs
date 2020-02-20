@@ -57,7 +57,7 @@ const GroupMembersSetting = ({ profile }) => {
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header scrollHeader />
       <Page.Body>
         <h1>{name} 멤버 관리</h1>
         <p>관리자는 그룹의 멤버와 자보를 관리할 수 있으며, 편집자는 자보를 업로드 및 수정할 수 있습니다.</p>

@@ -52,13 +52,9 @@ const UserProfile = ({ profile }) => {
     value: followingsCount,
   }];
 
-  const rightGroup = isMyProfile
-    ? <Link to="/settings/profile"><SettingsIcon /></Link>
-    : <Header.AuthButton />;
-
   return (
     <Page>
-      <Header rightGroup={rightGroup} scrollHeader />
+      <Header type="upload" scrollHeader />
       <Page.Header>
         <Page.Header.Left>
           <Page.Header.Left.ProfilePhoto>

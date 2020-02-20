@@ -127,7 +127,7 @@ const ZaboUploadPage = () => {
 
   return (
     <PageWrapper>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header scrollHeader />
       <Prompt
         when
         message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"

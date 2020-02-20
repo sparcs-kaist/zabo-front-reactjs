@@ -66,7 +66,7 @@ const SearchPage = () => {
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header type="upload" scrollHeader />
       <Page.Body>
         {isResultsEmpty
           ? (

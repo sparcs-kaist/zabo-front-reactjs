@@ -135,7 +135,7 @@ const GroupProfileSetting = ({ profile }) => {
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header scrollHeader />
       <Page.Body>
         <h1>그룹 프로필 편집</h1>
         <p>그룹 프로필을 수정할 수 있습니다.</p>

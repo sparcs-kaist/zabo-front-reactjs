@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, NavLink, useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { css } from 'styled-components';
 
 import Container from 'atoms/Container';
 import SVG from 'atoms/SVG';
 
+import { setCurrentGroup } from 'store/reducers/auth';
 import { isAuthedSelector } from 'lib/utils';
 
 import logo from 'static/logo/logo.svg';
@@ -32,7 +33,7 @@ const containerStyle = css`
 `;
 
 const Header = ({
-  back, title, rightGroup, scrollHeader, type,
+  back, title, scrollHeader, type, groupName,
 }) => {
   const history = useHistory ();
   const [left, setLeft] = useState (0);
@@ -65,8 +66,7 @@ const Header = ({
         >
           <SearchBar isOpen />
         </div>
-        {/* {rightGroup} */}
-        <Header.AuthButton type={type} />
+        <Header.AuthButton type={type} groupName={groupName} />
       </Container>
     </HeaderWrapper>
   );
@@ -75,20 +75,25 @@ const Header = ({
 Header.propTypes = {
   back: PropTypes.bool,
   title: PropTypes.string,
-  rightGroup: PropTypes.element,
   type: PropTypes.string,
+  groupName: PropTypes.string,
 };
 
 Header.defaultProps = {
   back: false,
   title: '',
-  rightGroup: null,
   type: '',
+  groupName: '',
 };
 
-Header.AuthButton = ({ type }) => {
+Header.AuthButton = ({ type, groupName }) => {
+  const dispatch = useDispatch ();
   const isAuthenticated = useSelector (isAuthedSelector);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
+
+  const toUpload = useCallback (() => {
+    dispatch (setCurrentGroup (groupName));
+  }, [groupName, dispatch]);
 
   return (
     <HeaderWrapper.Auth>
@@ -100,7 +105,7 @@ Header.AuthButton = ({ type }) => {
           </NavLink>
           {type === 'upload' && (
             <Link to="/zabo/upload">
-              <button type="button">업로드</button>
+              <button onClick={toUpload} type="button">업로드</button>
             </Link>
           )}
         </div>
