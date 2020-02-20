@@ -46,6 +46,11 @@ export const SearchBarWrapper = styled.div`
   }
   @media (max-width: 910px) {
     width: 100%;
+    ${props => (props.type === 'search' && css`
+      width: 180px;
+      float: right;
+      margin-right: 12px; 
+    `)}
   }
   ${props => (props.searchFocused ? css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
@@ -85,7 +90,7 @@ SearchBarWrapper.Header = styled.div`
   }
   @media (max-width: 910px) {
     img.search-icon {
-      ${props => (props.searchFocused ? css`
+      ${props => (props.searchFocused || props.type === 'search' ? css`
         top: 12px;
         left: 16px;
         right: auto;
@@ -120,6 +125,9 @@ SearchBarWrapper.Header.SearchBar = styled.div`
       border-radius: 4px;
       background-color: #F4F4F4;
       @media (max-width: 910px) { display: none }
+    `)}
+    ${props => (props.type === 'search' && css`
+      @media (max-width: 910px) { display: inline-block }
     `)}
   }
 `;

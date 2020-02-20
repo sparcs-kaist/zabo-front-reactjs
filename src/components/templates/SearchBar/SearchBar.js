@@ -18,7 +18,7 @@ import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
-const SearchBar = ({ isOpen, options }) => {
+const SearchBar = ({ isOpen, options, type }) => {
   const isMounted = useRef (true);
   const inputRef = useRef (null);
   // make isMounted 'false' when component unmounted
@@ -159,14 +159,14 @@ const SearchBar = ({ isOpen, options }) => {
   return (
     <SearchBarContainer>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper searchFocused={searchFocused}>
-        <SearchBarWrapper.Header searchFocused={searchFocused}>
-          <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
+      <SearchBarWrapper type={type} searchFocused={searchFocused}>
+        <SearchBarWrapper.Header type={type} searchFocused={searchFocused}>
+          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={searchFocused}>
             <input
               autoComplete="off"
               id="search-input"
               type="text"
-              placeholder="자보, 그룹, #태그 검색"
+              placeholder="자보, 그룹 검색"
               value={search}
               onChange={_handleChange}
               onClick={_handleFocus}
@@ -197,8 +197,11 @@ const SearchBar = ({ isOpen, options }) => {
 
 SearchBar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
+  type: PropTypes.string,
 };
 
-SearchBar.defaultProps = {};
+SearchBar.defaultProps = {
+  type: '',
+};
 
 export default SearchBar;

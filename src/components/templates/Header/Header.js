@@ -64,7 +64,7 @@ const Header = ({
             alignItems: 'flex-start', justifyContent: 'center', flex: '1', height: '50px', overflow: 'visible', marginTop: '12px',
           }}
         >
-          <SearchBar isOpen />
+          <SearchBar isOpen type={type} />
         </div>
         <Header.AuthButton type={type} groupName={groupName} />
       </Container>

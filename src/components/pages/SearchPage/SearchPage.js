@@ -66,12 +66,12 @@ const SearchPage = () => {
 
   return (
     <Page>
-      <Header type="upload" scrollHeader />
+      <Header type="search" scrollHeader />
       <Page.Body>
         {isResultsEmpty
           ? (
             <div className="empty-page">
-              <img src={searchIcon} alt="search icon" />
+              <img className="search-icon" src={searchIcon} alt="search icon" />
               <div className="empty-text">
                 <div className="empty-query">{query || '#'.concat (category)}</div>
                 에 대한 검색결과가 없습니다.

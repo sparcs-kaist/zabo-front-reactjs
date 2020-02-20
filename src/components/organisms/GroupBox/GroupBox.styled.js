@@ -41,6 +41,7 @@ section {
     width: 60px;
     height: 60px;
     margin-right: 12px;
+    border-radius: 50%;
   }
   .group-name {
     font-size: 16px;

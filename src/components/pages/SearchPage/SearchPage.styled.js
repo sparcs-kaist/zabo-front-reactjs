@@ -41,7 +41,7 @@ Page.Body = styled.div`
   @media (max-width: 640px) {
     width: 100%;
     div.empty-page { margin-top: 74px }
-    img { margin-bottom: 22px }
+    img.search-icon { margin-bottom: 22px }
     div.empty-text { margin-bottom: 44px }
   }
 `;
