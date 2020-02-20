@@ -160,7 +160,7 @@ const SearchBar = ({ isOpen, options }) => {
     <SearchBarContainer>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
       <SearchBarWrapper searchFocused={searchFocused}>
-        <SearchBarWrapper.Header>
+        <SearchBarWrapper.Header searchFocused={searchFocused}>
           <SearchBarWrapper.Header.SearchBar searchFocused={searchFocused}>
             <input
               autoComplete="off"
@@ -175,7 +175,7 @@ const SearchBar = ({ isOpen, options }) => {
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
-          <img className="search-icon" src={searchIcon} alt="search icon" />
+          <img className="search-icon" src={searchIcon} onClick={_handleFocus} alt="search icon" />
           { search ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
         {searchFocused ? <div className="divider"> </div> : ''}
