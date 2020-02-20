@@ -101,11 +101,12 @@ OwnerInfo.defaultProps = {};
 const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
   const {
-    title, owner = {}, endAt, createdAt, description, category = [], photos = [{}],
+    title, owner = {}, schedule: schedules, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0, isMyZabo, createdBy,
   } = zabo;
+  const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
-  const due = moment (endAt).diff (moment (), 'days');
+  const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
 
   const stats = [{
     type: 'like',

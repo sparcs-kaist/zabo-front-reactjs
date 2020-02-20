@@ -5,7 +5,10 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import MomentUtils from '@date-io/moment';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import moment from 'moment';
 
+import ToggleButton from 'atoms/ToggleButton';
+import SimpleSelect from 'molecules/SimpleSelect';
 import StyledQuill from 'organisms/StyledQuill';
 
 import { setInfo } from 'store/reducers/upload';
@@ -13,13 +16,52 @@ import { gridLayoutCompareFunction } from 'lib/utils';
 
 import { InfoFormWrapper } from './InfoForm.styled';
 
+const typeOptions = [
+  { value: '행사', label: '행사' },
+  { value: '신청', label: '신청' },
+];
+
+const date = new Date ();
+date.setDate (date.getDate () + 7);
+date.setHours (0);
+date.setMinutes (0);
+date.setSeconds (0);
+
 const Form = ({ state, setState, preview }) => {
+  const [isToggled, setIsToggled] = useState (false);
+  const [typeOption, setTypeOption] = useState (typeOptions[0]);
+  const [daysLeft, setDaysLeft] = useState ({ day: 0, hour: 0, min: 0 });
   const {
-    title, description, endAt, category,
+    title, description, schedule: schedules, category,
   } = state;
+  const schedule = schedules[0];
+  const {
+    title: scheduleTitle, startAt = date, endAt = date, eventType,
+  } = schedule;
+
+  useEffect (() => {
+    if (schedule.startAt) {
+      const startTime = moment (schedule.startAt);
+      const current = moment ();
+      const duration = moment.duration (startTime.diff (current));
+      setDaysLeft ({
+        day: duration.days (),
+        hour: duration.hours (),
+        min: duration.minutes (),
+      });
+    }
+  }, [schedule]);
+
   const onChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
+  }, [setState]);
+
+  const onScheduleChange = useCallback (e => {
+    const { name, value } = e.target;
+    const newSchedule = schedule;
+    newSchedule[name] = value;
+    setState ({ schedule: [newSchedule] });
   }, [setState]);
 
   const onQuillChange = useCallback (e => {
@@ -32,6 +74,20 @@ const Form = ({ state, setState, preview }) => {
       : tag));
     setState ({ category: clone });
   }, [setState, category]);
+
+  const handleToggle = e => {
+    const istoggled = e.target.checked;
+    setIsToggled (istoggled);
+    // delete current new schedule information if toggle-button is off
+    if (!istoggled) {
+      setState ({
+        schedule: [{
+          title: '', startAt: date, endAt: date, eventType: '행사',
+        }],
+      });
+      setTypeOption (typeOptions[0]);
+    }
+  };
 
   return (
     <InfoFormWrapper>
@@ -75,28 +131,77 @@ const Form = ({ state, setState, preview }) => {
               />
             </InfoFormWrapper.Editor>
           </section>
-          <section className="zabo-expiration">
-            <div className="label">마감일</div>
-            <div className="inputContainer oneLineInput">
-              <MuiPickersUtilsProvider utils={MomentUtils}>
-                <KeyboardDateTimePicker
-                  required
-                  value={endAt}
-                  onChange={value => setState ({ endAt: value })}
-                  InputProps={{
-                    disableUnderline: true,
-                  }}
-                  animateYearScrolling
-                  allowKeyboardControl={false}
-                  format="YYYY-MM-DD HH:mm:ss"
-                  fullWidth
-                  ampm={false}
-                  invalidDateMessage={<p>잘못된 형식입니다.</p>}
-                  style={{ height: '38px' }}
-                />
-              </MuiPickersUtilsProvider>
+          <InfoFormWrapper.Info.Schedule className="zabo-schedule" isToggled={isToggled} scheduleTitle={scheduleTitle}>
+            <div className="header">
+              <p>일정이 존재하나요?</p>
+              <div className="toggle-btn"><ToggleButton handleClick={handleToggle} /></div>
             </div>
-          </section>
+            {/* showed if 'isToggled' */}
+            <div className="body">
+              <div className="body-container">
+                <div className="schedule-title">
+                  <div className="label small">일정 이름</div>
+                  <input
+                    className="schedule-title-input"
+                    required
+                    placeholder="행사명을 입력해주세요. (20자 제한)"
+                    maxLength="20"
+                    name="title"
+                    value={scheduleTitle}
+                    onChange={onScheduleChange}
+                  />
+                </div>
+                <div className="schedule-type">
+                  <div className="label small" style={{ marginBottom: '8px' }}>분류</div>
+                  <SimpleSelect
+                    value={typeOption}
+                    options={typeOptions}
+                    onChange={newOption => {
+                      const newSchedule = schedule;
+                      newSchedule.eventType = newOption.value;
+                      setState ({ schedule: [newSchedule] });
+                      setTypeOption (newOption);
+                    }}
+                    isClearable={false}
+                    width={150}
+                  />
+                </div>
+              </div>
+              <div className="label small">일정</div>
+              <div className="inputContainer oneLineInput">
+                <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <KeyboardDateTimePicker
+                    required
+                    placeholder="우측 달력을 클릭하여 마감일을 선택해주세요."
+                    value={startAt}
+                    onChange={value => {
+                      const newSchedule = schedule;
+                      newSchedule.startAt = value;
+                      setState ({ schedule: [newSchedule] });
+                    }}
+                    InputProps={{
+                      disableUnderline: true,
+                    }}
+                    animateYearScrolling
+                    allowKeyboardControl={false}
+                    format="YYYY-MM-DD HH:mm:ss"
+                    fullWidth
+                    ampm={false}
+                    invalidDateMessage={<p>잘못된 형식입니다.</p>}
+                    style={{ height: '38px' }}
+                  />
+                </MuiPickersUtilsProvider>
+              </div>
+              <div className="preview">
+                <div className="semi-label">다음과 같이 노출됩니다.</div>
+                <div className="schedule-preview-box">
+                  <h3>{scheduleTitle || '행사명'}</h3>
+                  <p>{eventType === '신청' && '신청이'} 얼마 남지 않았어요</p>
+                  <div className="timestamp-box">남은 시간: {daysLeft.day}일 {daysLeft.hour}시간 {daysLeft.min}분</div>
+                </div>
+              </div>
+            </div>
+          </InfoFormWrapper.Info.Schedule>
           <section className="zabo-keywords">
             <div className="label label-tag">태그</div>
             <div className="tags">
@@ -121,7 +226,12 @@ Form.propTypes = {
   state: PropTypes.shape ({
     title: PropTypes.string,
     description: PropTypes.string,
-    endAt: PropTypes.string,
+    schedule: PropTypes.arrayOf (PropTypes.shape ({
+      title: PropTypes.string,
+      startAt: PropTypes.string,
+      endAt: PropTypes.string,
+      eventType: PropTypes.string,
+    })),
     category: PropTypes.arrayOf (PropTypes.shape ({
       name: PropTypes.string,
       clicked: PropTypes.bool,

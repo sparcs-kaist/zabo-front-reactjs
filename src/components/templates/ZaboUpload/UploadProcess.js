@@ -63,7 +63,7 @@ const UploadProcess = (props) => {
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
-    title, description, endAt, category,
+    title, description, schedule, category,
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
@@ -84,7 +84,7 @@ const UploadProcess = (props) => {
     });
     formData.append ('title', title);
     formData.append ('description', description);
-    formData.append ('endAt', endAt);
+    formData.append ('schedule', JSON.stringify (schedule));
     const uCats = category.filter (c => c.clicked).map (t => t.name).join ('');
     formData.append ('category', uCats);
 
