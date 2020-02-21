@@ -16,7 +16,7 @@ const Wrapper = styled.section`
 `;
 
 Wrapper.Banner = styled.div`
-  margin: -50px 0 30px;
+  margin: -55px 0 30px;
   padding: 50px 0 0;
   width: 100%;
   background-color: rgb(13,26,31);
@@ -91,8 +91,8 @@ const TopBanner = () => {
 };
 const LandingPage = () => (
   <Wrapper>
+    <Header type="upload" transparent logoColor="white" />
     <Wrapper.Banner>
-      <Header type="upload" transparent logoColor="white" />
       <div className="header-body">
         <h1>이제 포스터 확인은 자보에서.</h1>
         <h3>카이스트의 소식을 바로 알아보세요</h3>
