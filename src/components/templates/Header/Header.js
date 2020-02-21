@@ -110,7 +110,7 @@ Header.AuthButton = ({ type, groupName }) => {
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
 
   const toUpload = useCallback (() => {
-    dispatch (setCurrentGroup (groupName));
+    if (groupName) dispatch (setCurrentGroup (groupName));
   }, [groupName, dispatch]);
 
   return (
