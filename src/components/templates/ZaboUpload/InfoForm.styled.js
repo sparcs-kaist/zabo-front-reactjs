@@ -236,11 +236,15 @@ InfoFormWrapper.Info = styled.section`
 
 InfoFormWrapper.Info.Schedule = styled.section`
   width: 99%;
+  height: 100%;
   ${props => (props.hasSchedule ? css`
-    height: 100%;
+    max-height: 542px;
+    @media (max-width: 640px) { max-height: 626px }
   ` : css`
-    height: 72px;
+    max-height: 72px;
   `)};
+  /* transition: max-height 1s ease-in-out; */
+  transition: max-height 0.3s ease-in-out;
   padding: 0 29px;
   margin: 30px 0 48px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);

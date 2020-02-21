@@ -116,9 +116,11 @@ const Form = ({ state, setState, preview }) => {
           <InfoFormWrapper.Info.Schedule className="zabo-schedule" hasSchedule={hasSchedule} hasTitle={scheduleTitle}>
             <div className="header">
               <p>일정이 존재하나요?</p>
-              <div className="toggle-btn"><ToggleButton handleClick={handleToggle} /></div>
+              <div className="toggle-btn">
+                <ToggleButton handleClick={handleToggle} hasSchedule={hasSchedule} />
+              </div>
             </div>
-            {/* showed if 'hasSchedule' */}
+            {/* showed if 'hasSchedule' :: use visibility in styled.js to use 'transition' */}
             <div className="body">
               <div className="body-container">
                 <div className="schedule-title">
