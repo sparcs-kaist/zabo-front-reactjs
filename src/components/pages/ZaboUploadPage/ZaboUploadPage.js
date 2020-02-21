@@ -174,17 +174,13 @@ const ZaboUploadPage = () => {
   //   // window.onbeforeunload = undefined;
   // }, []);
 
-  useEffect (() => () => {
-    dispatch (reset ());
-  }, []);
-
   return (
     <PageWrapper>
       <Header scrollHeader />
-      <Prompt
-        when
-        message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
-      />
+      {/* <Prompt */}
+      {/*  when */}
+      {/*  message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?" */}
+      {/* /> */}
       <PageWrapper.Contents>
         <SlideTitle step={step} />
         <SlideView step={step} />

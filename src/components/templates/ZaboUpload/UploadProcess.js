@@ -7,6 +7,7 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
+import { reset } from 'store/reducers/upload';
 import { uploadZabo } from 'store/reducers/zabo';
 import {
   cropImage, dataURLToBlob, gridLayoutCompareFunction, imageFileGetWidthHeight,
@@ -68,6 +69,7 @@ const UploadProcess = ({ children }) => {
       .then (zabo => {
         setProgress (0);
         history.push (`/zabo/${zabo._id}`);
+        dispatch (reset ());
       })
       .catch (err => {
         console.error (err);
