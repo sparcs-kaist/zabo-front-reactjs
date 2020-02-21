@@ -9,10 +9,16 @@ import SVG from 'atoms/SVG';
 
 import { isAuthedSelector } from 'lib/utils';
 
+import whiteLogo from 'static/logo/logo_white.svg';
 import logo from 'static/logo/logo.svg';
 
 import SearchBar from '../SearchBar';
 import HeaderWrapper from './Header.styled';
+
+const logos = {
+  primary: logo,
+  white: whiteLogo,
+};
 
 const containerStyle = css`
   position: absolute;
@@ -32,7 +38,12 @@ const containerStyle = css`
 `;
 
 const Header = ({
-  back, title, rightGroup, scrollHeader,
+  back,
+  title,
+  rightGroup,
+  scrollHeader,
+  transparent,
+  logoColor,
 }) => {
   const history = useHistory ();
   const [left, setLeft] = useState (0);
@@ -44,7 +55,7 @@ const Header = ({
   const style = { left };
 
   return (
-    <HeaderWrapper>
+    <HeaderWrapper transparent={transparent}>
       <Container ownStyle={containerStyle} style={style} scrollHeader={scrollHeader}>
         <div>
           {back ? (
@@ -54,7 +65,7 @@ const Header = ({
             </>
           ) : (
             <NavLink to="/">
-              <img alt="logo" src={logo} style={{ width: '70px', height: '30px' }} />
+              <img alt="logo" src={logos[logoColor]} style={{ width: '70px', height: '30px' }} />
             </NavLink>
           )}
         </div>
@@ -75,12 +86,18 @@ Header.propTypes = {
   back: PropTypes.bool,
   title: PropTypes.string,
   rightGroup: PropTypes.element,
+  transparent: PropTypes.bool,
+  scrollHeader: PropTypes.bool,
+  logoColor: PropTypes.oneOf (['white', 'primary']),
 };
 
 Header.defaultProps = {
   back: false,
   title: '',
   rightGroup: null,
+  transparent: false,
+  scrollHeader: false,
+  logoColor: 'primary',
 };
 
 Header.AuthButton = () => {

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const HeaderWrapper = styled.header`
   position: fixed;
@@ -6,7 +6,7 @@ const HeaderWrapper = styled.header`
   left: 0;
   width: 100%;
   height: 50px;
-  background: #fff;
+
   transition: 0.4s;
   z-index: 1000;
   border-top: 6px solid rgb(27, 50, 65);
@@ -30,6 +30,12 @@ const HeaderWrapper = styled.header`
       align-items: center;
     }
   }
+  
+  ${props => (props.transparent ? css`
+    background: transparent;
+  ` : css`
+    background: #fff;
+  `)};
 `;
 
 export default HeaderWrapper;

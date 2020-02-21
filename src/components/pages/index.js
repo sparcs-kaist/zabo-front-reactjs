@@ -7,6 +7,7 @@ import loadable from '@loadable/component';
 */
 
 export const HomePage = loadable (/* webpackPrefetch: true */ () => import ('./HomePage'));
+export const LandingPage = loadable (/* webpackPrefetch: true */ () => import ('./LandingPage'));
 export const ZaboPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboPage'));
 export const ZaboDetailPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboPage/ZaboDetailPage'));
 export const ZaboEditPage = loadable (/* webpackPrefetch: true */ () => import ('./ZaboPage/ZaboEditPage'));

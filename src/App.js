@@ -7,6 +7,7 @@ import PWAPrompt from 'templates/PWAPrompt';
 import {
   AdminPage,
   HomePage,
+  LandingPage,
   NotFound,
   ProfilePage,
   SearchPage,
@@ -31,7 +32,8 @@ const App = () => (
         <Route path="/zabo/:zaboId" component={pToP (ZaboPage)} />
         <PrivateRoute path="/settings" component={SettingsPage} />
         <AdminRoute path="/admin" component={AdminPage} />
-        <Route path="/" exact component={HomePage} />
+        <Route path="/" exact component={LandingPage} />
+        <Route path="/main" exact component={HomePage} />
         <Route path="/:name" component={ProfilePage} />
         <Route component={NotFound} />
       </Switch>
