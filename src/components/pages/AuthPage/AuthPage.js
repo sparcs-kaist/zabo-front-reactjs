@@ -10,7 +10,6 @@ class AuthPage extends PureComponent {
       <AuthPageWrapper>
         <Switch>
           <Route path="/auth/login" component={LoginPage} />
-          <Redirect to="/abcd" />
         </Switch>
       </AuthPageWrapper>
     );

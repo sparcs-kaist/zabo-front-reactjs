@@ -96,7 +96,7 @@ const LandingPage = () => (
       <div className="header-body">
         <h1>이제 포스터 확인은 자보에서.</h1>
         <h3>카이스트의 소식을 바로 알아보세요</h3>
-        <Link to="/zabo/upload">
+        <Link to="/api/auth/login">
           <button type="button">
             <div>자보 업로드</div>
             <img src={rightArrowForward} alt="right-arrow icon" />
