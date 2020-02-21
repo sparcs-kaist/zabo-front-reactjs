@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import { CATEGORIES } from 'lib/variables';
+import { ZABO_CATEGORIES } from 'lib/variables';
 
 export const TagListWrapper = styled.div`
   margin-top: 20px;
@@ -53,7 +53,7 @@ const TagList = ({ type, onTagClick, clickedTags }) => {
   };
 
   const tagList = useMemo (() => (
-    CATEGORIES.map ((tag, idx) => {
+    ZABO_CATEGORIES.map ((tag, idx) => {
       const value = tag.slice (1);
       const cName = clickedTags.includes (value) ? 'clicked' : 'unclicked';
       return (
@@ -63,7 +63,7 @@ const TagList = ({ type, onTagClick, clickedTags }) => {
           onClick={handleClick}
           className={cName}
         >
-          {tag}
+          #{tag}
         </button>
       );
     })

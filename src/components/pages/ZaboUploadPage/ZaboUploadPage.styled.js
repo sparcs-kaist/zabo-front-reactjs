@@ -101,9 +101,9 @@ export const FooterStyle = styled.div`
         color: #8F8F8F;
         cursor: not-allowed;
       }
-      &.processing {
-        cursor: progress;
-      }
+    }
+    &.processing {
+      cursor: progress;
     }
     &.submit {
       background: #FF5D5D;

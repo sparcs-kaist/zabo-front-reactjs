@@ -53,7 +53,7 @@ const Form = ({ state, setState, preview }) => {
 
   const setSchedule = useCallback (({ name, value }) => {
     setState ({ schedules: [{ ...schedule, [name]: value }] });
-  }, [schedule]);
+  }, [setState, schedule]);
 
   const onQuillChange = useCallback (e => {
     setState ({ description: e });
@@ -66,10 +66,10 @@ const Form = ({ state, setState, preview }) => {
     setState ({ category: clone });
   }, [setState, category]);
 
-  const handleToggle = e => {
+  const handleToggle = useCallback (e => {
     const { checked } = e.target;
     setState ({ hasSchedule: checked });
-  };
+  }, [setState]);
 
   return (
     <InfoFormWrapper>
@@ -189,7 +189,7 @@ const Form = ({ state, setState, preview }) => {
                   onClick={() => onTagClick (item.name)}
                   className={item.clicked ? 'tag selected' : 'tag default'}
                 >
-                  {item.name}
+                  #{item.name}
                 </div>
               ))}
             </div>

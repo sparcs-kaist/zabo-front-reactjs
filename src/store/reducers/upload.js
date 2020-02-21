@@ -2,7 +2,7 @@ import { fromJS, List, Map } from 'immutable';
 import { createAction, handleActions } from 'redux-actions';
 
 import storage from 'lib/storage';
-import { CATEGORIES } from 'lib/variables';
+import { ZABO_CATEGORIES } from 'lib/variables';
 
 // action types
 const INITIALIZE = 'upload/INITIALIZE';
@@ -31,6 +31,11 @@ date.setDate (date.getDate () + 7);
 date.setHours (0);
 date.setMinutes (0);
 date.setSeconds (0);
+export const defaultSchedule = {
+  title: '',
+  startAt: date,
+  eventType: '행사',
+};
 
 // initial state
 const initialState = Map ({
@@ -44,13 +49,9 @@ const initialState = Map ({
     description: '',
     hasSchedule: false,
     schedules: List ([
-      Map ({
-        title: '',
-        startAt: date,
-        eventType: '행사',
-      }),
+      Map (defaultSchedule),
     ]),
-    category: List (CATEGORIES.map (tag => ({ name: tag, clicked: false }))),
+    category: List (ZABO_CATEGORIES.map (tag => ({ name: tag, clicked: false }))),
   }),
   edit: Map ({}),
   showModal: false,

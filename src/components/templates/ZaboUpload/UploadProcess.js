@@ -59,7 +59,7 @@ const UploadProcess = ({ children }) => {
     formData.append ('title', title);
     formData.append ('description', description);
     if (hasSchedule) formData.append ('schedules', JSON.stringify (schedules));
-    const uCats = category.filter (c => c.clicked).map (t => t.name).join ('');
+    const uCats = category.filter (c => c.clicked).map (t => t.name).join ('#');
     formData.append ('category', uCats);
 
     // uploadZabo from this.props
