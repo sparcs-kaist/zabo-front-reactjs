@@ -40,11 +40,11 @@
     "max-len": ["warn", 150],
     "no-console": ["warn", { "allow": ["warn", "error"] }],
     "func-names": "off",
-    "no-plusplus": ["error", {
+    "no-plusplus": ["warn", {
       "allowForLoopAfterthoughts": true
     }],
     "no-trailing-spaces": "warn",
-    "indent": ["error", 2],
+    "indent": ["warn", 2],
     "semi": ["warn", "always"],
     "simple-import-sort/sort": [
       2,
