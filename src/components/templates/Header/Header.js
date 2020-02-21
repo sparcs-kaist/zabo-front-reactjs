@@ -67,9 +67,9 @@ const Header = ({
             alignItems: 'flex-start', justifyContent: 'center', flex: '1', height: '50px', overflow: 'visible', marginTop: '12px',
           }}
         >
-          <SearchBar isOpen type={type} />
+          <SearchBar isOpen type={type} transparent={transparent} iconColor={logoColor} />
         </div>
-        <Header.AuthButton type={type} groupName={groupName} />
+        <Header.AuthButton type={type} groupName={groupName} transparent={transparent} />
       </Container>
     </HeaderWrapper>
   );
@@ -91,7 +91,7 @@ Header.defaultProps = {
   logoColor: 'primary',
 };
 
-Header.AuthButton = ({ type, groupName }) => {
+Header.AuthButton = ({ type, groupName, transparent }) => {
   const dispatch = useDispatch ();
   const isAuthenticated = useSelector (isAuthedSelector);
   const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
@@ -101,7 +101,7 @@ Header.AuthButton = ({ type, groupName }) => {
   }, [groupName, dispatch]);
 
   return (
-    <HeaderWrapper.Auth>
+    <HeaderWrapper.Auth transparent={transparent}>
       {isAuthenticated ? (
         <div>
           <NavLink to={`/${username}`} size="md" className="user-icon">

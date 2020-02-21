@@ -36,7 +36,9 @@ export const SearchBarWrapper = styled.div`
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
 
-  background-color: white;
+  background-color: ${props => (props.transparent && !props.searchFocused
+    ? 'transparent' : 'white')};
+  /* background-color: white; */
   border-radius: 4px;
 
   .divider {
@@ -118,7 +120,10 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     &::placeholder {
       color: #BCBCBC;
     }
-    ${props => (props.searchFocused ? css`
+    ${props => (props.transparent && !props.searchFocused ? css`
+      background: rgba(255, 255, 255, 0.15);
+      @media (max-width: 910px) { display: none }
+    ` : props.searchFocused ? css`
       border-radius: 0;
       background-color: white;
     ` : css`
