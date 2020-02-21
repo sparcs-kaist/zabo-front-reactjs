@@ -30,7 +30,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   .pwa-prompt {
-    z-index: 0;
+    z-index: -1;
   }
   &.pwa-prompt-active {
     margin-top: 95px;
