@@ -16,51 +16,44 @@ import { gridLayoutCompareFunction } from 'lib/utils';
 
 import { InfoFormWrapper } from './InfoForm.styled';
 
-const typeOptions = [
+const scheduleTypeOptions = [
   { value: '행사', label: '행사' },
   { value: '신청', label: '신청' },
 ];
 
-const date = new Date ();
-date.setDate (date.getDate () + 7);
-date.setHours (0);
-date.setMinutes (0);
-date.setSeconds (0);
+const scheduleTypeOptionsH = scheduleTypeOptions.reduce ((acc, cur) => ({
+  ...acc, [cur.value]: cur,
+}), {});
 
 const Form = ({ state, setState, preview }) => {
-  const [hasSchedule, setHasSchedule] = useState (false);
-  const [typeOption, setTypeOption] = useState (typeOptions[0]);
-  const [daysLeft, setDaysLeft] = useState ({ day: 0, hour: 0, min: 0 });
   const {
-    title, description, schedules, category,
+    title, description, hasSchedule, schedules, category,
   } = state;
   const schedule = schedules[0];
   const {
-    title: scheduleTitle, startAt = date, endAt = date, eventType,
+    title: scheduleTitle, startAt, eventType,
   } = schedule;
 
-  useEffect (() => {
-    if (schedule.startAt) {
-      const startTime = moment (schedule.startAt);
-      const current = moment ();
-      const duration = moment.duration (startTime.diff (current));
-      setDaysLeft ({
-        day: duration.days (),
-        hour: duration.hours (),
-        min: duration.minutes (),
-      });
-    }
+  const timeLeft = useMemo (() => {
+    if (!schedule.startAt) return { day: 0, hour: 0, min: 0 };
+    const startTime = moment (schedule.startAt);
+    const current = moment ();
+    const duration = moment.duration (startTime.diff (current));
+    return {
+      day: duration.days (),
+      hour: duration.hours (),
+      min: duration.minutes (),
+    };
   }, [schedule]);
 
-  const onChange = useCallback (e => {
+  const handleChange = useCallback (e => {
     const { name, value } = e.target;
     setState ({ [name]: value });
   }, [setState]);
 
-  const onScheduleChange = useCallback (e => {
-    const { name, value } = e.target;
+  const setSchedule = useCallback (({ name, value }) => {
     setState ({ schedules: [{ ...schedule, [name]: value }] });
-  }, [schedule, setState]);
+  }, [schedule]);
 
   const onQuillChange = useCallback (e => {
     setState ({ description: e });
@@ -75,16 +68,7 @@ const Form = ({ state, setState, preview }) => {
 
   const handleToggle = e => {
     const { checked } = e.target;
-    setHasSchedule (checked);
-    // delete current new schedule information if toggle off
-    if (!checked) {
-      setState ({
-        schedules: [{
-          title: '', startAt: date, endAt: date, eventType: '행사',
-        }],
-      });
-      setTypeOption (typeOptions[0]);
-    }
+    setState ({ hasSchedule: checked });
   };
 
   return (
@@ -108,7 +92,7 @@ const Form = ({ state, setState, preview }) => {
               placeholder="자보 제목을 입력해주세요."
               name="title"
               value={title}
-              onChange={onChange}
+              onChange={handleChange}
             />
           </section>
           <section className="zabo-description-quill">
@@ -146,17 +130,16 @@ const Form = ({ state, setState, preview }) => {
                     maxLength="20"
                     name="title"
                     value={scheduleTitle}
-                    onChange={onScheduleChange}
+                    onChange={e => setSchedule (e.target)}
                   />
                 </div>
                 <div className="schedule-type">
                   <div className="label small" style={{ marginBottom: '8px' }}>분류</div>
                   <SimpleSelect
-                    value={typeOption}
-                    options={typeOptions}
+                    value={scheduleTypeOptionsH[eventType]}
+                    options={scheduleTypeOptions}
                     onChange={newOption => {
-                      setState ({ schedules: [{ ...schedule, eventType: newOption.value }] });
-                      setTypeOption (newOption);
+                      setSchedule ({ name: 'eventType', value: newOption.value });
                     }}
                     isClearable={false}
                     width={150}
@@ -171,7 +154,7 @@ const Form = ({ state, setState, preview }) => {
                     placeholder="우측 달력을 클릭하여 마감일을 선택해주세요."
                     value={startAt}
                     onChange={value => {
-                      setState ({ schedules: [{ ...schedule, startAt: value }] });
+                      setSchedule ({ name: 'startAt', value });
                     }}
                     InputProps={{
                       disableUnderline: true,
@@ -191,7 +174,7 @@ const Form = ({ state, setState, preview }) => {
                 <div className="schedule-preview-box">
                   <h3>{scheduleTitle || '행사명'}</h3>
                   <p>{eventType === '신청' && '신청이'} 얼마 남지 않았어요</p>
-                  <div className="timestamp-box">남은 시간: {daysLeft.day}일 {daysLeft.hour}시간 {daysLeft.min}분</div>
+                  <div className="timestamp-box">남은 시간: {timeLeft.day}일 {timeLeft.hour}시간 {timeLeft.min}분</div>
                 </div>
               </div>
             </div>
@@ -220,6 +203,7 @@ Form.propTypes = {
   state: PropTypes.shape ({
     title: PropTypes.string,
     description: PropTypes.string,
+    hasSchedule: PropTypes.bool,
     schedules: PropTypes.arrayOf (PropTypes.shape ({
       title: PropTypes.string,
       startAt: PropTypes.string,
