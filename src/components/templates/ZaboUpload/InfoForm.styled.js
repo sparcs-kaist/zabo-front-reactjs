@@ -243,7 +243,6 @@ InfoFormWrapper.Info.Schedule = styled.section`
   ` : css`
     max-height: 72px;
   `)};
-  /* transition: max-height 1s ease-in-out; */
   transition: max-height 0.3s ease-in-out;
   padding: 0 29px;
   margin: 30px 0 48px;

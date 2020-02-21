@@ -117,10 +117,9 @@ const Form = ({ state, setState, preview }) => {
             <div className="header">
               <p>일정이 존재하나요?</p>
               <div className="toggle-btn">
-                <ToggleButton handleClick={handleToggle} hasSchedule={hasSchedule} />
+                <ToggleButton onChange={handleToggle} checked={hasSchedule} />
               </div>
             </div>
-            {/* showed if 'hasSchedule' :: use visibility in styled.js to use 'transition' */}
             <div className="body">
               <div className="body-container">
                 <div className="schedule-title">
