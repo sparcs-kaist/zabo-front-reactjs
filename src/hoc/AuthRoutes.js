@@ -1,50 +1,66 @@
-import React from "react"
-import { Redirect, Route } from "react-router-dom"
-import { connect } from "react-redux"
-import { isAuthenticated } from "lib/utils"
+import React from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const mapStateToProps = state => ({
-	isAuthenticated: isAuthenticated(state),
-})
+import { isAdminOrPendingSelector, isAuthedSelector } from 'lib/utils';
 
-export const PrivateRoute = connect(
-	mapStateToProps,
-	null
-)(({ component: Component, isAuthenticated, ...rest }) => (
-	<Route
-		{...rest}
-		render={props =>
-			isAuthenticated ? (
-				<Component {...props} />
-			) : (
-				<Redirect
-					to={{
-						pathname: "/auth/login",
-						state: { referrer: props.location.pathname },
-					}}
-				/>
-			)
-		}
-	/>
-))
+export const PrivateRoute = (({ component: Component, render, ...rest }) => {
+  const isAuthenticated = useSelector (isAuthedSelector);
+  // TODO: Return loading while auth info not fetched
+  return (
+    <Route
+      {...rest}
+      render={props => (
+        isAuthenticated ? (
+          Component ? <Component {...props} /> : render (props)
+        ) : (
+          <Redirect to={{ pathname: '/auth/login', state: { referrer: props.location.pathname } }} />
+        ))}
+    />
+  );
+});
 
-export const PublicRoute = connect(
-	mapStateToProps,
-	null
-)(({ component: Component, isAuthenticated, ...rest }) => {
-	return (
-		<Route
-			{...rest}
-			render={props => {
-				if (isAuthenticated) {
-					const state = props.location.state
-					if (state && state.referrer === "comeback") props.history.goBack()
-					else if (state && state.referrer) props.history.replace(state.referrer)
-					else props.history.push("/", { referrer: "public" })
-					return null
-				}
-				return <Component {...props} />
-			}}
-		/>
-	)
-})
+PrivateRoute.propTypes = Route.propTypes;
+PrivateRoute.defaultProps = Route.defaultProps;
+
+export const PublicRoute = ({ component: Component, render, ...rest }) => {
+  const isAuthenticated = useSelector (isAuthedSelector);
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        if (isAuthenticated) {
+          const { location, history } = props;
+          const { state } = location;
+          if (state && state.referrer === 'comeback') history.goBack ();
+          else if (state && state.referrer) history.replace (state.referrer);
+          else history.push ('/', { referrer: 'public' });
+          return null;
+        }
+        if (Component) return <Component {...props} />;
+        return render (props);
+      }}
+    />
+  );
+};
+
+PublicRoute.propTypes = Route.propTypes;
+PublicRoute.defaultProps = Route.defaultProps;
+
+export const AdminRoute = ({ component: Component, render, ...rest }) => {
+  const [isAdmin, pending] = useSelector (isAdminOrPendingSelector);
+  return (
+    <Route
+      {...rest}
+      render={props => {
+        if (pending) return null;
+        if (!isAdmin) return <Redirect to="/" />;
+        if (Component) return <Component {...props} />;
+        return render (props);
+      }}
+    />
+  );
+};
+
+AdminRoute.propTypes = Route.propTypes;
+AdminRoute.defaultProps = Route.defaultProps;

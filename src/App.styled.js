@@ -1,4 +1,3 @@
-import { Fragment } from "react"
-import styled from "styled-components"
+import styled from 'styled-components';
 
-export default styled.div``
+export default styled.div``;

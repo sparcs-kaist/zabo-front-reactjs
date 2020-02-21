@@ -3,7 +3,7 @@
 <br />
 <p align="center">
   <a href="https://alpha.zabo.sparcs.org">
-    <img src="src/static/logo/Services-Zabo.svg" alt="Logo" height="150">
+    <img src="src/static/logo/logo.svg" alt="Logo" height="150">
   </a>
   
   <p align="center">
@@ -299,6 +299,7 @@ I use [SemVer](http://semver.org/) for versioning. For the versions available, s
 ## Authors
 
 * **Cookie** - [Cookie](https://github.com/jungdj)
+* **Youns** - [Youns](https://github.com/Choiyounseo)
 * **Hubo** - [bhanghj3094](https://github.com/bhanghj3094)
 * **Hou** - [Sanghou](https://github.com/Sanghou)
 * **Parang** - [pa-rang](https://github.com/pa-rang)

@@ -1,103 +1,113 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import MasonryZaboList from "react-masonry-infinite"
+import React from 'react';
+import PropTypes from 'prop-types';
+import MasonryZaboList from 'react-masonry-infinite';
+import SquareLoader from 'react-spinners/SquareLoader';
+import styled from 'styled-components';
 
-import ZaboListWrapper from "./ZaboList.styled"
+import Feedback from 'organisms/Feedback';
+import ZaboCard from 'organisms/ZaboCard';
 
-import ZaboCard from "../../organisms/ZaboCard"
-import Feedback from "organisms/Feedback"
-
-import withStackMaster from "./withStackMaster"
+import withStackMaster from './withStackMaster';
+import ZaboListWrapper from './ZaboList.styled';
 
 const sizes = [
-	{ columns: 2, gutter: 10 },
-	{ mq: "1000px", columns: 3, gutter: 20 },
-	{ mq: "1260px", columns: 4, gutter: 20 },
-]
+  { columns: 2, gutter: 16 },
+  { mq: `${752 + 32}px`, columns: 3, gutter: 16 },
+  { mq: `${1032 + 32}px`, columns: 4, gutter: 24 },
+  { mq: `${1260 + 32}px`, columns: 4, gutter: 24 },
+];
+
+const Loader = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin: 20px 0 30px 0;
+`;
 
 const loader = (
-	<div className="loader">
-		<span key="1" className="expand">
-			Z
-		</span>
-		<span key="2" className="expand">
-			A
-		</span>
-		<span key="3" className="expand">
-			B
-		</span>
-		<span key="4" className="expand">
-			O
-		</span>
-		<span key="5" className="expand">
-			.
-		</span>
-		<span key="6" className="expand">
-			.
-		</span>
-		<span key="7" className="expand">
-			.
-		</span>
-	</div>
-)
+  <Loader>
+    <SquareLoader color="#143441" size={20} />
+  </Loader>
+);
 
-class ZaboList extends PureComponent {
-	masonry = React.createRef()
+class ZaboList extends React.Component {
+  masonry = React.createRef ()
 
-	state = { hasNext: true }
+  state = { hasNext: true }
 
-	fetch = next => {
-		const { type, getZaboList, getPins, relatedTo, zaboList } = this.props
-		const lastSeen = next ? (zaboList[zaboList.length - 1] || {})._id : undefined
-		const fetches = {
-			main: () => getZaboList({ lastSeen }),
-			related: () => getZaboList({ lastSeen, relatedTo }),
-			pins: () => getPins({ lastSeen }),
-		}
-		return fetches[type]()
-	}
+  componentDidMount () {
+    this.fetch ();
+  }
 
-	componentDidMount() {
-		this.fetch()
-	}
+  componentDidUpdate (prevProps) {
+    const { query } = this.props;
+    if (query !== prevProps.query) {
+      this.fetch ();
+    }
+  }
 
-	fetchNext = () => {
-		this.fetch(true).then(zaboList => {
-			if (zaboList.length === 0) this.setState({ hasNext: false })
-		})
-	}
+  fetch = next => {
+    const {
+      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList, getSearchZaboList,
+    } = this.props;
+    const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
+    const fetches = {
+      main: () => getZaboList ({ lastSeen }),
+      related: () => getZaboList ({ lastSeen, relatedTo: query }),
+      pins: () => getPins ({ username: query, lastSeen }),
+      group: () => getGroupZaboList ({ groupName: query, lastSeen }),
+      // search: () => (!lastSeen ? Promise.resolve (zaboIdList) : getSearchZaboList ({ text: query, lastSeen })),
+      search: () => Promise.resolve ([]),
+    };
+    return fetches[type] ()
+      .then (zaboList => {
+        if (zaboList.length === 0) this.setState ({ hasNext: false });
+      });
+  }
 
-	render() {
-		const { zaboList } = this.props
-		const { hasNext } = this.state
-		const { fetchNext } = this
+  fetchNext = () => {
+    this.fetch (true);
+  }
 
-		return (
-			<ZaboListWrapper>
-				<MasonryZaboList
-					className="masonry"
-					initialLoad={false}
-					hasMore={hasNext}
-					loadMore={fetchNext} // called on useWindow (scrollLister)
-					loader={loader}
-					ref={this.masonry}
-					sizes={sizes}
-					threshold={800}
-				>
-					{zaboList.map(zabo => (
-						<ZaboCard key={zabo._id} zabo={zabo} />
-					))}
-				</MasonryZaboList>
-				{hasNext || <Feedback />}
-			</ZaboListWrapper>
-		)
-	}
+  render () {
+    const { zaboIdList, type } = this.props;
+    const { hasNext } = this.state;
+    const { fetchNext } = this;
+
+    return (
+      <ZaboListWrapper>
+        <MasonryZaboList
+          className={`masonry masonry-${type}`}
+          initialLoad={false}
+          hasMore={hasNext}
+          loadMore={fetchNext} // called on useWindow (scrollLister)
+          loader={loader}
+          ref={this.masonry}
+          sizes={sizes}
+          threshold={800}
+        >
+          {zaboIdList.map (zaboId => (
+            <ZaboCard key={zaboId} zaboId={zaboId} />
+          ))}
+        </MasonryZaboList>
+        {hasNext || <Feedback />}
+      </ZaboListWrapper>
+    );
+  }
 }
 
 ZaboList.propTypes = {
-	zaboList: PropTypes.array.isRequired,
-}
+  zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
+  type: PropTypes.oneOf (['main', 'related', 'pins', 'group', 'search']).isRequired,
+  getZaboList: PropTypes.func.isRequired,
+  getPins: PropTypes.func.isRequired,
+  getGroupZaboList: PropTypes.func.isRequired,
+  getSearchZaboList: PropTypes.func.isRequired,
+  query: PropTypes.string,
+};
 
-ZaboList.defaultProps = {}
+ZaboList.defaultProps = {
+  query: '',
+};
 
-export default withStackMaster(ZaboList)
+export default withStackMaster (ZaboList);

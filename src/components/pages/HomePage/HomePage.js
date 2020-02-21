@@ -1,56 +1,52 @@
-import React, { PureComponent } from "react"
-import { Link } from "react-router-dom" // do not refresh, but render on Link clicked
+import React, { PureComponent } from 'react';
 
-import HomePageWrapper, { Header } from "./HomePage.styled"
+import Header from 'templates/Header';
+import ZaboList from 'templates/ZaboList';
 
-import SearchBar from "templates/SearchBar"
-import ZaboList from "templates/ZaboList"
-import SVG from "../../atoms/SVG"
+import HomePageWrapper from './HomePage.styled';
 
 class HomePage extends PureComponent {
-	state = {
-		searchFocused: false,
-	}
+  // state = {
+  //  searchFocused: false,
+  // }
+  //
+  // _onSearchFocusBlur = () => this.setState (prevState => ({
+  //  searchFocused: !prevState.searchFocused,
+  // }))
 
-	_onSearchFocusBlur = () =>
-		this.setState(prevState => {
-			return {
-				searchFocused: !prevState.searchFocused,
-			}
-		})
+  render () {
+    // const { searchFocused } = this.state;
 
-	render() {
-		const { searchFocused } = this.state
-
-		return (
-			<HomePageWrapper className="animated fadeIn">
-				<div className="container">
-					<Header>
-						<div className={`blur animated fadeIn ${searchFocused ? "show" : ""}`} />
-						<Header.Search>
-							<SearchBar
-								onFocus={this._onSearchFocusBlur}
-								onBlur={this._onSearchFocusBlur}
-								isOpen={searchFocused}
-							/>
-						</Header.Search>
-						{searchFocused || (
-							<Link to="/zabo/upload">
-								<Header.AddButton>
-									<SVG icon={"plus"} color="white" size="lg" />
-								</Header.AddButton>
-							</Link>
-						)}
-					</Header>
-					<ZaboList type="main" />
-				</div>
-			</HomePageWrapper>
-		)
-	}
+    return (
+      <HomePageWrapper className="animated fadeIn">
+        <Header type="upload" />
+        <div className="container">
+          {/* <Header> */}
+          {/*   <div className={`blur animated fadeIn ${searchFocused ? 'show' : ''}`} /> */}
+          {/*   <Header.Search> */}
+          {/*    <SearchBar */}
+          {/*      onFocus={this._onSearchFocusBlur} */}
+          {/*      onBlur={this._onSearchFocusBlur} */}
+          {/*      isOpen={searchFocused} */}
+          {/*    /> */}
+          {/*   </Header.Search> */}
+          {/*   {searchFocused || ( */}
+          {/*   <Link to="/zabo/upload"> */}
+          {/*    <Header.AddButton> */}
+          {/*      <SVG icon="plus" color="white" size="lg" /> */}
+          {/*    </Header.AddButton> */}
+          {/*   </Link> */}
+          {/*   )} */}
+          {/* </Header> */}
+          <ZaboList type="main" />
+        </div>
+      </HomePageWrapper>
+    );
+  }
 }
 
-HomePage.propTypes = {}
+HomePage.propTypes = {};
 
-HomePage.defaultProps = {}
+HomePage.defaultProps = {};
 
-export default HomePage
+export default HomePage;

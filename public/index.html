@@ -3,13 +3,13 @@
 
 <head>
   <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-144615112-1"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-LG42ST9HCV"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
 
-    gtag('config', 'UA-144615112-1');
+    gtag('config', 'G-LG42ST9HCV');
   </script>
 
   <meta charset="utf-8" />
@@ -45,174 +45,21 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-  <script type="text/javascript" src="https://connect.soundcloud.com/sdk.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/react/0.14.3/react.js"></script>
   <title>ZABO - 자보</title>
-  <meta name="description" content="자보입니다" />
+  <meta name="description" content="자보는 동아리 리크루팅, 공연, 행사 등을 손쉽게 홍보할 수 있도록 도와주는 웹 플랫폼입니다." />
   <meta name="keywords" content="자보, 카이스트, 스팍스, OTL, ARA, 오티엘, 아라, 동아리, 홍보, 공연, 리크루팅, recruit, recruiting" />
   <meta property="og:url"                content="https://zabo.sparcs.org" />
   <meta property="og:type"               content="website" />
   <meta property="og:title"              content="ZABO - 자보" />
   <meta property="og:site_name"          content="ZABO - 자보" />
   <meta property="og:description"        content="자보는 동아리 리크루팅, 공연, 행사 등을 손쉽게 홍보할 수 있도록 도와주는 웹 플랫폼입니다." />
-  <meta property="og:image"              content="https://sparcs-kaist-zabo-prod.s3.ap-northeast-2.amazonaws.com/logo/logo.png" />
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
-    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js" integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ" crossorigin="anonymous"></script>
-
-
-    <style>
-    @import url('https://fonts.googleapis.com/css?family=Just+Another+Hand');
-
-
-    .pre-loading {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      font-family: 'Just Another Hand', cursive;
-    }
-
-    .pre-loading ul {
-      margin: 0;
-      padding: 0;
-      font-size: 10em;
-      display: flex;
-    }
-
-    .pre-loading ul li {
-      list-style: none;
-      transition: 0.5s;
-    }
-
-    .pre-loading ul li span {
-      display: inline-block;
-    }
-
-    @keyframes rt1 {
-      0% {
-        transform: rotate(0);
-      }
-
-      16.6666% {
-        transform: rotate(180deg);
-      }
-
-      33.3333% {
-        transform: rotate(180deg);
-      }
-
-      50% {
-        transform: rotate(180deg);
-      }
-
-      66.6666% {
-        transform: rotate(180deg);
-      }
-
-      83.3333% {
-        transform: rotate(0);
-      }
-
-      100% {
-        transform: rotate(0);
-      }
-    }
-
-    @keyframes rt2 {
-      0% {
-        transform: rotate(0);
-      }
-
-      16.6666% {
-        transform: rotate(0);
-      }
-
-      33.3333% {
-        transform: rotate(180deg);
-      }
-
-      50% {
-        transform: rotate(180deg);
-      }
-
-      66.6666% {
-        transform: rotate(180deg);
-      }
-
-      83.3333% {
-        transform: rotate(0);
-      }
-
-      100% {
-        transform: rotate(0);
-      }
-    }
-
-    @keyframes rt3 {
-      0% {
-        transform: rotate(0);
-      }
-
-      16.6666% {
-        transform: rotate(0);
-      }
-
-      33.3333% {
-        transform: rotate(0);
-      }
-
-      50% {
-        transform: rotate(180deg);
-      }
-
-      66.6666% {
-        transform: rotate(180deg);
-      }
-
-      83.3333% {
-        transform: rotate(0);
-      }
-
-      100% {
-        transform: rotate(0);
-      }
-    }
-
-    .pre-loading ul li:first-child {
-      animation-name: rt1;
-      animation-duration: 4s;
-      animation-delay: 0.75s;
-      animation-iteration-count: infinite;
-    }
-
-    .pre-loading ul li:last-child span:nth-child(1) {
-      animation-name: rt2;
-      animation-duration: 4s;
-      animation-delay: 0.75s;
-      animation-iteration-count: infinite;
-    }
-
-    .pre-loading ul li:last-child span:nth-child(2) {
-      animation-name: rt3;
-      animation-duration: 4s;
-      animation-delay: 0.75s;
-      animation-iteration-count: infinite;
-    }
-  </style>
+  <meta property="og:image"              content="https://sparcs-public.s3.ap-northeast-2.amazonaws.com/zabo/logo.png" />
 </head>
 
 <body>
   <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root">
-    <div class="pre-loading">
-      <ul>
-        <li>za</li>
-        <li><span>b</span><span>o</span></li>
-      </ul>
-    </div>
-  </div>
+  <div id="root"></div>
+  <div id="modal-root"></div>
   <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -223,49 +70,6 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-  <!-- Channel Plugin Scripts -->
-  <script>
-    (function() {
-      var w = window;
-      if (w.ChannelIO) {
-        return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
-      }
-      var d = window.document;
-      var ch = function() {
-        ch.c(arguments);
-      };
-      ch.q = [];
-      ch.c = function(args) {
-        ch.q.push(args);
-      };
-      w.ChannelIO = ch;
-      function l() {
-        if (w.ChannelIOInitialized) {
-          return;
-        }
-        w.ChannelIOInitialized = true;
-        var s = document.createElement('script');
-        s.type = 'text/javascript';
-        s.async = true;
-        s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-        s.charset = 'UTF-8';
-        var x = document.getElementsByTagName('script')[0];
-        x.parentNode.insertBefore(s, x);
-      }
-      if (document.readyState === 'complete') {
-        l();
-      } else if (window.attachEvent) {
-        window.attachEvent('onload', l);
-      } else {
-        window.addEventListener('DOMContentLoaded', l, false);
-        window.addEventListener('load', l, false);
-      }
-    })();
-    ChannelIO('boot', {
-      "pluginKey": "adcd7cf2-edc7-421f-81a1-fcafe960c905"
-    });
-  </script>
-  <!-- End Channel Plugin -->
 </body>
 
 </html>

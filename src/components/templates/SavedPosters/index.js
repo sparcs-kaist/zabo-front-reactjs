@@ -1,1 +1,1 @@
-export { default } from "./SavedPosters.container"
+export { default } from './SavedPosters.container';

@@ -1,21 +1,37 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
-import ButtonWrapper, { Wrapper } from "./Button.styled"
+import StyledButton, { ButtonGroup } from './Button.styled';
 
-class Button extends PureComponent {
-	render() {
-		return (
-			<Wrapper>
-				{this.props.children}
-				Button
-			</Wrapper>
-		)
-	}
-}
+const Button = ({
+  history, to, onClick, ...props
+}) => (
+  <StyledButton
+    {...props}
+    onClick={(event) => {
+      if (typeof onClick === 'function') onClick (event);
+      if (to) history.push (to);
+    }}
+  />
+);
 
-Button.propTypes = {}
+Button.propTypes = {
+  ...StyledButton.propTypes,
+  className: PropTypes.string,
+  to: PropTypes.string,
+  type: PropTypes.string,
+};
 
-Button.defaultProps = {}
+Button.defaultProps = {
+  ...StyledButton.defaultProps,
+  className: '',
+  to: '',
+  type: 'button',
+};
 
-export default Button
+Button.defaultProps = {};
+
+Button.Group = ButtonGroup;
+
+export default withRouter (Button);

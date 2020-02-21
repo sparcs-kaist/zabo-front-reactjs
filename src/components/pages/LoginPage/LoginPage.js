@@ -1,20 +1,20 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
+import React, { PureComponent } from 'react';
 
-import LoginPageWrapper from "./LoginPage.styled"
+import LoginPageWrapper from './LoginPage.styled';
 
 class LoginPage extends PureComponent {
-	render() {
-		return (
-			<LoginPageWrapper>
-				<a href="/api/auth/login">Login</a>
-			</LoginPageWrapper>
-		)
-	}
+  render () {
+    return (
+      <LoginPageWrapper>
+        <h1>로그인이 필요한 기능입니다.</h1>
+        <a href="/api/auth/login">로그인</a>
+      </LoginPageWrapper>
+    );
+  }
 }
 
-LoginPage.propTypes = {}
+LoginPage.propTypes = {};
 
-LoginPage.defaultProps = {}
+LoginPage.defaultProps = {};
 
-export default LoginPage
+export default LoginPage;

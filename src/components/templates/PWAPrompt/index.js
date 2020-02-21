@@ -1,1 +1,1 @@
-export { default } from "./PWAPrompt"
+export { default } from './PWAPrompt';

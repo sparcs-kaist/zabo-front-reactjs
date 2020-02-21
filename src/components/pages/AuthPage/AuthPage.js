@@ -1,26 +1,25 @@
-import React, { PureComponent } from "react"
-import PropTypes from "prop-types"
-import { Switch, Route, Redirect } from "react-router-dom"
+import React, { PureComponent } from 'react';
+import { Redirect, Route, Switch } from 'react-router-dom';
 
-import AuthPageWrapper from "./AuthPage.styled"
+import { LoginPage } from 'pages';
 
-import { LoginPage } from "../index"
+import AuthPageWrapper from './AuthPage.styled';
 
 class AuthPage extends PureComponent {
-	render() {
-		return (
-			<AuthPageWrapper>
-				<Switch>
-					<Route path="/auth/login" component={LoginPage} />
-					<Redirect to="/abcd" />
-				</Switch>
-			</AuthPageWrapper>
-		)
-	}
+  render () {
+    return (
+      <AuthPageWrapper>
+        <Switch>
+          <Route path="/auth/login" component={LoginPage} />
+          <Redirect to="/auth/login" />
+        </Switch>
+      </AuthPageWrapper>
+    );
+  }
 }
 
-AuthPage.propTypes = {}
+AuthPage.propTypes = {};
 
-AuthPage.defaultProps = {}
+AuthPage.defaultProps = {};
 
-export default AuthPage
+export default AuthPage;

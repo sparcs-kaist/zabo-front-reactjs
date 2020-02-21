@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components';
 
 const ModalWrapper = styled.div`
 
@@ -45,7 +45,7 @@ font-size: 12px;
     }
   
     > .content {
-      margin : 20px
+      margin : 20px;
       overflow: auto;
       color: #9b9b9b;
       text-align: center;
@@ -158,6 +158,6 @@ font-size: 12px;
     }
   }
 
-`
+`;
 
-export default ModalWrapper
+export default ModalWrapper;

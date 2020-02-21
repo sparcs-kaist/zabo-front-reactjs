@@ -1,8 +1,8 @@
-import React from "react"
-import { storiesOf } from "@storybook/react"
+import React from 'react';
+import { storiesOf } from '@storybook/react';
 
-import Feedback from "./index"
+import Feedback from './index';
 
-storiesOf("organisms/Feedback", module).add("Default", () => <Feedback />, {
-	notes: "",
-})
+storiesOf ('organisms/Feedback', module).add ('Default', () => <Feedback />, {
+  notes: '',
+});
