@@ -6,13 +6,13 @@ import { Stats } from './ProfileStats.styled';
 const ProfileStats = ({ stats, smallV }) => (
   <Stats>
     {
-        stats.map (({ name, value }) => (
-          <Stats.elem key={name} small={smallV}>
-            <h3>{value}</h3>
-            <div>{name}</div>
-          </Stats.elem>
-        ))
-      }
+      stats.map (({ name, value }) => (
+        <Stats.elem key={name} small={smallV}>
+          <h3>{value}</h3>
+          <div>{name}</div>
+        </Stats.elem>
+      ))
+    }
   </Stats>
 );
 

@@ -70,30 +70,30 @@ const GroupProfile = ({ profile }) => {
 
             <section>
               {
-              myRole
-                ? (
-                  <>
-                    <Link to={`/settings/group/${name}/profile`}>
-                      <button className="edit" type="button">프로필 편집</button>
-                    </Link>
-                    {myRole === 'admin' && (
-                    <Link to={`/settings/group/${name}/members`}>
-                      <button className="edit" type="button">멤버 관리</button>
-                    </Link>
-                    )}
-                    {following
-                      ? <button onClick={follow} type="button">팔로우 취소</button>
-                      : <button onClick={follow} type="button">팔로우</button>}
-                  </>
-                )
-                : (
-                  <>
-                    {following
-                      ? <button onClick={follow} type="button">팔로우 취소</button>
-                      : <button onClick={follow} type="button">팔로우</button>}
-                  </>
-                )
-            }
+                myRole
+                  ? (
+                    <>
+                      <Link to={`/settings/group/${name}/profile`}>
+                        <button className="edit" type="button">프로필 편집</button>
+                      </Link>
+                      {myRole === 'admin' && (
+                        <Link to={`/settings/group/${name}/members`}>
+                          <button className="edit" type="button">멤버 관리</button>
+                        </Link>
+                      )}
+                      {following
+                        ? <button onClick={follow} type="button">팔로우 취소</button>
+                        : <button onClick={follow} type="button">팔로우</button>}
+                    </>
+                  )
+                  : (
+                    <>
+                      {following
+                        ? <button onClick={follow} type="button">팔로우 취소</button>
+                        : <button onClick={follow} type="button">팔로우</button>}
+                    </>
+                  )
+              }
             </section>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>

@@ -45,47 +45,47 @@ export const render = (array, options, position) => {
   let Component;
 
   switch (tag) {
-    case '<bold>':
-      closeTag = '</bold>';
-      Component = ({ children, ...props }) => <strong {...props}>{children}</strong>;
-      break;
-    case '<red>':
-      closeTag = '</red>';
-      Component = ({ children, ...props }) => (
-        <span style={{ color: 'red' }} {...props}>
+  case '<bold>':
+    closeTag = '</bold>';
+    Component = ({ children, ...props }) => <strong {...props}>{children}</strong>;
+    break;
+  case '<red>':
+    closeTag = '</red>';
+    Component = ({ children, ...props }) => (
+      <span style={{ color: 'red' }} {...props}>
+        {children}
+      </span>
+    );
+    break;
+  case '<link>':
+    closeTag = '</link>';
+    Component = ({ children, to, ...props }) => {
+      const safeTo = to || (options.to ? options.to : '#');
+      return (
+        <Link to={safeTo} {...props}>
           {children}
-        </span>
+        </Link>
       );
-      break;
-    case '<link>':
-      closeTag = '</link>';
-      Component = ({ children, to, ...props }) => {
-        const safeTo = to || (options.to ? options.to : '#');
-        return (
-          <Link to={safeTo} {...props}>
-            {children}
-          </Link>
-        );
-      };
-      break;
-    case '<a>':
-      closeTag = '</a>';
-      Component = ({ children, href, ...props }) => {
-        const safeHref = href || (options.href ? options.href : '#');
-        return (
-          <a href={safeHref} target="_blank" rel="noopener noreferrer" {...props}>
-            {children}
-          </a>
-        );
-      };
-      break;
-    case '<span>':
-      closeTag = '</span>';
-      Component = ({ children, ...props }) => <span {...props}>{children}</span>;
-      break;
-    default:
-      console.warn (NOT_SUPPORTED_TAG, tag, array);
-      return NOT_SUPPORTED_TAG;
+    };
+    break;
+  case '<a>':
+    closeTag = '</a>';
+    Component = ({ children, href, ...props }) => {
+      const safeHref = href || (options.href ? options.href : '#');
+      return (
+        <a href={safeHref} target="_blank" rel="noopener noreferrer" {...props}>
+          {children}
+        </a>
+      );
+    };
+    break;
+  case '<span>':
+    closeTag = '</span>';
+    Component = ({ children, ...props }) => <span {...props}>{children}</span>;
+    break;
+  default:
+    console.warn (NOT_SUPPORTED_TAG, tag, array);
+    return NOT_SUPPORTED_TAG;
   }
   const closeIndex = array.indexOf (closeTag);
   if (closeIndex === -1) {
@@ -116,12 +116,11 @@ class ReactPostProcessor {
 
   name = 'React'
 
-  process = (value, key, options, translator) =>
+  process = (value, key, options, translator) => render (value.split (splitReg), options, '1')
   /* return manipulated value */
   // debug.log('====>> React processor')
   // debug.log(value)
   // debug.log(options)
-    render (value.split (splitReg), options, '1')
 }
 
 export default ReactPostProcessor;

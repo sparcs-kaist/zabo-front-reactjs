@@ -68,9 +68,9 @@ class Feedback extends PureComponent {
           </div>
         </FeedbackWrapper.Feedback>
         {feedbackSubmitted && (
-        <div ref={this.thankYou} className="thankYou">
+          <div ref={this.thankYou} className="thankYou">
             감사합니다:)
-        </div>
+          </div>
         )}
       </FeedbackWrapper>
     );
