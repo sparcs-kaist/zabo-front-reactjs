@@ -63,7 +63,7 @@ const UploadProcess = (props) => {
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
   const {
-    title, description, schedules, category,
+    title, description, hasSchedule, schedules, category,
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
@@ -84,7 +84,7 @@ const UploadProcess = (props) => {
     });
     formData.append ('title', title);
     formData.append ('description', description);
-    formData.append ('schedules', JSON.stringify (schedules));
+    if (hasSchedule) formData.append ('schedules', JSON.stringify (schedules));
     const uCats = category.filter (c => c.clicked).map (t => t.name).join ('');
     formData.append ('category', uCats);
 
@@ -93,7 +93,6 @@ const UploadProcess = (props) => {
       uploadZabo (formData, percentCompleted => setProgress (percentCompleted)),
     )
       .then (zabo => {
-        console.log ('upload done', zabo);
         history.push (`/zabo/${zabo._id}`);
       })
       .catch (err => {
