@@ -15,10 +15,11 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-Wrapper.Header = styled.div`
+Wrapper.Banner = styled.div`
   margin: -50px 0 30px;
   padding: 50px 0 0;
   width: 100%;
+  background-color: rgb(13,26,31);
   background-image: url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
@@ -90,7 +91,7 @@ const TopBanner = () => {
 };
 const LandingPage = () => (
   <Wrapper>
-    <Wrapper.Header>
+    <Wrapper.Banner>
       <Header type="upload" transparent logoColor="white" />
       <div className="header-body">
         <h1>이제 포스터 확인은 자보에서.</h1>
@@ -102,7 +103,7 @@ const LandingPage = () => (
           </button>
         </Link>
       </div>
-    </Wrapper.Header>
+    </Wrapper.Banner>
     <Zabos>
       <ZaboList type="main" />
     </Zabos>
