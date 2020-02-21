@@ -347,48 +347,48 @@ const UploadImages = props => {
 
   const reducer = (state, action) => {
     switch (action.type) {
-      case 'addImages': {
-        const { acceptedFiles } = action;
-        addImages (acceptedFiles);
-        break;
-      }
-      case 'removeImage': {
-        removeImage (action.key);
-        break;
-      }
-      case 'relocate': {
-        const clone = files.slice ();
-        clone.sort (gridLayoutCompareFunction);
-        const result = clone.map ((file, index) => {
-          const newLayout = {
-            ...file.updatedLayout,
-            x: index % cols,
-            y: Math.floor (index / cols),
-          };
-          return Object.assign (file, { layout: newLayout, updatedLayout: newLayout });
-        });
-        setFiles (result);
-        break;
-      }
-      case 'updateImagesInfo': {
-        updateImagesInfo ().catch (error => console.error (error));
-        break;
-      }
-      case 'revokeObjectURL': {
-        setTimeout (() => {
-          files.forEach (file => URL.revokeObjectURL (file.preview));
-        }, 0);
-        break;
-      }
-      case 'updateLayout': {
-        const { layout } = action;
-        const clone = files.map ((file, index) => Object.assign (file, { updatedLayout: layout[index] }));
-        setFiles (clone);
-        break;
-      }
-      default: {
-        throw new Error (action.type);
-      }
+    case 'addImages': {
+      const { acceptedFiles } = action;
+      addImages (acceptedFiles);
+      break;
+    }
+    case 'removeImage': {
+      removeImage (action.key);
+      break;
+    }
+    case 'relocate': {
+      const clone = files.slice ();
+      clone.sort (gridLayoutCompareFunction);
+      const result = clone.map ((file, index) => {
+        const newLayout = {
+          ...file.updatedLayout,
+          x: index % cols,
+          y: Math.floor (index / cols),
+        };
+        return Object.assign (file, { layout: newLayout, updatedLayout: newLayout });
+      });
+      setFiles (result);
+      break;
+    }
+    case 'updateImagesInfo': {
+      updateImagesInfo ().catch (error => console.error (error));
+      break;
+    }
+    case 'revokeObjectURL': {
+      setTimeout (() => {
+        files.forEach (file => URL.revokeObjectURL (file.preview));
+      }, 0);
+      break;
+    }
+    case 'updateLayout': {
+      const { layout } = action;
+      const clone = files.map ((file, index) => Object.assign (file, { updatedLayout: layout[index] }));
+      setFiles (clone);
+      break;
+    }
+    default: {
+      throw new Error (action.type);
+    }
     }
   };
   const [, dispatch] = useReducer (reducer, null);
