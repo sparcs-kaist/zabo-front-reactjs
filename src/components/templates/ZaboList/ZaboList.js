@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MasonryZaboList from 'react-masonry-infinite';
+import SquareLoader from 'react-spinners/SquareLoader';
 import styled from 'styled-components';
 
 import Feedback from 'organisms/Feedback';
@@ -21,26 +22,11 @@ const Loader = styled.div`
   flex-direction: row;
   justify-content: center;
   margin: 20px 0 30px 0;
-  @keyframes spin { 100% { transform:rotate(360deg); } }
-  img {
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 4s linear infinite;  
-  }
 `;
 
-const rand = Math.floor (Math.random () * 3);
 const loader = (
   <Loader>
-    <img src={
-      rand === 0
-        ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579285702954'
-        : rand === 1
-          ? 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/zabo/zabo-1579452331713'
-          : 'https://sparcs-kaist-zabo-dev.s3.ap-northeast-2.amazonaws.com/profile/user-1579181150933'
-    }
-    />
+    <SquareLoader color="#143441" size={20} />
   </Loader>
 );
 
