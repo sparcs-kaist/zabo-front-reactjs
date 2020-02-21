@@ -9,14 +9,16 @@ import landingBackground from 'static/images/landingBackground.png';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
 const Wrapper = styled.section`
-  height: 100vh;
-  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 Wrapper.Header = styled.div`
   margin: -50px 0 30px;
   padding: 50px 0 0;
-  min-width: 1072px;
+  width: 100%;
   background-image: url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
@@ -24,10 +26,9 @@ Wrapper.Header = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: center;
   
   .header-body {
-    width: 1032px;
+    margin-left: max(116px, 14%);
     h1 {
       color: white;
       margin: 105px 0 0;
@@ -60,10 +61,9 @@ Wrapper.Header = styled.div`
   }
   @media (max-width: 640px) {
     height: 349px;
-    min-width: 100%;
     padding: 0 24px;
     .header-body {
-      width: 100%;
+      margin: 0;
       h1, h3 { font-size: 20px }
       button {
         height: 40px;
@@ -78,13 +78,20 @@ Wrapper.Header = styled.div`
   }
 `;
 
+const Zabos = styled.section`
+  width: 100%;
+  @media (max-width: 640px) {
+    padding: 0 16px;
+  }
+`;
+
 const TopBanner = () => {
 
 };
 const LandingPage = () => (
   <Wrapper>
     <Wrapper.Header>
-      <Header type="upload" scrollHeader transparent logoColor="white" />
+      <Header type="upload" transparent logoColor="white" />
       <div className="header-body">
         <h1>이제 포스터 확인은 자보에서.</h1>
         <h3>카이스트의 소식을 바로 알아보세요</h3>
@@ -96,7 +103,9 @@ const LandingPage = () => (
         </Link>
       </div>
     </Wrapper.Header>
-    <ZaboList type="main" />
+    <Zabos>
+      <ZaboList type="main" />
+    </Zabos>
   </Wrapper>
 );
 
