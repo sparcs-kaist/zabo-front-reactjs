@@ -11,7 +11,7 @@ const persistUpload = store => next => action => {
       .get ('upload')
       .delete ('step', 0)
       .delete ('imagesSelected')
-      .delete ('infoWritten', false)
+      .delete ('submitted', false)
       .set ('images', List ([]));
     storage.setItem ('uploadPersist', serializer.stringify (upload));
   }

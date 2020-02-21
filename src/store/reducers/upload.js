@@ -9,22 +9,22 @@ const INITIALIZE = 'upload/INITIALIZE';
 const SET_STEP = 'upload/SET_STEP';
 const SET_GROUP_SELECTED = 'upload/SET_GROUP_SELECTED';
 const SET_IMAGES_SELECTED = 'upload/SET_IMAGES_SELECTED';
-const SET_INFO_WRITTEN = 'upload/SET_INFO_WRITTEN';
 const SET_IMAGES = 'upload/SET_IMAGES';
 const SET_INFO = 'upload/SET_INFO';
 const RESET = 'upload/RESET';
 const SET_MODAL = 'upload/SET_MODAL';
+const SUBMIT = 'upload/SUBMIT';
 
 // action creators
 export const initialize = createAction (INITIALIZE);
 export const setStep = createAction (SET_STEP);
 export const setGroupSelected = createAction (SET_GROUP_SELECTED);
 export const setImagesSeleted = createAction (SET_IMAGES_SELECTED);
-export const setInfoWritten = createAction (SET_INFO_WRITTEN);
 export const setImages = createAction (SET_IMAGES);
 export const setInfo = createAction (SET_INFO);
 export const reset = createAction (RESET);
 export const setModal = createAction (SET_MODAL);
+export const submit = createAction (SUBMIT);
 
 const date = new Date ();
 date.setDate (date.getDate () + 7);
@@ -37,7 +37,7 @@ const initialState = Map ({
   step: 0,
   groupSelected: false,
   imagesSelected: false,
-  infoWritten: false,
+  submitted: false,
   images: List ([]),
   info: Map ({
     title: '',
@@ -68,7 +68,7 @@ export default handleActions (
       return state.set ('groupSelected', groupSelected);
     },
     [SET_IMAGES_SELECTED]: (state, action) => state.set ('imagesSelected', action.payload),
-    [SET_INFO_WRITTEN]: (state, action) => state.set ('infoWritten', action.payload),
+    [SUBMIT]: (state, action) => state.set ('submitted', action.payload),
     [SET_IMAGES]: (state, action) => {
       const images = action.payload;
       return state.set ('images', fromJS (images));

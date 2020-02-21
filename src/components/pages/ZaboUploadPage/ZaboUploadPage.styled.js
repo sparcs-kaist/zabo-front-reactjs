@@ -85,27 +85,30 @@ export const FooterStyle = styled.div`
     border-radius: 4px;
     font-size: 16px;
     line-height: 18px;
-  }
-  .prev {
-    border: none;
-    color: #9C9C9C;
-    margin-right: 24px;
-  }
-  .next {
-    border: none;
-    font-weight: bold;
-    background: #143441;
-    color: white;
-    &:disabled {
-      background: #F8F8F8;
-      color: #8F8F8F;
-      cursor: not-allowed;
+    
+    &.prev {
+      border: none;
+      color: #9C9C9C;
+      margin-right: 24px;
     }
-    /* isSubmit : step === 2 case */
-    &.true {
+    &.next {
+      border: none;
+      font-weight: bold;
+      background: #143441;
+      color: white;
+      &:disabled {
+        background: #F8F8F8;
+        color: #8F8F8F;
+        cursor: not-allowed;
+      }
+      &.processing {
+        cursor: progress;
+      }
+    }
+    &.submit {
       background: #FF5D5D;
     }
-    &.true:disabled {
+    &.submit:disabled {
       background: #cccccc;
       color: #8F8F8F;
     }

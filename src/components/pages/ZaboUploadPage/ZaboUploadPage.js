@@ -14,7 +14,8 @@ import ZaboUpload from 'templates/ZaboUpload';
 
 import {
   reset,
-  setGroupSelected, setImagesSeleted, setInfoWritten, setStep as setReduxStep,
+  setGroupSelected, setImagesSeleted, setStep as setReduxStep,
+  submit,
 } from 'store/reducers/upload';
 
 import rightArrow from 'static/images/rightArrow.png';
@@ -60,40 +61,67 @@ const FooterChild = (props) => {
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const { title, description } = info;
+  const submitted = useSelector (state => state.getIn (['upload', 'submitted']));
 
   const validatedNext = useCallback (() => {
+    // xxSelected : Currently Not Being Used
     if (step === 0) {
       dispatch (setGroupSelected (true));
     } else if (step === 1) {
       dispatch (setImagesSeleted (true));
     } else if (step === 2) {
-      dispatch (setInfoWritten (true));
+      dispatch (submit (true));
+      return;
     }
     next ();
   }, [step, currentGroup, filesImmutable, infoImmutable]);
 
-  const validCheck = useCallback (() => {
+  const step2Valid = useMemo (() => {
+    const info = infoImmutable.toJS ();
+    const {
+      title, description, hasSchedule, schedules,
+    } = info;
+    const zaboValid = (title && description);
+    if (!hasSchedule) return zaboValid;
+    const schedule = schedules[0];
+    const { title: scheduleTitle, startAt, eventType } = schedule;
+    const scheduleValid = (scheduleTitle && startAt && eventType);
+    return zaboValid && scheduleValid;
+  }, [infoImmutable]);
+
+  const isValid = useMemo (() => {
     if (step === 0) {
       return !!currentGroup;
     } if (step === 1) {
       return !!filesImmutable.size;
     } if (step === 2) {
-      return (title && description);
+      return step2Valid;
     }
     return false;
-  }, [step, currentGroup, filesImmutable, infoImmutable]);
+  }, [step, currentGroup, filesImmutable, step2Valid]);
 
-  const isValid = validCheck ();
   const isSubmit = step >= 2;
+
+  if (submitted) {
+    return (
+      <FooterStyle>
+        <div className="container">
+          <div className="slide-action-group">
+            <button type="button" className="processing">
+              업로드 중...
+            </button>
+          </div>
+        </div>
+      </FooterStyle>
+    );
+  }
 
   return (
     <FooterStyle>
       <div className="container">
         <div className="slide-action-group">
           {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button type="button" className={`next ${isSubmit}`} onClick={validatedNext} disabled={!isValid}>
+          <button type="button" className={`next ${isSubmit ? 'submit' : ''}`} onClick={validatedNext} disabled={!isValid}>
             { isSubmit ? '제출하기' : '다음' }
           </button>
         </div>
