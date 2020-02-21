@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
+import { Helmet } from 'react-helmet';
 import moment from 'moment';
 
 import Button from 'atoms/Button';
@@ -122,6 +123,12 @@ const ZaboDetailPage = (props) => {
 
   return (
     <>
+      <Helmet>
+        <title>{title} - Zabo</title>
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content={photos[0].url} />
+      </Helmet>
       <ZaboPageWrapper.TwoCol>
         <ZaboPageWrapper.TitleImage>
           <Carousel
