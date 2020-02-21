@@ -15,7 +15,7 @@ const ZaboCard = ({ zaboId }) => {
   const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
   const zabo = useMemo (() => zaboImmutable.toJS (), [zaboImmutable]);
   const {
-    _id, photos, title, owner, createdAt, schedule: schedules, views,
+    _id, photos, title, owner, createdAt, schedules, views,
     likesCount, isLiked, pinsCount, isPinned,
   } = zabo;
   const schedule = schedules[0];

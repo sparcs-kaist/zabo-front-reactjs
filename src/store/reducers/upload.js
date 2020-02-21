@@ -42,7 +42,7 @@ const initialState = Map ({
   info: Map ({
     title: '',
     description: '',
-    schedule: List ([Map ({
+    schedules: List ([Map ({
       title: '',
       startAt: date,
       endAt: date,

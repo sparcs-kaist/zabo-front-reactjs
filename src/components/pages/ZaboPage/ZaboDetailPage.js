@@ -101,7 +101,7 @@ OwnerInfo.defaultProps = {};
 const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
   const {
-    title, owner = {}, schedule: schedules, createdAt, description, category = [], photos = [{}],
+    title, owner = {}, schedules, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views = 0, isMyZabo, createdBy,
   } = zabo;
   const schedule = schedules[0];

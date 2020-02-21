@@ -15,7 +15,7 @@ export const ZaboType = PropTypes.shape ({
   })),
   views: PropTypes.number,
   createdAt: PropTypes.string,
-  schedule: PropTypes.arrayOf (PropTypes.shape ({
+  schedules: PropTypes.arrayOf (PropTypes.shape ({
     title: PropTypes.string,
     startAt: PropTypes.string,
     endAt: PropTypes.string,

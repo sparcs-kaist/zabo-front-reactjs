@@ -28,11 +28,11 @@ date.setMinutes (0);
 date.setSeconds (0);
 
 const Form = ({ state, setState, preview }) => {
-  const [isToggled, setIsToggled] = useState (false);
+  const [hasSchedule, setHasSchedule] = useState (false);
   const [typeOption, setTypeOption] = useState (typeOptions[0]);
   const [daysLeft, setDaysLeft] = useState ({ day: 0, hour: 0, min: 0 });
   const {
-    title, description, schedule: schedules, category,
+    title, description, schedules, category,
   } = state;
   const schedule = schedules[0];
   const {
@@ -59,10 +59,8 @@ const Form = ({ state, setState, preview }) => {
 
   const onScheduleChange = useCallback (e => {
     const { name, value } = e.target;
-    const newSchedule = schedule;
-    newSchedule[name] = value;
-    setState ({ schedule: [newSchedule] });
-  }, [setState]);
+    setState ({ schedules: [{ ...schedule, [name]: value }] });
+  }, [schedule, setState]);
 
   const onQuillChange = useCallback (e => {
     setState ({ description: e });
@@ -76,12 +74,12 @@ const Form = ({ state, setState, preview }) => {
   }, [setState, category]);
 
   const handleToggle = e => {
-    const istoggled = e.target.checked;
-    setIsToggled (istoggled);
-    // delete current new schedule information if toggle-button is off
-    if (!istoggled) {
+    const { checked } = e.target;
+    setHasSchedule (checked);
+    // delete current new schedule information if toggle off
+    if (!checked) {
       setState ({
-        schedule: [{
+        schedules: [{
           title: '', startAt: date, endAt: date, eventType: '행사',
         }],
       });
@@ -131,12 +129,12 @@ const Form = ({ state, setState, preview }) => {
               />
             </InfoFormWrapper.Editor>
           </section>
-          <InfoFormWrapper.Info.Schedule className="zabo-schedule" isToggled={isToggled} scheduleTitle={scheduleTitle}>
+          <InfoFormWrapper.Info.Schedule className="zabo-schedule" hasSchedule={hasSchedule} hasTitle={scheduleTitle}>
             <div className="header">
               <p>일정이 존재하나요?</p>
               <div className="toggle-btn"><ToggleButton handleClick={handleToggle} /></div>
             </div>
-            {/* showed if 'isToggled' */}
+            {/* showed if 'hasSchedule' */}
             <div className="body">
               <div className="body-container">
                 <div className="schedule-title">
@@ -157,9 +155,7 @@ const Form = ({ state, setState, preview }) => {
                     value={typeOption}
                     options={typeOptions}
                     onChange={newOption => {
-                      const newSchedule = schedule;
-                      newSchedule.eventType = newOption.value;
-                      setState ({ schedule: [newSchedule] });
+                      setState ({ schedules: [{ ...schedule, eventType: newOption.value }] });
                       setTypeOption (newOption);
                     }}
                     isClearable={false}
@@ -175,9 +171,7 @@ const Form = ({ state, setState, preview }) => {
                     placeholder="우측 달력을 클릭하여 마감일을 선택해주세요."
                     value={startAt}
                     onChange={value => {
-                      const newSchedule = schedule;
-                      newSchedule.startAt = value;
-                      setState ({ schedule: [newSchedule] });
+                      setState ({ schedules: [{ ...schedule, startAt: value }] });
                     }}
                     InputProps={{
                       disableUnderline: true,
@@ -226,7 +220,7 @@ Form.propTypes = {
   state: PropTypes.shape ({
     title: PropTypes.string,
     description: PropTypes.string,
-    schedule: PropTypes.arrayOf (PropTypes.shape ({
+    schedules: PropTypes.arrayOf (PropTypes.shape ({
       title: PropTypes.string,
       startAt: PropTypes.string,
       endAt: PropTypes.string,

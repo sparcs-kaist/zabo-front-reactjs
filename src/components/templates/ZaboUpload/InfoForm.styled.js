@@ -236,11 +236,11 @@ InfoFormWrapper.Info = styled.section`
 
 InfoFormWrapper.Info.Schedule = styled.section`
   width: 99%;
-  ${props => (props.isToggled ? css`
+  ${props => (props.hasSchedule ? css`
     height: 100%;
   ` : css`
     height: 72px;
-  `)}
+  `)};
   padding: 0 29px;
   margin: 30px 0 48px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
@@ -266,13 +266,13 @@ InfoFormWrapper.Info.Schedule = styled.section`
   .body {
     margin-top: 38px;
     padding-bottom: 36px;
-    ${props => (props.isToggled ? css`
+    ${props => (props.hasSchedule ? css`
       visibility: visible;
       opacity: 1;
   ` : css`
       visibility: hidden;
       opacity: 0;
-  `)}
+  `)};
     transition: visibility 0s, opacity 0.5s linear;
   }
   .body-container {
@@ -304,7 +304,7 @@ InfoFormWrapper.Info.Schedule = styled.section`
         min-width: 50px;
         line-height: 24px;
         display: inline-block;
-        ${props => (props.scheduleTitle ? css`
+        ${props => (props.hasTitle ? css`
           color: #363636;
         ` : css`
           color: #D2D2D2;

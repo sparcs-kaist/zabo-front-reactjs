@@ -65,11 +65,11 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
   const [state, setState] = useSetState ({
     title: zabo.title,
     description: zabo.description,
-    schedule: zabo.schedule,
+    schedules: zabo.schedules,
     category: newCat,
   });
   const {
-    title, description, schedule,
+    title, description, schedules,
   } = state;
 
   useEffect (() => {
@@ -89,7 +89,7 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
   const isValid = !!(title && description);
 
   useEffect (() => {
-    if (zabo.title !== title || zabo.description !== description || zabo.schedule !== schedule) {
+    if (zabo.title !== title || zabo.description !== description || zabo.schedules !== schedules) {
       setChanged (true);
     }
   }, [state]);

@@ -61,7 +61,7 @@ const FooterChild = (props) => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const { title, description, schedule } = info;
+  const { title, description } = info;
 
   const validatedNext = useCallback (() => {
     if (step === 0) {
