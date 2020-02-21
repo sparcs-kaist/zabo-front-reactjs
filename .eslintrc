@@ -1,6 +1,7 @@
 {
   "extends": [
-    "eslint-config-airbnb"
+    "airbnb-base",
+    "airbnb/rules/react",
   ],
   "plugins": [
     "simple-import-sort"

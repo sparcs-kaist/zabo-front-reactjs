@@ -64,17 +64,23 @@ const ToggleButtonWrapper = styled.div`
   }
 `;
 
-const ToggleButton = ({ handleClick }) => (
+const ToggleButton = ({ handleClick, hasSchedule }) => (
   <ToggleButtonWrapper>
     <label className="switch">
-      <input type="checkbox" onClick={handleClick} />
+      <input type="checkbox" onClick={handleClick} defaultChecked={hasSchedule} />
       <span className="slider round"> </span>
     </label>
   </ToggleButtonWrapper>
 );
 
-ToggleButton.defaultProps = {
+ToggleButton.propTypes = {
   handleClick: PropTypes.func,
+  hasSchedule: PropTypes.bool,
+};
+
+ToggleButton.defaultProps = {
+  handleClick: () => {},
+  hasSchedule: false,
 };
 
 export default ToggleButton;
