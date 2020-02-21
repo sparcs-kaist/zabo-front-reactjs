@@ -48,6 +48,7 @@ const SlideView = ({ step }) => (
     <ZaboUpload.SelectGroup />
     <ZaboUpload.UploadImage />
     <ZaboUpload.InfoForm />
+    <ZaboUpload.UploadProcess step={step} />
   </SwipeableViews>
 );
 

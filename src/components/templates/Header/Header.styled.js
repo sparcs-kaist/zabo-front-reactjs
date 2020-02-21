@@ -1,14 +1,19 @@
 import styled, { css } from 'styled-components';
 
 export const HeaderWrapper = styled.header`
-  position: fixed;
+  ${props => (props.transparent ? css`
+    position: absolute;
+    border-top: 0;
+  ` : css`
+    position: fixed;
+    border-top: 6px solid rgb(27, 50, 65);
+  `)}
   top: 0;
   left: 0;
   width: 100%;
   height: 55px;
   transition: 0.4s;
   z-index: 1000;
-  border-top: 6px solid rgb(27, 50, 65);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -26,12 +31,14 @@ export const HeaderWrapper = styled.header`
   
   ${props => (props.transparent ? css`
     background: transparent;
+    border-bottom: 0;
   ` : css`
     background: #fff;
   `)};
 `;
 
 HeaderWrapper.Auth = styled.section`
+  color: ${props => (props.transparent ? 'white' : '#363636')};
   a { 
     display: inline-block;
     &.upload { margin-left: 6px }
@@ -50,13 +57,25 @@ HeaderWrapper.Auth = styled.section`
     line-height: 12px;
     padding: 8px 16px;
     border-radius: 4px;
-    border: 1px solid #143441;
-    color: #143441;
     margin-left: 24px;
-    &:hover {
-      background-color: #143441;
+
+    ${props => (props.transparent ? css`
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid #FFFFFF;
       color: white;
-    }
+      &:hover {
+        background-color: white;
+        color: #143441;
+      }
+    ` : css`
+      background: white;
+      border: 1px solid #143441;
+      color: #143441;
+      &:hover {
+        background-color: #143441;
+        color: white;
+      }
+    `)}
   }
   
   @media (max-width: 910px) {

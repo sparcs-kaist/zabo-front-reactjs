@@ -12,13 +12,21 @@ import { searchAPI } from 'lib/api/search';
 import cancelIcon from 'static/images/cancel.png';
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 import searchIcon from 'static/images/search-icon-navy.png';
+import searchIconWhite from 'static/images/search-icon-white.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
 
-const SearchBar = ({ isOpen, options, type }) => {
+const icons = {
+  primary: searchIcon,
+  white: searchIconWhite,
+};
+
+const SearchBar = ({
+  isOpen, options, type, transparent, iconColor,
+}) => {
   const isMounted = useRef (true);
   const inputRef = useRef (null);
   // make isMounted 'false' when component unmounted
@@ -159,9 +167,9 @@ const SearchBar = ({ isOpen, options, type }) => {
   return (
     <SearchBarContainer>
       {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper type={type} searchFocused={searchFocused}>
+      <SearchBarWrapper type={type} searchFocused={searchFocused} transparent={transparent}>
         <SearchBarWrapper.Header type={type} searchFocused={searchFocused}>
-          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={searchFocused}>
+          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={searchFocused} transparent={transparent}>
             <input
               autoComplete="off"
               id="search-input"
@@ -175,7 +183,12 @@ const SearchBar = ({ isOpen, options, type }) => {
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
-          <img className="search-icon" src={searchIcon} onClick={_handleFocus} alt="search icon" />
+          <img
+            className="search-icon"
+            src={searchFocused ? icons.primary : icons[iconColor]}
+            onClick={_handleFocus}
+            alt="search icon"
+          />
           { search ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
         {searchFocused ? <div className="divider"> </div> : ''}
@@ -198,10 +211,14 @@ const SearchBar = ({ isOpen, options, type }) => {
 SearchBar.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   type: PropTypes.string,
+  transparent: PropTypes.bool,
+  iconColor: PropTypes.oneOf (['white', 'primary']),
 };
 
 SearchBar.defaultProps = {
   type: '',
+  transparent: false,
+  iconColor: 'primary',
 };
 
 export default SearchBar;
