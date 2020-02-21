@@ -37,6 +37,6 @@
 
 if (process.env.NODE_ENV === 'production') {
   window.ChannelIO('boot', {
-    pluginKey: 'adcd7cf2-edc7-421f-81a1-fcafe960c905',
+    pluginKey: '5fe8c634-bcbd-4499-ba99-967191a2ef77',
   });
 }
