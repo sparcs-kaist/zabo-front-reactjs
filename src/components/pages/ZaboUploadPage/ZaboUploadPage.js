@@ -61,7 +61,7 @@ const FooterChild = (props) => {
   const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const { title, description, endAt } = info;
+  const { title, description, schedule } = info;
 
   const validatedNext = useCallback (() => {
     if (step === 0) {
@@ -80,7 +80,7 @@ const FooterChild = (props) => {
     } if (step === 1) {
       return !!filesImmutable.size;
     } if (step === 2) {
-      return (title && description && endAt);
+      return (title && description);
     }
     return false;
   }, [step, currentGroup, filesImmutable, infoImmutable]);
@@ -127,7 +127,7 @@ const ZaboUploadPage = () => {
 
   return (
     <PageWrapper>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header scrollHeader />
       <Prompt
         when
         message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"

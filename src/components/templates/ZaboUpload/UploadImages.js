@@ -136,6 +136,7 @@ const Wrapper = styled.section`
       border-radius: 15px;
       padding: 8px 12px;
       font-size: 12px;
+      font-weight: bold;
       line-height: 12px;
       margin-bottom: 8px;
     }

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const SearchBarContainer = styled.div`
+  max-width: 1032px;
   width: 100%;
   #dimmer {
     position: fixed;
@@ -23,30 +24,38 @@ export const SearchBarWrapper = styled.div`
   display: flex;
   flex-direction: column;
   z-index: 1;
-  /* width: 582px; */
-  width: 70%;
+  width: 582px;
   max-height: 439px;
   overflow-y: scroll;
 
+  /* hide scroll bar */
+  /* -webkit- (Chrome, Safari, newer versions of Opera) */
+  &::-webkit-scrollbar { width: 0 !important }
+  /* Firefox */
+  scrollbar-width: none;
+  /* -ms- (Internet Explorer +10) */
+  -ms-overflow-style: none;
+
   background-color: white;
   border-radius: 4px;
-  
-  float: right;
-  margin-right: 12px;
 
   .divider {
     margin: 0 6px;
     position: relative;
     border: .5px solid #E9E9E9;
   }
-  @media (max-width: 640px) {
-    width: 180px;
-    max-width: 100%;
+  @media (max-width: 910px) {
+    width: 100%;
+    ${props => (props.type === 'search' && css`
+      width: 180px;
+      float: right;
+      margin-right: 12px; 
+    `)}
   }
   ${props => (props.searchFocused ? css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 
-    @media (max-width: 640px) {
+    @media (max-width: 910px) {
       position: fixed;
       left: 0;
       top: 0;
@@ -79,10 +88,24 @@ SearchBarWrapper.Header = styled.div`
       height: 24px;
     }
   }
+  @media (max-width: 910px) {
+    img.search-icon {
+      ${props => (props.searchFocused || props.type === 'search' ? css`
+        top: 12px;
+        left: 16px;
+        right: auto;
+      ` : css`
+      top: 10px;
+      right: 12px;
+      left: auto;
+      `)}
+    }
+  }
 `;
 
 SearchBarWrapper.Header.SearchBar = styled.div`
   input {
+    display: inline-block;
     width: 100%;
     padding: 10px 48px;
     font-size: 16px;
@@ -95,18 +118,18 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     &::placeholder {
       color: #BCBCBC;
     }
-  }
-  ${props => (props.searchFocused ? css`
-    input {
+    ${props => (props.searchFocused ? css`
       border-radius: 0;
       background-color: white;
-    }
-  ` : css`
-    input {
+    ` : css`
       border-radius: 4px;
       background-color: #F4F4F4;
-    }
-  `)}
+      @media (max-width: 910px) { display: none }
+    `)}
+    ${props => (props.type === 'search' && css`
+      @media (max-width: 910px) { display: inline-block }
+    `)}
+  }
 `;
 
 SearchBarWrapper.Body = styled.div`

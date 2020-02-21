@@ -31,7 +31,7 @@ const SearchPage = () => {
     zaboSearch, uploaderSearch, clickedTags,
   } = state;
   const isZaboSearchEmpty = zaboSearch.length === 0;
-  const isResultsEmpty = isZaboSearchEmpty && uploaderSearch.length === 0;
+  const isResultsEmpty = query !== undefined && isZaboSearchEmpty && uploaderSearch.length === 0;
 
   const _updateResults = data => {
     const { zabos, groups } = data;
@@ -66,12 +66,12 @@ const SearchPage = () => {
 
   return (
     <Page>
-      <Header rightGroup={<Header.AuthButton />} scrollHeader />
+      <Header type="search" scrollHeader />
       <Page.Body>
         {isResultsEmpty
           ? (
             <div className="empty-page">
-              <img src={searchIcon} alt="search icon" />
+              <img className="search-icon" src={searchIcon} alt="search icon" />
               <div className="empty-text">
                 <div className="empty-query">{query || '#'.concat (category)}</div>
                 에 대한 검색결과가 없습니다.
@@ -94,7 +94,7 @@ const SearchPage = () => {
                   clickedTags={clickedTags}
                 />
                 <div className="emptySpace"> </div>
-                {!isZaboSearchEmpty && <ZaboList type="search" />}
+                {!isZaboSearchEmpty && <ZaboList type="search" key={clickedTags} />}
               </Zabos>
             </div>
           )}

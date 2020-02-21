@@ -12,7 +12,6 @@ import StyledQuill from 'organisms/StyledQuill';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
-import { setCurrentGroup } from 'store/reducers/auth';
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
 import { getLabeledTimeDiff, isElementOverflown } from 'lib/utils';
@@ -33,10 +32,6 @@ const GroupProfile = ({ profile }) => {
   }, [name]);
   useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
 
-  const toUpload = useCallback (() => {
-    dispatch (setCurrentGroup ({ name }));
-  }, [name, dispatch]);
-
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
     name: '자보',
@@ -49,15 +44,9 @@ const GroupProfile = ({ profile }) => {
     value: timePast,
   }];
 
-  const rightGroup = myRole
-    ? <Link to="/settings/profile"><SettingsIcon /></Link>
-    : <Header.AuthButton />;
-
-  // TODO: add short, long description <- need to implement server (change schema)
-
   return (
     <Page>
-      <Header rightGroup={rightGroup} scrollHeader />
+      <Header type="upload" groupName={name} scrollHeader />
       <Page.Header>
         <Page.Header.Left>
           <Page.Header.Left.ProfilePhoto>
@@ -92,9 +81,6 @@ const GroupProfile = ({ profile }) => {
                       <button className="edit" type="button">멤버 관리</button>
                     </Link>
                     )}
-                    <Link to="/zabo/upload">
-                      <button onClick={toUpload} type="button">업로드</button>
-                    </Link>
                     {following
                       ? <button onClick={follow} type="button">팔로우 취소</button>
                       : <button onClick={follow} type="button">팔로우</button>}

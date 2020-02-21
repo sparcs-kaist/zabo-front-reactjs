@@ -1,14 +1,20 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const InfoFormWrapper = styled.div`
-  padding-bottom: 60px;
+  padding-bottom: 40px;
   /*label on all inputs*/
   .label {
     font-size: 18px;
     font-weight: bold;
     color: #363636;
     &.label-tag { margin-bottom: 12px }
+    &.small { font-size: 16px }
   }
+  .semi-label {
+    font-size: 16px;
+    color: #8F8F8F;
+  }
+
   /*container for all inputs*/
   .inputContainer {
     width: 100%;
@@ -32,16 +38,13 @@ const InfoFormWrapper = styled.div`
   /*section: .zabo-poster //*/
 
   /*// div: .info //
-  // section: zabo-title, zabo-description, zabo-expiration*/
+  // section: zabo-title, zabo-description, zabo-schedule*/
   .zabo-description > div > textarea,
   .zabo-title > div > textarea,
-  .zabo-expiration > div > div > div > input {
+  .zabo-schedule > div > div > div > input {
     font-family: "NanumSquare", sans-serif;
   }
-  /*// section: zabo-keywords*/
-  .zabo-keywords {
-    margin-bottom: 30px;
-  }
+  /* section: zabo-keywords */
   .tags {
     width: 100%;
     display: flex;
@@ -120,7 +123,6 @@ const InfoFormWrapper = styled.div`
   /* ======================================== */
   @media (min-width: 640px) {
     .label.label-tag { margin-bottom: 8px }
-    .tag { margin: 0 12px 10px 0 }
     .headerLow {
       width: 100%;
       display: flex;
@@ -208,7 +210,7 @@ InfoFormWrapper.TitleImage = styled.section`
 InfoFormWrapper.Info = styled.section`
   flex: 1;
   height: 100%;
-  input.title-input {
+  input.title-input, input.schedule-title-input {
     width: 100%;
     height: 38px;
     margin: 8px 0 18px 0;
@@ -225,6 +227,102 @@ InfoFormWrapper.Info = styled.section`
   }
   @media (max-width: 640px) {
     margin-top: 24px;
+  }
+  input::placeholder {
+    font-size: 14px;
+    color: #202020;
+  }
+`;
+
+InfoFormWrapper.Info.Schedule = styled.section`
+  width: 99%;
+  ${props => (props.isToggled ? css`
+    height: 100%;
+  ` : css`
+    height: 72px;
+  `)}
+  padding: 0 29px;
+  margin: 30px 0 48px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #143441;
+  border-radius: 2px;
+  .header {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    p {
+      color: #363636;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .toggle-btn {
+      flex: 1;
+      text-align: right;
+    }
+  }
+
+  .body {
+    margin-top: 38px;
+    padding-bottom: 36px;
+    ${props => (props.isToggled ? css`
+      visibility: visible;
+      opacity: 1;
+  ` : css`
+      visibility: hidden;
+      opacity: 0;
+  `)}
+    transition: visibility 0s, opacity 0.5s linear;
+  }
+  .body-container {
+    display: flex;
+    div {
+      &.schedule-title {
+        flex: 2;
+        margin-right: 16px;
+      }
+      &.schedule-type {
+        flex: 1;
+      }
+    }
+  }
+  .preview {
+    margin-top: 60px;
+    .schedule-preview-box {
+      margin-top: 8px;
+      padding: 24px 32px;
+      border: 1px solid #E9E9E9;
+      border-radius: 4px;
+      h3, p {
+        margin: 0;
+      }
+      h3 {
+        font-size: 20px;
+        font-weight: 800;
+        border-bottom: 1px solid #636363;
+        min-width: 50px;
+        line-height: 24px;
+        display: inline-block;
+        ${props => (props.scheduleTitle ? css`
+          color: #363636;
+        ` : css`
+          color: #D2D2D2;
+        `)}
+      }
+      p {
+        font-size: 16px;
+        margin: 6px 0 22px;
+      }
+      .timestamp-box {
+        display: inline-block;
+        padding: 8px 10px;
+        color: white;
+        background-color: #143441;
+        border-radius: 4px;
+        font-size: 14px;
+      }
+    }
   }
 `;
 
