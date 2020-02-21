@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
+
+import { isAuthedSelector } from 'lib/utils';
 
 import landingBackground from 'static/images/landingBackground.png';
 import rightArrowForward from 'static/images/rightArrowForward.png';
@@ -15,10 +18,11 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-Wrapper.Header = styled.div`
-  margin: -50px 0 30px;
+Wrapper.Banner = styled.div`
+  margin: -55px 0 30px;
   padding: 50px 0 0;
   width: 100%;
+  background-color: rgb(13,26,31);
   background-image: url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
@@ -88,25 +92,43 @@ const Zabos = styled.section`
 const TopBanner = () => {
 
 };
-const LandingPage = () => (
-  <Wrapper>
-    <Wrapper.Header>
+const LandingPage = () => {
+  const isAuthenticated = useSelector (isAuthedSelector);
+  return (
+    <Wrapper>
       <Header type="upload" transparent logoColor="white" />
-      <div className="header-body">
-        <h1>이제 포스터 확인은 자보에서.</h1>
-        <h3>카이스트의 소식을 바로 알아보세요</h3>
-        <Link to="/zabo/upload">
-          <button type="button">
-            <div>자보 업로드</div>
-            <img src={rightArrowForward} alt="right-arrow icon" />
-          </button>
-        </Link>
-      </div>
-    </Wrapper.Header>
-    <Zabos>
-      <ZaboList type="main" />
-    </Zabos>
-  </Wrapper>
-);
+      <Wrapper.Banner>
+        <div className="header-body">
+          <h1>이제 포스터 확인은 자보에서.</h1>
+          <h3>카이스트의 소식을 바로 알아보세요</h3>
+          {
+            isAuthenticated ? (
+              <Link to="/zabo/upload">
+                <button type="button">
+                  <div>자보 업로드</div>
+                  <img src={rightArrowForward} alt="right-arrow icon" />
+                </button>
+              </Link>
+            )
+              : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    alert ('로그인이 필요합니다.');
+                  }}
+                >
+                  <div>자보 업로드</div>
+                  <img src={rightArrowForward} alt="right-arrow icon" />
+                </button>
+              )
+          }
+        </div>
+      </Wrapper.Banner>
+      <Zabos>
+        <ZaboList type="main" />
+      </Zabos>
+    </Wrapper>
+  );
+};
 
 export default LandingPage;

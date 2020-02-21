@@ -1,7 +1,8 @@
 import React, { PureComponent } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
-import { LoginPage } from '../index';
+import { LoginPage } from 'pages';
+
 import AuthPageWrapper from './AuthPage.styled';
 
 class AuthPage extends PureComponent {
@@ -10,7 +11,7 @@ class AuthPage extends PureComponent {
       <AuthPageWrapper>
         <Switch>
           <Route path="/auth/login" component={LoginPage} />
-          <Redirect to="/abcd" />
+          <Redirect to="/auth/login" />
         </Switch>
       </AuthPageWrapper>
     );
