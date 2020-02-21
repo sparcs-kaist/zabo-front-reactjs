@@ -16,6 +16,7 @@ const FooterWrapper = styled.footer`
   @media (max-width: 640px) {
     height: 60px;
   }
+  ${props => props.ownStyle || ''};
 `;
 
 export default FooterWrapper;

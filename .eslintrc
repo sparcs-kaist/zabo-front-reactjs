@@ -1,7 +1,6 @@
 {
   "extends": [
-    "airbnb-base",
-    "airbnb/rules/react"
+    "eslint-config-airbnb"
   ],
   "plugins": [
     "simple-import-sort"
@@ -44,6 +43,8 @@
       "allowForLoopAfterthoughts": true
     }],
     "no-trailing-spaces": "warn",
+    "indent": ["error", 2],
+    "semi": ["warn", "always"],
     "simple-import-sort/sort": [
       2,
       {

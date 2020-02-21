@@ -10,9 +10,8 @@ const containerStyle = css`
   position: absolute;
   justify-content: space-between;
   align-items: center;
-  div { flex: 1 }
 
-  ${props => (props.scrollHeader ? css`
+  ${props => (props.horizontalScroll ? css`
     @media (min-width: 640px) {
       min-width: 1072px;
     }
@@ -20,7 +19,7 @@ const containerStyle = css`
   `)}
 `;
 
-const Footer = ({ scrollFooter, children }) => {
+const Footer = ({ ownStyle, scrollFooter, children }) => {
   const [left, setLeft] = useState (0);
   useEffect (() => {
     const listener = () => setLeft (-window.pageXOffset);
@@ -30,9 +29,8 @@ const Footer = ({ scrollFooter, children }) => {
   const style = { left };
 
   return (
-    <FooterWrapper>
-      <Container ownStyle={containerStyle} style={style} scrollHeader={scrollFooter}>
-        <div> </div>
+    <FooterWrapper ownStyle={ownStyle}>
+      <Container ownStyle={containerStyle} style={style} horizontalScroll={scrollFooter}>
         {children}
       </Container>
     </FooterWrapper>

@@ -30,7 +30,7 @@ const containerStyle = css`
     flex-direction: row;
     align-items: center;
   }
-  ${props => (props.scrollHeader ? css`
+  ${props => (props.horizontalScroll ? css`
     @media (min-width: 640px) {
       min-width: 1072px;
     }
@@ -39,8 +39,6 @@ const containerStyle = css`
 `;
 
 const Header = ({
-  back,
-  title,
   scrollHeader,
   transparent,
   logoColor,
@@ -58,18 +56,11 @@ const Header = ({
 
   return (
     <HeaderWrapper transparent={transparent}>
-      <Container ownStyle={containerStyle} style={style} scrollHeader={scrollHeader}>
+      <Container ownStyle={containerStyle} style={style} horizontalScroll={scrollHeader}>
         <div>
-          {back ? (
-            <>
-              <img alt="Go back" src={left} style={{ width: '15px', height: 'auto' }} onClick={history.goBack} />
-              {title && <h1>{title}</h1>}
-            </>
-          ) : (
-            <NavLink to="/">
-              <img alt="logo" src={logos[logoColor]} style={{ width: '68px', height: '32px' }} />
-            </NavLink>
-          )}
+          <NavLink to="/">
+            <img alt="logo" src={logos[logoColor]} style={{ width: '68px', height: '32px' }} />
+          </NavLink>
         </div>
         <div
           style={{
@@ -85,8 +76,6 @@ const Header = ({
 };
 
 Header.propTypes = {
-  back: PropTypes.bool,
-  title: PropTypes.string,
   type: PropTypes.string,
   groupName: PropTypes.string,
   transparent: PropTypes.bool,
@@ -95,8 +84,6 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  back: false,
-  title: '',
   type: '',
   groupName: '',
   transparent: false,

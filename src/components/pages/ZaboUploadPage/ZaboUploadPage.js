@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
+import styled from 'styled-components';
 
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
@@ -47,7 +48,6 @@ const SlideView = ({ step }) => (
     <ZaboUpload.SelectGroup />
     <ZaboUpload.UploadImage />
     <ZaboUpload.InfoForm />
-    <ZaboUpload.UploadProcess step={step} />
   </SwipeableViews>
 );
 
@@ -55,7 +55,20 @@ SlideView.propTypes = {
   step: PropTypes.number.isRequired,
 };
 
-const FooterChild = (props) => {
+const Loading = styled.div`
+  width: 100%;
+  display: flex;
+`;
+Loading.Active = styled.div`
+  width: 0;
+  border-top: 10px solid pink;
+`;
+Loading.Inactive = styled.div`
+  flex: 1;
+  border-top: 10px solid gainsboro;
+`;
+
+const UploadFooter = (props) => {
   const { prev, next, step } = props;
   const dispatch = useDispatch ();
   const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
@@ -104,33 +117,45 @@ const FooterChild = (props) => {
 
   if (submitted) {
     return (
-      <FooterStyle>
-        <div className="container">
-          <div className="slide-action-group">
-            <button type="button" className="processing">
+      <Footer scrollFooter>
+        <FooterStyle>
+          <ZaboUpload.UploadProcess>
+            {(progress, error) => (
+              <Loading>
+                <Loading.Active style={{ width: `${progress}%` }} />
+                <Loading.Inactive />
+              </Loading>
+            )}
+          </ZaboUpload.UploadProcess>
+          <div className="container">
+            <div className="slide-action-group">
+              <button type="button" className="processing">
               업로드 중...
-            </button>
+              </button>
+            </div>
           </div>
-        </div>
-      </FooterStyle>
+        </FooterStyle>
+      </Footer>
     );
   }
 
   return (
-    <FooterStyle>
-      <div className="container">
-        <div className="slide-action-group">
-          {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
-          <button type="button" className={`next ${isSubmit ? 'submit' : ''}`} onClick={validatedNext} disabled={!isValid}>
-            { isSubmit ? '제출하기' : '다음' }
-          </button>
+    <Footer scrollFooter>
+      <FooterStyle>
+        <div className="container">
+          <div className="slide-action-group">
+            {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
+            <button type="button" className={`next ${isSubmit ? 'submit' : ''}`} onClick={validatedNext} disabled={!isValid}>
+              { isSubmit ? '제출하기' : '다음' }
+            </button>
+          </div>
         </div>
-      </div>
-    </FooterStyle>
+      </FooterStyle>
+    </Footer>
   );
 };
 
-FooterChild.propTypes = {
+UploadFooter.propTypes = {
   prev: PropTypes.func.isRequired,
   next: PropTypes.func.isRequired,
   step: PropTypes.number.isRequired,
@@ -164,9 +189,7 @@ const ZaboUploadPage = () => {
         <SlideTitle step={step} />
         <SlideView step={step} />
       </PageWrapper.Contents>
-      <Footer scrollFooter>
-        <FooterChild {...slideActions} step={step} />
-      </Footer>
+      <UploadFooter {...slideActions} step={step} />
     </PageWrapper>
   );
 };
