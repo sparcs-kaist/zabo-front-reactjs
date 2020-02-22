@@ -62,7 +62,8 @@ export default () => {
 };
 
 window.addEventListener ('devtoolschange', () => {
-  // import ('static/images/recruitAscii').then (asciiArt => {
-  //   console.log (asciiArt.default);
-  // });
+  import ('static/images/recruitAscii').then (asciiArt => {
+    // eslint-disable-next-line no-console
+    console.log (asciiArt.default);
+  });
 });
