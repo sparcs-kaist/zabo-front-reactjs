@@ -111,8 +111,6 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
     }
   }, [state]);
 
-  console.log (state);
-
   return (
     <PageWrapper>
       <Prompt
