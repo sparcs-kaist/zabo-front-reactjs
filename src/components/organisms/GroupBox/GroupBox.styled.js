@@ -1,10 +1,13 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
+import ProfileStats from 'organisms/ProfileStats';
+
 import { media } from 'lib/utils/style';
 
 export const GroupW = styled (Link)`
   display: flex;
+  align-items: center;
   width: 297px;
   height: 126px;
   border-radius: 6px;
@@ -22,7 +25,7 @@ export const GroupW = styled (Link)`
     margin-right: 14px;
   }
 
-  @media (max-width: 640px) {
+  ${media.tablet (css`
     width: 247px;
     height: 108px;
     padding: 24px 12px;
@@ -32,7 +35,31 @@ export const GroupW = styled (Link)`
       margin-right: 12px;
       border-radius: 50%;
     }
+  `)};
+`;
+
+export const GroupSW = styled (GroupW)`
+  width: 100%;
+  height: 72px;
+  padding: 12px 16px;
+  ${media.tablet (css`
+    height: 92px;
+    padding: 16px 24px;
+  `)};
+  img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin-right: 12px;
   }
+  ${media.tablet (css`
+    width: 100%;
+    img {
+      width: 60px;
+      height: 60px;
+      margin-right: 20px;
+    }
+  `)};
 `;
 
 export const WritingsW = styled.section`
@@ -40,6 +67,13 @@ export const WritingsW = styled.section`
   display: flex;
   flex-direction: column;
   overflow: hidden;
+`;
+
+export const ProfileStatsW = styled (ProfileStats)`
+  margin-top: 14px;
+  ${media.tablet (css`
+    margin-top: 12px;
+  `)};
 `;
 
 export const NameW = styled.div`
@@ -50,10 +84,19 @@ export const NameW = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   display: inline-block;
-  margin: 0 0 14px 0;
   font-weight: 800;
   ${media.tablet (css`
     font-size: 16px;
-    margin: 0 0 12px 0;
+  `)};
+`;
+
+export const SubtitleW = styled.div`
+  font-size: 10px;
+  line-height: 11px;
+  color: ${props => props.theme.gray100};
+  margin-top: 4px;
+  ${media.tablet (css`
+    font-size: 12px;
+    line-height: 14px;
   `)};
 `;

@@ -18,13 +18,13 @@ import { isAuthedSelector } from 'lib/utils';
 import helpIcon from 'static/icon/help.svg';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
-import GroupBox from '../../organisms/GroupBox';
 import LandingPageWrapper, {
   CategoryBannerW,
   CategoryNavW,
   Container,
+  GroupBoxW,
   RecommendsW,
-  TopBanner,
+  TopBannerW,
   UpcomingW,
 } from './LandingPage.styled';
 
@@ -45,6 +45,40 @@ const categoriesK = {
   performance: '공연',
   schedule: '행사',
   seminar: '세미나',
+};
+
+const TopBanner = () => {
+  const isAuthenticated = useSelector (isAuthedSelector);
+
+  return (
+    <TopBannerW>
+      <Container>
+        <h1>이제 포스터 확인은 자보에서.</h1>
+        <h3>카이스트의 소식을 바로 알아보세요</h3>
+        {
+          isAuthenticated ? (
+            <Link to="/zabo/upload">
+              <button type="button">
+                <div>자보 업로드</div>
+                <img src={rightArrowForward} alt="right-arrow icon" />
+              </button>
+            </Link>
+          )
+            : (
+              <button
+                type="button"
+                onClick={() => {
+                  alert ('로그인이 필요합니다.');
+                }}
+              >
+                <div>자보 업로드</div>
+                <img src={rightArrowForward} alt="right-arrow icon" />
+              </button>
+            )
+        }
+      </Container>
+    </TopBannerW>
+  );
 };
 
 const Category = ({ category }) => (
@@ -101,12 +135,15 @@ const Upcoming = () => (
 );
 
 const Recommends = () => {
-  const { data: groups, error } = useSWR ('/group/recommends', getRecommendedGroups);
+  const { data: groups, error } = useSWR ('/group/recommends', getRecommendedGroups, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
   return (
     <RecommendsW>
       <Container>
         <TwoCol>
-          <TwoCol.Left flex={2}>
+          <TwoCol.Left flex={5}>
             <RecommendsW.Zabo>
               <RecommendsW.Title>
                 인기 있는 자보
@@ -118,15 +155,19 @@ const Recommends = () => {
               <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
             </RecommendsW.Zabo>
           </TwoCol.Left>
-          <TwoCol.Divider />
-          <TwoCol.Right flex={1}>
+          <TwoCol.Divider
+            style={{
+              margin: '0 50px',
+            }}
+          />
+          <TwoCol.Right flex={3}>
             <RecommendsW.Title>이 그룹은 어때요?</RecommendsW.Title>
             <RecommendsW.Group>
               <CategoryListW>
                 {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
               </CategoryListW>
               <RecommendsW.Group.List>
-                {groups ? groups.map (group => <GroupBox group={group} type="simple" />)
+                {groups ? groups.map (group => <GroupBoxW group={group} type="simple" />)
                   : 'Loading'}
               </RecommendsW.Group.List>
             </RecommendsW.Group>
@@ -143,44 +184,15 @@ const MainZaboList = () => (
   </Container>
 );
 
-const LandingPage = () => {
-  const isAuthenticated = useSelector (isAuthedSelector);
-  return (
-    <LandingPageWrapper>
-      <Header type="upload" transparent logoColor="white" />
-      <TopBanner>
-        <div className="header-body">
-          <h1>이제 포스터 확인은 자보에서.</h1>
-          <h3>카이스트의 소식을 바로 알아보세요</h3>
-          {
-            isAuthenticated ? (
-              <Link to="/zabo/upload">
-                <button type="button">
-                  <div>자보 업로드</div>
-                  <img src={rightArrowForward} alt="right-arrow icon" />
-                </button>
-              </Link>
-            )
-              : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    alert ('로그인이 필요합니다.');
-                  }}
-                >
-                  <div>자보 업로드</div>
-                  <img src={rightArrowForward} alt="right-arrow icon" />
-                </button>
-              )
-          }
-        </div>
-      </TopBanner>
-      <CategoryBanner />
-      <Upcoming />
-      <Recommends />
-      <MainZaboList />
-    </LandingPageWrapper>
-  );
-};
+const LandingPage = () => (
+  <LandingPageWrapper>
+    <Header type="upload" transparent logoColor="white" />
+    <TopBanner />
+    <CategoryBanner />
+    <Upcoming />
+    <Recommends />
+    <MainZaboList />
+  </LandingPageWrapper>
+);
 
 export default LandingPage;

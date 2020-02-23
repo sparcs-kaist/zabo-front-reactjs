@@ -2,8 +2,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import ContainerAtom from 'atoms/Container';
-import SVG from 'atoms/SVG';
 import TwoCol from 'atoms/TwoCol';
+import GroupBox from 'organisms/GroupBox';
 
 import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';
@@ -40,68 +40,79 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
-export const TopBanner = styled.div`
+export const TopBannerW = styled.div`
   margin: -55px 0 0;
-  padding: 50px 0 0;
   width: 100%;
+  height: 349px;
+  padding: 0 24px;
   background-color: rgb(13,26,31);
   background-image: url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
-  height: 520px;
-
+  
   display: flex;
   flex-direction: column;
+  ${Container} {
+    flex-direction: column;
+  }
   
-  .header-body {
-    margin-left: max(116px, 14%);
+  h1, h3 { 
+    font-size: 20px;
+    color: white; 
+  }
+  h1 {
+    margin: 105px 0 0;
+    font-weight: 800;
+  }
+  h3 {
+    margin: 12px 0 98px;
+    font-weight: 300;
+  }
+  a {
+    width: 120px;
+  }
+  button {
+    height: 40px;
+    font-size: 14px;
+    padding: 0 14px;
+    border: 1px solid #FFFFFF;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    display: flex;
+    align-items: center;
+    
+    img {
+      width: 20px;
+      height: 20px;
+      margin-left: 4px;
+    }
+  }
+  ${media.tablet (css`
+    height: 520px;
+    padding: 50px 0 0;
     h1 {
-      color: white;
       margin: 105px 0 0;
       font-size: 32px;
-      font-weight: 800;
     }
     h3 {
-      color: white;
       margin: 12px 0 98px;
       font-size: 32px;
-      font-weight: 300;
     }
-    a { display: inline-block }
+    a {
+      width: 140px;
+    }
     button {
       height: 52px;
-      border: 1px solid #FFFFFF;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.15);
       font-size: 16px;
-      color: white;
       padding: 0 16px;
-      display: flex;
-      align-items: center;
       img {
         margin-left: 8px;
         width: 24px;
         height: 24px;
       }
     }
-  }
-  @media (max-width: 640px) {
-    height: 349px;
-    padding: 0 24px;
-    .header-body {
-      margin: 0;
-      h1, h3 { font-size: 20px }
-      button {
-        height: 40px;
-        font-size: 14px;
-        padding: 0 14px;
-        img {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
-  }
+  `)};
 `;
 
 export const CategoryNavW = styled.div``;
@@ -147,7 +158,7 @@ export const CategoryBannerW = styled.section`
     }
   }
   ${media.tablet (css`
-    padding: 72px 0;
+    padding: 72px 16px;
     ${CategoryNavW} {
       margin-right: 65px;
     }
@@ -255,24 +266,11 @@ UpcomingW.Carousel = styled.section`
 
 export const RecommendsW = styled.section`
   width: 100%;
-  margin-top: 83px;
+  margin-top: 30px;
   ${media.tablet (css`
     margin-top: 165px;
   `)};
-`;
-
-RecommendsW.Zabo = styled.section`
-  width: 100%;
-`;
-
-RecommendsW.Group = styled.section`
-  width: 100%;
-`;
-RecommendsW.Group.List = styled.div`
-  margin-top: 8px;
-  ${media.tablet (css`
-    margin-top: 20px;
-  `)};
+  padding-bottom: 12px;
 `;
 
 RecommendsW.Title = styled.div`
@@ -281,10 +279,38 @@ RecommendsW.Title = styled.div`
   line-height: 23px;
   color: ${props => props.theme.gray90};
   margin-bottom: 20px;
+  margin-top: 53px;
   ${media.tablet (css`
+    margin-top: 0;
     font-size: 24px;
     line-height: 27px;
     margin-bottom: 32px;
+  `)};
+`;
+
+
+RecommendsW.Zabo = styled.section`
+  width: 100%;
+`;
+
+RecommendsW.Group = styled.section`
+  width: 100%;
+  padding-bottom: 2px;
+`;
+
+RecommendsW.Group.List = styled.div`
+  margin-top: 8px;
+  ${media.tablet (css`
+    margin-top: 20px;
+  `)};
+`;
+export const GroupBoxW = styled (GroupBox)`
+  margin-top: 8px;
+  &:first-child {
+    margin-top: 0;
+  }
+  ${media.tablet (css`
+    margin-top: 16px;
   `)};
 `;
 

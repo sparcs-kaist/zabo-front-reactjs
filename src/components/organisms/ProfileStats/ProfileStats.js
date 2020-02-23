@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import { Stats } from './ProfileStats.styled';
 
-const ProfileStats = ({ stats, smallV }) => (
-  <Stats>
+const ProfileStats = ({ stats, smallV, ...props }) => (
+  <Stats {...props}>
     {
       stats.map (({ name, value }) => (
         <Stats.elem key={name} small={smallV}>

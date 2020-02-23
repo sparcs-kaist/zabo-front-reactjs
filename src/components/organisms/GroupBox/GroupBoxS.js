@@ -6,11 +6,13 @@ import { isElementOverflown } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import { GroupW, NameW, WritingsW } from './GroupBox.styled';
+import {
+  GroupSW, NameW, SubtitleW, WritingsW,
+} from './GroupBox.styled';
 
-const GroupBoxS = ({ group }) => {
+const GroupBoxS = ({ group, ...props }) => {
   const {
-    name, profilePhoto,
+    name, profilePhoto, subtitle,
   } = group;
 
   const nameRef = useRef (null);
@@ -18,7 +20,7 @@ const GroupBoxS = ({ group }) => {
   useEffect (() => { setShowTooltip (isElementOverflown (nameRef.current)); }, [nameRef]);
 
   return (
-    <GroupW to={name}>
+    <GroupSW to={name} {...props}>
       <div>
         {
           profilePhoto
@@ -34,8 +36,9 @@ const GroupBoxS = ({ group }) => {
             </Tooltip>
           ) : <NameW ref={nameRef}>{name}</NameW>
         }
+        <SubtitleW>{subtitle || '한 줄 소개 없음'}</SubtitleW>
       </WritingsW>
-    </GroupW>
+    </GroupSW>
   );
 };
 
