@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import SVG from 'atoms/SVG';
+import TwoCol from 'atoms/TwoCol';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
@@ -11,7 +13,11 @@ import { isAuthedSelector } from 'lib/utils';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
 import LandingPageWrapper, {
-  CategoryBannerW, CategoryW, Container, TopBanner,
+  CategoryBannerW,
+  CategoryW,
+  Container,
+  TopBanner,
+  UpcomingW,
 } from './LandingPage.styled';
 
 const categories = [
@@ -28,7 +34,7 @@ const categoriesK = {
   event: '이벤트',
   festival: '축제',
   group: '모임',
-  performance: '공연',
+  peformance: '공연',
   schedule: '행사',
   seminar: '세미나',
 };
@@ -47,14 +53,40 @@ Category.propTypes = {
 };
 
 const CategoryBanner = () => (
-  <Container>
-    <CategoryBannerW>
+  <CategoryBannerW>
+    <Container>
       {categories.map (category => (
         <Category key={category} category={category} />
       ))}
       <Category key="rightArrow" category="rightArrow" />
-    </CategoryBannerW>
-  </Container>
+    </Container>
+  </CategoryBannerW>
+);
+
+const Upcoming = () => (
+  <UpcomingW>
+    <Container>
+      <TwoCol>
+        <TwoCol.Left>
+          <UpcomingW.Title>
+          SPARCS 2019 가을 리크루팅
+          </UpcomingW.Title>
+          <UpcomingW.Description>
+          얼마 남지 않았어요
+          </UpcomingW.Description>
+          <UpcomingW.Timer>
+          07:14:21
+          </UpcomingW.Timer>
+          <UpcomingW.Button>
+            자세히 보기 <SVG icon="arrowRight" />
+          </UpcomingW.Button>
+        </TwoCol.Left>
+        <TwoCol.Right>
+          <UpcomingW.Carousel />
+        </TwoCol.Right>
+      </TwoCol>
+    </Container>
+  </UpcomingW>
 );
 
 const LandingPage = () => {
@@ -90,6 +122,7 @@ const LandingPage = () => {
         </div>
       </TopBanner>
       <CategoryBanner />
+      <Upcoming />
       <Container>
         <ZaboList type="main" />
       </Container>

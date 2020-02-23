@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import ContainerAtom from 'atoms/Container';
+import SVG from 'atoms/SVG';
+import TwoCol from 'atoms/TwoCol';
 
 import { media } from 'lib/utils/style';
 
@@ -38,7 +40,7 @@ const Wrapper = styled.section`
 `;
 
 export const TopBanner = styled.div`
-  margin: -55px 0 30px;
+  margin: -55px 0 0;
   padding: 50px 0 0;
   width: 100%;
   background-color: rgb(13,26,31);
@@ -152,5 +154,83 @@ CategoryW.Image.propTypes = {
   ...CategoryW.Image.propTypes,
   category: PropTypes.string.isRequired,
 };
+
+export const UpcomingW = styled.section`
+  background: ${props => props.theme.gray90};
+  color: ${props => props.theme.gray1};
+  width: 100%;
+  padding: 60px 24px 12px 24px;
+  ${TwoCol.Right} {
+    position: relative;
+    overflow: hidden;
+  }
+  ${media.tablet (css`
+    padding: 72px 16px;
+  `)};
+`;
+UpcomingW.Title = styled.div`
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 18px;
+
+  ${media.tablet (css`
+    font-size: 28px;
+    line-height: 32px;
+  `)};
+`;
+UpcomingW.Description = styled.div`
+  margin-top: 4px;
+  font-size: 12px;
+  line-height: 14px;
+
+  ${media.tablet (css`
+    margin-top: 12px;
+    font-size: 24px;
+    line-height: 27px;
+  `)};
+`;
+UpcomingW.Timer = styled.div`
+  margin-top: 21px;
+  font-size: 20px;
+  line-height: 23px;
+  color: ${props => props.theme.white};
+
+  ${media.tablet (css`
+    margin-top: 44px;
+    font-size: 40px;
+    line-height: 45px; 
+  `)};
+`;
+UpcomingW.Button = styled.button`
+  margin-top: 32px;
+  padding: 14px 16px;
+  width: 141px;
+  height: 52px;
+  background: ${props => props.theme.gray90};
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  display: none;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 18px;
+  color: ${props => props.theme.white};
+  
+  ${media.tablet (css`
+    margin-top: 44px;
+    display: inherit;
+    svg {
+      margin-left: 12px;
+    }
+  `)};
+`;
+// TODO: Absolute not working
+UpcomingW.Carousel = styled.section`
+  position: absolute;
+  width: 100%;
+  height: 500px;
+  background: #fff;
+  z-index: 1;
+`;
+
 
 export default Wrapper;
