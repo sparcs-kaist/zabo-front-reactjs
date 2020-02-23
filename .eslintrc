@@ -96,9 +96,15 @@
   },
   "overrides": [
     {
-      "files": ["*.stories.js"],
+      "files": ["*.stories.js", "*.test.js"],
       "rules": {
         "import/no-extraneous-dependencies": "off",
+      }
+    },
+    {
+      "files": ["*.test.js"],
+      "env": {
+        "jest": true
       }
     }
   ]
