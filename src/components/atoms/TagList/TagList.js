@@ -42,6 +42,7 @@ export const TagListWrapper = styled.div`
       margin-right: 8px;
       &:last-child { margin-right: 0 }
     }
+    @media (max-width: 640px) { padding: 0 16px }
   ` : css`
   `)}
 `;
@@ -54,12 +55,11 @@ const TagList = ({ type, onTagClick, clickedTags }) => {
 
   const tagList = useMemo (() => (
     ZABO_CATEGORIES.map ((tag, idx) => {
-      const value = tag.slice (1);
-      const cName = clickedTags.includes (value) ? 'clicked' : 'unclicked';
+      const cName = clickedTags.includes (tag) ? 'clicked' : 'unclicked';
       return (
         <button
           key={idx}
-          value={value}
+          value={tag}
           onClick={handleClick}
           className={cName}
         >
