@@ -82,7 +82,7 @@ const TopBanner = () => {
 };
 
 const Category = ({ category }) => (
-  <CategoryNavW>
+  <CategoryNavW to={`/search?category=${category}`}>
     <CategoryNavW.Image category={category} />
     <CategoryNavW.Label>
       {categoriesK[category]}
@@ -100,7 +100,6 @@ const CategoryBanner = () => (
       {categories.map (category => (
         <Category key={category} category={category} />
       ))}
-      <Category key="rightArrow" category="rightArrow" />
     </Container>
   </CategoryBannerW>
 );

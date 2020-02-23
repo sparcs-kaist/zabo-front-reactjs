@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 import ContainerAtom from 'atoms/Container';
@@ -115,7 +116,9 @@ export const TopBannerW = styled.div`
   `)};
 `;
 
-export const CategoryNavW = styled.div``;
+export const CategoryNavW = styled (Link)`
+  cursor: pointer;
+`;
 
 CategoryNavW.Image = styled.div`
   background-image: ${props => css`
