@@ -13,14 +13,6 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const SearchBarWrapper = styled.div`
-  @font-face {
-    font-family: "NanumSquareRegular";
-    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format("truetype");
-  }
-  @font-face {
-    font-family: "NanumSquareBold";
-    src: url(../../../lib/fonts/NanumSquareBold.ttf) format("truetype");
-  }
   display: flex;
   flex-direction: column;
   z-index: 1;
