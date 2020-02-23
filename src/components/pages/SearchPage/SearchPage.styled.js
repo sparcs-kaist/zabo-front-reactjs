@@ -49,7 +49,6 @@ Page.Body = styled.div`
 // TODO: Refactor dups
 export const Zabos = styled.section` 
   width: 1032px;
-  margin-top: 62px;
   h1 {
     display: inline-block;
     font-size: 22px;
@@ -57,14 +56,21 @@ export const Zabos = styled.section`
     color: #363636;
     margin: 0;
   }
+  div.empty-page { margin-top: 101px }
   .emptySpace { margin-top: 8px }
   @media (max-width: 640px) {
     margin-top: 38px;
-    padding: 0 16px;
     width: 100%;
     h1 {
       font-size: 18px;
+      padding: 0 16px;
     }
     .emptySpace { margin-top: 0 }
+  }
+`;
+
+Zabos.Result = styled.div`
+  @media (max-width: 640px) {
+    padding: 0 16px;
   }
 `;

@@ -31,7 +31,8 @@ const SearchPage = () => {
     zaboSearch, uploaderSearch, clickedTags,
   } = state;
   const isZaboSearchEmpty = zaboSearch.length === 0;
-  const isResultsEmpty = query !== undefined && isZaboSearchEmpty && uploaderSearch.length === 0;
+  const isGroupEmpty = uploaderSearch.length === 0;
+  const isResultsEmpty = query !== undefined && isZaboSearchEmpty && isGroupEmpty;
 
   const _updateResults = data => {
     const { zabos, groups } = data;
@@ -85,7 +86,12 @@ const SearchPage = () => {
             </div>
           ) : (
             <div>
-              <GroupList type="search" groups={uploaderSearch} />
+              {!isGroupEmpty && (
+                <>
+                  <GroupList type="search" groups={uploaderSearch} />
+                  <div style={{ marginBottom: '62px' }}> </div>
+                </>
+              )}
               <Zabos>
                 <h1>자보 검색 결과</h1>
                 <TagList
@@ -93,8 +99,18 @@ const SearchPage = () => {
                   onTagClick={onTagClick}
                   clickedTags={clickedTags}
                 />
-                <div className="emptySpace"> </div>
-                {!isZaboSearchEmpty && <ZaboList type="search" key={clickedTags} />}
+                <Zabos.Result>
+                  <div className="emptySpace"> </div>
+                  {isZaboSearchEmpty
+                    ? (
+                      <div className="empty-page">
+                        <img className="search-icon" src={searchIcon} alt="search icon" />
+                        <div className="empty-text">해당하는 자보를 찾을 수 없습니다.</div>
+                      </div>
+                    ) : (
+                      <ZaboList type="search" key={clickedTags} />
+                    )}
+                </Zabos.Result>
               </Zabos>
             </div>
           )}
