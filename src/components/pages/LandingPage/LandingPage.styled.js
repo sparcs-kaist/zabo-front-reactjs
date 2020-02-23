@@ -269,4 +269,15 @@ RecommendsW.Group = styled.section`
   background: black;
 `;
 
+RecommendsW.Title = styled.div`
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 23px;
+  color: ${props => props.theme.gray90};
+  ${media.tablet (css`
+    font-size: 24px;
+    line-height: 27px;
+  `)};
+`;
+
 export default Wrapper;

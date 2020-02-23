@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import SVG from 'atoms/SVG';
 import TwoCol from 'atoms/TwoCol';
+import ZaboCard from 'organisms/ZaboCard';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
@@ -98,7 +99,10 @@ const Recommends = () => (
     <Container>
       <TwoCol>
         <TwoCol.Left flex={2}>
-          <RecommendsW.Zabo />
+          <RecommendsW.Zabo>
+            <ZaboCard size="large" zaboId="5e5046e310ae8a4daf7bbcf8" />
+            <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
+          </RecommendsW.Zabo>
         </TwoCol.Left>
         <TwoCol.Divider />
         <TwoCol.Right flex={1}>
