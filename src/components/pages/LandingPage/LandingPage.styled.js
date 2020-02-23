@@ -5,6 +5,7 @@ import ContainerAtom from 'atoms/Container';
 import SVG from 'atoms/SVG';
 import TwoCol from 'atoms/TwoCol';
 
+import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';
 
 import educationIcon from 'static/icon/category/education.svg';
@@ -136,7 +137,9 @@ CategoryW.Label = styled.div`
 export const CategoryBannerW = styled.section`
   width: 100%;
   display: flex;
-  padding: 24px 16px;
+  ${Container} {
+    padding: 24px 16px;
+  }
   ${CategoryW} {
     margin-right: 20px;
     &:last-child {
@@ -160,7 +163,9 @@ export const UpcomingW = styled.section`
   background: ${props => props.theme.gray90};
   color: ${props => props.theme.gray1};
   width: 100%;
-  padding: 60px 24px 12px 24px;
+  ${Container} {
+    padding: 60px 24px 12px 24px;
+  }
   ${TwoCol.Right} {
     position: relative;
     overflow: hidden;
@@ -224,6 +229,21 @@ UpcomingW.Button = styled.button`
     }
   `)};
 `;
+UpcomingW.Count = styled.div`
+  margin-top: 32px;
+  ${mixins.flexCenter};
+  width: 24px;
+  height: 16px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20.5px;
+  font-size: 10px;
+  line-height: 11px;
+  color: ${props => props.theme.gray30};
+  ${media.tablet (css`
+    display: none;
+  `)};
+`;
+
 // TODO: Absolute not working
 UpcomingW.Carousel = styled.section`
   position: absolute;

@@ -67,7 +67,7 @@ const CategoryBanner = () => (
 const Upcoming = () => (
   <UpcomingW>
     <Container>
-      <TwoCol>
+      <TwoCol mobileWrap={false}>
         <TwoCol.Left>
           <UpcomingW.Title>
           SPARCS 2019 가을 리크루팅
@@ -81,6 +81,9 @@ const Upcoming = () => (
           <UpcomingW.Button>
             자세히 보기 <SVG icon="arrowRight" />
           </UpcomingW.Button>
+          <UpcomingW.Count>
+            2/8
+          </UpcomingW.Count>
         </TwoCol.Left>
         <TwoCol.Right>
           <UpcomingW.Carousel />
