@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
@@ -9,14 +10,59 @@ import { isAuthedSelector } from 'lib/utils';
 
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
-import LandingPageWrapper, { Banner, ZaboListContainer } from './LandingPage.styled';
+import LandingPageWrapper, {
+  CategoryBannerW, CategoryW, Container, TopBanner,
+} from './LandingPage.styled';
+
+const categories = [
+  'schedule',
+  'performance',
+  'festival',
+  'seminar',
+  'education',
+  'group',
+  'event',
+];
+const categoriesK = {
+  education: '교육',
+  event: '이벤트',
+  festival: '축제',
+  group: '모임',
+  performance: '공연',
+  schedule: '행사',
+  seminar: '세미나',
+};
+
+const Category = ({ category }) => (
+  <CategoryW>
+    <CategoryW.Image category={category} />
+    <CategoryW.Label>
+      {categoriesK[category]}
+    </CategoryW.Label>
+  </CategoryW>
+);
+
+Category.propTypes = {
+  category: PropTypes.string.isRequired,
+};
+
+const CategoryBanner = () => (
+  <Container>
+    <CategoryBannerW>
+      {categories.map (category => (
+        <Category key={category} category={category} />
+      ))}
+      <Category key="rightArrow" category="rightArrow" />
+    </CategoryBannerW>
+  </Container>
+);
 
 const LandingPage = () => {
   const isAuthenticated = useSelector (isAuthedSelector);
   return (
     <LandingPageWrapper>
       <Header type="upload" transparent logoColor="white" />
-      <Banner>
+      <TopBanner>
         <div className="header-body">
           <h1>이제 포스터 확인은 자보에서.</h1>
           <h3>카이스트의 소식을 바로 알아보세요</h3>
@@ -42,10 +88,11 @@ const LandingPage = () => {
               )
           }
         </div>
-      </Banner>
-      <ZaboListContainer>
+      </TopBanner>
+      <CategoryBanner />
+      <Container>
         <ZaboList type="main" />
-      </ZaboListContainer>
+      </Container>
     </LandingPageWrapper>
   );
 };

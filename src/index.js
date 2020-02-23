@@ -8,6 +8,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 import store from 'store';
+import { colors } from 'lib/theme';
 
 import App from './App';
 import boot from './boot';
@@ -17,7 +18,7 @@ boot ();
 
 ReactDOM.render (
   <Provider store={store}>
-    <ThemeProvider theme={{ mode: 'light' }}>
+    <ThemeProvider theme={{ ...colors, mode: 'light' }}>
       <Router>
         <App />
       </Router>

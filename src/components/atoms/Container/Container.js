@@ -5,6 +5,7 @@ const Container = styled.div`
   margin: 0 auto;
   padding: 0 24px;
   display: flex;
+  overflow: scroll;
   @media (max-width: 910px) {
     padding: 0 18px;
   }
