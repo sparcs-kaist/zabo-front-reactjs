@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import queryString from 'query-string';
 
@@ -11,94 +12,104 @@ import ZaboList from 'templates/ZaboList';
 
 import { getSearch } from 'store/reducers/zabo';
 import useSetState from 'hooks/useSetState';
+import { parseQuery } from 'lib/utils';
 
 import searchIcon from 'static/images/search-icon-navy.png';
 
-import { Page, Zabos } from './SearchPage.styled';
+import {
+  EmptyResultW, GroupResultW, Page, ZaboResultW,
+} from './SearchPage.styled';
+
+const Empty = ({ query, category }) => {
+  let label = '\' \'';
+  if (query) label = query;
+  if (category.length) label += ' #'.concat (category);
+  return (
+    <EmptyResultW>
+      <img className="search-icon" src={searchIcon} alt="search icon" />
+      <div className="empty-text">
+        <div className="empty-query">{label}</div>
+        에 대한 검색결과가 없습니다.
+      </div>
+      <p>
+        없었어요?<br />
+        없어요<br />
+        아 있었는데?<br />
+        아니 없어요 그냥
+      </p>
+    </EmptyResultW>
+  );
+};
+Empty.propTypes = {
+  query: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+};
+
+const initialState = {
+  zabos: [],
+  groups: [],
+};
 
 const SearchPage = () => {
   const dispatch = useDispatch ();
-  const { search } = window.location;
-  const { query, category } = queryString.parse (search);
-  // const [text, tags] = parseQuery (query);
+  const { search } = useLocation ();
+  const history = useHistory ();
+  const { safeQuery, safeCategory } = parseQuery (search);
 
-  const [state, setState, onChange] = useSetState ({
-    zaboSearch: [],
-    uploaderSearch: [],
-    clickedTags: [],
-  });
-  const {
-    zaboSearch, uploaderSearch, clickedTags,
-  } = state;
-  const isZaboSearchEmpty = zaboSearch.length === 0;
-  const isResultsEmpty = query !== undefined && isZaboSearchEmpty && uploaderSearch.length === 0;
+  const [state, setState] = useSetState (initialState);
+  const { zabos, groups } = state;
 
-  const _updateResults = data => {
+  const _updateResults = useCallback (data => {
     const { zabos, groups } = data;
-    setState ({
-      zaboSearch: zabos,
-      uploaderSearch: groups,
-    });
-  };
+    setState ({ zabos, groups });
+  }, [setState]);
 
   useEffect (() => {
-    setState ({ clickedTags: [category] });
-  }, [category]);
-
-  useEffect (() => {
-    // to get new updated category list
-    if (!query && !clickedTags.length) return;
-    dispatch (getSearch ({ query, category: clickedTags }))
+    // if (!safeQuery && !safeCategory.length) return;
+    dispatch (getSearch ({ query: safeQuery, category: safeCategory }))
       .then (data => _updateResults (data))
-      .catch (err => console.log (err));
-  }, [query, clickedTags]);
+      .catch (err => _updateResults (initialState));
+  }, [safeQuery, safeCategory.join ('')]);
 
-  const onTagClick = (category) => {
-    if (clickedTags.includes (category)) {
-      setState (prevState => ({
-        clickedTags: prevState.clickedTags.filter (c => c !== category),
-      }));
+  const onTagClick = (newCat) => {
+    let newCats = safeCategory.slice ();
+    if (safeCategory.includes (newCat)) {
+      newCats = newCats.filter (c => c !== newCat);
     } else {
-      setState (prevState => ({
-        clickedTags: [...prevState.clickedTags, category],
-      }));
+      newCats.push (newCat);
     }
+    const search = {};
+    if (safeQuery) search.query = safeQuery;
+    if (newCats.length) search.category = newCats;
+    history.push (`/search?${queryString.stringify (search)}`);
   };
 
   return (
     <Page>
       <Header type="search" scrollHeader />
       <Page.Body>
-        {isResultsEmpty
-          ? (
-            <div className="empty-page">
-              <img className="search-icon" src={searchIcon} alt="search icon" />
-              <div className="empty-text">
-                <div className="empty-query">{query || '#'.concat (category)}</div>
-                에 대한 검색결과가 없습니다.
-              </div>
-              <p>
-                없었어요?<br />
-                없어요<br />
-                아 있었는데?<br />
-                아니 없어요 그냥
-              </p>
-            </div>
-          ) : (
-            <div>
-              <GroupList type="search" groups={uploaderSearch} />
-              <Zabos>
-                <h1>자보 검색 결과</h1>
-                <TagList
-                  type="search"
-                  onTagClick={onTagClick}
-                  clickedTags={clickedTags}
-                />
-                <div className="emptySpace"> </div>
-                {!isZaboSearchEmpty && <ZaboList type="search" key={clickedTags} />}
-              </Zabos>
-            </div>
-          )}
+        <GroupResultW>
+          {groups.length
+            ? <GroupList type="search" groups={groups} />
+            : (
+              <>
+                <h1>그룹 검색 결과</h1>
+                <Empty query={safeQuery} category={safeCategory} />
+              </>
+            )}
+        </GroupResultW>
+        <ZaboResultW>
+          <h1>자보 검색 결과</h1>
+          <TagList
+            type="search"
+            onTagClick={onTagClick}
+            clickedTags={safeCategory}
+          />
+          <div className="emptySpace"> </div>
+          {zabos.length
+            ? <ZaboList type="search" key={safeQuery + safeCategory.join ('')} />
+            : <Empty query={safeQuery} category={safeCategory} />}
+        </ZaboResultW>
       </Page.Body>
     </Page>
   );

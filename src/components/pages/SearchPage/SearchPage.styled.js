@@ -1,4 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { media } from 'lib/utils/style';
 
 export const Page = styled.div`
   min-width: 1072px;
@@ -15,41 +17,6 @@ export const Page = styled.div`
 
 Page.Body = styled.div`
   width: 1032px;
-  div.empty-page {
-    margin-top: 230px;
-    text-align: center;
-    font-size: 16px;
-    img {
-      width: 29.15px;
-      height: 29.15px;
-      margin-bottom: 34px;
-    }
-    div.empty-text {
-      color: #202020;
-      margin-bottom: 40px;
-      .empty-query {
-        display: inline-block;
-        font-weight: 800;
-      }
-    }
-    p {
-      color: #BCBCBC;
-      line-height: 28px;
-      margin: 0
-    }
-  }
-  @media (max-width: 640px) {
-    width: 100%;
-    div.empty-page { margin-top: 74px }
-    img.search-icon { margin-bottom: 22px }
-    div.empty-text { margin-bottom: 44px }
-  }
-`;
-
-// TODO: Refactor dups
-export const Zabos = styled.section` 
-  width: 1032px;
-  margin-top: 62px;
   h1 {
     display: inline-block;
     font-size: 22px;
@@ -58,13 +25,55 @@ export const Zabos = styled.section`
     margin: 0;
   }
   .emptySpace { margin-top: 8px }
+ 
   @media (max-width: 640px) {
-    margin-top: 38px;
-    padding: 0 16px;
     width: 100%;
+    margin-top: 12px;
+    padding: 0 16px;
     h1 {
       font-size: 18px;
     }
     .emptySpace { margin-top: 0 }
   }
 `;
+
+export const EmptyResultW = styled.section`
+  text-align: center;
+  font-size: 16px;
+  img {
+    width: 29.15px;
+    height: 29.15px;
+  }
+  div.empty-text {
+    color: #202020;
+    margin-bottom: 40px;
+    .empty-query {
+      display: inline-block;
+      font-weight: 800;
+    }
+  }
+  .search-icon { margin-bottom: 22px }
+  .empty-text { margin-bottom: 44px }
+  p {
+    color: #BCBCBC;
+    line-height: 28px;
+    margin: 0
+  }
+  
+  ${media.tablet (css`
+    img {
+      margin-bottom: 34px;
+    }
+  `)};
+`;
+
+// TODO: Refactor dups
+export const ZaboResultW = styled.section` 
+  width: 100%;
+  margin-top: 62px;
+  ${media.tablet (css`
+    width: 1032px;
+  `)};
+`;
+
+export const GroupResultW = styled.section``;
