@@ -39,7 +39,7 @@ const ZaboCardL = ({ zabo }) => {
   const createdAtLabel = moment (createdAt).format ('YYYY-MM-DD');
   return (
     <ZaboCardLW>
-      <Link to={`/zabo/${_id}`}>
+      <Link to={`/zabo/${_id}`} style={{ maxWidth: '50%', overflow: 'hidden' }}>
         <PosterL zabo={zabo} />
       </Link>
       <WritingsLW>
