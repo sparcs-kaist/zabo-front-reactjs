@@ -102,7 +102,7 @@ const Form = ({ state, setState, preview }) => {
                 theme="bubble"
                 value={description}
                 onChange={onQuillChange}
-                placeholder="자보에 대한 설명을 작성해 세요."
+                placeholder="자보에 대한 설명을 작성해주세요."
                 modules={{
                   toolbar: [
                     ['bold', 'underline', 'strike'],

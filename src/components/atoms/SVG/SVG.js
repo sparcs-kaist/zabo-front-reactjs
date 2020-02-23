@@ -1,15 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faCoffee, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight, faCoffee, faPlus, faQuestionCircle,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const icons = {
+export const icons = {
   coffee: faCoffee,
   user: faUser,
   plus: faPlus,
+  arrowRight: faArrowRight,
+  questionCircle: faQuestionCircle,
 };
 
-const SVG = props => <FontAwesomeIcon {...props} icon={icons[props.icon] || null} />;
+const SVG = ({ icon, ...props }) => <FontAwesomeIcon {...props} icon={icons[icon] || null} />;
 
 SVG.propTypes = {
   ...FontAwesomeIcon.propTypes,

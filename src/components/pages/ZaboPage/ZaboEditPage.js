@@ -12,13 +12,12 @@ import { FooterStyle, PageWrapper, TitleStyle } from 'pages/ZaboUploadPage/ZaboU
 
 import { defaultSchedule } from 'store/reducers/upload';
 import { patchZabo } from 'store/reducers/zabo';
+import withZabo from 'hoc/withZabo';
 import useSetState from 'hooks/useSetState';
 import { ZaboType } from 'lib/propTypes';
 import { ZABO_CATEGORIES } from 'lib/variables';
 
 import rightGrayArrow from 'static/images/rightGrayArrow.png';
-
-import withZabo from './withZabo';
 
 const SlideTitle = () => {
   const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];

@@ -10,3 +10,6 @@ export const updateGroupInfoWithImage = ({ curName, formData }) => axios.post (`
 export const addGroupMember = ({ groupName, userId, role }) => axios.put (`/group/${groupName}/member`, { userId, role });
 export const updateGroupMember = ({ groupName, userId, role }) => axios.post (`/group/${groupName}/member`, { userId, role });
 export const removeGroupUser = ({ groupName, userId }) => axios.delete (`/group/${groupName}/member`, { data: { userId } });
+
+/* Main */
+export const getRecommendedGroups = () => axios.get ('/group/recommends');

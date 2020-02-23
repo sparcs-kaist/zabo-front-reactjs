@@ -13,12 +13,12 @@ import ZaboList from 'templates/ZaboList';
 
 import { followProfile, getProfile } from 'store/reducers/profile';
 import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';
+import withZabo from 'hoc/withZabo';
 import { ZaboType } from 'lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import withZabo from './withZabo';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 
 const OwnerInfo = ({
@@ -155,7 +155,7 @@ const ZaboDetailPage = (props) => {
                 {timePast}
               </div>
               <div className="specialChar">&middot;</div>
-              <div className="details">조회수 {views}</div>
+              <div className="details">조회수 {views.toLocaleString ()}</div>
             </section>
             <section className="statSection">
               {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}

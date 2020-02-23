@@ -85,6 +85,7 @@ class ZaboList extends React.Component {
           ref={this.masonry}
           sizes={sizes}
           threshold={800}
+          key={zaboIdList}
         >
           {zaboIdList.map (zaboId => (
             <ZaboCard key={zaboId} zaboId={zaboId} />

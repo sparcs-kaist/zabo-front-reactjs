@@ -1,134 +1,197 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styled from 'styled-components';
+import Tooltip from '@material-ui/core/Tooltip';
+import useSWR from 'swr';
 
+import { CategoryListW, CategoryW } from 'atoms/Category';
+import SVG from 'atoms/SVG';
+import TwoCol from 'atoms/TwoCol';
+import ZaboCard from 'organisms/ZaboCard';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
+import { getRecommendedGroups } from 'lib/api/group';
 import { isAuthedSelector } from 'lib/utils';
 
-import landingBackground from 'static/images/landingBackground.png';
+import helpIcon from 'static/icon/help.svg';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
-const Wrapper = styled.section`
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+import LandingPageWrapper, {
+  CategoryBannerW,
+  CategoryNavW,
+  Container,
+  GroupBoxW,
+  RecommendsW,
+  TopBannerW,
+  UpcomingW,
+} from './LandingPage.styled';
 
-Wrapper.Banner = styled.div`
-  margin: -55px 0 30px;
-  padding: 50px 0 0;
-  width: 100%;
-  background-color: rgb(13,26,31);
-  background-image: url(${landingBackground});
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 520px;
-
-  display: flex;
-  flex-direction: column;
-  
-  .header-body {
-    margin-left: max(116px, 14%);
-    h1 {
-      color: white;
-      margin: 105px 0 0;
-      font-size: 32px;
-      font-weight: 800;
-    }
-    h3 {
-      color: white;
-      margin: 12px 0 98px;
-      font-size: 32px;
-      font-weight: 300;
-    }
-    a { display: inline-block }
-    button {
-      height: 52px;
-      border: 1px solid #FFFFFF;
-      border-radius: 4px;
-      background: rgba(255, 255, 255, 0.15);
-      font-size: 16px;
-      color: white;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      img {
-        margin-left: 8px;
-        width: 24px;
-        height: 24px;
-      }
-    }
-  }
-  @media (max-width: 640px) {
-    height: 349px;
-    padding: 0 24px;
-    .header-body {
-      margin: 0;
-      h1, h3 { font-size: 20px }
-      button {
-        height: 40px;
-        font-size: 14px;
-        padding: 0 14px;
-        img {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    }
-  }
-`;
-
-const Zabos = styled.section`
-  width: 100%;
-  @media (max-width: 640px) {
-    padding: 0 16px;
-  }
-`;
+const categories = [
+  'schedule',
+  'performance',
+  'festival',
+  'seminar',
+  'education',
+  'group',
+  'event',
+];
+const categoriesK = {
+  education: '교육',
+  event: '이벤트',
+  festival: '축제',
+  group: '모임',
+  performance: '공연',
+  schedule: '행사',
+  seminar: '세미나',
+};
 
 const TopBanner = () => {
-
-};
-const LandingPage = () => {
   const isAuthenticated = useSelector (isAuthedSelector);
+
   return (
-    <Wrapper>
-      <Header type="upload" transparent logoColor="white" />
-      <Wrapper.Banner>
-        <div className="header-body">
-          <h1>이제 포스터 확인은 자보에서.</h1>
-          <h3>카이스트의 소식을 바로 알아보세요</h3>
-          {
-            isAuthenticated ? (
-              <Link to="/zabo/upload">
-                <button type="button">
-                  <div>자보 업로드</div>
-                  <img src={rightArrowForward} alt="right-arrow icon" />
-                </button>
-              </Link>
+    <TopBannerW>
+      <Container>
+        <h1>이제 포스터 확인은 자보에서.</h1>
+        <h3>카이스트의 소식을 바로 알아보세요</h3>
+        {
+          isAuthenticated ? (
+            <Link to="/zabo/upload">
+              <button type="button">
+                <div>자보 업로드</div>
+                <img src={rightArrowForward} alt="right-arrow icon" />
+              </button>
+            </Link>
+          )
+            : (
+              <button
+                type="button"
+                onClick={() => {
+                  alert ('로그인이 필요합니다.');
+                }}
+              >
+                <div>자보 업로드</div>
+                <img src={rightArrowForward} alt="right-arrow icon" />
+              </button>
             )
-              : (
-                <button
-                  type="button"
-                  onClick={() => {
-                    alert ('로그인이 필요합니다.');
-                  }}
-                >
-                  <div>자보 업로드</div>
-                  <img src={rightArrowForward} alt="right-arrow icon" />
-                </button>
-              )
-          }
-        </div>
-      </Wrapper.Banner>
-      <Zabos>
-        <ZaboList type="main" />
-      </Zabos>
-    </Wrapper>
+        }
+      </Container>
+    </TopBannerW>
   );
 };
+
+const Category = ({ category }) => (
+  <CategoryNavW to={`/search?category=${categoriesK[category]}`}>
+    <CategoryNavW.Image category={category} />
+    <CategoryNavW.Label>
+      {categoriesK[category]}
+    </CategoryNavW.Label>
+  </CategoryNavW>
+);
+
+Category.propTypes = {
+  category: PropTypes.string.isRequired,
+};
+
+const CategoryBanner = () => (
+  <CategoryBannerW>
+    <Container>
+      {categories.map (category => (
+        <Category key={category} category={category} />
+      ))}
+    </Container>
+  </CategoryBannerW>
+);
+
+const Upcoming = () => (
+  <UpcomingW>
+    <Container>
+      <TwoCol mobileWrap={false}>
+        <TwoCol.Left>
+          <UpcomingW.Title>
+          SPARCS 2019 가을 리크루팅
+          </UpcomingW.Title>
+          <UpcomingW.Description>
+          얼마 남지 않았어요
+          </UpcomingW.Description>
+          <UpcomingW.Timer>
+          07:14:21
+          </UpcomingW.Timer>
+          <UpcomingW.Button>
+            자세히 보기 <SVG icon="arrowRight" />
+          </UpcomingW.Button>
+          <UpcomingW.Count>
+            2/8
+          </UpcomingW.Count>
+        </TwoCol.Left>
+        <TwoCol.Right>
+          <UpcomingW.Carousel />
+        </TwoCol.Right>
+      </TwoCol>
+    </Container>
+  </UpcomingW>
+);
+
+const Recommends = () => {
+  const { data: groups, error } = useSWR ('/group/recommends', getRecommendedGroups, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
+  return (
+    <RecommendsW>
+      <Container>
+        <TwoCol>
+          <TwoCol.Left flex={5}>
+            <RecommendsW.Zabo>
+              <RecommendsW.Title>
+                인기 있는 자보
+                <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
+                  <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
+                </Tooltip>
+              </RecommendsW.Title>
+              <ZaboCard size="large" zaboId="5e5046e310ae8a4daf7bbcf8" />
+              <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
+            </RecommendsW.Zabo>
+          </TwoCol.Left>
+          <TwoCol.Divider
+            style={{
+              margin: '0 50px',
+            }}
+          />
+          <TwoCol.Right flex={3}>
+            <RecommendsW.Title>이 그룹은 어때요?</RecommendsW.Title>
+            <RecommendsW.Group>
+              <CategoryListW>
+                {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
+              </CategoryListW>
+              <RecommendsW.Group.List>
+                {groups ? groups.map (group => <GroupBoxW group={group} type="simple" />)
+                  : 'Loading'}
+              </RecommendsW.Group.List>
+            </RecommendsW.Group>
+          </TwoCol.Right>
+        </TwoCol>
+      </Container>
+    </RecommendsW>
+  );
+};
+
+const MainZaboList = () => (
+  <Container>
+    <ZaboList type="main" />
+  </Container>
+);
+
+const LandingPage = () => (
+  <LandingPageWrapper>
+    <Header type="upload" transparent logoColor="white" />
+    <TopBanner />
+    <CategoryBanner />
+    <Upcoming />
+    <Recommends />
+    <MainZaboList />
+  </LandingPageWrapper>
+);
 
 export default LandingPage;
