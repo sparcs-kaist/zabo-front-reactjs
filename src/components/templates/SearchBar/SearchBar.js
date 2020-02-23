@@ -35,9 +35,10 @@ const SearchBar = ({
   useEffect (() => () => { isMounted.current = false; }, []);
   const history = useHistory ();
   const { search } = useLocation ();
-  const { safeQuery } = parseQuery (search);
+  const { safeQuery, safeCategory } = parseQuery (search);
   const [state, setState, onChangeHandler] = useSetState ({
     query: safeQuery,
+    category: safeCategory,
     zabos: [],
     groups: [],
     searchFocused: false,
@@ -45,64 +46,61 @@ const SearchBar = ({
   });
 
   const {
-    query, zabos, groups, searchFocused,
+    query, category, zabos, groups, searchFocused,
   } = state;
 
-  const _handleChange = e => {
+  const _handleChange = useCallback (e => {
     const { value: newQuery } = e.target;
     setState ({ query: newQuery });
-    if (searchResults[newQuery]) {
-      setState (searchResults[newQuery]);
+    const key = `${newQuery}#`.concat (category);
+    if (searchResults[key]) {
+      setState (searchResults[key]);
     }
     if (newQuery.trim ().length > 0) {
-      searchAPIDebounced ({ query: newQuery })
+      searchAPIDebounced ({ query: newQuery, category })
         .then (data => {
           if (!isMounted.current) return;
-          searchResults[newQuery] = data;
+          searchResults[key] = data;
           setState (data);
         })
         .catch (error => {
           setState ({ zabos: [], groups: [], error });
         });
     }
-  };
+  }, [state, setState]);
 
-  const _handleKeyDown = e => {
+  const _handleKeyDown = useCallback (e => {
     if (e.key === 'Enter') {
       setState ({ searchFocused: false });
       inputRef.current.blur ();
       isMounted.current = false;
       if (query.trim ().length > 0) {
-        const stringified = queryString.stringify ({ query });
+        const stringified = queryString.stringify ({ query, category });
         history.push (`/search?${stringified}`);
       }
     }
-  };
+  }, [state, setState]);
 
   const _handleFocus = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
-    setState ({
-      searchFocused: true,
-    });
+    setState ({ searchFocused: true });
   }, [setState]);
 
   const _handleBlur = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
-    setState ({
-      searchFocused: false,
-    });
+    setState ({ searchFocused: false });
   }, [setState]);
 
-  const onTagClick = (category) => {
+  const onTagClick = (newCat) => {
     setState ({ searchFocused: false });
-    history.push (`/search?${queryString.stringify ({ category })}`);
+    history.push (`/search?${queryString.stringify ({ category: newCat })}`);
   };
 
-  const onCancelClick = e => {
+  const onCancelClick = useCallback (e => {
     setState ({ query: '' });
-  };
+  }, [setState]);
 
   const isResultsEmpty = !zabos.length && !groups.length;
 
@@ -119,7 +117,7 @@ const SearchBar = ({
         <div>
           <h3>자보</h3>
           <ul>
-            {zabos.map ((zabo, idx) => (
+            {zabos.map ((zabo) => (
               <li key={zabo._id}>
                 <Link to={`/zabo/${zabo._id}`}>{zabo.title}</Link>
               </li>
@@ -131,7 +129,7 @@ const SearchBar = ({
         <div>
           <h3>그룹</h3>
           <ul>
-            {groups.map ((group, idx) => (
+            {groups.map ((group) => (
               <li key={group._id}>
                 {
                   group.profilePhoto
