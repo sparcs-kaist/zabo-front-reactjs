@@ -47,7 +47,7 @@
     "indent": ["warn", 2],
     "semi": ["warn", "always"],
     "simple-import-sort/sort": [
-      2,
+      1,
       {
         "groups": [
           ["^\\u0000"],
