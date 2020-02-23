@@ -42,6 +42,7 @@ export const TagListWrapper = styled.div`
       margin-right: 8px;
       &:last-child { margin-right: 0 }
     }
+    @media (max-width: 640px) { padding: 0 16px }
   ` : css`
   `)}
 `;
