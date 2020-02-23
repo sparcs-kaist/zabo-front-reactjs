@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 
 Container.propTypes = {
-  ownStyle: PropTypes.string,
+  ownStyle: PropTypes.oneOfType ([PropTypes.string, PropTypes.array]),
   background: PropTypes.oneOf (Object.keys (colors)),
 };
 
