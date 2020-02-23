@@ -65,8 +65,7 @@ const SearchPage = () => {
   }, [setState]);
 
   useEffect (() => {
-    // if (!safeQuery && !safeCategory.length) return;
-    dispatch (getSearch ({ query: safeQuery, category: safeCategory }))
+    dispatch (getSearch ({ query: safeQuery, category: safeCategory, stat: true }))
       .then (data => _updateResults (data))
       .catch (err => _updateResults (initialState));
   }, [safeQuery, safeCategory.join ('')]);

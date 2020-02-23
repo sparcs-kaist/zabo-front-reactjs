@@ -2,14 +2,9 @@ import queryString from 'query-string';
 
 import axios from '../axios';
 
-export const searchAPI = ({ query, category }) => {
-  if (!query && !category) return Promise.resolve ({ zabos: [], groups: [] });
-  return axios.get (`/search?${queryString.stringify ({ query, category })}`);
-};
-
-export const statSearch = ({ query, category }) => {
-  if (!query && !category) return null;
-  return axios.get (`/search/stat?${queryString.stringify ({ query, category })}`);
+export const searchAPI = ({ query, category, stat }) => {
+  if (!query && (!category || !category.length)) return Promise.resolve ({ zabos: [], groups: [] });
+  return axios.get (`/search?${queryString.stringify ({ query, category, stat })}`);
 };
 
 export const searchUsers = query => {
