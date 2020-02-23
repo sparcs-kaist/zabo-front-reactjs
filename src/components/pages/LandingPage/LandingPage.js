@@ -82,7 +82,7 @@ const TopBanner = () => {
 };
 
 const Category = ({ category }) => (
-  <CategoryNavW to={`/search?category=${category}`}>
+  <CategoryNavW to={`/search?category=${categoriesK[category]}`}>
     <CategoryNavW.Image category={category} />
     <CategoryNavW.Label>
       {categoriesK[category]}
