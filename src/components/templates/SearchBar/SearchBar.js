@@ -69,7 +69,10 @@ const SearchBar = ({
     }
   }, [state, setState]);
 
-  const _handleKeyDown = useCallback (e => {
+  const _handleKeyPress = useCallback (e => {
+    // onKeyDown, onKeyUp : korean word call event twice...
+    // searchBar input can only accept 'query text'
+    // category search can be done only by clicking tag button
     if (e.key === 'Enter') {
       setState ({ searchFocused: false });
       inputRef.current.blur ();
@@ -159,7 +162,7 @@ const SearchBar = ({
               value={query}
               onChange={_handleChange}
               onClick={_handleFocus}
-              onKeyDown={_handleKeyDown}
+              onKeyPress={_handleKeyPress}
               ref={inputRef}
               {...options}
             />
