@@ -268,6 +268,12 @@ RecommendsW.Zabo = styled.section`
 RecommendsW.Group = styled.section`
   width: 100%;
 `;
+RecommendsW.Group.List = styled.div`
+  margin-top: 8px;
+  ${media.tablet (css`
+    margin-top: 20px;
+  `)};
+`;
 
 RecommendsW.Title = styled.div`
   font-weight: 800;

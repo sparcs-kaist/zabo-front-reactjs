@@ -125,8 +125,10 @@ const Recommends = () => {
               <CategoryListW>
                 {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
               </CategoryListW>
-              {groups ? groups.map (group => <GroupBox group={group} type="simple" />)
-                : 'Loading'}
+              <RecommendsW.Group.List>
+                {groups ? groups.map (group => <GroupBox group={group} type="simple" />)
+                  : 'Loading'}
+              </RecommendsW.Group.List>
             </RecommendsW.Group>
           </TwoCol.Right>
         </TwoCol>

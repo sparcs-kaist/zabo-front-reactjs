@@ -1,13 +1,14 @@
 import React from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
+import ProfileStats from 'organisms/ProfileStats';
+
 import { GroupType } from 'lib/propTypes';
 import { getLabeledTimeDiff } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import ProfileStats from '../ProfileStats';
-import { Group } from './GroupBox.styled';
+import { GroupW, NameW, WritingsW } from './GroupBox.styled';
 
 const GroupBox = ({ group }) => {
   const {
@@ -26,19 +27,19 @@ const GroupBox = ({ group }) => {
   }];
 
   return (
-    <Group to={name}>
+    <GroupW to={name}>
       {
         profilePhoto
           ? <img src={profilePhoto} alt="group profile photo" />
           : <img src={groupDefaultProfile} alt="default group profile photo" />
       }
-      <section>
+      <WritingsW>
         <Tooltip title={name}>
-          <div className="group-name">{name}</div>
+          <NameW>{name}</NameW>
         </Tooltip>
         <ProfileStats stats={stats} smallV />
-      </section>
-    </Group>
+      </WritingsW>
+    </GroupW>
   );
 };
 
