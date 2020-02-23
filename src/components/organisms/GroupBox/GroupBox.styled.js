@@ -8,11 +8,11 @@ import { media } from 'lib/utils/style';
 export const GroupW = styled (Link)`
   display: flex;
   align-items: center;
-  width: 297px;
-  height: 126px;
+  width: 275px;
+  height: 108px;
   border-radius: 6px;
   margin-right: 14px;
-  padding: 28px 14px;
+  padding: 24px 12px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
   &:last-child {
     margin-right: 0;
@@ -21,19 +21,18 @@ export const GroupW = styled (Link)`
   img {
     width: 70px;
     height: 70px;
+    margin-right: 12px;
     border-radius: 50%;
-    margin-right: 14px;
   }
 
   ${media.tablet (css`
-    width: 247px;
-    height: 108px;
-    padding: 24px 12px;
+    width: 297px;
+    height: 126px;
+    padding: 28px 14px;
     img {
       width: 60px;
       height: 60px;
-      margin-right: 12px;
-      border-radius: 50%;
+      margin-right: 14px;
     }
   `)};
 `;
