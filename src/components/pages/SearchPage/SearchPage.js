@@ -47,6 +47,7 @@ const SearchPage = () => {
 
   useEffect (() => {
     // to get new updated category list
+    if (!query && !clickedTags.length) return;
     dispatch (getSearch ({ query, category: clickedTags }))
       .then (data => _updateResults (data))
       .catch (err => console.log (err));
