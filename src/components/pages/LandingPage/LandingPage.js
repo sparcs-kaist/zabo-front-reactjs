@@ -16,6 +16,7 @@ import LandingPageWrapper, {
   CategoryBannerW,
   CategoryW,
   Container,
+  RecommendsW,
   TopBanner,
   UpcomingW,
 } from './LandingPage.styled';
@@ -34,7 +35,7 @@ const categoriesK = {
   event: '이벤트',
   festival: '축제',
   group: '모임',
-  peformance: '공연',
+  performance: '공연',
   schedule: '행사',
   seminar: '세미나',
 };
@@ -89,6 +90,27 @@ const Upcoming = () => (
   </UpcomingW>
 );
 
+const Recommends = () => (
+  <RecommendsW>
+    <Container>
+      <TwoCol>
+        <TwoCol.Left flex={2}>
+          <RecommendsW.Zabo />
+        </TwoCol.Left>
+        <TwoCol.Right flex={1}>
+          <RecommendsW.Group />
+        </TwoCol.Right>
+      </TwoCol>
+    </Container>
+  </RecommendsW>
+);
+
+const MainZaboList = () => (
+  <Container>
+    <ZaboList type="main" />
+  </Container>
+);
+
 const LandingPage = () => {
   const isAuthenticated = useSelector (isAuthedSelector);
   return (
@@ -123,9 +145,8 @@ const LandingPage = () => {
       </TopBanner>
       <CategoryBanner />
       <Upcoming />
-      <Container>
-        <ZaboList type="main" />
-      </Container>
+      <Recommends />
+      <MainZaboList />
     </LandingPageWrapper>
   );
 };

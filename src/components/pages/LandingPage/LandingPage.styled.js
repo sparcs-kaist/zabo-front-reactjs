@@ -134,6 +134,7 @@ CategoryW.Label = styled.div`
 `;
 
 export const CategoryBannerW = styled.section`
+  width: 100%;
   display: flex;
   padding: 24px 16px;
   ${CategoryW} {
@@ -232,5 +233,20 @@ UpcomingW.Carousel = styled.section`
   z-index: 1;
 `;
 
+export const RecommendsW = styled.section`
+  width: 100%;
+`;
+
+RecommendsW.Zabo = styled.section`
+  width: 100%;
+  height: 500px;
+  background: white;
+`;
+
+RecommendsW.Group = styled.section`
+  width: 100%;
+  height: 500px;
+  background: black;
+`;
 
 export default Wrapper;
