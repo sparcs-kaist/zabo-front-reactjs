@@ -181,30 +181,6 @@ export const WritingsLW = styled.section`
   flex: 1;
 `;
 
-export const CategoryW = styled.div`
-  ${mixins.flexCenter};
-  height: 19px;
-  padding: 3px 6px;
-  background: ${props => props.theme.gray5};
-  border-radius: 2px;
-  font-size: 10px;
-  line-height: 11px;
-  color: ${props => props.theme.gray60};
-  ${media.tablet (css`
-    font-size: 12px;
-    line-height: 14px;
-    height: 20px;
-  `)};
-`;
-export const CategoryListW = styled.div`
-  display: flex;
-  ${CategoryW} {
-    margin-right: 4px;
-    &:last-child {
-      margin-right: 0;
-    }
-  }
-`;
 export const Title = styled.div`
   font-weight: 800;
   font-size: 14px;

@@ -2,20 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import Tooltip from '@material-ui/core/Tooltip';
+import useSWR from 'swr';
 
+import { CategoryListW, CategoryW } from 'atoms/Category';
 import SVG from 'atoms/SVG';
 import TwoCol from 'atoms/TwoCol';
 import ZaboCard from 'organisms/ZaboCard';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
+import { getRecommendedGroups } from 'lib/api/group';
 import { isAuthedSelector } from 'lib/utils';
 
+import helpIcon from 'static/icon/help.svg';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
+import GroupBox from '../../organisms/GroupBox';
 import LandingPageWrapper, {
   CategoryBannerW,
-  CategoryW,
+  CategoryNavW,
   Container,
   RecommendsW,
   TopBanner,
@@ -42,12 +48,12 @@ const categoriesK = {
 };
 
 const Category = ({ category }) => (
-  <CategoryW>
-    <CategoryW.Image category={category} />
-    <CategoryW.Label>
+  <CategoryNavW>
+    <CategoryNavW.Image category={category} />
+    <CategoryNavW.Label>
       {categoriesK[category]}
-    </CategoryW.Label>
-  </CategoryW>
+    </CategoryNavW.Label>
+  </CategoryNavW>
 );
 
 Category.propTypes = {
@@ -94,24 +100,40 @@ const Upcoming = () => (
   </UpcomingW>
 );
 
-const Recommends = () => (
-  <RecommendsW>
-    <Container>
-      <TwoCol>
-        <TwoCol.Left flex={2}>
-          <RecommendsW.Zabo>
-            <ZaboCard size="large" zaboId="5e5046e310ae8a4daf7bbcf8" />
-            <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
-          </RecommendsW.Zabo>
-        </TwoCol.Left>
-        <TwoCol.Divider />
-        <TwoCol.Right flex={1}>
-          <RecommendsW.Group />
-        </TwoCol.Right>
-      </TwoCol>
-    </Container>
-  </RecommendsW>
-);
+const Recommends = () => {
+  const { data: groups, error } = useSWR ('/group/recommends', getRecommendedGroups);
+  return (
+    <RecommendsW>
+      <Container>
+        <TwoCol>
+          <TwoCol.Left flex={2}>
+            <RecommendsW.Zabo>
+              <RecommendsW.Title>
+                인기 있는 자보
+                <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
+                  <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
+                </Tooltip>
+              </RecommendsW.Title>
+              <ZaboCard size="large" zaboId="5e5046e310ae8a4daf7bbcf8" />
+              <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
+            </RecommendsW.Zabo>
+          </TwoCol.Left>
+          <TwoCol.Divider />
+          <TwoCol.Right flex={1}>
+            <RecommendsW.Title>이 그룹은 어때요?</RecommendsW.Title>
+            <RecommendsW.Group>
+              <CategoryListW>
+                {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
+              </CategoryListW>
+              {groups ? groups.map (group => <GroupBox group={group} type="simple" />)
+                : 'Loading'}
+            </RecommendsW.Group>
+          </TwoCol.Right>
+        </TwoCol>
+      </Container>
+    </RecommendsW>
+  );
+};
 
 const MainZaboList = () => (
   <Container>

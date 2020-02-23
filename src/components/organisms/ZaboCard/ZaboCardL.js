@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import moment from 'moment';
 
+import { CategoryListW, CategoryW } from 'atoms/Category';
+
 import { ZaboType } from 'lib/propTypes';
 
 import {
-  CategoryListW, CategoryW, MetaInfo, OwnerW,
+  MetaInfo, OwnerW,
   PosterLW, Title,
   WritingsLW, ZaboCardLW,
 } from './ZaboCard.styled';

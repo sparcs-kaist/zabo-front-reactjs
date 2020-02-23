@@ -104,9 +104,9 @@ export const TopBanner = styled.div`
   }
 `;
 
-export const CategoryW = styled.div``;
+export const CategoryNavW = styled.div``;
 
-CategoryW.Image = styled.div`
+CategoryNavW.Image = styled.div`
   background-image: ${props => css`
     url(${categoryIcons[`${props.category}Icon`]});
   `};
@@ -120,7 +120,7 @@ CategoryW.Image = styled.div`
   `)};
 `;
 
-CategoryW.Label = styled.div`
+CategoryNavW.Label = styled.div`
   color: ${props => props.theme.gray90};
   font-size: 12px;
   line-height: 14px;
@@ -140,7 +140,7 @@ export const CategoryBannerW = styled.section`
   ${Container} {
     padding: 24px 16px;
   }
-  ${CategoryW} {
+  ${CategoryNavW} {
     margin-right: 20px;
     &:last-child {
       margin-right: 0;
@@ -148,14 +148,14 @@ export const CategoryBannerW = styled.section`
   }
   ${media.tablet (css`
     padding: 72px 0;
-    ${CategoryW} {
+    ${CategoryNavW} {
       margin-right: 65px;
     }
   `)};
 `;
 
-CategoryW.Image.propTypes = {
-  ...CategoryW.Image.propTypes,
+CategoryNavW.Image.propTypes = {
+  ...CategoryNavW.Image.propTypes,
   category: PropTypes.string.isRequired,
 };
 
@@ -255,18 +255,18 @@ UpcomingW.Carousel = styled.section`
 
 export const RecommendsW = styled.section`
   width: 100%;
+  margin-top: 83px;
+  ${media.tablet (css`
+    margin-top: 165px;
+  `)};
 `;
 
 RecommendsW.Zabo = styled.section`
   width: 100%;
-  height: 500px;
-  background: white;
 `;
 
 RecommendsW.Group = styled.section`
   width: 100%;
-  height: 500px;
-  background: black;
 `;
 
 RecommendsW.Title = styled.div`
@@ -274,10 +274,16 @@ RecommendsW.Title = styled.div`
   font-size: 20px;
   line-height: 23px;
   color: ${props => props.theme.gray90};
+  margin-bottom: 20px;
   ${media.tablet (css`
     font-size: 24px;
     line-height: 27px;
+    margin-bottom: 32px;
   `)};
+`;
+
+export const Help = styled.div`
+
 `;
 
 export default Wrapper;
