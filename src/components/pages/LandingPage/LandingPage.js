@@ -100,6 +100,7 @@ const Recommends = () => (
         <TwoCol.Left flex={2}>
           <RecommendsW.Zabo />
         </TwoCol.Left>
+        <TwoCol.Divider />
         <TwoCol.Right flex={1}>
           <RecommendsW.Group />
         </TwoCol.Right>
