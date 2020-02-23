@@ -8,7 +8,9 @@ import StatBox from 'molecules/StatBox';
 
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
-import ZaboCardStyle from './ZaboCard.styled';
+import ZaboCardW, {
+  DueDateW, OverlayW, PosterW, WritingsW,
+} from './ZaboCard.styled';
 
 const ZaboCard = ({ zaboId }) => {
   if (!zaboId) return null;
@@ -36,27 +38,27 @@ const ZaboCard = ({ zaboId }) => {
   }];
 
   return (
-    <ZaboCardStyle>
+    <ZaboCardW>
       <Link to={`/zabo/${_id}`}>
-        <ZaboCardStyle.Poster
+        <PosterW
           style={{
             paddingTop: `${(photos[0].height / photos[0].width) * 100}%`,
           }}
         >
-          <ZaboCardStyle.Poster.Image width="100%" src={photos[0].url} alt="zabo" />
-          <ZaboCardStyle.Poster.Dimmer className="dimmer" />
-          <ZaboCardStyle.Poster.Overlay className="hover-show">
-            <ZaboCardStyle.Poster.Overlay.StatLocator>
+          <PosterW.Image width="100%" src={photos[0].url} alt="zabo" />
+          <PosterW.Dimmer className="dimmer" />
+          <OverlayW className="hover-show">
+            <OverlayW.StatLocator>
               {stats.map (stat => (
                 <StatBox className="stat-box" key={stat.type} type="text" stat={stat} />
               ))}
-            </ZaboCardStyle.Poster.Overlay.StatLocator>
-          </ZaboCardStyle.Poster.Overlay>
-          {daysLeft > 0 && <ZaboCardStyle.DueDate>D{to2Digits (-daysLeft, true)}</ZaboCardStyle.DueDate>}
+            </OverlayW.StatLocator>
+          </OverlayW>
+          {daysLeft > 0 && <DueDateW>D{to2Digits (-daysLeft, true)}</DueDateW>}
 
-        </ZaboCardStyle.Poster>
+        </PosterW>
       </Link>
-      <ZaboCardStyle.Writings>
+      <WritingsW>
         <Link to={`/zabo/${_id}`}>
           <div className="title">
             <span>{title}</span>
@@ -68,8 +70,8 @@ const ZaboCard = ({ zaboId }) => {
         <div className="author">
           <span><Link to={owner ? `/${owner.name}` : '#'}>{owner ? owner.name : 'anonymous'}</Link></span>
         </div>
-      </ZaboCardStyle.Writings>
-    </ZaboCardStyle>
+      </WritingsW>
+    </ZaboCardW>
   );
 };
 

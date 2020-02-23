@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import StatBox from 'molecules/StatBox';
 
 /* ============ Zabo ============ */
-const ZaboCardStyle = styled.div`
+const ZaboCardW = styled.div`
   width: 240px; /* 530px 이상이면 240으로 고정하기. 최대 4줄 */
 
   @media (min-width: 0px) and (max-width: 530px) {
@@ -11,7 +11,7 @@ const ZaboCardStyle = styled.div`
   }
 `;
 
-ZaboCardStyle.Poster = styled.div`
+export const PosterW = styled.div`
   display: flex;
   position: relative;
   cursor: pointer;
@@ -29,26 +29,26 @@ ZaboCardStyle.Poster = styled.div`
   }
 `;
 
-ZaboCardStyle.Poster.Image = styled.img`
+PosterW.Image = styled.img`
   position: absolute;
   top: 0;
   left: 0;
 `;
 
-ZaboCardStyle.Poster.Dimmer = styled.div`
+PosterW.Dimmer = styled.div`
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%; 
   background-color: rgba(0, 0, 0, .03);
 `;
 
-ZaboCardStyle.Poster.Overlay = styled.div`
+export const OverlayW = styled.div`
   visibility: hidden;
   position: absolute;
   top: 0; left: 0; width: 100%; height: 100%; 
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
 `;
 
-ZaboCardStyle.Poster.Overlay.StatLocator = styled.div`
+OverlayW.StatLocator = styled.div`
   position: absolute;
   bottom: 16px;
   right: 16px;
@@ -58,7 +58,7 @@ ZaboCardStyle.Poster.Overlay.StatLocator = styled.div`
   }
 `;
 
-ZaboCardStyle.DueDate = styled.div`
+export const DueDateW = styled.div`
   position: absolute;
   right: 12px;
   top: 12px;
@@ -77,7 +77,7 @@ ZaboCardStyle.DueDate = styled.div`
   color: #FFFFFF;
 `;
 
-ZaboCardStyle.Writings = styled.div`
+export const WritingsW = styled.div`
   padding: 16px 0 13px;
   color: #143441;
 
@@ -119,4 +119,4 @@ ZaboCardStyle.Writings = styled.div`
   }
 `;
 
-export default ZaboCardStyle;
+export default ZaboCardW;
