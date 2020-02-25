@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import ScrollToTop from 'containers/ScrollToTop';
 import ErrorBoundary from 'components/ErrorBoundary';
 import AuthCallback from 'organisms/AuthCallback';
 import PWAPrompt from 'templates/PWAPrompt';
@@ -28,6 +29,7 @@ const App = () => (
     <ErrorBoundary>
       <PWAPrompt />
       <Route path="/" exact component={AuthCallback} />
+      <ScrollToTop updateWithPath />
       <Switch>
         <Route path="/search" component={SearchPage} />
         <PrivateRoute path="/zabo/upload" component={ZaboUploadPage} />
