@@ -51,6 +51,10 @@ code {
   box-sizing: border-box;
 }
 
+::selection {
+  background: rgba(184, 203, 236, 0.41);
+}
+
 a, a:hover, a:visited, a:focus {
   border: none;
   outline: none;
