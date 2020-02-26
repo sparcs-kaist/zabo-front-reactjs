@@ -4,7 +4,6 @@ import MasonryZaboList from 'react-masonry-infinite';
 import SquareLoader from 'react-spinners/SquareLoader';
 import styled from 'styled-components';
 
-import Feedback from 'organisms/Feedback';
 import ZaboCard from 'organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
@@ -91,7 +90,6 @@ class ZaboList extends React.Component {
             <ZaboCard key={zaboId} zaboId={zaboId} />
           ))}
         </MasonryZaboList>
-        {hasNext || <Feedback />}
       </ZaboListWrapper>
     );
   }
