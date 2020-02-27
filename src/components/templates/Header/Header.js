@@ -104,17 +104,20 @@ Header.AuthButton = ({ type, groupName, transparent }) => {
   return (
     <HeaderWrapper.Auth transparent={transparent}>
       {isAuthenticated ? (
-        <div>
-          <NavLink to={`/${username}`} size="md" className="user-icon">
-            <SVG icon="user" />
-            <p>{username}</p>
-          </NavLink>
-          {type === 'upload' && (
-            <Link to="/zabo/upload">
-              <button onClick={toUpload} type="button">업로드</button>
-            </Link>
-          )}
-        </div>
+        !username ? null
+          : (
+            <div>
+              <NavLink to={`/${username}`} size="md" className="user-icon">
+                <SVG icon="user" />
+                <p>{username}</p>
+              </NavLink>
+              {type === 'upload' && (
+                <Link to="/zabo/upload">
+                  <button onClick={toUpload} type="button">업로드</button>
+                </Link>
+              )}
+            </div>
+          )
       ) : (
         <div>
           <SVG icon="user" />

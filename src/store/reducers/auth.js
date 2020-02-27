@@ -38,6 +38,8 @@ const initialState = Map ({
     _id: '',
     sso_uid: '',
     sso_sid: '',
+    username: '',
+    profilePhoto: '',
     lastName: '',
     firstName: '',
     email: '',

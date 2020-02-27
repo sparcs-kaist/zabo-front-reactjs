@@ -83,6 +83,7 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
       return;
     }
     const data = { ...state };
+    if (!hasSchedule) delete data.schedules;
     data.category = data.category.filter (t => t.clicked).map (t => t.name).join ('#');
     dispatch (patchZabo ({ zaboId, data }))
       .then (() => {
@@ -110,8 +111,6 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
       setChanged (false);
     }
   }, [state]);
-
-  // console.log (state);
 
   return (
     <PageWrapper>

@@ -1,5 +1,4 @@
 import 'devtools-detect';
-import 'lib/channel_io';
 
 import store from 'store';
 import { checkAuth } from 'store/reducers/auth';
