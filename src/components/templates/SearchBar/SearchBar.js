@@ -83,7 +83,7 @@ const SearchBar = ({
         history.push (`/search?${stringified}`);
       }
     }
-  }, [setFocused]);
+  }, [query, setFocused]);
 
   const _handleFocusChange = useCallback (e => {
     e.stopPropagation ();
