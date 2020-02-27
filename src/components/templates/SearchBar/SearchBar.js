@@ -1,4 +1,6 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, {
+  useCallback, useEffect, useRef, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
@@ -36,45 +38,44 @@ const SearchBar = ({
   const history = useHistory ();
   const { search } = useLocation ();
   const { safeQuery, safeCategory } = parseQuery (search);
-  const [state, setState, onChangeHandler] = useSetState ({
-    query: safeQuery,
-    category: safeCategory,
+  const [query, setQuery] = useState (safeQuery);
+  const [category, setCategory] = useState (safeCategory);
+  const [result, setResult] = useState ({
     zabos: [],
     groups: [],
-    searchFocused: false,
-    error: null,
   });
+  const [focused, setFocused] = useState (false);
+  const [error, setError] = useState (null);
 
-  const {
-    query, category, zabos, groups, searchFocused,
-  } = state;
+  const { zabos, groups } = result;
 
   const _handleChange = useCallback (e => {
     const { value: newQuery } = e.target;
-    setState ({ query: newQuery });
+    setQuery (newQuery);
     const key = `${newQuery}#`.concat (category);
     if (searchResults[key]) {
-      setState (searchResults[key]);
+      setResult (searchResults[key]);
     }
     if (newQuery.trim ().length > 0) {
       searchAPIDebounced ({ query: newQuery, category: [] })
         .then (data => {
           if (!isMounted.current) return;
           searchResults[key] = data;
-          setState (data);
+          setResult (data);
         })
         .catch (error => {
-          setState ({ zabos: [], groups: [], error });
+          setResult ({ zabos: [], groups: [] });
+          setError (error);
         });
     }
-  }, [state, setState, category]);
+  }, [setQuery, setResult, setError, category]);
 
   const _handleKeyPress = useCallback (e => {
     // onKeyDown, onKeyUp : korean word call event twice...
     // searchBar input can only accept 'query text'
     // category search can be done only by clicking tag button
     if (e.key === 'Enter') {
-      setState ({ searchFocused: false });
+      setFocused (false);
       inputRef.current.blur ();
       isMounted.current = false;
       if (query.trim ().length > 0) {
@@ -82,28 +83,28 @@ const SearchBar = ({
         history.push (`/search?${stringified}`);
       }
     }
-  }, [state, setState, category]);
+  }, [setFocused]);
 
-  const _handleFocus = useCallback (e => {
+  const _handleFocusChange = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
-    setState ({ searchFocused: true });
-  }, [setState]);
+    setFocused (true);
+  }, [setFocused]);
 
   const _handleBlur = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
-    setState ({ searchFocused: false });
-  }, [setState]);
+    setFocused (false);
+  }, [setFocused]);
 
-  const onTagClick = (newCat) => {
-    setState ({ searchFocused: false });
+  const onTagClick = useCallback ((newCat) => {
+    setFocused (false);
     history.push (`/search?${queryString.stringify ({ category: newCat })}`);
-  };
+  }, [setFocused]);
 
   const onCancelClick = useCallback (e => {
-    setState ({ query: '' });
-  }, [setState]);
+    setQuery ('');
+  }, [setQuery]);
 
   const isResultsEmpty = !zabos.length && !groups.length;
 
@@ -150,10 +151,10 @@ const SearchBar = ({
 
   return (
     <SearchBarContainer>
-      {searchFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper type={type} searchFocused={searchFocused} transparent={transparent}>
-        <SearchBarWrapper.Header type={type} searchFocused={searchFocused}>
-          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={searchFocused} transparent={transparent}>
+      {focused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
+      <SearchBarWrapper type={type} searchFocused={focused} transparent={transparent}>
+        <SearchBarWrapper.Header type={type} searchFocused={focused}>
+          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={focused} transparent={transparent}>
             <input
               autoComplete="off"
               id="search-input"
@@ -161,7 +162,7 @@ const SearchBar = ({
               placeholder="자보, 그룹 검색"
               value={query}
               onChange={_handleChange}
-              onClick={_handleFocus}
+              onClick={_handleFocusChange}
               onKeyPress={_handleKeyPress}
               ref={inputRef}
               {...options}
@@ -169,16 +170,16 @@ const SearchBar = ({
           </SearchBarWrapper.Header.SearchBar>
           <img
             className="search-icon"
-            src={searchFocused ? icons.primary : icons[iconColor]}
-            onClick={_handleFocus}
+            src={focused ? icons.primary : icons[iconColor]}
+            onClick={_handleFocusChange}
             alt="search icon"
           />
           { query ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
-        {searchFocused ? <div className="divider"> </div> : ''}
+        {focused ? <div className="divider"> </div> : ''}
         <SearchBarWrapper.Body
           search={query}
-          searchFocused={searchFocused}
+          searchFocused={focused}
           isResultsEmpty={isResultsEmpty}
         >
           {
