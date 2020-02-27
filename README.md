@@ -20,11 +20,13 @@
 
 # About
 
-ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform not only in an analogue way. While this service is open public, **only KAIST members** are allowed to post images on this website and others must manually get permission from SPARCS KAIST's current project manager.
+ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform. While this service is open for public, **only approved groups** are able to post images. Please submit your request in order to create a new group via our website. 
 
-We're expecting anyone satisfying above conditions posting there recruiting announcements, performance schedules, and any other events in much better condition (posting paper posters at each dorms, cafeterias, E11, ...etc) with ease and joy.
+This Project is being maintained by [SPARCS KAIST](https://github.com/sparcs-kaist)
 
-Please contact SPARCS KAIST to get more detailed information.
+We're expecting our users post there recruiting announcements, performance schedules, and any other events advertisments. However, there's no strict restrictions on contents that users upload.
+
+Please contact us to get more detailed information.
 
 If you're looking for backend codes, you can find it in [here](https://github.com/sparcs-kaist/zabo-server-nodejs)
 
@@ -37,13 +39,14 @@ If you're looking for backend codes, you can find it in [here](https://github.co
         - [Using yarn](#yarn)
     - [Available Scripts](#available-scripts)
         - [Storybook](#storybook)
-        - [Generate Component](#generate-component)
+        - ~~[Generate Component](#generate-component)~~
         - [Post Build](#post-build)
         - [Pre-Commit](#pre-commit)
     - [Get Ready for Production](#get-ready-for-production)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
-- [Redirect API Requests](#redirect-api-requests)
+- [Proxy API Requests](#proxy-api-requests)
+- [Authentication](#authentication)
 - [Built With](#built-with)
 - [Folder Structure](#folder-structure)
 - [Deployment](#deployment)
@@ -107,6 +110,9 @@ yarn storybook
 ![gui](docs/storybook.png)
 
 #### Generate Component
+
+**Using React hook, this script is no longer used.**
+
 ```sh
 yarn generate [% component_architecture %] [% component_name %] "[% options %]"
 ```
@@ -122,7 +128,7 @@ yarn generate [% component_architecture %] [% component_name %] "[% options %]"
 yarn postbuild
 ```
 
-Copy build folder to deploy folder to remove down time caused by rimraf in build process (yarn build)
+Helper script, making Front-end deployment graceful.
 
 Automatically triggered after build command finishes.
 
@@ -160,11 +166,15 @@ server -s deploy // or serve static files located in /deploy with whatever you l
 // I recommend you to set up production server with nginx. Please refer to [Deployment](#deployment) section for more.
 ```
 
-## Redirect API Requests
+## Proxy API Requests
+
+Using http-proxy-middleware, all requests are proxied to localhost:6001 on which our API server is located.
+
+## Authentication
 
 All requests sent from client are intercepted by an axios instance located in [axios.js](src/lib/axios.js).
 
-You can change **baseURL** option to redirect all requests to specific domain or IP.
+Axios request interceptor attaches authentication token into request header.
 
 ## Built with
 
