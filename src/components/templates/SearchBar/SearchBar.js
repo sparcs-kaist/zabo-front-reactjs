@@ -57,7 +57,7 @@ const SearchBar = ({
       setState (searchResults[key]);
     }
     if (newQuery.trim ().length > 0) {
-      searchAPIDebounced ({ query: newQuery, category })
+      searchAPIDebounced ({ query: newQuery, category: [] })
         .then (data => {
           if (!isMounted.current) return;
           searchResults[key] = data;
@@ -67,7 +67,7 @@ const SearchBar = ({
           setState ({ zabos: [], groups: [], error });
         });
     }
-  }, [state, setState]);
+  }, [state, setState, category]);
 
   const _handleKeyPress = useCallback (e => {
     // onKeyDown, onKeyUp : korean word call event twice...
@@ -78,11 +78,11 @@ const SearchBar = ({
       inputRef.current.blur ();
       isMounted.current = false;
       if (query.trim ().length > 0) {
-        const stringified = queryString.stringify ({ query, category });
+        const stringified = queryString.stringify ({ query, category: [] });
         history.push (`/search?${stringified}`);
       }
     }
-  }, [state, setState]);
+  }, [state, setState, category]);
 
   const _handleFocus = useCallback (e => {
     e.stopPropagation ();

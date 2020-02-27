@@ -40,6 +40,7 @@ Page.Body = styled.div`
 export const EmptyResultW = styled.section`
   text-align: center;
   font-size: 16px;
+  margin-top: ${props => (props.isZaboEmpty ? '90px' : '225px')};
   img {
     width: 29.15px;
     height: 29.15px;
@@ -59,7 +60,8 @@ export const EmptyResultW = styled.section`
     line-height: 28px;
     margin: 0
   }
-  
+
+  @media (max-width: 640px) { margin-top: 97px }
   ${media.tablet (css`
     img {
       margin-bottom: 34px;
@@ -70,7 +72,7 @@ export const EmptyResultW = styled.section`
 // TODO: Refactor dups
 export const ZaboResultW = styled.section` 
   width: 100%;
-  margin-top: 62px;
+  margin-top: ${props => (props.isGroupEmpty ? '0' : '68px')};
   ${media.tablet (css`
     width: 1032px;
   `)};
