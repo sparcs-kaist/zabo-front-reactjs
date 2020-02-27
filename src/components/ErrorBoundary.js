@@ -1,4 +1,5 @@
 import React from 'react';
+import * as serviceWorker from 'serviceWorker';
 
 class ErrorBoundary extends React.Component {
   state = { hasError: false };
@@ -11,6 +12,7 @@ class ErrorBoundary extends React.Component {
   componentDidCatch (error, errorInfo) {
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo);
+    serviceWorker.unregister ();
   }
 
   render () {
