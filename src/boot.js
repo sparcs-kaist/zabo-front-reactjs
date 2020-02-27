@@ -1,5 +1,4 @@
 import 'devtools-detect';
-import 'lib/channel_io';
 
 import store from 'store';
 import { checkAuth } from 'store/reducers/auth';
@@ -62,7 +61,7 @@ export default () => {
 };
 
 window.addEventListener ('devtoolschange', () => {
-  // import ('static/images/recruitAscii').then (asciiArt => {
-  //   console.log (asciiArt.default);
-  // });
+  import ('static/images/recruitAscii').then (asciiArt => {
+    console.log (asciiArt.default);
+  });
 });
