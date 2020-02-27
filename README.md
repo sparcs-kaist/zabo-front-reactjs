@@ -30,6 +30,10 @@ Please contact us to get more detailed information.
 
 If you're looking for backend codes, you can find it in [here](https://github.com/sparcs-kaist/zabo-server-nodejs)
 
+# Previews
+
+![upload](docs/Zabo_Upload_Process.gif)
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
