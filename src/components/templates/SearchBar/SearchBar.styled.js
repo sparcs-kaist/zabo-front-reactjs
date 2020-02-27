@@ -28,7 +28,7 @@ export const SearchBarWrapper = styled.div`
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
 
-  background-color: ${props => (props.transparent && !props.searchFocused
+  background-color: ${props => (props.transparent && !props.focused
     ? 'transparent' : 'white')};
   /* background-color: white; */
   border-radius: 4px;
@@ -46,7 +46,7 @@ export const SearchBarWrapper = styled.div`
       margin-right: 12px; 
     `)}
   }
-  ${props => (props.searchFocused ? css`
+  ${props => (props.focused ? css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 
     @media (max-width: 910px) {
@@ -84,7 +84,7 @@ SearchBarWrapper.Header = styled.div`
   }
   @media (max-width: 910px) {
     img.search-icon {
-      ${props => (props.searchFocused || props.type === 'search' ? css`
+      ${props => (props.focused || props.type === 'search' ? css`
         top: 12px;
         left: 16px;
         right: auto;
@@ -112,10 +112,10 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     &::placeholder {
       color: #BCBCBC;
     }
-    ${props => (props.transparent && !props.searchFocused ? css`
+    ${props => (props.transparent && !props.focused ? css`
       background: rgba(255, 255, 255, 0.15);
       @media (max-width: 910px) { display: none }
-    ` : props.searchFocused ? css`
+    ` : props.focused ? css`
       border-radius: 0;
       background-color: white;
     ` : css`
@@ -131,7 +131,7 @@ SearchBarWrapper.Header.SearchBar = styled.div`
 
 SearchBarWrapper.Body = styled.div`
   position: relative;
-  ${props => (props.searchFocused ? css`` : css`
+  ${props => (props.focused ? css`` : css`
     display: none;
   `)}
   ${props => (

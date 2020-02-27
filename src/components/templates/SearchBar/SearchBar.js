@@ -152,9 +152,9 @@ const SearchBar = ({
   return (
     <SearchBarContainer>
       {focused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper type={type} searchFocused={focused} transparent={transparent}>
-        <SearchBarWrapper.Header type={type} searchFocused={focused}>
-          <SearchBarWrapper.Header.SearchBar type={type} searchFocused={focused} transparent={transparent}>
+      <SearchBarWrapper type={type} focused={focused} transparent={transparent}>
+        <SearchBarWrapper.Header type={type} focused={focused}>
+          <SearchBarWrapper.Header.SearchBar type={type} focused={focused} transparent={transparent}>
             <input
               autoComplete="off"
               id="search-input"
@@ -179,7 +179,7 @@ const SearchBar = ({
         {focused ? <div className="divider"> </div> : ''}
         <SearchBarWrapper.Body
           search={query}
-          searchFocused={focused}
+          focused={focused}
           isResultsEmpty={isResultsEmpty}
         >
           {
