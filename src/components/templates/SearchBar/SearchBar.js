@@ -44,7 +44,7 @@ const SearchBar = ({
     zabos: [],
     groups: [],
   });
-  const [focused, setFocused] = useState (false);
+  const [isFocused, setFocused] = useState (false);
   const [error, setError] = useState (null);
 
   const { zabos, groups } = result;
@@ -151,10 +151,10 @@ const SearchBar = ({
 
   return (
     <SearchBarContainer>
-      {focused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
-      <SearchBarWrapper type={type} focused={focused} transparent={transparent}>
-        <SearchBarWrapper.Header type={type} focused={focused}>
-          <SearchBarWrapper.Header.SearchBar type={type} focused={focused} transparent={transparent}>
+      {isFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
+      <SearchBarWrapper type={type} isFocused={isFocused} transparent={transparent}>
+        <SearchBarWrapper.Header type={type} isFocused={isFocused}>
+          <SearchBarWrapper.Header.SearchBar type={type} isFocused={isFocused} transparent={transparent}>
             <input
               autoComplete="off"
               id="search-input"
@@ -170,16 +170,16 @@ const SearchBar = ({
           </SearchBarWrapper.Header.SearchBar>
           <img
             className="search-icon"
-            src={focused ? icons.primary : icons[iconColor]}
+            src={isFocused ? icons.primary : icons[iconColor]}
             onClick={_handleFocusChange}
             alt="search icon"
           />
           { query ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
-        {focused ? <div className="divider"> </div> : ''}
+        {isFocused ? <div className="divider"> </div> : ''}
         <SearchBarWrapper.Body
           search={query}
-          focused={focused}
+          isFocused={isFocused}
           isResultsEmpty={isResultsEmpty}
         >
           {

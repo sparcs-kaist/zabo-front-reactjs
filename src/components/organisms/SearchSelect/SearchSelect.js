@@ -8,14 +8,14 @@ import searchIcon from '../../../static/images/search-icon-navy.png';
 
 const customStyles = {
   container: (provided, state) => {
-    const focused = state.isFocused ? {
+    const focusStyle = state.isFocused ? {
       boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',
       borderRadius: 4,
     } : {};
     return {
       ...provided,
       width: 388,
-      ...focused,
+      ...focusStyle,
     };
   },
   option: (provided, state) => ({
@@ -35,7 +35,7 @@ const customStyles = {
     },
   }),
   control: (provided, state) => {
-    const focused = state.isFocused ? {
+    const focusStyle = state.isFocused ? {
       background: '#FFFFFF',
       borderRadius: '4px 4px 0 0',
       boxShadow: 'none',
@@ -54,7 +54,7 @@ const customStyles = {
         marginLeft: 19,
       },
       '&:hover': {},
-      ...focused,
+      ...focusStyle,
     });
   },
   placeholder: (provided, state) => ({
