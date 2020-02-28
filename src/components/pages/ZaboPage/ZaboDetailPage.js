@@ -69,7 +69,7 @@ const OwnerInfo = ({
               <div className="specialChar">&middot;</div>
               {
                 following
-                  ? <p className="follow" onClick={follow}>팔로우 취소</p>
+                  ? <p className="unfollow" onClick={follow}>팔로우 취소</p>
                   : <p className="follow" onClick={follow}>팔로우</p>
               }
             </>
