@@ -166,7 +166,7 @@ const Recommends = () => {
                 {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
               </CategoryListW>
               <RecommendsW.Group.List>
-                {groups ? groups.map (group => <GroupBoxW group={group} type="simple" />)
+                {groups ? groups.map (group => <GroupBoxW group={group} type="simple" key={group.name} />)
                   : 'Loading'}
               </RecommendsW.Group.List>
             </RecommendsW.Group>

@@ -30,6 +30,7 @@ export const Groups = styled.section`
 `;
 
 Groups.List = styled.div`
+  display: flex;
   scroll-behavior: smooth;
   width: 100%;
   padding: 3px;
@@ -88,6 +89,7 @@ const GroupList = ({ type, groups }) => {
       </Groups.ScrollBtn>
       <Groups.List id="groupsList">
         {groups.map (group => <GroupBox group={group} key={group.name} />)}
+        <>&nbsp;</>
       </Groups.List>
     </Groups>
   );
