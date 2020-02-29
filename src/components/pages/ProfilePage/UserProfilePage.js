@@ -84,11 +84,12 @@ const UserProfile = ({ profile }) => {
                 </Button.Group>
               </section>
             ) : (
-              <sectino>
-                {following
-                  ? <button onClick={follow} type="button">팔로우 취소</button>
-                  : <button onClick={follow} type="button">팔로우</button>}
-              </sectino>
+              // <sectino>
+              //   {following
+              //     ? <button onClick={follow} type="button">팔로우 취소</button>
+              //     : <button onClick={follow} type="button">팔로우</button>}
+              // </sectino>
+              ''
             )}
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
