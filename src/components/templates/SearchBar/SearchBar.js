@@ -14,18 +14,11 @@ import { parseQuery } from 'lib/utils';
 
 import cancelIcon from 'static/images/cancel.png';
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
-import searchIcon from 'static/images/search-icon-navy.png';
-import searchIconWhite from 'static/images/search-icon-white.png';
 
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
-
-const icons = {
-  primary: searchIcon,
-  white: searchIconWhite,
-};
 
 const searchResults = {};
 
@@ -88,8 +81,8 @@ const SearchBar = ({
   const _handleFocusChange = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
-    setFocused (true);
-  }, [setFocused]);
+    setFocused (prev => !prev);
+  }, [isFocused, setFocused]);
 
   const _handleBlur = useCallback (e => {
     e.stopPropagation ();
@@ -168,12 +161,7 @@ const SearchBar = ({
               {...options}
             />
           </SearchBarWrapper.Header.SearchBar>
-          <img
-            className="search-icon"
-            src={isFocused ? icons.primary : icons[iconColor]}
-            onClick={_handleFocusChange}
-            alt="search icon"
-          />
+          <div className="search-icon" onClick={_handleFocusChange}> </div>
           { query ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
         {isFocused ? <div className="divider"> </div> : ''}

@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+import leftArrowNavy from 'static/images/leftArrow-navy.png';
+import searchIcon from 'static/images/search-icon-navy.png';
+import searchIconWhite from 'static/images/search-icon-white.png';
+
 export const SearchBarContainer = styled.div`
   max-width: 1032px;
   width: 100%;
@@ -71,23 +75,33 @@ SearchBarWrapper.Header = styled.div`
     position: absolute;
     display: block;
     align-self: center;
-    &.search-icon {
-      top: 12px;
-      left: 16px;
-      height: 16px;
-    }
     &.cancel-icon {
       top: 7px;
       right: 12px;
       height: 24px;
     }
   }
+  div.search-icon {
+    position: absolute;
+    display: block;
+    align-self: center;
+    top: 12px;
+    left: 16px;
+    height: 16px;
+    width: 16px;
+    background: url(${props => (props.isFocused ? searchIcon : searchIconWhite)}) no-repeat;
+    background-size: contain;
+  }
   @media (max-width: 910px) {
-    img.search-icon {
+    div.search-icon {
       ${props => (props.isFocused || props.type === 'search' ? css`
-        top: 12px;
+        background: url(${leftArrowNavy}) no-repeat;
+        background-size: contain;
+        top: 9.5px;
         left: 16px;
         right: auto;
+        width: 20px;
+        height: 20px;
       ` : css`
       top: 10px;
       right: 12px;
