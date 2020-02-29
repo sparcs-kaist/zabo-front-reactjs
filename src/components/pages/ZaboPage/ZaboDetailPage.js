@@ -4,6 +4,7 @@ import { Link, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
+import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import Button from 'atoms/Button';
@@ -103,7 +104,7 @@ const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, schedules, createdAt, description, category = [], photos = [{}],
-    isLiked, likesCount, isPinned, pinsCount, views = 0, isMyZabo, createdBy,
+    isLiked, likesCount, isPinned, pinsCount, views, effectiveViews, isMyZabo, createdBy,
   } = zabo;
   const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
@@ -155,7 +156,11 @@ const ZaboDetailPage = (props) => {
                 {timePast}
               </div>
               <div className="specialChar">&middot;</div>
-              <div className="details">조회수 {views.toLocaleString ()}</div>
+              <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+                <div className="details">
+                조회수 {views.toLocaleString ()}
+                </div>
+              </Tooltip>
             </section>
             <section className="statSection">
               {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
