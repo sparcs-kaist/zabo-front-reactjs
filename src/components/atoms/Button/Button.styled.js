@@ -22,7 +22,7 @@ const StyledButton = styled.button`
   color: ${props => colors[props.color] || props.color || colors.textMain};
   background-color: ${props => colors[props.background] || props.background || colors.gray3};
   border: solid ${props => colors[props.border] || props.border || colors.gray60};
-  border-width: ${props => (props.border === 'main' ? '1.5px' : '1px')};
+  border-width: ${props => (props.type === 'detail' ? '1.5px' : '1px')};
   outline: none;
   padding: 3px 12px;
   
@@ -64,6 +64,7 @@ StyledButton.propTypes = {
   color: PropTypes.oneOf (Object.keys (colors)),
   background: PropTypes.oneOf (Object.keys (colors)),
   border: PropTypes.oneOf (Object.keys (colors)),
+  type: PropTypes.string,
 };
 
 StyledButton.defaultProps = {
@@ -75,6 +76,7 @@ StyledButton.defaultProps = {
   color: 'textMain',
   background: 'gray3',
   border: 'gray50',
+  type: '',
 };
 
 export const ButtonGroup = styled.div`

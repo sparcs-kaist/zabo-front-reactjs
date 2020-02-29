@@ -77,7 +77,7 @@ const OwnerInfo = ({
       {isMyZabo
       && (
         <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
-          <Button to={`${url}/edit`} border="main">게시물 수정</Button>
+          <Button to={`${url}/edit`} border="main" type="detail">게시물 수정</Button>
           <Button
             background="point"
             border="none"
