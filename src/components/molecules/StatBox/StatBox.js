@@ -83,6 +83,7 @@ const Button = styled.button`
   border-radius: 4px;
   border: 1px solid #143441;
   padding: 0 16px;
+  background-color: white;
   @media (max-width: 640px) {
     width: 72px;
     height: 38px;

@@ -2,11 +2,11 @@ import styled, { css } from 'styled-components';
 
 export const PageWrapper = styled.div`
   padding-top: 48px;
-  padding-bottom: 74px;
+  padding-bottom: 89px;
   min-width: 1072px;
   @media (max-width: 640px) {
     min-width: 100%;
-    padding: 36px 16px;
+    padding: 36px 16px 75px;
   }
 
   display: flex;

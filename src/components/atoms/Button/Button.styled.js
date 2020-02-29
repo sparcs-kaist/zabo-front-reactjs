@@ -16,13 +16,15 @@ const StyledButton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 30px;
+  min-height: 30px;
   font-size: 12px;
   border-radius: 15px;
   color: ${props => colors[props.color] || props.color || colors.textMain};
   background-color: ${props => colors[props.background] || props.background || colors.gray3};
-  border: 1px solid ${props => colors[props.border] || props.border || colors.gray60};
+  border: solid ${props => colors[props.border] || props.border || colors.gray60};
+  border-width: ${props => (props.border === 'main' ? '1.5px' : '1px')};
   outline: none;
+  padding: 3px 12px;
   
   width: ${props => (
     props.width ? getSize ('width') (props)

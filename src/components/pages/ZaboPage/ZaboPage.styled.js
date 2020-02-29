@@ -63,7 +63,7 @@ ZaboPageWrapper.Info.Header = styled.section`
       display: inline-block;
       border-radius: 2px;
       padding: 4px 5px;
-      margin-right: 8px;
+      margin: 0 8px 12px 0;
       background: #EEEEEE;
       color: #5C5C5C;
       font-size: 14px;
@@ -76,7 +76,7 @@ ZaboPageWrapper.Info.Header = styled.section`
     font-size: 28px;
     font-weight: bold;
     color: #143441;
-    margin: 12px 20px 12px 0;
+    margin: 0 20px 12px 0;
     vertical-align: middle;
     @media (max-width: 640px) {
       font-size: 24px;
@@ -88,21 +88,30 @@ ZaboPageWrapper.Info.Header = styled.section`
     display: flex;
     width: 100%;
     .zabo-page-header-title {
-      max-width: calc(100% - 150px);
-      display: inline-block; 
+      flex: 1;
+      display: inline-block;
     }
-  }
-  .due-date {
-    margin-top: 15px;
-    display: inline-block;
-    width: 58px;
-    height: 26px;
-    padding: 4px 10px;
-    border-radius: 4px;
-    background: #143441;
-    color: white;
-    font-size: 16px;
-    vertical-align: middle;
+    .due-date {
+      margin-top: 4px;
+      display: inline-block;
+      height: 26px;
+      padding: 4px 10px;
+      border-radius: 4px;
+      background: #143441;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      vertical-align: middle;
+    }
+    @media (max-width: 640px) {
+      .due-date {
+        margin-top: 5px;
+        height: 20px;
+        font-size: 12px;
+        padding: 3px 4px;
+        border-radius: 2px;
+      }
+    }
   }
 
   .details{
