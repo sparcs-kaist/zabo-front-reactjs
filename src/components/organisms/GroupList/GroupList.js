@@ -34,6 +34,7 @@ Groups.List = styled.div`
   scroll-behavior: smooth;
   width: 100%;
   padding: 3px;
+  margin-top: 16px;
   overflow-x: scroll;
   /* overflow-y: visible; */
   white-space: nowrap;
@@ -45,6 +46,7 @@ Groups.List = styled.div`
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
+  @media (max-width: 640px) { margin-top: 12px }
 `;
 
 Groups.ScrollBtn = styled.div`
