@@ -8,8 +8,7 @@ import queryString from 'query-string';
 
 import TagList from 'atoms/TagList';
 
-import useSetState from 'hooks/useSetState';
-import { searchAPI } from 'lib/api/search';
+import { searchSimpleAPI } from 'lib/api/search';
 import { parseQuery } from 'lib/utils';
 
 import cancelIcon from 'static/images/cancel.png';
@@ -20,7 +19,7 @@ import searchIconWhite from 'static/images/search-icon-white.png';
 import { SearchBarContainer, SearchBarWrapper } from './SearchBar.styled';
 
 /* ==== search bar debounce ==== */
-const searchAPIDebounced = AwesomeDebouncePromise (searchAPI, 500);
+const searchAPIDebounced = AwesomeDebouncePromise (searchSimpleAPI, 500);
 
 const icons = {
   primary: searchIcon,
