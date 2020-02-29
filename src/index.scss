@@ -1,25 +1,4 @@
-@font-face {
-  font-family: 'NanumSquare';
-  font-weight: 300;
-  src: url(lib/fonts/NanumSquareLight.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'NanumSquare';
-  font-weight: 800;
-  src: url(lib/fonts/NanumSquareExtraBold.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'NanumSquare';
-  font-weight: 700;
-  src: url(lib/fonts/NanumSquareBold.ttf) format('truetype');
-}
-
-@font-face {
-  font-family: 'NanumSquare';
-  src: url(lib/fonts/NanumSquareRegular.ttf) format('truetype');
-}
+@import "lib/fonts/stylesheet.css";
 
 body {
   margin: 50px 0 0 0;
@@ -49,6 +28,10 @@ code {
 
 * {
   box-sizing: border-box;
+}
+
+::selection {
+  background: rgba(184, 203, 236, 0.41);
 }
 
 a, a:hover, a:visited, a:focus {

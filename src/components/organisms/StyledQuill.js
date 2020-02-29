@@ -9,6 +9,7 @@ const StyledQuill = styled (ReactQuill)`
     .ql-editor {
       font-size: 16px;
       font-family: NanumSquare, Arial, sans-serif;
+      transform: skewX(0.3deg);
       ol { padding-left: 0; }
       ul { padding-left: 0; }
       li {
