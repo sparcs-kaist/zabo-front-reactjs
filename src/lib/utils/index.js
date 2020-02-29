@@ -1,4 +1,5 @@
 import moment from 'moment';
+import queryString from 'query-string';
 
 import { RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
 
@@ -129,3 +130,13 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
 };
 
 export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+
+export const escapeRegExp = string => string.replace (/[.*+?^${}()|[\]\\]/g, '\\$&');
+export const parseQuery = (search) => {
+  const { query, category } = queryString.parse (search);
+  const safeQuery = (query ? escapeRegExp (query) : '').trim ();
+  const safeCategory = !category ? []
+    : !Array.isArray (category) ? [category]
+      : category;
+  return { safeQuery, safeCategory };
+};

@@ -6,6 +6,8 @@ import { ZABO_CATEGORIES } from 'lib/variables';
 
 export const TagListWrapper = styled.div`
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
 
   button {
     font-size: 16px;
@@ -42,7 +44,6 @@ export const TagListWrapper = styled.div`
       margin-right: 8px;
       &:last-child { margin-right: 0 }
     }
-    @media (max-width: 640px) { padding: 0 16px }
   ` : css`
   `)}
 `;
