@@ -122,7 +122,7 @@ const ZaboDetailPage = (props) => {
   }];
 
   return (
-    <>
+    <ZaboPageWrapper.Detail>
       <Helmet>
         <title>{title} - Zabo</title>
         <meta property="og:title" content={title} />
@@ -181,7 +181,7 @@ const ZaboDetailPage = (props) => {
         <h1>연관 있는 자보</h1>
         <ZaboList type="related" query={zaboId} key={zaboId} />
       </ZaboPageWrapper.Recommend>
-    </>
+    </ZaboPageWrapper.Detail>
   );
 };
 

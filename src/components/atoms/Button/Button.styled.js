@@ -24,7 +24,7 @@ const StyledButton = styled.button`
   border: solid ${props => colors[props.border] || props.border || colors.gray60};
   border-width: ${props => (props.type === 'detail' ? '1.5px' : '1px')};
   outline: none;
-  padding: 3px 12px;
+  padding: 3px 10px;
   
   width: ${props => (
     props.width ? getSize ('width') (props)

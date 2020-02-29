@@ -8,7 +8,7 @@ import isEqual from 'lodash.isequal';
 
 import Footer from 'templates/Footer';
 import ZaboUpload from 'templates/ZaboUpload';
-import { FooterStyle, PageWrapper, TitleStyle } from 'pages/ZaboUploadPage/ZaboUploadPage.styled';
+import { FooterStyle, PageWrapper } from 'pages/ZaboUploadPage/ZaboUploadPage.styled';
 
 import { defaultSchedule } from 'store/reducers/upload';
 import { patchZabo } from 'store/reducers/zabo';
@@ -16,24 +16,6 @@ import withZabo from 'hoc/withZabo';
 import useSetState from 'hooks/useSetState';
 import { ZaboType } from 'lib/propTypes';
 import { ZABO_CATEGORIES } from 'lib/variables';
-
-import rightGrayArrow from 'static/images/rightGrayArrow.png';
-
-const SlideTitle = () => {
-  const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];
-
-  const titleTemplate = titleList.map ((elem, idx) => (
-    <TitleStyle.elem key={elem}>
-      <p>{ idx + 1 }. { elem }</p>
-      { idx !== 2 ? <img src={rightGrayArrow} alt="right arrow" /> : '' }
-    </TitleStyle.elem>
-  ));
-  return (
-    <TitleStyle>
-      { titleTemplate }
-    </TitleStyle>
-  );
-};
 
 const FooterChild = ({ isValid, submit }) => (
   <FooterStyle>
@@ -119,7 +101,6 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
         message="저장되지 않은 변경 사항이 있습니다. 페이지를 떠나시겠습니까?"
       />
       <PageWrapper.Contents>
-        <SlideTitle />
         <ZaboUpload.InfoForm.Form
           state={state}
           setState={setState}
