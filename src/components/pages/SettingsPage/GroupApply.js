@@ -1,7 +1,4 @@
-import React, {
-  useCallback, useEffect, useState,
-} from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -9,52 +6,49 @@ import StyledQuill from 'organisms/StyledQuill';
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
 
-import { updateGroupInfo, updateGroupInfoWithImage } from 'store/reducers/auth';
+import { applyNewGroup } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';
-import { GroupType } from 'lib/propTypes';
 import { cropImage, dataURLToBlob } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import {
-  ErrorComponent,
-  FormGroup, Page, Submit,
+  ErrorComponent, FormGroup, Page, Submit,
 } from './Setting.styled';
-import withGroupProfile from './withGroupProfile';
 
-const ProfileForm = ({ initialValue, newProfilePhoto }) => {
+const ApplyForm = ({ profilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
-  const [state, setState, onChange] = useSetState (initialValue);
-  useEffect (() => setState (initialValue), [initialValue]);
+  const [state, setState, onChange] = useSetState ({
+    name: '',
+    description: '',
+    subtitle: '',
+    purpose: '',
+  });
+
   const [error, setError] = useState ();
-  const { name, description, subtitle } = state;
-
-  const handleSubmit = useCallback (e => {
-    e.preventDefault ();
-    let updateCall = () => dispatch (updateGroupInfo ({
-      curName: initialValue.name, name, description, subtitle,
-    }));
-    if (newProfilePhoto) {
-      const formData = new FormData ();
-      formData.append ('name', name);
-      formData.append ('description', description);
-      formData.append ('subtitle', subtitle);
-      formData.append ('img', newProfilePhoto);
-      updateCall = () => dispatch (updateGroupInfoWithImage ({ curName: initialValue.name, formData }));
-    }
-
-    updateCall ()
-      .then (() => {
-        history.replace (`/settings/group/${name}/profile`);
-        history.push (`/${name}`);
-      })
-      .catch (err => setError (err));
-  }, [state]);
-
+  const {
+    name, purpose, description, subtitle,
+  } = state;
   const onChangeDescription = e => {
     setState ({ description: e });
   };
+
+  const handleSubmit = useCallback (e => {
+    e.preventDefault ();
+    const formData = new FormData ();
+    formData.append ('name', name);
+    formData.append ('purpose', purpose);
+    formData.append ('description', description);
+    formData.append ('subtitle', subtitle);
+    formData.append ('category', JSON.stringify (['관리자', '관리자']));
+    formData.append ('img', profilePhoto);
+    dispatch (applyNewGroup (formData))
+      .then (() => {
+        history.push ('/');
+      })
+      .catch (err => setError (err));
+  }, [state]);
 
   return (
     <form onSubmit={handleSubmit}>
@@ -69,6 +63,17 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           value={name}
           onChange={onChange}
           placeholder="그룹명을 알려주세요."
+        />
+      </FormGroup>
+      <FormGroup>
+        <FormGroup.Label>
+          <label htmlFor="group-profile-purpose">그룹 생성 목적</label>
+        </FormGroup.Label>
+        <input
+          placeholder="그룹 생성 목적을 간략히 알려주세요."
+          name="purpose"
+          value={purpose}
+          onChange={onChange}
         />
       </FormGroup>
       <FormGroup>
@@ -103,34 +108,21 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       </FormGroup>
       {error && <ErrorComponent>{error.message}</ErrorComponent>}
       <Footer scrollFooter>
-        <Submit type="submit">수정하기</Submit>
+        <Submit type="submit">제출하기</Submit>
       </Footer>
     </form>
   );
 };
 
-ProfileForm.propTypes = {
-  initialValue: PropTypes.shape ({
-    name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-  }).isRequired,
-  // eslint-disable-next-line react/forbid-prop-types
-  newProfilePhoto: PropTypes.object,
-};
-
-const GroupProfileSetting = ({ profile }) => {
-  const {
-    name = '', profilePhoto, description = '', subtitle = '',
-  } = profile;
-
-  const [profilePreview, setProfilePreview] = useState (profilePhoto);
-  const [newProfilePhoto, setNewProfilePhoto] = useState (null);
+const GroupApply = () => {
+  const [profilePreview, setProfilePreview] = useState ('');
+  const [profilePhoto, setProfilePhoto] = useState (null);
 
   const handlePhotoChange = async e => {
     const file = e.target.files[0];
     const imageSrc = await cropImage (file, 1);
     const blob = dataURLToBlob (imageSrc);
-    setNewProfilePhoto (blob);
+    setProfilePhoto (blob);
     setProfilePreview (imageSrc);
   };
 
@@ -138,8 +130,8 @@ const GroupProfileSetting = ({ profile }) => {
     <Page>
       <Header scrollHeader />
       <Page.Body>
-        <h1>그룹 프로필 편집</h1>
-        <p>그룹 프로필을 수정할 수 있습니다.</p>
+        <h1>그룹 신청</h1>
+        <p>자보에 새 그룹을 등록해보세요.</p>
         <Page.Body.ProfileInfo>
           {
             profilePreview
@@ -160,14 +152,10 @@ const GroupProfileSetting = ({ profile }) => {
             <div className="button">사진 바꾸기</div>
           </label>
         </Page.Body.ProfileInfo>
-        <ProfileForm initialValue={{ name, description, subtitle }} newProfilePhoto={newProfilePhoto} />
+        <ApplyForm profilePhoto={profilePhoto} />
       </Page.Body>
     </Page>
   );
 };
 
-GroupProfileSetting.propTypes = {
-  profile: GroupType.isRequired,
-};
-
-export default withGroupProfile (GroupProfileSetting, true);
+export default GroupApply;

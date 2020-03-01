@@ -16,6 +16,7 @@ const LOGOUT = 'auth/LOGOUT';
 const UPDATE_USER_INFO = 'auth/UPDATE_USER_INFO';
 const UPDATE_GROUP_INFO = 'group/UPDATE_GROUP_INFO';
 const SET_CURRENT_GROUP = 'user/SET_CURRENT_GROUP';
+const APPLY_NEW_GROUP = 'group/APPLY_NEW_GROUP';
 
 // Action creator
 export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPIs.loginCallback);
@@ -26,6 +27,7 @@ export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, UserAPIs.
 export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfo, meta => meta);
 export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfoWithImage, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, UserAPIs.setCurrentGroup);
+export const applyNewGroup = createAction (APPLY_NEW_GROUP, GroupAPIs.applyNewGroup);
 
 /*
  * group : { _id: String, name: String, members: [member] }
@@ -52,6 +54,7 @@ const initialState = Map ({
     flags: List ([]),
     boards: List ([]),
     groups: List ([]),
+    pendingGroups: List ([]),
   }),
 });
 
@@ -106,6 +109,10 @@ export default handleActions (
         const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === name);
         return state.updateIn (['info', 'groups', groupIndex], prev => prev.merge (fromJS (action.payload)));
       },
+    }),
+    ...pender ({
+      type: APPLY_NEW_GROUP,
+      onSuccess: (state, action) => state.updateIn (['info', 'pendingGroups'], prev => prev.push (fromJS (action.payload))),
     }),
   },
   initialState,
