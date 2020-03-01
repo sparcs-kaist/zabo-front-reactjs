@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import StyledQuill from 'organisms/StyledQuill';
 import Footer from 'templates/Footer';
@@ -19,6 +19,7 @@ import {
 const ApplyForm = ({ profilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
+  const myName = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const [state, setState, onChange] = useSetState ({
     name: '',
     description: '',
@@ -45,10 +46,10 @@ const ApplyForm = ({ profilePhoto }) => {
     formData.append ('img', profilePhoto);
     dispatch (applyNewGroup (formData))
       .then (() => {
-        history.push ('/');
+        history.push (`/${myName}`);
       })
       .catch (err => setError (err));
-  }, [state]);
+  }, [state, profilePhoto]);
 
   return (
     <form onSubmit={handleSubmit}>
