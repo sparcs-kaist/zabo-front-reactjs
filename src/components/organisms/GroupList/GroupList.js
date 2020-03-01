@@ -74,7 +74,7 @@ const text = {
   search: '그룹 검색 결과',
 };
 
-const GroupList = ({ type, groups }) => {
+const GroupList = ({ type, groups, hasApplyBox }) => {
   const leftScrollClick = useCallback (() => {
     document.getElementById ('groupsList').scrollLeft -= 622;
   }, []);
@@ -91,6 +91,7 @@ const GroupList = ({ type, groups }) => {
       </Groups.ScrollBtn>
       <Groups.List id="groupsList">
         {groups.map (group => <GroupBox group={group} key={group.name} />)}
+        <GroupBox type="apply" group={{}} />
         <>&nbsp;</>
       </Groups.List>
     </Groups>
@@ -100,6 +101,11 @@ const GroupList = ({ type, groups }) => {
 GroupList.propTypes = {
   type: PropTypes.string.isRequired,
   groups: PropTypes.arrayOf (GroupType).isRequired,
+  hasApplyBox: PropTypes.bool,
+};
+
+GroupList.defaultProps = {
+  hasApplyBox: false,
 };
 
 export default GroupList;

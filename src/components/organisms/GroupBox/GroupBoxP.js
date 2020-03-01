@@ -12,7 +12,7 @@ import {
 
 const GroupBox = ({ group, ...props }) => {
   const {
-    name, profilePhoto, zabosCount, followersCount, recentUpload,
+    name, profilePhoto, zabosCount, followersCount, recentUpload, isPending,
   } = group;
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
@@ -27,14 +27,20 @@ const GroupBox = ({ group, ...props }) => {
   }];
 
   return (
-    <GroupW to={name} {...props}>
+    <GroupW
+      to={name}
+      isPending={isPending}
+      disabled={isPending}
+      onClick={e => { if (isPending) e.preventDefault (); }}
+      {...props}
+    >
       {
         profilePhoto
           ? <img src={profilePhoto} alt="group profile photo" />
           : <img src={groupDefaultProfile} alt="default group profile photo" />
       }
       <WritingsW>
-        <Tooltip title={name}>
+        <Tooltip title={isPending ? '요청 진행 중' : name}>
           <NameW>{name}</NameW>
         </Tooltip>
         <ProfileStatsW stats={stats} smallV />

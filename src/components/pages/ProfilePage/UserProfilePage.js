@@ -1,6 +1,6 @@
 import React, {
-  useCallback,
-  useEffect, useRef, useState,
+  useCallback, useEffect, useMemo,
+  useRef, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,12 +30,11 @@ const UserProfile = ({ profile }) => {
   } = profile;
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
+  const pendingGroupsImmutable = useSelector (state => state.getIn (['auth', 'info', 'pendingGroups']));
+  const pendingGroups = useMemo (() => pendingGroupsImmutable.toJS (), [pendingGroupsImmutable]);
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
-  const follow = useCallback (() => {
-    dispatch (followProfile ({ name: username }));
-  }, [username]);
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
@@ -51,6 +50,8 @@ const UserProfile = ({ profile }) => {
     name: '팔로잉',
     value: followingsCount,
   }];
+
+  const groupsWithPending = useMemo (() => [...groups, ...pendingGroups.map (group => ({ ...group, isPending: true }))], [groups, pendingGroups]);
 
   return (
     <Page>
@@ -101,7 +102,7 @@ const UserProfile = ({ profile }) => {
         <Page.Body.User>
         </Page.Body.User>
       </Page.Body>
-      <GroupList type="profile" groups={groups} />
+      <GroupList type="profile" groups={groupsWithPending} hasApplyBox />
       <Zabos>
         <h1>저장한 자보</h1>
         <p>전체 자보</p>

@@ -35,6 +35,12 @@ export const GroupW = styled (Link)`
       margin-right: 14px;
     }
   `)};
+  ${props => (props.isPending ? css`
+    background: ${props => props.theme.gray10};
+    &:hover {
+      cursor: not-allowed;
+    }
+  ` : '')};
 `;
 
 export const GroupSW = styled (GroupW)`
