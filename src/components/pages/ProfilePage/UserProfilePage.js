@@ -81,7 +81,7 @@ const UserProfile = ({ profile }) => {
                 <Button.Group>
                   <Button onClick={logout}>로그아웃</Button>
                   <Button to="/settings/profile" border="main">프로필 편집</Button>
-                  {isAdmin && (<Button to="/admin">어드민</Button>)}
+                  {isAdmin && (<Button to="/admin">관리자</Button>)}
                 </Button.Group>
               </section>
             ) : (
