@@ -61,7 +61,6 @@ const GroupItem = ({ group, isPending }) => {
   } = group;
   const owner = members[0].user;
   const { username, profilePhoto: userProfilePhoto, ...others } = owner;
-  console.log (others);
 
   const dispatch = useDispatch ();
   const accept = useCallback (() => {

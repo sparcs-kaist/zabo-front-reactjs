@@ -8,10 +8,11 @@ import { makeStyles } from '@material-ui/core/styles';
 // core components
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
+import UserIcon from '@material-ui/icons/Person';
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar';
 
-import { getGroupApplyList, getGroupList } from 'store/reducers/admin';
+import { getGroupApplyList, getGroupList, getUserList } from 'store/reducers/admin';
 
 // import routes from 'routes';
 import logo from 'static/logo/logo.svg';
@@ -26,6 +27,8 @@ import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './Dashboard';
 import GroupAdminPage from './GroupAdminPage';
 import GroupDetailPage from './GroupDetailPage';
+import UserAdminPage from './UserAdminPage';
+import UserDetailPage from './UserDetailPage';
 
 const routes = [
   {
@@ -42,6 +45,13 @@ const routes = [
     component: GroupAdminPage,
     layout: '/admin',
   },
+  {
+    path: '/user',
+    name: 'User',
+    icon: UserIcon,
+    component: UserAdminPage,
+    layout: '/admin',
+  },
 ];
 
 let ps;
@@ -49,6 +59,7 @@ let ps;
 const switchRoutes = (
   <Switch>
     <Route path="/admin/group/:name" component={GroupDetailPage} />
+    <Route path="/admin/user/:username" component={UserDetailPage} />
     {routes.map ((prop, key) => (
       <Route
         path={prop.layout + prop.path}
@@ -117,6 +128,7 @@ export default function Admin ({ ...rest }) {
   useEffect (() => {
     dispatch (getGroupApplyList ());
     dispatch (getGroupList ());
+    dispatch (getUserList ());
   }, []);
 
   return (
