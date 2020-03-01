@@ -23,16 +23,21 @@ import StyledQuill from 'organisms/StyledQuill';
 
 import { acceptApplyGroup } from 'store/reducers/admin';
 
+import defaultProfile from 'static/images/defaultProfile.png';
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+
 import GridContainer from './components/Grid/GridContainer';
 import GridItem from './components/Grid/GridItem';
 
 const useStyles = makeStyles (theme => ({
   root: {
     maxWidth: 600,
+    margin: theme.spacing (2),
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    // paddingTop: '56.25%', // 16:9
+    paddingTop: '100%', // 16:9
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -59,7 +64,7 @@ const GroupItem = ({ group, isPending }) => {
   const {
     name, profilePhoto, createdAt, subtitle, description, members, category,
   } = group;
-  const owner = members[0].user;
+  const owner = (members[0] || {}).user || {};
   const { username, profilePhoto: userProfilePhoto, ...others } = owner;
 
   const dispatch = useDispatch ();
@@ -68,11 +73,11 @@ const GroupItem = ({ group, isPending }) => {
   }, [name]);
 
   return (
-    <GridItem xs={12} sm={6} md={6}>
+    <GridItem xs={12} sm={6} md={4}>
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar} src={userProfilePhoto} />
+            <Avatar aria-label="recipe" className={classes.avatar} src={userProfilePhoto || defaultProfile} />
           }
           action={(
             <IconButton aria-label="settings">
@@ -85,7 +90,7 @@ const GroupItem = ({ group, isPending }) => {
         <Link to={`/admin/group/${name}`}>
           <CardMedia
             className={classes.media}
-            image={profilePhoto}
+            image={profilePhoto || groupDefaultProfile}
             title={name}
           />
         </Link>

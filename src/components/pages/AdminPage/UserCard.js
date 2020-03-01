@@ -23,10 +23,11 @@ import GridItem from './components/Grid/GridItem';
 const useStyles = makeStyles (theme => ({
   root: {
     maxWidth: 600,
+    margin: theme.spacing (2),
   },
   media: {
-    paddingTop: '80%',
-    minHeight: 300,
+    paddingTop: '100%',
+    // minHeight: 300,
   },
   expand: {
     transform: 'rotate(0deg)',
@@ -117,7 +118,7 @@ const UserCard = ({ user }) => {
   }];
 
   return (
-    <GridItem xs={12} sm={6} md={6}>
+    <GridItem xs={12} sm={6} md={4}>
       <Card className={classes.root}>
         <CardActionArea>
           <Link to={`/admin/user/${username}`}>
@@ -132,14 +133,6 @@ const UserCard = ({ user }) => {
               {username} - {koreanName || name || ''}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              {description}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        {description
-        && (
-          <CardContent>
-            <Typography paragraph>
               <StyledQuill
                 theme="bubble"
                 readOnly
@@ -147,7 +140,7 @@ const UserCard = ({ user }) => {
               />
             </Typography>
           </CardContent>
-        )}
+        </CardActionArea>
         <CardActions disableSpacing>
           <Button size="small" color="primary">
             {kaistPersonType || 'Not KAIST'}
