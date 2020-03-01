@@ -39,7 +39,7 @@ const App = () => (
       <PWAPrompt />
       <Route path="/" exact component={AuthCallback} />
       <ScrollToTop updateWithPath />
-      <ChannelTalk />
+      <Route path="/:top?" component={ChannelTalk} />
       <Switch>
         <Route path="/search" component={SearchPage} />
         <PrivateRoute path="/zabo/upload" component={ZaboUploadPage} />

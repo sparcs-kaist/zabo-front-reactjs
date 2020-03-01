@@ -8,7 +8,7 @@ const ProfileStats = ({ stats, smallV, ...props }) => (
     {
       stats.map (({ name, value }) => (
         <Stats.elem key={name} small={smallV}>
-          <h3>{value}</h3>
+          <h3>{value || 0}</h3>
           <div>{name}</div>
         </Stats.elem>
       ))

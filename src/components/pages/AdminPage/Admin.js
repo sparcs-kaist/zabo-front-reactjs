@@ -1,14 +1,18 @@
 import 'perfect-scrollbar/css/perfect-scrollbar.css';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 // @material-ui/core components
 import { makeStyles } from '@material-ui/core/styles';
 // core components
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import GroupIcon from '@material-ui/icons/Group';
+import UserIcon from '@material-ui/icons/Person';
 // creates a beautiful scrollbar
 import PerfectScrollbar from 'perfect-scrollbar';
+
+import { getGroupApplyList, getGroupList, getUserList } from 'store/reducers/admin';
 
 // import routes from 'routes';
 import logo from 'static/logo/logo.svg';
@@ -22,6 +26,9 @@ import Navbar from './components/Navbars/Navbar';
 import Sidebar from './components/Sidebar/Sidebar';
 import Dashboard from './Dashboard';
 import GroupAdminPage from './GroupAdminPage';
+import GroupDetailPage from './GroupDetailPage';
+import UserAdminPage from './UserAdminPage';
+import UserDetailPage from './UserDetailPage';
 
 const routes = [
   {
@@ -38,24 +45,28 @@ const routes = [
     component: GroupAdminPage,
     layout: '/admin',
   },
+  {
+    path: '/user',
+    name: 'User',
+    icon: UserIcon,
+    component: UserAdminPage,
+    layout: '/admin',
+  },
 ];
 
 let ps;
 
 const switchRoutes = (
   <Switch>
-    {routes.map ((prop, key) => {
-      if (prop.layout === '/admin') {
-        return (
-          <Route
-            path={prop.layout + prop.path}
-            component={prop.component}
-            key={key}
-          />
-        );
-      }
-      return null;
-    })}
+    <Route path="/admin/group/:name" component={GroupDetailPage} />
+    <Route path="/admin/user/:username" component={UserDetailPage} />
+    {routes.map ((prop, key) => (
+      <Route
+        path={prop.layout + prop.path}
+        component={prop.component}
+        key={key}
+      />
+    ))}
     <Redirect from="/admin" to="/admin/dashboard" />
   </Switch>
 );
@@ -112,6 +123,14 @@ export default function Admin ({ ...rest }) {
       window.removeEventListener ('resize', resizeFunction);
     };
   }, [mainPanel]);
+
+  const dispatch = useDispatch ();
+  useEffect (() => {
+    dispatch (getGroupApplyList ());
+    dispatch (getGroupList ());
+    dispatch (getUserList ());
+  }, []);
+
   return (
     <AdminWrapper className={classes.wrapper}>
       <Sidebar
