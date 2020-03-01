@@ -136,7 +136,7 @@ const UserCard = ({ user }) => {
               <StyledQuill
                 theme="bubble"
                 readOnly
-                value={description}
+                value={description || ''}
               />
             </Typography>
           </CardContent>
