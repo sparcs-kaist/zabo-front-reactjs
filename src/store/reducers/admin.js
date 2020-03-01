@@ -27,6 +27,8 @@ const initialState = Map ({
   pendingGroups: List ([]),
   groups: List ([]),
   users: List ([]),
+  groupsMap: Map ({}),
+  usersMap: Map ({}),
 });
 
 // reducer
@@ -34,23 +36,43 @@ export default handleActions (
   {
     ...pender ({
       type: GET_USER_LIST,
-      onSuccess: (state, action) => state.set ('users', fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const users = action.payload;
+        const usersMap = users.reduce ((acc, cur) => ({ ...acc, [cur.username]: cur }), {});
+        return state
+          .set ('users', fromJS (action.payload))
+          .set ('usersMap', fromJS (usersMap));
+      },
     }),
     ...pender ({
       type: GET_GROUP_LIST,
-      onSuccess: (state, action) => state.set ('groups', fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const groups = action.payload;
+        const groupsMap = groups.reduce ((acc, cur) => ({ ...acc, [cur.name]: cur }), {});
+        return state
+          .set ('groups', fromJS (action.payload))
+          .update ('groupsMap', prev => prev.merge (fromJS (groupsMap)));
+      },
     }),
     ...pender ({
       type: GET_GROUP_APPLY_LIST,
-      onSuccess: (state, action) => state.set ('pendingGroups', fromJS (action.payload)),
+      onSuccess: (state, action) => {
+        const groups = action.payload;
+        const groupsMap = groups.reduce ((acc, cur) => ({ ...acc, [cur.name]: cur }), {});
+        return state
+          .set ('pendingGroups', fromJS (action.payload))
+          .update ('groupsMap', prev => prev.merge (fromJS (groupsMap)));
+      },
     }),
     ...pender ({
       type: ACCEPT_APPLY_GROUP,
       onSuccess: (state, action) => {
         const { name } = action.meta;
+        const group = fromJS (action.payload);
         return state
           .update ('pendingGroups', prev => prev.filter (group => group.get ('name') !== name))
-          .update ('groups', prev => prev.unshift (fromJS (action.payload)));
+          .update ('groups', prev => prev.unshift (group))
+          .update ('groupsMap', prev => prev.merge ({ [group.name]: group }));
       },
     }),
   },

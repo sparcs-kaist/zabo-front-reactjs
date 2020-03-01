@@ -1,6 +1,7 @@
 import React, {
-  useCallback, useEffect, useMemo, useState,
+  useCallback, useMemo, useState,
 } from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core';
 import Avatar from '@material-ui/core/Avatar';
@@ -20,7 +21,7 @@ import moment from 'moment';
 
 import StyledQuill from 'organisms/StyledQuill';
 
-import { acceptApplyGroup, getGroupApplyList, getGroupList } from 'store/reducers/admin';
+import { acceptApplyGroup } from 'store/reducers/admin';
 
 import GridContainer from './components/Grid/GridContainer';
 import GridItem from './components/Grid/GridItem';
@@ -55,34 +56,43 @@ const GroupItem = ({ group, isPending }) => {
     setExpanded (!expanded);
   };
 
+  const {
+    name, profilePhoto, createdAt, subtitle, description, members, category,
+  } = group;
+  const owner = members[0].user;
+  const { username, profilePhoto: userProfilePhoto, ...others } = owner;
+  console.log (others);
+
   const dispatch = useDispatch ();
   const accept = useCallback (() => {
-    dispatch (acceptApplyGroup ({ name: group.name }));
-  }, [group.name]);
+    dispatch (acceptApplyGroup ({ name }));
+  }, [name]);
 
   return (
     <GridItem xs={12} sm={6} md={6}>
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar} src={group.profilePhoto} />
+            <Avatar aria-label="recipe" className={classes.avatar} src={userProfilePhoto} />
           }
           action={(
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>
           )}
-          title={group.name}
-          subheader={moment (group.createdAt).format ('YYYY-MM-DD HH:mm:ss')}
+          title={username}
+          subheader={moment (createdAt).format ('YYYY-MM-DD HH:mm:ss')}
         />
-        <CardMedia
-          className={classes.media}
-          image={group.profilePhoto}
-          title={group.name}
-        />
+        <Link to={`/admin/group/${name}`}>
+          <CardMedia
+            className={classes.media}
+            image={profilePhoto}
+            title={name}
+          />
+        </Link>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
-            {group.subtitle}
+            {subtitle}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -105,10 +115,13 @@ const GroupItem = ({ group, isPending }) => {
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
             <Typography paragraph>
+              {JSON.stringify (category)}
+            </Typography>
+            <Typography paragraph>
               <StyledQuill
                 theme="bubble"
                 readOnly
-                value={group.description}
+                value={description}
               />
             </Typography>
           </CardContent>
@@ -119,11 +132,6 @@ const GroupItem = ({ group, isPending }) => {
 };
 
 const GroupAdminPage = () => {
-  const dispatch = useDispatch ();
-  useEffect (() => {
-    dispatch (getGroupApplyList ());
-    dispatch (getGroupList ());
-  }, []);
   const pendingGroupsImmutable = useSelector (state => state.getIn (['admin', 'pendingGroups']));
   const pendingGroups = useMemo (() => pendingGroupsImmutable.toJS (), [pendingGroupsImmutable]);
   const groupsImmutable = useSelector (state => state.getIn (['admin', 'groups']));
