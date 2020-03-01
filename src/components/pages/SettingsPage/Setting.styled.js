@@ -107,6 +107,13 @@ FormGroup.Label = styled.div`
   margin: 0;
 `;
 
+export const FooterStyle = styled.div`
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
 export const Submit = styled.button`
   width: 140px;
   height: 44px;

@@ -18,7 +18,7 @@ import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import {
   ErrorComponent,
-  FormGroup, Page, Submit,
+  FooterStyle, FormGroup, Page, Submit,
 } from './Setting.styled';
 import withGroupProfile from './withGroupProfile';
 
@@ -103,7 +103,9 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       </FormGroup>
       {error && <ErrorComponent>{error.message}</ErrorComponent>}
       <Footer scrollFooter>
-        <Submit type="submit">수정하기</Submit>
+        <FooterStyle>
+          <Submit type="submit">수정하기</Submit>
+        </FooterStyle>
       </Footer>
     </form>
   );

@@ -21,7 +21,7 @@ import defaultProfile from 'static/images/defaultProfile.png';
 
 import {
   ErrorComponent,
-  FormGroup, Page, Submit, Success,
+  FooterStyle, FormGroup, Page, Submit, Success,
 } from './Setting.styled';
 
 
@@ -117,7 +117,9 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       {error && <ErrorComponent>{error.message}</ErrorComponent>}
       {success && <Success>성공</Success>}
       <Footer scrollFooter>
-        <Submit type="submit">수정 완료</Submit>
+        <FooterStyle>
+          <Submit type="submit">수정 완료</Submit>
+        </FooterStyle>
       </Footer>
     </form>
   );
