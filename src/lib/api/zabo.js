@@ -15,6 +15,7 @@ export const patchZabo = ({ zaboId, data }) => axios.patch (`/zabo/${zaboId}`, d
 export const deleteZabo = ({ zaboId }) => axios.delete (`/zabo/${zaboId}`);
 
 export const getZabo = id => axios.get (`/zabo/${id}`);
+export const getHotZaboList = () => axios.get ('/zabo/list/hot');
 export const getZaboList = ({ lastSeen, relatedTo }) => axios
   .get ('/zabo/list', { params: { lastSeen, relatedTo } })
   .then (data => data.filter (item => item.photos[0] !== undefined));

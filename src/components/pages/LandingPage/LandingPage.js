@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import useSWR from 'swr';
 
@@ -12,6 +12,7 @@ import ZaboCard from 'organisms/ZaboCard';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
+import { getHotZaboList as getHotZaboListAction } from 'store/reducers/zabo';
 import { getRecommendedGroups } from 'lib/api/group';
 import { isAuthedSelector } from 'lib/utils';
 
@@ -133,11 +134,15 @@ const Upcoming = () => (
   </UpcomingW>
 );
 
+const swrOpts = {
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
+};
 const Recommends = () => {
-  const { data: groups, error } = useSWR ('/group/recommends', getRecommendedGroups, {
-    revalidateOnFocus: false,
-    revalidateOnReconnect: false,
-  });
+  const dispatch = useDispatch ();
+  const getHotZaboList = () => dispatch (getHotZaboListAction ());
+  const { data: zabos, zaboError } = useSWR ('/zabo/list/hot', getHotZaboList, swrOpts);
+  const { data: groups, groupError } = useSWR ('/group/recommends', getRecommendedGroups, swrOpts);
   return (
     <RecommendsW>
       <Container>
@@ -150,8 +155,7 @@ const Recommends = () => {
                   <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
                 </Tooltip>
               </RecommendsW.Title>
-              <ZaboCard size="large" zaboId="5e5046e310ae8a4daf7bbcf8" />
-              <ZaboCard size="large" zaboId="5e500bd435cc8f3f22bd3273" />
+              {zabos ? zabos.map (({ _id }) => <ZaboCard size="large" zaboId={_id} key={_id} />) : 'Loading'}
             </RecommendsW.Zabo>
           </TwoCol.Left>
           <TwoCol.Divider
