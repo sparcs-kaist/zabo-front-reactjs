@@ -20,7 +20,7 @@ const PosterL = ({ zabo }) => {
     <PosterLW
       ref={ref => { if (ref) setHeight (ref.clientHeight); }}
       style={{
-        paddingLeft: (photos[0].width / photos[0].height) * height,
+        // paddingLeft: (photos[0].width / photos[0].height) * height,
       }}
     >
       <PosterLW.Image src={photos[0].url} alt="zabo" />

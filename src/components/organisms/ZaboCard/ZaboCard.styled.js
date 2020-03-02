@@ -134,14 +134,17 @@ export const PosterLW = styled.div`
   overflow: hidden;
   height: 100%;
   border-radius: 4px 0 0 4px;
+  width: 150px;
 `;
 
 PosterLW.Image = styled.img`
   position: absolute;
+  left: 50%;
   top: 0;
-  left: 0;
   height: 100%;
-  width: auto;
+  transform: translate(-50%, 0);
+  min-height: 100%;
+  min-width: 100%;
 `;
 
 PosterLW.Dimmer = styled.div`
@@ -159,13 +162,13 @@ export const ZaboCardLW = styled.section`
   overflow: hidden;
   color: ${props => props.theme.white};
   margin-bottom: 8px;
-  ${PosterLW.Image} {
+  ${PosterLW} {
     height: 145px;
   }
   ${media.tablet (css`
     height: 178px;
     margin-bottom: 16px;
-    ${PosterLW.Image} {
+    ${PosterLW} {
       height: 178px;
     }
   `)};
