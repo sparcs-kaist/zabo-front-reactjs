@@ -13,6 +13,7 @@ import useSetState from 'hooks/useSetState';
 import { searchUsers } from 'lib/api/search';
 import { GroupType } from 'lib/propTypes';
 
+import { alerts } from '../../../lib/variables';
 import { AddMember, Page } from './Setting.styled';
 import withGroupProfile from './withGroupProfile';
 
@@ -45,12 +46,15 @@ const GroupMembersSetting = ({ profile }) => {
 
   const addMember = useCallback (() => {
     const { userOption: { value: userId }, roleOption: { value: role } } = state;
+    if (!window.confirm (alerts.addMember)) return;
     dispatch (profileActions.addGroupMember ({ groupName: name, userId, role }));
   }, [state, dispatch]);
   const updateMember = useCallback ((userId, role) => {
+    if (!window.confirm (alerts.updateMember)) return;
     dispatch (profileActions.updateGroupMember ({ groupName: name, userId, role }));
   }, [dispatch]);
   const removeMember = useCallback ((userId) => {
+    if (!window.confirm (alerts.deleteMember)) return;
     dispatch (profileActions.removeGroupMember ({ groupName: name, userId }));
   }, [dispatch]);
   const { userOption, roleOption } = state;
