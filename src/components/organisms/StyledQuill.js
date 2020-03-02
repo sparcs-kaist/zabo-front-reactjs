@@ -3,13 +3,24 @@ import 'react-quill/dist/quill.bubble.css';
 import ReactQuill from 'react-quill';
 import styled, { css } from 'styled-components';
 
+
+let OSName = 'Unknown OS';
+if (navigator.appVersion.indexOf ('Win') !== -1) OSName = 'Windows';
+if (navigator.appVersion.indexOf ('Mac') !== -1) OSName = 'MacOS';
+if (navigator.appVersion.indexOf ('X11') !== -1) OSName = 'UNIX';
+if (navigator.appVersion.indexOf ('Linux') !== -1) OSName = 'Linux';
+
 const StyledQuill = styled (ReactQuill)`
   @import url(//fonts.googleapis.com/css?family=Noto+Sans+KR:400,700&display=swap&subset=korean);
   .ql-container {
     .ql-editor {
       font-size: 16px;
       font-family: NanumSquare, Arial, sans-serif;
-      transform: skewX(0.3deg);
+      ${OSName === 'Windows' ? css`
+        p {
+          transform: skewX(0.3deg);
+        }
+      ` : ''};
       ol { padding-left: 0; }
       ul { padding-left: 0; }
       li {
