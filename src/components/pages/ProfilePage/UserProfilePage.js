@@ -94,7 +94,7 @@ const UserProfile = ({ profile }) => {
         <Page.Body.User>
         </Page.Body.User>
       </Page.Body>
-      <GroupList type="profile" groups={groupsWithPending} hasApplyBox />
+      <GroupList type="profile" groups={groupsWithPending} hasApplyBox isMyProfile={isMyProfile} />
       <Zabos>
         <h1>저장한 자보</h1>
         <p>전체 자보</p>
