@@ -22,6 +22,7 @@ import {
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
+import { alerts } from '../../../lib/variables';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 
 const OwnerInfo = ({
@@ -82,13 +83,15 @@ const OwnerInfo = ({
       {isMyZabo
       && (
         <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
-          <Button to={`${url}/edit`} border="main" type="detail">게시물 수정</Button>
+          <Button to={`${url}/edit`} border="main" type="detail">
+            게시물 수정
+          </Button>
           <Button
             background="point"
             border="none"
             color="white"
             onClick={() => {
-              deleteZabo ();
+              if (window.confirm (alerts.del)) deleteZabo ();
             }}
           >게시물 삭제
           </Button>
