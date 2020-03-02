@@ -10,4 +10,5 @@ export const RESERVED_ROUTES_USERNAME_EXCEPTIONS = ['auth', 'settings', 'admin']
 
 export const alerts = {
   login: '로그인이 필요합니다. SSO를 사용해 로그인 하시겠습니까?',
+  upload: '자보를 게시하시겠습니까?',
 }

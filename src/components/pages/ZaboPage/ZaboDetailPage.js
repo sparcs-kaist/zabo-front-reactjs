@@ -153,7 +153,7 @@ const ZaboDetailPage = (props) => {
                 </ul>
               </section>
               <section className="zabo-page-header-title-group">
-                <div className="zabo-page-header-title"><h1>{title}</h1></div>
+                <div className="zabo-page-header-title">{title}</div>
                 {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
               </section>
               <section>

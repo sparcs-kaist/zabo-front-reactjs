@@ -78,25 +78,22 @@ ZaboPageWrapper.Info.Header = styled.section`
     }
   }
   
-  h1 {
-    display: inline-block;
-    font-size: 28px;
-    font-weight: bold;
-    color: #143441;
-    margin: 0 20px 12px 0;
-    vertical-align: middle;
-    @media (max-width: 640px) {
-      font-size: 24px;
-      margin-right: 12px;
-      margin-bottom: 10px;
-    } 
-  }
   .zabo-page-header-title-group {
     display: flex;
     width: 100%;
     .zabo-page-header-title {
       flex: 1;
       display: inline-block;
+      font-weight: 800;
+      font-size: 28px;
+      color: #143441;
+      margin: 0 20px 12px 0;
+      vertical-align: middle;
+      @media (max-width: 640px) {
+        font-size: 24px;
+        margin-right: 12px;
+        margin-bottom: 10px;
+      }
     }
     .due-date {
       margin-top: 4px;
