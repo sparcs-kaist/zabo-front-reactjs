@@ -19,7 +19,6 @@ import { isAuthedSelector } from 'lib/utils';
 import helpIcon from 'static/icon/help.svg';
 import bannerPoster from 'static/images/banner_poster.png';
 import bannerSparcs from 'static/images/banner_sparcs.png';
-import rightArrowForward from 'static/images/rightArrowForward.png';
 
 import LandingPageWrapper, {
   BannersW,
@@ -155,29 +154,25 @@ const Recommends = () => {
     <RecommendsW>
       <Container>
         <TwoCol divider>
-          <TwoCol.Left flex={5}>
-            <RecommendsW.Zabo>
-              <RecommendsTitleW>
+          <RecommendsW.Zabo flex={5}>
+            <RecommendsTitleW>
                 인기 있는 자보
-                <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
-                  <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
-                </Tooltip>
-              </RecommendsTitleW>
-              {zabos ? zabos.map (({ _id }) => <ZaboCard size="large" zaboId={_id} key={_id} />) : 'Loading'}
-            </RecommendsW.Zabo>
-          </TwoCol.Left>
-          <TwoCol.Right flex={3}>
+              <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
+                <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
+              </Tooltip>
+            </RecommendsTitleW>
+            {zabos ? zabos.map (({ _id }) => <ZaboCard size="large" zaboId={_id} key={_id} />) : 'Loading'}
+          </RecommendsW.Zabo>
+          <RecommendsW.Group flex={3}>
             <RecommendsTitleW>이 그룹은 어때요?</RecommendsTitleW>
-            <RecommendsW.Group>
-              <CategoryListW>
-                {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
-              </CategoryListW>
-              <RecommendsW.Group.List>
-                {groups ? groups.map (group => <GroupBoxW group={group} type="simple" key={group.name} />)
-                  : 'Loading'}
-              </RecommendsW.Group.List>
-            </RecommendsW.Group>
-          </TwoCol.Right>
+            <CategoryListW>
+              {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
+            </CategoryListW>
+            <RecommendsW.GroupList>
+              {groups ? groups.map (group => <GroupBoxW group={group} type="simple" key={group.name} />)
+                : 'Loading'}
+            </RecommendsW.GroupList>
+          </RecommendsW.Group>
         </TwoCol>
       </Container>
     </RecommendsW>

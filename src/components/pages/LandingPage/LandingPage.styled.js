@@ -338,16 +338,24 @@ export const RecommendsTitleW = styled (TitleW)`
   `)};
 `;
 
-RecommendsW.Zabo = styled.section`
+RecommendsW.Zabo = styled (TwoCol.Left)`
   width: 100%;
+  max-width: 100%;
+  ${media.tablet (css`
+    max-width: inherit;
+  `)};
 `;
 
-RecommendsW.Group = styled.section`
+RecommendsW.Group = styled (TwoCol.Right)`
   width: 100%;
   padding-bottom: 2px;
+  max-width: 100%;
+  ${media.tablet (css`
+    max-width: inherit;
+  `)};
 `;
 
-RecommendsW.Group.List = styled.div`
+RecommendsW.GroupList = styled.div`
   margin-top: 8px;
   ${media.tablet (css`
     margin-top: 20px;
