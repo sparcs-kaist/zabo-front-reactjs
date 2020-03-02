@@ -59,7 +59,7 @@ Page.Body.ProfileInfo = styled.div`
     margin: 18px 0 48px 0;
     padding: 8px 12px;
     border-radius: 15px;
-    border: 1px solid #143441;
+    border: 1.5px solid #143441;
     background-color: #F8F8F8;
     cursor: pointer;
     /* &:hover {
@@ -122,6 +122,12 @@ export const Submit = styled.button`
   line-height: 18px;
   color: white;
   background-color: #FF5D5D;
+  border: 0;
+  &:disabled {
+    background: #F8F8F8;
+    color: #8F8F8F;
+    cursor: not-allowed;
+  }
 `;
 
 export const Success = styled.div`
@@ -148,5 +154,85 @@ export const AddMember = styled.section`
     font-size: 16px;
     line-height: 18px;
     color: #FFFFFF;
+  }
+`;
+
+export const AddCategoryW = styled.section`
+  display: flex;
+  margin: 8px 0 48px 0;
+
+  >div { max-width: 50% }
+  >div:first-child { margin-right: 14px }
+
+  @media (max-width: 640px) {
+    >div:first-child { margin-right: 15px }
+  }
+`;
+
+// TODO: temporal code - need to change
+export const BusinessW = styled.section`
+  width: 99%;
+  height: 90px;
+  transition: max-height 0.3s ease-in-out;
+  padding: 0 29px;
+  margin: 30px 0 48px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #143441;
+  border-radius: 2px;
+  .header {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+    h3 {
+      color: #363636;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 0 8px;
+      padding: 0;
+    }
+    p {
+      color: #8F8F8F;
+      font-size: 12px;
+      padding: 0;
+    }
+    .business-btn {
+      flex: 1;
+      text-align: right;
+      button {
+        cursor: not-allowed;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 144px;
+        height: 38px;
+        background-color: #F4F4F4;
+        border-radius: 4px;
+        color: #8F8F8F;
+        font-size: 16px;
+        font-weight: bold;
+        border: 0;
+        img {
+          width: 20px;
+          height: 20px;
+          margin: 0 3px 0 8px;
+        }
+      }
+    }
+  }
+  @media (max-width: 640px) {
+    height: 178px;
+    .header {
+      height: 178px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      p { margin-bottom: 36px }
+      .business-btn { flex: none }
+    }
   }
 `;
