@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { GroupType } from 'lib/propTypes';
-import { isElementOverflown } from 'lib/utils';
+import { isElemWidthOverflown } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -17,7 +17,7 @@ const GroupBoxS = ({ group, ...props }) => {
 
   const nameRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElementOverflown (nameRef.current)); }, [nameRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (nameRef.current)); }, [nameRef]);
 
   return (
     <GroupSW to={name} {...props}>

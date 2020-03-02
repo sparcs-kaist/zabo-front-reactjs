@@ -18,6 +18,16 @@ class PWAPrompt extends PureComponent {
     }
   };
 
+  handleScroll = (e) => {
+    if (window.scrollY < 10) {
+      document.body.classList.add ('pwa-prompt-active');
+      this.setState ({ active: true });
+    } else {
+      document.body.classList.remove ('pwa-prompt-active');
+      setTimeout (() => this.setState ({ active: false }));
+    }
+  };
+
   addListener = () => {
     this.setState ({ active: true });
     window.addEventListener ('optimizedScroll', this.handleScroll);

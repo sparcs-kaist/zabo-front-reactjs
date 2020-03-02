@@ -137,7 +137,10 @@ export const PosterLW = styled.div`
   overflow: hidden;
   height: 100%;
   border-radius: 4px 0 0 4px;
-  width: 150px;
+  width: 114px;
+  ${media.tablet (css`
+    width: 140px;
+  `)};
 `;
 
 PosterLW.Image = styled.img`
@@ -146,8 +149,6 @@ PosterLW.Image = styled.img`
   top: 0;
   height: 100%;
   transform: translate(-50%, 0);
-  min-height: 100%;
-  min-width: 100%;
 `;
 
 PosterLW.Dimmer = styled.div`
@@ -184,19 +185,27 @@ export const WritingsLW = styled.section`
   display: flex;
   flex-direction: column;
   padding: 16px;
-  flex: 1;
+  overflow: hidden;
+  max-width: 500px;
 `;
 
 export const Title = styled.div`
+  display: inline-block;
   font-weight: 800;
   font-size: 14px;
   line-height: 16px;
   margin-top: 9px;
   margin-bottom: 11px;
+  margin-right: 24px;
   color: ${props => props.theme.main};
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  min-height: 16px;
   ${media.tablet (css`
     font-size: 18px;
     line-height: 20px;
+    min-height: 20px;
     margin-top: 8px;
     margin-bottom: 16px;
   `)};
@@ -230,7 +239,7 @@ export const MetaInfo = styled.div`
   font-size: 10px;
   line-height: 11px;
   color: #666666;
-  margin-top: 30px;
+  margin-top: 24px;
   ${media.tablet (css`
     font-size: 12px;
     line-height: 14px;

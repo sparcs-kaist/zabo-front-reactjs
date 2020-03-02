@@ -85,23 +85,6 @@ export const TopBannerW = styled.div`
   a {
     width: 120px;
   }
-  button {
-    height: 40px;
-    font-size: 14px;
-    padding: 0 14px;
-    border: 1px solid #FFFFFF;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.15);
-    color: white;
-    display: flex;
-    align-items: center;
-    
-    img {
-      width: 20px;
-      height: 20px;
-      margin-left: 4px;
-    }
-  }
   ${media.tablet (css`
     height: 520px;
     padding: 50px 0 0;
@@ -127,6 +110,63 @@ export const TopBannerW = styled.div`
       }
     }
   `)};
+`;
+
+const whiteBtn = css`
+  color: ${props => props.theme.white};
+  border: 1px solid ${props => props.theme.white};
+  background: rgba(255, 255, 255, 0.15);
+`;
+
+const mainBtn = css`
+  color: ${props => props.theme.main};
+  border: 1px solid ${props => props.theme.main};
+  background: ${props => props.theme.white};
+`;
+
+const btnMixins = {
+  white: whiteBtn,
+  main: mainBtn,
+};
+
+export const ButtonW = styled.button`
+  height: 40px;
+  font-size: 14px;
+  padding: 0 14px;
+  border-radius: 4px;
+  color: white;
+  ${mixins.flexCenter};
+  ${props => btnMixins[props.color]};
+  svg {
+    margin-left: 4px;
+  }
+  ${media.tablet (css`
+    height: 52px;
+    font-size: 16px;
+    padding: 0 16px;
+    svg {
+      margin-left: 8px;
+    }
+  `)};
+`;
+ButtonW.propTypes = {
+  color: PropTypes.oneOf (['white', 'main']).isRequired,
+};
+
+TopBannerW.Buttons = styled.section`
+  display: flex;
+  ${ButtonW} {
+    margin-left: 12px;
+  }
+  ${media.tablet (css`
+    ${ButtonW} {
+      margin-left: 20px;
+    }    
+  `)};
+  
+  ${ButtonW}:first-child {
+    margin-left: 0;
+  }
 `;
 
 export const CategoryNavW = styled (Link)`
