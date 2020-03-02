@@ -167,7 +167,7 @@ const SearchBar = ({
             />
           </SearchBarWrapper.Header.SearchBar>
           <div className="search-icon" onClick={_handleFocusChange}> </div>
-          { query ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
+          { query && isFocused ? <img className="cancel-icon" onClick={onCancelClick} src={cancelIcon} alt="cancel icon" /> : '' }
         </SearchBarWrapper.Header>
         {isFocused ? <div className="divider"> </div> : ''}
         <SearchBarWrapper.Body
