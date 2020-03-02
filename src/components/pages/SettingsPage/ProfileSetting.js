@@ -66,7 +66,10 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     }
     updateCall ()
       .then (() => history.push (`/${username}`))
-      .catch (error => setState ({ ...update, success: false, error }));
+      .catch (error => {
+        setState ({ ...update, success: false, error });
+        alert (error.error);
+      });
   }, [username, description, newProfilePhoto]);
 
   const onChange = (e) => {

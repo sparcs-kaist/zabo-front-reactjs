@@ -49,7 +49,10 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
         history.replace (`/settings/group/${name}/profile`);
         history.push (`/${name}`);
       })
-      .catch (err => setError (err));
+      .catch (err => {
+        setError (err);
+        alert (err.error);
+      });
   }, [state]);
 
   const onChangeDescription = e => {
