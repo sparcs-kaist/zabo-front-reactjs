@@ -86,7 +86,7 @@ export default handleActions (
         const zaboIds = zaboList.map (zabo => zabo._id);
         return state
           .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .set (['lists', 'hot'], zaboIds);
+          .setIn (['lists', 'hot'], zaboIds);
       },
     }),
     ...pender ({
