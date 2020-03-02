@@ -14,8 +14,7 @@ import ZaboList from 'templates/ZaboList';
 
 import { getHotZaboList as getHotZaboListAction } from 'store/reducers/zabo';
 import { getRecommendedGroups } from 'lib/api/group';
-import { isAuthedSelector } from 'lib/utils';
-import { alerts } from 'lib/variables';
+import { isAuthedSelector, pushWithAuth } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
 import bannerPoster from 'static/images/banner_poster.png';
@@ -54,7 +53,7 @@ const categoriesK = {
 
 const TopBanner = () => {
   const history = useHistory ();
-  const isAuthenticated = useSelector (isAuthedSelector);
+  const isAuthed = useSelector (isAuthedSelector);
   return (
     <TopBannerW>
       <Container>
@@ -64,15 +63,7 @@ const TopBanner = () => {
           <ButtonW
             color="main"
             type="button"
-            onClick={e => {
-              if (!isAuthenticated) {
-                if (window.confirm (alerts.login)) {
-                  history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
-                }
-              } else {
-                history.push ('/settings/group/apply');
-              }
-            }}
+            onClick={e => { pushWithAuth ('/settings/group/apply', history, isAuthed); }}
           >
             <div>신규 그룹 신청</div>
             <SVG icon="arrowRight" />
@@ -81,13 +72,7 @@ const TopBanner = () => {
             color="white"
             type="button"
             onClick={e => {
-              if (!isAuthenticated) {
-                if (window.confirm (alerts.login)) {
-                  history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
-                }
-              } else {
-                history.push ('/zabo/upload');
-              }
+              pushWithAuth ('/zabo/upload', history, isAuthed);
             }}
           >
             <div>자보 업로드</div>
@@ -192,6 +177,7 @@ const Recommends = () => {
 
 export const Banners = () => {
   const history = useHistory ();
+  const isAuthed = useSelector (isAuthedSelector);
   return (
     <BannersW>
       <Container>
@@ -203,7 +189,10 @@ export const Banners = () => {
             <BannerW.Description>
               자보를 올려 쉽게 홍보하세요
             </BannerW.Description>
-            <BannerW.Button onClick={e => history.push ('/settings/group/apply')} color="red50">
+            <BannerW.Button
+              onClick={e => { pushWithAuth ('/settings/group/apply', history, isAuthed); }}
+              color="red50"
+            >
               신규 그룹 신청 <SVG icon="arrowRight" />
             </BannerW.Button>
           </BannerW.Writings>
