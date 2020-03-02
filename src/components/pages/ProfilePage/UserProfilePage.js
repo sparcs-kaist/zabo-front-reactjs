@@ -14,6 +14,7 @@ import ZaboList from 'templates/ZaboList';
 import { logout as logoutAction } from 'store/reducers/auth';
 import { UserType } from 'lib/propTypes';
 import { isAdminSelector, isElemWidthOverflown } from 'lib/utils';
+import { mediaSizes } from 'lib/utils/style';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
@@ -36,6 +37,7 @@ const UserProfile = ({ profile }) => {
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
+  const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{
@@ -72,8 +74,8 @@ const UserProfile = ({ profile }) => {
               <section>
                 <Button.Group>
                   <Button onClick={logout}>로그아웃</Button>
-                  <Button to="/settings/profile" border="main">프로필 편집</Button>
-                  {isAdmin && (<Button to="/admin">관리자</Button>)}
+                  <Button to="/settings/profile" border="main">{isMobile ? '편집' : '프로필 편집'}</Button>
+                  {isAdmin && (<Button to="/admin">{isMobile ? '관리' : '관리자'}</Button>)}
                 </Button.Group>
               </section>
             ) : (
