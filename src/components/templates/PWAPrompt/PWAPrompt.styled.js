@@ -7,6 +7,7 @@ const PWAPromptWrapper = styled.div`
   height: 40px;
   background-color: #62666a;
   z-index: 1000;
+  transition: max-height 0.4s;
   .container {
     height: 100%;
     flex-direction: row;
