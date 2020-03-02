@@ -21,7 +21,7 @@ export const colors = {
   black: '#333333',
   red: '#e60909',
   red50: '#FA6B6B',
-  '#EC8F26': '#EC8F26',
+  green50: '#35d48d',
   green: '#00a97d',
   pinkishGrey: '#cccccc',
   border: '#cccccc',
