@@ -175,3 +175,14 @@ export const pushWithAuth = (to, history, isAuthed) => {
     history.push (to);
   }
 };
+
+export const withAuth = (history, isAuthed) => {
+  if (!isAuthed) {
+    if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+      return true;
+    }
+    return false;
+  }
+  return true;
+};

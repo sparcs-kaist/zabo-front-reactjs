@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
@@ -16,7 +16,9 @@ import { followProfile, getProfile } from 'store/reducers/profile';
 import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';
 import withZabo from 'hoc/withZabo';
 import { ZaboType } from 'lib/propTypes';
-import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
+import {
+  getLabeledTimeDiff, isAuthedSelector, to2Digits, withAuth,
+} from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -28,6 +30,8 @@ const OwnerInfo = ({
   },
 }) => {
   const { url } = useRouteMatch ();
+  const isAuthed = useSelector (isAuthedSelector);
+  const history = useHistory ();
   const { name, profilePhoto } = owner;
   const dispatch = useDispatch ();
   useEffect (() => {
@@ -36,7 +40,7 @@ const OwnerInfo = ({
   }, [name]);
   const follow = useCallback (() => {
     if (!name) return;
-    dispatch (followProfile ({ name }));
+    if (withAuth (history, isAuthed)) dispatch (followProfile ({ name }));
   }, [name]);
   const deleteZabo = useCallback (() => {
     dispatch (deleteZaboAction ({ zaboId: _id }))
