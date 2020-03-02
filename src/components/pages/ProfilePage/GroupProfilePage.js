@@ -34,13 +34,13 @@ const GroupProfile = ({ profile }) => {
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
-    name: '자보',
+    name: '올린 자보',
     value: zabosCount,
   }, {
     name: '팔로워',
     value: followersCount,
   }, {
-    name: '최근 업로드',
+    name: '최근 활동',
     value: timePast,
   }];
 
@@ -74,22 +74,24 @@ const GroupProfile = ({ profile }) => {
                   ? (
                     <>
                       <Link to={`/settings/group/${name}/profile`}>
-                        <button className="edit" type="button">프로필 편집</button>
+                        <button className="edit-web" type="button">프로필 편집</button>
+                        <button className="edit-mobile" type="button">편집</button>
                       </Link>
                       {myRole === 'admin' && (
                         <Link to={`/settings/group/${name}/members`}>
-                          <button className="edit" type="button">멤버 관리</button>
+                          <button className="edit-web" type="button">멤버 관리</button>
+                          <button className="edit-mobile" type="button">멤버</button>
                         </Link>
                       )}
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
                   : (
                     <>
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
+                        ? <button onClick={follow} type="button">팔로잉</button>
                         : <button onClick={follow} type="button">팔로우</button>}
                     </>
                   )

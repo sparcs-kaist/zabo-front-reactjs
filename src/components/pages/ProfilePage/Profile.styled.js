@@ -77,23 +77,43 @@ Page.Header.Left.UserInfo = styled.div`
     font-size: 12px;
     font-weight: bold;
     line-height: 12px;
-    padding: 8px 12px;
+    padding: 8px 14px;
     border-radius: 15px;
-    margin-right: 6px;
+    margin-right: 8px;
     background-color: #F8F8F8;
+    border: 1px solid #143441;
+    color: #143441;
     &.logout {
-      border: 1px solid #797979;
-      color: #797979;
+      border: 1px solid #8f8f8f;
+      color: #8f8f8f;
     }
-    &.edit {
+    &.edit-mobile {
+      display: none;
+    }
+    &.follow {
       border: 1px solid #143441;
-      color: #143441;
+      background-color: #143441;
+      color: #ffffff;
+    }
+    &.unfollow {
+      border: 1px solid #8f8f8f;
+      background-color: #f8f8f8;
+      color: #8f8f8f;
     }
   }
   @media (max-width: 640px) {
     min-width: 158px;
     h1 { font-size: 24px }
     p { font-size: 14px }
+    button {
+      margin-right: 6px;
+      &.edit-web {
+        display: none;
+      }
+      &.edit-mobile {
+        display: inline-block;
+      }
+    }
   }
 `;
 
