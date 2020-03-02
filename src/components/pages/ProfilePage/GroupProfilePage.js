@@ -1,8 +1,10 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useEffect, useMemo,
+  useRef, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 import SuperTooltip from 'atoms/SuperTooltip';
 import ProfileStats from 'organisms/ProfileStats';
@@ -13,6 +15,7 @@ import ZaboList from 'templates/ZaboList';
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
 import { getLabeledTimeDiff, isElemWidthOverflown } from 'lib/utils';
+import { mediaSizes } from 'lib/utils/style';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -24,6 +27,8 @@ const GroupProfile = ({ profile }) => {
   } = profile;
   const dispatch = useDispatch ();
   const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
+
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   const follow = useCallback (() => {
@@ -39,7 +44,7 @@ const GroupProfile = ({ profile }) => {
     name: '팔로워',
     value: followersCount,
   }, {
-    name: '최근 업로드',
+    name: '최근 활동',
     value: timePast,
   }];
 
@@ -66,23 +71,23 @@ const GroupProfile = ({ profile }) => {
                   ? (
                     <>
                       <Link to={`/settings/group/${name}/profile`}>
-                        <button className="edit" type="button">프로필 편집</button>
+                        <button type="button">{isMobile ? '편집' : '프로필 편집'}</button>
                       </Link>
                       {myRole === 'admin' && (
                         <Link to={`/settings/group/${name}/members`}>
-                          <button className="edit" type="button">멤버 관리</button>
+                          <button type="button">{isMobile ? '멤버' : '멤버 관리'}</button>
                         </Link>
                       )}
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
                   : (
                     <>
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
               }

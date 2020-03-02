@@ -196,6 +196,12 @@ ZaboPageWrapper.Info.Body = styled.section`
   .follow {
     font-size: 14px;
     line-height: 16px;
+    color: #143441;
+    cursor: pointer;
+  }
+  .unfollow {
+    font-size: 14px;
+    line-height: 16px;
     color: #BCBCBC;
     cursor: pointer;
   }
