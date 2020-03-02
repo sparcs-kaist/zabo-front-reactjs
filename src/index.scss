@@ -10,6 +10,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   .pwa-prompt {
     z-index: -1;
+    max-height: 0;
   }
   &.pwa-prompt-active {
     margin-top: 95px;
@@ -18,6 +19,7 @@ body {
     }
     .pwa-prompt {
       display: unset;
+      max-height: 40px;
     }
   }
 }
