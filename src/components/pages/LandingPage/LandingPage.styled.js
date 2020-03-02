@@ -409,6 +409,10 @@ BannerW.Image = styled.img`
   width: auto;
 `;
 
+export const ZaboListW = styled.section`
+  width: 100%;
+`;
+
 export const ZaboListTitleW = styled (TitleW)`
   margin-top: 48px;
   margin-bottom: 16px;

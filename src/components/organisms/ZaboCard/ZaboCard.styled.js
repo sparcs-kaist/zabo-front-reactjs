@@ -7,8 +7,11 @@ import { media } from 'lib/utils/style';
 const ZaboCardW = styled.div`
   width: 240px; /* 530px 이상이면 240으로 고정하기. 최대 4줄 */
 
-  @media (min-width: 0px) and (max-width: 530px) {
+  @media (min-width: 0px) and (max-width: 784px) {
     width: calc(50% - 8px); /* 240 이 아닌 화면의 절반 */
+  }
+  @media (min-width: 785px) and (max-width: 1064px) {
+    width: calc(33.3333% - 12px);
   }
 `;
 

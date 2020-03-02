@@ -30,7 +30,7 @@ import LandingPageWrapper, {
   GroupBoxW, RecommendsTitleW,
   RecommendsW,
   TopBannerW,
-  UpcomingW, ZaboListTitleW,
+  UpcomingW, ZaboListTitleW, ZaboListW,
 } from './LandingPage.styled';
 
 const categories = [
@@ -236,12 +236,12 @@ export const Banners = () => (
 
 const MainZaboList = () => (
   <Container>
-    <div>
+    <ZaboListW>
       <ZaboListTitleW>
         전체 자보 보기
       </ZaboListTitleW>
       <ZaboList type="main" />
-    </div>
+    </ZaboListW>
   </Container>
 );
 
