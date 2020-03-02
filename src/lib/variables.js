@@ -7,3 +7,7 @@ export const GROUP_CATEGORY_HIERARCHIY = {
   '동아리': ['생활문화', '예술', '음악', '종교사회', '체육', '학술', '창업'],
 };
 export const RESERVED_ROUTES_USERNAME_EXCEPTIONS = ['auth', 'settings', 'admin'];
+
+export const alerts = {
+  login: '로그인이 필요합니다. SSO를 사용해 로그인 하시겠습니까?',
+}

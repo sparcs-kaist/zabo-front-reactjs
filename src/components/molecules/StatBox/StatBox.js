@@ -17,6 +17,8 @@ import whiteBookmarkImg from 'static/images/whiteBookmark.svg';
 import whiteLikeImg from 'static/images/whiteLike.svg';
 import whiteEmptyLikeImg from 'static/images/whiteLikeEmpty.svg';
 
+import { alerts } from '../../../lib/variables';
+
 const icons = {
   colored: {
     pin: {
@@ -124,9 +126,8 @@ const StatBox = ({ stat, type, ...props }) => {
   const onClick = e => {
     e.preventDefault ();
     if (isAuthed) throttledAction ();
-    else {
-      alert ('로그인이 필요합니다.');
-      history.push ('/auth/login');
+    else if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
     }
   };
 

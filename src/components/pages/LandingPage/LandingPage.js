@@ -15,6 +15,7 @@ import ZaboList from 'templates/ZaboList';
 import { getHotZaboList as getHotZaboListAction } from 'store/reducers/zabo';
 import { getRecommendedGroups } from 'lib/api/group';
 import { isAuthedSelector } from 'lib/utils';
+import { alerts } from 'lib/variables';
 
 import helpIcon from 'static/icon/help.svg';
 import bannerPoster from 'static/images/banner_poster.png';
@@ -54,7 +55,6 @@ const categoriesK = {
 const TopBanner = () => {
   const history = useHistory ();
   const isAuthenticated = useSelector (isAuthedSelector);
-
   return (
     <TopBannerW>
       <Container>
@@ -65,8 +65,13 @@ const TopBanner = () => {
             color="main"
             type="button"
             onClick={e => {
-              if (!isAuthenticated) return alert ('로그인이 필요합니다.');
-              return history.push ('/settings/group/apply');
+              if (!isAuthenticated) {
+                if (window.confirm (alerts.login)) {
+                  history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+                }
+              } else {
+                history.push ('/settings/group/apply');
+              }
             }}
           >
             <div>신규 그룹 신청</div>
@@ -76,8 +81,13 @@ const TopBanner = () => {
             color="white"
             type="button"
             onClick={e => {
-              if (!isAuthenticated) return alert ('로그인이 필요합니다.');
-              return history.push ('/zabo/upload');
+              if (!isAuthenticated) {
+                if (window.confirm (alerts.login)) {
+                  history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+                }
+              } else {
+                history.push ('/zabo/upload');
+              }
             }}
           >
             <div>자보 업로드</div>
