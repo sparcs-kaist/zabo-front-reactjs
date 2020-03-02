@@ -83,6 +83,12 @@ const SearchBar = ({
     setFocused (prev => !prev);
   }, [isFocused, setFocused]);
 
+  const _handleInputFocusChange = useCallback (e => {
+    e.stopPropagation ();
+    e.nativeEvent.stopImmediatePropagation ();
+    setFocused (true);
+  }, [isFocused, setFocused]);
+
   const _handleBlur = useCallback (e => {
     e.stopPropagation ();
     e.nativeEvent.stopImmediatePropagation ();
@@ -145,7 +151,7 @@ const SearchBar = ({
     <SearchBarContainer>
       {isFocused ? <div id="dimmer" onClick={_handleBlur}> </div> : ''}
       <SearchBarWrapper type={type} isFocused={isFocused} transparent={transparent}>
-        <SearchBarWrapper.Header type={type} isFocused={isFocused}>
+        <SearchBarWrapper.Header type={type} isFocused={isFocused} transparent={transparent}>
           <SearchBarWrapper.Header.SearchBar type={type} isFocused={isFocused} transparent={transparent}>
             <input
               autoComplete="off"
@@ -154,7 +160,7 @@ const SearchBar = ({
               placeholder="자보, 그룹 검색"
               value={query}
               onChange={_handleChange}
-              onClick={_handleFocusChange}
+              onClick={_handleInputFocusChange}
               onKeyPress={_handleKeyPress}
               ref={inputRef}
               {...options}

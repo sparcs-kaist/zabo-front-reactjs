@@ -89,7 +89,7 @@ SearchBarWrapper.Header = styled.div`
     left: 16px;
     height: 16px;
     width: 16px;
-    background: url(${props => (props.isFocused ? searchIcon : searchIconWhite)}) no-repeat;
+    background: url(${props => (!props.isFocused && props.transparent ? searchIconWhite : searchIcon)}) no-repeat;
     background-size: contain;
   }
   @media (max-width: 910px) {
