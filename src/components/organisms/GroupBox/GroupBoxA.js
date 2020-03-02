@@ -1,11 +1,14 @@
 import React from 'react';
 
-import { GroupW } from './GroupBox.styled';
+import addGray from 'static/images/add_gray.svg';
+
+import { GroupAW } from './GroupBox.styled';
 
 const GroupBox = () => (
-  <GroupW to="/settings/group/apply">
-      새로운 그룹 신청하기
-  </GroupW>
+  <GroupAW to="/settings/group/apply">
+    <img src={addGray} alt="add icon" />
+    <p>새로운 그룹 신청하기</p>
+  </GroupAW>
 );
 
 GroupBox.propTypes = {};
