@@ -12,6 +12,7 @@ export const CategoryW = styled.div`
   font-size: 10px;
   line-height: 11px;
   color: ${props => props.theme.gray60};
+  cursor: default;
   ${media.tablet (css`
     font-size: 12px;
     line-height: 14px;

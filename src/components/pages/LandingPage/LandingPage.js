@@ -159,9 +159,7 @@ const Recommends = () => {
             </RecommendsW.Zabo>
           </TwoCol.Left>
           <TwoCol.Divider
-            style={{
-              margin: '0 50px',
-            }}
+            style={{ margin: '0 50px' }}
           />
           <TwoCol.Right flex={3}>
             <RecommendsW.Title>이 그룹은 어때요?</RecommendsW.Title>

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
@@ -46,7 +47,20 @@ const ZaboCardL = ({ zabo }) => {
       </Link>
       <WritingsLW>
         <CategoryListW>
-          {category.map (cat => <CategoryW># {cat}</CategoryW>)}
+          {category.slice (0, 3).map (cat => <CategoryW key={cat}># {cat}</CategoryW>)}
+          {category.length > 3
+            && (
+              <Tooltip
+                title={(
+                  <CategoryListW>
+                    {category.slice (3).map (cat => <CategoryW key={cat}># {cat}</CategoryW>)}
+                  </CategoryListW>
+                )}
+                placement="top"
+              >
+                <CategoryW>&middot;&middot;&middot;</CategoryW>
+              </Tooltip>
+            )}
         </CategoryListW>
         <Title>{title}</Title>
         <OwnerW>
