@@ -74,7 +74,9 @@ const text = {
   search: '그룹 검색 결과',
 };
 
-const GroupList = ({ type, groups, hasApplyBox }) => {
+const GroupList = ({
+  type, groups, hasApplyBox, isMyProfile,
+}) => {
   const leftScrollClick = useCallback (() => {
     document.getElementById ('groupsList').scrollLeft -= 622;
   }, []);
@@ -91,7 +93,7 @@ const GroupList = ({ type, groups, hasApplyBox }) => {
       </Groups.ScrollBtn>
       <Groups.List id="groupsList">
         {groups.map (group => <GroupBox group={group} key={group.name} />)}
-        {type === 'profile' && <GroupBox type="apply" group={{}} />}
+        {isMyProfile && <GroupBox type="apply" group={{}} />}
         <>&nbsp;</>
       </Groups.List>
     </Groups>

@@ -97,6 +97,7 @@ SearchBarWrapper.Header = styled.div`
       border-top: 6px solid rgb(27, 50, 65);
       height: 55px;
     ` : '')}
+    img.cancel-icon { top: 13px }
     div.search-icon {
       ${props => (!props.isFocused && props.type === 'search' ? css`
         background: url(${props => (!props.isFocused && props.transparent ? searchIconWhite : searchIcon)}) no-repeat;
@@ -139,7 +140,7 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     ` : props.isFocused ? css`
       border-radius: 0;
       background-color: white;
-      @media (max-width: 640px) { height: 50px }
+      @media (max-width: 910px) { height: 50px }
     ` : css`
       border-radius: 4px;
       background-color: #F4F4F4;
