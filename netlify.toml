@@ -1,0 +1,4 @@
+[[redirects]]
+  from = "/api/*"
+  to = "https://dev.zabo.sparcs.org/:splat"
+  status = 200
