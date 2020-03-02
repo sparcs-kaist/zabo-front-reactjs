@@ -74,6 +74,7 @@ const UploadProcess = ({ children }) => {
         console.error (err);
         setError (err);
         setProgress (0);
+        alert (err.error);
       });
   }, [infoImmutable, imageFilesImmutable]);
 

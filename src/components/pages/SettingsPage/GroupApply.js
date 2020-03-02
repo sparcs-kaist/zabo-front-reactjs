@@ -78,7 +78,10 @@ const ApplyForm = ({ profilePhoto }) => {
       .then (() => {
         history.push (`/${myName}`);
       })
-      .catch (err => setError (err));
+      .catch (err => {
+        setError (err);
+        alert (err.error);
+      });
   }, [state, profilePhoto]);
 
   return (
