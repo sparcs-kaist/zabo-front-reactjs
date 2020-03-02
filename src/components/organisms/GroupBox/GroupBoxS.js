@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
+
+import SuperTooltip from 'atoms/SuperTooltip';
 
 import { GroupType } from 'lib/propTypes';
 import { isElemWidthOverflown } from 'lib/utils';
@@ -30,13 +31,9 @@ const GroupBoxS = ({ group, ...props }) => {
         }
       </div>
       <WritingsW>
-        {
-          showTooltip ? (
-            <Tooltip title={name}>
-              <NameW ref={nameRef}>{name}</NameW>
-            </Tooltip>
-          ) : <NameW ref={nameRef}>{name}</NameW>
-        }
+        <SuperTooltip title={name} hide={!showTooltip}>
+          <NameW ref={nameRef}>{name}</NameW>
+        </SuperTooltip>
         <SubtitleW>{subtitle || '한 줄 소개 없음'}</SubtitleW>
       </WritingsW>
     </GroupSW>

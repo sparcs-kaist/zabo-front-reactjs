@@ -1,20 +1,17 @@
 import React, {
-  useCallback, useEffect, useMemo,
+  useEffect, useMemo,
   useRef, useState,
 } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 import Button from 'atoms/Button';
+import SuperTooltip from 'atoms/SuperTooltip';
 import GroupList from 'organisms/GroupList';
 import ProfileStats from 'organisms/ProfileStats';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
 import { logout as logoutAction } from 'store/reducers/auth';
-import { followProfile } from 'store/reducers/profile';
 import { UserType } from 'lib/propTypes';
 import { isAdminSelector, isElemWidthOverflown } from 'lib/utils';
 
@@ -68,15 +65,9 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            {
-              showTooltip
-                ? (
-                  <Tooltip title={description}>
-                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
-                  </Tooltip>
-                )
-                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
-            }
+            <SuperTooltip title={description} hide={!showTooltip}>
+              <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            </SuperTooltip>
             {isMyProfile ? (
               <section>
                 <Button.Group>

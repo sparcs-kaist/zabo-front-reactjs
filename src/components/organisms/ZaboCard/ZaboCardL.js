@@ -5,6 +5,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
+import SuperTooltip from 'atoms/SuperTooltip';
 
 import { ZaboType } from 'lib/propTypes';
 import { isElemWidthOverflown } from 'lib/utils';
@@ -71,15 +72,9 @@ const ZaboCardL = ({ zabo }) => {
               </Tooltip>
             )}
         </CategoryListW>
-        {
-          showTooltip
-            ? (
-              <Tooltip title={title}>
-                <Title ref={titleRef}>{title}</Title>
-              </Tooltip>
-            )
-            : <Title ref={titleRef}>{title}</Title>
-        }
+        <SuperTooltip title={title} hide={!showTooltip}>
+          <Title ref={titleRef}>{title}</Title>
+        </SuperTooltip>
         <Link to={`/${owner.name}`}>
           <OwnerW>
             <OwnerW.Profile src={owner.profilePhoto || groupDefaultProfile} />
