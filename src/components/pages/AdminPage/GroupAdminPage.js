@@ -62,7 +62,7 @@ const GroupItem = ({ group, isPending }) => {
   };
 
   const {
-    name, profilePhoto, createdAt, subtitle, description, members, category,
+    name, profilePhoto, createdAt, purpose, subtitle, description, members, category,
   } = group;
   const owner = (members[0] || {}).user || {};
   const { username, profilePhoto: userProfilePhoto, ...others } = owner;
@@ -128,6 +128,11 @@ const GroupItem = ({ group, isPending }) => {
                 value={description}
               />
             </Typography>
+            {isPending && (
+              <div style={{ borderTop: '1px dashed #143441' }}>
+                <p>Purpose: {purpose}</p>
+              </div>
+            )}
           </CardContent>
         </Collapse>
       </Card>
