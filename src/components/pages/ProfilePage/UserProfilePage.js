@@ -28,6 +28,7 @@ const UserProfile = ({ profile }) => {
   const {
     username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {}, following,
   } = profile;
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
   const pendingGroupsImmutable = useSelector (state => state.getIn (['auth', 'info', 'pendingGroups']));
@@ -37,7 +38,7 @@ const UserProfile = ({ profile }) => {
   const logout = () => dispatch (logoutAction ());
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef.current]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{

@@ -58,9 +58,9 @@ export const TopBannerW = styled.div`
   margin: -55px 0 0;
   width: 100%;
   height: 349px;
-  padding: 0 24px;
   background-color: rgb(13,26,31);
-  background-image: url(${landingBackground});
+  background-image
+  : url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
   

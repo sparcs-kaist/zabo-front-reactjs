@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -25,12 +25,13 @@ const GroupProfile = ({ profile }) => {
     name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole, following,
   } = profile;
   const dispatch = useDispatch ();
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   const follow = useCallback (() => {
     dispatch (followProfile ({ name }));
   }, [name]);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{

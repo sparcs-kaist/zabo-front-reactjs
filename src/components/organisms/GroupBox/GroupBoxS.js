@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import { GroupType } from 'lib/propTypes';
@@ -14,10 +15,10 @@ const GroupBoxS = ({ group, ...props }) => {
   const {
     name, profilePhoto, subtitle,
   } = group;
-
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const nameRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (nameRef.current)); }, [nameRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (nameRef.current)); }, [nameRef, width]);
 
   return (
     <GroupSW to={name} {...props}>

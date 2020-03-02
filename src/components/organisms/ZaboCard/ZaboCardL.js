@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
 
 import { ZaboType } from 'lib/propTypes';
+import { isElemWidthOverflown } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import { isElemWidthOverflown } from '../../../lib/utils';
 import {
   MetaInfo, OwnerW,
   PosterLW, Title,
@@ -41,10 +42,10 @@ const ZaboCardL = ({ zabo }) => {
   const {
     _id, category, title, owner, createdAt, views, effectiveViews,
   } = zabo;
-
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const titleRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [titleRef.current]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [width, titleRef]);
   const createdAtLabel = moment (createdAt).format ('YYYY-MM-DD');
   return (
     <ZaboCardLW>
