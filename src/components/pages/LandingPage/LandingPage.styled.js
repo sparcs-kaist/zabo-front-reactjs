@@ -41,6 +41,19 @@ const Wrapper = styled.section`
   align-items: center;
 `;
 
+export const TitleW = styled.div`
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 23px;
+  color: ${props => props.theme.gray90};
+  ${media.tablet (css`
+    margin-top: 0;
+    font-size: 24px;
+    line-height: 27px;
+    margin-bottom: 32px;
+  `)};
+`;
+
 export const TopBannerW = styled.div`
   margin: -55px 0 0;
   width: 100%;
@@ -276,21 +289,14 @@ export const RecommendsW = styled.section`
   padding-bottom: 12px;
 `;
 
-RecommendsW.Title = styled.div`
-  font-weight: 800;
-  font-size: 20px;
-  line-height: 23px;
-  color: ${props => props.theme.gray90};
+export const RecommendsTitleW = styled (TitleW)`
   margin-bottom: 20px;
   margin-top: 53px;
   ${media.tablet (css`
     margin-top: 0;
-    font-size: 24px;
-    line-height: 27px;
     margin-bottom: 32px;
   `)};
 `;
-
 
 RecommendsW.Zabo = styled.section`
   width: 100%;
@@ -307,6 +313,7 @@ RecommendsW.Group.List = styled.div`
     margin-top: 20px;
   `)};
 `;
+
 export const GroupBoxW = styled (GroupBox)`
   margin-top: 8px;
   &:first-child {
@@ -314,6 +321,100 @@ export const GroupBoxW = styled (GroupBox)`
   }
   ${media.tablet (css`
     margin-top: 16px;
+  `)};
+`;
+
+export const BannersW = styled.section`
+  width: 100%;
+  margin-top: 36px;
+  ${media.tablet (css`
+    margin-top: 80px;
+  `)};
+`;
+
+export const BannerW = styled.div`
+  min-width: 312px;
+  height: 136px;
+  border: 1px solid ${props => props.theme.gray10};
+  border-radius: 6px;
+  padding: 0 24px;
+  display: flex;
+  margin-left: 12px;
+  
+  ${media.tablet (css`
+    min-width: 500px;
+    height: 200px;
+    padding: 0 48px;
+    margin-left: 36px;
+  `)};
+  &:first-child {
+    margin-left: 0;
+  }
+`;
+
+BannerW.Writings = styled.div`
+   padding: 24px 0;
+   ${media.tablet (css`
+    padding: 48px 0;
+  `)};
+`;
+
+BannerW.Title = styled.div`
+  font-weight: 800;
+  font-size: 14px;
+  line-height: 16px;
+  color: ${props => props.theme.gray90};
+  ${media.tablet (css`
+    font-size: 20px;
+    line-height: 23px;
+  `)};
+`;
+
+BannerW.Description = styled.div`
+  font-size: 14px;
+  line-height: 16px;
+  color: ${props => props.theme.gray90};
+  margin-top: 2px;
+  ${media.tablet (css`
+    margin-top: 4px;
+    font-size: 20px;
+    line-height: 23px;
+  `)};
+`;
+
+BannerW.Button = styled.button`
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 14px;
+  color: ${props => props.theme.white};
+  width: 120px;
+  height: 32px;
+  ${mixins.flexCenter};
+  border: 1px solid ${props => props.theme[props.color]};
+  background: ${props => props.theme[props.color]};
+  border-radius: 4px;
+  margin-top: 20px;
+  svg {
+    margin-left: 10px;
+  }
+  ${media.tablet (css`
+    margin-top: 14px;
+    width: 136px;
+    height: 40px;
+  `)};
+`;
+
+BannerW.Image = styled.img`
+  height: 100%;
+  width: auto;
+`;
+
+export const ZaboListTitleW = styled (TitleW)`
+  margin-top: 48px;
+  margin-bottom: 16px;
+  ${media.tablet (css`
+    margin-top: 100px;
+    margin-bottom: 24px;
   `)};
 `;
 

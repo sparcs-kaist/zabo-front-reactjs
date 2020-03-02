@@ -23,6 +23,7 @@ const mapStateToProps = (state, ownProps) => {
   const zaboIdList = state.getIn (reduxKey[type] (query)) || emptyList;
   return {
     zaboIdList,
+    width: state.getIn (['app', 'windowSize', 'width']),
   };
 };
 
