@@ -91,7 +91,7 @@ const GroupList = ({ type, groups, hasApplyBox }) => {
       </Groups.ScrollBtn>
       <Groups.List id="groupsList">
         {groups.map (group => <GroupBox group={group} key={group.name} />)}
-        <GroupBox type="apply" group={{}} />
+        {type === 'profile' && <GroupBox type="apply" group={{}} />}
         <>&nbsp;</>
       </Groups.List>
     </Groups>
