@@ -69,7 +69,7 @@ class ZaboList extends React.Component {
   }
 
   render () {
-    const { zaboIdList, type } = this.props;
+    const { zaboIdList, type, width } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
@@ -84,7 +84,7 @@ class ZaboList extends React.Component {
           ref={this.masonry}
           sizes={sizes}
           threshold={800}
-          key={zaboIdList}
+          key={[zaboIdList, width]}
         >
           {zaboIdList.map (zaboId => (
             <ZaboCard key={zaboId} zaboId={zaboId} />
