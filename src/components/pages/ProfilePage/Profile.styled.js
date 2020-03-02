@@ -38,7 +38,7 @@ Page.Header.Left = styled.section`
 Page.Header.Left.ProfilePhoto = styled.div`
   padding-right: 36px;
   @media (max-width: 640px) {
-    padding-right: 28px;
+    padding-right: 24px;
   }
   img {
     width: 120px;
@@ -86,9 +86,6 @@ Page.Header.Left.UserInfo = styled.div`
       border: 1px solid #8f8f8f;
       color: #8f8f8f;
     }
-    &.edit-mobile {
-      display: none;
-    }
     &.follow {
       border: 1px solid #143441;
       background-color: #143441;
@@ -106,14 +103,8 @@ Page.Header.Left.UserInfo = styled.div`
     p { font-size: 14px }
     button {
       margin-right: 6px;
-      &.edit-web {
-        display: none;
-      }
-      &.edit-mobile {
-        display: inline-block;
       }
     }
-  }
 `;
 
 Page.Header.Right = styled.section`

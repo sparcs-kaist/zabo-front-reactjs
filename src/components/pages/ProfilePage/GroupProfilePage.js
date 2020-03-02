@@ -1,9 +1,10 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useEffect, useMemo,
+  useRef, useState,
 } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -15,6 +16,7 @@ import ZaboList from 'templates/ZaboList';
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
 import { getLabeledTimeDiff, isElemWidthOverflown } from 'lib/utils';
+import { mediaSizes } from 'lib/utils/style';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -25,6 +27,9 @@ const GroupProfile = ({ profile }) => {
     name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole, following,
   } = profile;
   const dispatch = useDispatch ();
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
+
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   const follow = useCallback (() => {
@@ -74,13 +79,11 @@ const GroupProfile = ({ profile }) => {
                   ? (
                     <>
                       <Link to={`/settings/group/${name}/profile`}>
-                        <button className="edit-web" type="button">프로필 편집</button>
-                        <button className="edit-mobile" type="button">편집</button>
+                        <button type="button">{isMobile ? '편집' : '프로필 편집'}</button>
                       </Link>
                       {myRole === 'admin' && (
                         <Link to={`/settings/group/${name}/members`}>
-                          <button className="edit-web" type="button">멤버 관리</button>
-                          <button className="edit-mobile" type="button">멤버</button>
+                          <button type="button">{isMobile ? '멤버' : '멤버 관리'}</button>
                         </Link>
                       )}
                       {following
