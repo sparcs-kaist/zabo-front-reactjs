@@ -20,6 +20,8 @@ export const colors = {
   cobalt: '#194386',
   black: '#333333',
   red: '#e60909',
+  red50: '#FA6B6B',
+  '#EC8F26': '#EC8F26',
   green: '#00a97d',
   pinkishGrey: '#cccccc',
   border: '#cccccc',
