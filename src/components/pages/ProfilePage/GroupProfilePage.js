@@ -91,8 +91,8 @@ const GroupProfile = ({ profile }) => {
                   : (
                     <>
                       {following
-                        ? <button onClick={follow} type="button">팔로잉</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
               }
