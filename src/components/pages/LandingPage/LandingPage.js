@@ -109,7 +109,10 @@ const TopBanner = () => {
 };
 
 const Category = ({ category }) => (
-  <CategoryNavW to={`/search?category=${categoriesK[category]}`}>
+  <CategoryNavW to={categoriesK[category] === '전체보기'
+    ? '/main'
+    : `/search?category=${categoriesK[category]}`}
+  >
     <CategoryNavW.Image category={category} />
     <CategoryNavW.Label>
       {categoriesK[category]}
