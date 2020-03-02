@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import useSWR from 'swr';
@@ -17,16 +17,20 @@ import { getRecommendedGroups } from 'lib/api/group';
 import { isAuthedSelector } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
+import bannerPoster from 'static/images/banner_poster.png';
+import bannerSparcs from 'static/images/banner_sparcs.png';
 import rightArrowForward from 'static/images/rightArrowForward.png';
 
 import LandingPageWrapper, {
+  BannersW,
+  BannerW, ButtonW,
   CategoryBannerW,
   CategoryNavW,
   Container,
-  GroupBoxW,
+  GroupBoxW, RecommendsTitleW,
   RecommendsW,
   TopBannerW,
-  UpcomingW,
+  UpcomingW, ZaboListTitleW, ZaboListW,
 } from './LandingPage.styled';
 
 const categories = [
@@ -49,6 +53,7 @@ const categoriesK = {
 };
 
 const TopBanner = () => {
+  const history = useHistory ();
   const isAuthenticated = useSelector (isAuthedSelector);
 
   return (
@@ -56,27 +61,30 @@ const TopBanner = () => {
       <Container>
         <h1>이제 포스터 확인은 자보에서.</h1>
         <h3>카이스트의 소식을 바로 알아보세요</h3>
-        {
-          isAuthenticated ? (
-            <Link to="/zabo/upload">
-              <button type="button">
-                <div>자보 업로드</div>
-                <img src={rightArrowForward} alt="right-arrow icon" />
-              </button>
-            </Link>
-          )
-            : (
-              <button
-                type="button"
-                onClick={() => {
-                  alert ('로그인이 필요합니다.');
-                }}
-              >
-                <div>자보 업로드</div>
-                <img src={rightArrowForward} alt="right-arrow icon" />
-              </button>
-            )
-        }
+        <TopBannerW.Buttons>
+          <ButtonW
+            color="main"
+            type="button"
+            onClick={e => {
+              if (!isAuthenticated) return alert ('로그인이 필요합니다.');
+              return history.push ('/settings/group/apply');
+            }}
+          >
+            <div>신규 그룹 신청</div>
+            <SVG icon="arrowRight" />
+          </ButtonW>
+          <ButtonW
+            color="white"
+            type="button"
+            onClick={e => {
+              if (!isAuthenticated) return alert ('로그인이 필요합니다.');
+              return history.push ('/zabo/upload');
+            }}
+          >
+            <div>자보 업로드</div>
+            <SVG icon="arrowRight" />
+          </ButtonW>
+        </TopBannerW.Buttons>
       </Container>
     </TopBannerW>
   );
@@ -146,25 +154,20 @@ const Recommends = () => {
   return (
     <RecommendsW>
       <Container>
-        <TwoCol>
+        <TwoCol divider>
           <TwoCol.Left flex={5}>
             <RecommendsW.Zabo>
-              <RecommendsW.Title>
+              <RecommendsTitleW>
                 인기 있는 자보
                 <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
                   <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
                 </Tooltip>
-              </RecommendsW.Title>
+              </RecommendsTitleW>
               {zabos ? zabos.map (({ _id }) => <ZaboCard size="large" zaboId={_id} key={_id} />) : 'Loading'}
             </RecommendsW.Zabo>
           </TwoCol.Left>
-          <TwoCol.Divider
-            style={{
-              margin: '0 50px',
-            }}
-          />
           <TwoCol.Right flex={3}>
-            <RecommendsW.Title>이 그룹은 어때요?</RecommendsW.Title>
+            <RecommendsTitleW>이 그룹은 어때요?</RecommendsTitleW>
             <RecommendsW.Group>
               <CategoryListW>
                 {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
@@ -181,9 +184,53 @@ const Recommends = () => {
   );
 };
 
+
+export const Banners = () => {
+  const history = useHistory ();
+  return (
+    <BannersW>
+      <Container>
+        <BannerW>
+          <BannerW.Writings>
+            <BannerW.Title>
+              신규 그룹 신청하고
+            </BannerW.Title>
+            <BannerW.Description>
+              자보를 올려 쉽게 홍보하세요
+            </BannerW.Description>
+            <BannerW.Button onClick={e => history.push ('/settings/group/apply')} color="red50">
+              신규 그룹 신청 <SVG icon="arrowRight" />
+            </BannerW.Button>
+          </BannerW.Writings>
+          <BannerW.Image src={bannerPoster} />
+        </BannerW>
+        <BannerW>
+          <BannerW.Writings>
+            <BannerW.Title>
+              자보, 드디어 정식 런칭!
+            </BannerW.Title>
+            <BannerW.Description>
+              자보 홍보하고 베스타 받으세요.
+            </BannerW.Description>
+            <BannerW.Button color="main">
+              자세히 보기 <SVG icon="arrowRight" />
+            </BannerW.Button>
+          </BannerW.Writings>
+          <BannerW.Image src={bannerSparcs} />
+        </BannerW>
+      </Container>
+    </BannersW>
+  );
+};
+
 const MainZaboList = () => (
   <Container>
-    <ZaboList type="main" />
+    <ZaboListW>
+      <ZaboListTitleW>
+        전체 자보 보기
+      </ZaboListTitleW>
+      <ZaboList type="main" />
+    </ZaboListW>
   </Container>
 );
 
@@ -194,6 +241,7 @@ const LandingPage = () => (
     <CategoryBanner />
     <Upcoming />
     <Recommends />
+    <Banners />
     <MainZaboList />
   </LandingPageWrapper>
 );

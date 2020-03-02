@@ -5,25 +5,37 @@ import appIcon from 'static/logo/sparcs.svg';
 import PWAPromptWrapper from './PWAPrompt.styled';
 
 
-const handleScroll = (e) => {
-  if (window.scrollY < 10) {
-    document.body.classList.add ('pwa-prompt-active');
-  } else {
-    document.body.classList.remove ('pwa-prompt-active');
-  }
-};
-
 class PWAPrompt extends PureComponent {
   state = { active: false };
 
+  handleScroll = (e) => {
+    if (window.scrollY < 10) {
+      document.body.classList.add ('pwa-prompt-active');
+      this.setState ({ active: true });
+    } else {
+      document.body.classList.remove ('pwa-prompt-active');
+      setTimeout (() => this.setState ({ active: false }));
+    }
+  };
+
+  handleScroll = (e) => {
+    if (window.scrollY < 10) {
+      document.body.classList.add ('pwa-prompt-active');
+      this.setState ({ active: true });
+    } else {
+      document.body.classList.remove ('pwa-prompt-active');
+      setTimeout (() => this.setState ({ active: false }));
+    }
+  };
+
   addListener = () => {
     this.setState ({ active: true });
-    window.addEventListener ('optimizedScroll', handleScroll);
+    window.addEventListener ('optimizedScroll', this.handleScroll);
   }
 
   deleteListener = () => {
     this.setState ({ active: false });
-    window.removeEventListener ('optimizedScroll', handleScroll);
+    window.removeEventListener ('optimizedScroll', this.handleScroll);
   }
 
   componentDidMount () {

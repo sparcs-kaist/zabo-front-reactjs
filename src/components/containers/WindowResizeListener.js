@@ -1,37 +1,26 @@
-/* eslint-disable */
-import React from 'react';
-import { connect } from 'react-redux';
+import { useCallback, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
-import toJS from 'hoc/toJS';
-import { addWindowResizeListener } from 'lib/utils/throttle';
 import { setWindowSize } from 'store/reducers/app';
 
-class WindowResizeListener extends React.Component {
-  listener = () => {}
-
-  componentDidMount () {
-    const { setWindowSize } = this.props;
-
-    this.listener = addWindowResizeListener (({ width, height }) => {
-      setWindowSize ({ width, height });
-    });
-  }
-
-  componentWillUnmount () {
-    this.listener ();
-  }
-
-  render () {
-    return null;
-  }
+function getDimensions () {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+  return { width, height };
 }
 
-const mapStateToProps = state => ({
-  windowSize: state.getIn (['app', 'windowSize']),
-});
-
-const mapDispatchToProps = {
-  setWindowSize,
+const WindowResizeListener = () => {
+  const dispatch = useDispatch ();
+  const handleResize = useCallback (() => {
+    dispatch (setWindowSize (getDimensions ()));
+  }, []);
+  useEffect (() => {
+    window.addEventListener ('optimizedResize', handleResize);
+    return () => {
+      window.removeEventListener ('optimizedResize', handleResize);
+    };
+  }, []);
+  return null;
 };
 
-export default connect (mapStateToProps, mapDispatchToProps) (toJS (WindowResizeListener));
+export default WindowResizeListener;

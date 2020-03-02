@@ -8,7 +8,7 @@ import { media } from 'lib/utils/style';
 export const GroupW = styled (Link)`
   display: flex;
   align-items: center;
-  width: 275px;
+  min-width: 275px;
   height: 108px;
   border-radius: 6px;
   margin-right: 14px;
@@ -26,7 +26,7 @@ export const GroupW = styled (Link)`
   }
 
   ${media.tablet (css`
-    width: 297px;
+    min-width: 299px;
     height: 126px;
     padding: 28px 14px;
     img {
@@ -41,6 +41,41 @@ export const GroupW = styled (Link)`
       cursor: not-allowed;
     }
   ` : '')};
+`;
+
+export const GroupAW = styled (Link)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  min-width: 275px;
+  height: 108px;
+  padding: 24px 12px;
+  background: ${props => props.theme.gray3};
+
+  img {
+    width: 24px;
+    height: 24px;
+  }
+  p {
+    font-size: 12px;
+    padding: 0;
+    color: ${props => props.theme.gray50};
+  }
+
+  ${media.tablet (css`
+    min-width: 297px;
+    height: 126px;
+    
+    img {
+      width: 20px;
+      height: 20px;
+    }
+    p {
+      font-size: 14px;
+    }
+  `)}
 `;
 
 export const GroupSW = styled (GroupW)`

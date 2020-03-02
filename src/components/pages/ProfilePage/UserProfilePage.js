@@ -16,7 +16,7 @@ import ZaboList from 'templates/ZaboList';
 import { logout as logoutAction } from 'store/reducers/auth';
 import { followProfile } from 'store/reducers/profile';
 import { UserType } from 'lib/propTypes';
-import { isAdminSelector, isElementOverflown } from 'lib/utils';
+import { isAdminSelector, isElemWidthOverflown } from 'lib/utils';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
@@ -37,7 +37,7 @@ const UserProfile = ({ profile }) => {
   const logout = () => dispatch (logoutAction ());
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef.current]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{

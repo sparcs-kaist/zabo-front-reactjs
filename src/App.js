@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet';
 
 import ChannelTalk from 'containers/ChannelTalk';
 import ScrollToTop from 'containers/ScrollToTop';
+import WindowResizeListener from 'containers/WindowResizeListener';
 import ErrorBoundary from 'components/ErrorBoundary';
 import AuthCallback from 'organisms/AuthCallback';
 import PWAPrompt from 'templates/PWAPrompt';
@@ -38,8 +39,9 @@ const App = () => (
     <ErrorBoundary>
       <PWAPrompt />
       <Route path="/" exact component={AuthCallback} />
-      <ScrollToTop updateWithPath />
       <Route path="/:top?" component={ChannelTalk} />
+      <ScrollToTop updateWithPath />
+      <WindowResizeListener />
       <Switch>
         <Route path="/search" component={SearchPage} />
         <PrivateRoute path="/zabo/upload" component={ZaboUploadPage} />

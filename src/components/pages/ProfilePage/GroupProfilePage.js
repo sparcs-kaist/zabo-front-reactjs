@@ -14,7 +14,7 @@ import ZaboList from 'templates/ZaboList';
 
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
-import { getLabeledTimeDiff, isElementOverflown } from 'lib/utils';
+import { getLabeledTimeDiff, isElemWidthOverflown } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -30,7 +30,7 @@ const GroupProfile = ({ profile }) => {
   const follow = useCallback (() => {
     dispatch (followProfile ({ name }));
   }, [name]);
-  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
