@@ -11,6 +11,8 @@ const Container = styled.div`
   padding: 0 24px;
   display: flex;
   overflow: scroll;
+  &::-webkit-scrollbar { width: 0 !important }
+  -ms-overflow-style: none;
   ${media.tablet (css`
     padding: 0 18px;
   `)};

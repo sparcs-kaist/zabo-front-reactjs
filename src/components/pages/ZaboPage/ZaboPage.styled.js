@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const ZaboPageWrapper = styled.div`
+  width: 100%;
   min-width: 1072px;
   @media (max-width: 640px) {
-    min-width: 100%;
-    padding: 0;
+    min-width: 0;
   }
 
   display: flex;
@@ -14,7 +14,11 @@ export const ZaboPageWrapper = styled.div`
 
 ZaboPageWrapper.Detail = styled.div`
   padding: 80px 0;
+  @media (max-width: 640px) {
+    padding: 0;
+  }
 `;
+
 
 ZaboPageWrapper.TwoCol = styled.section`
   display: flex;

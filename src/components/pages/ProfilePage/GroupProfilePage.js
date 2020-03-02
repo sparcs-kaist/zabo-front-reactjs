@@ -2,12 +2,11 @@ import React, {
   useCallback, useEffect, useMemo,
   useRef, useState,
 } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import SuperTooltip from 'atoms/SuperTooltip';
 import ProfileStats from 'organisms/ProfileStats';
 import StyledQuill from 'organisms/StyledQuill';
 import Header from 'templates/Header';
@@ -35,7 +34,7 @@ const GroupProfile = ({ profile }) => {
   const follow = useCallback (() => {
     dispatch (followProfile ({ name }));
   }, [name]);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
@@ -63,16 +62,9 @@ const GroupProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{name}</h1>
-            {
-              showTooltip
-                ? (
-                  <Tooltip title={subtitle}>
-                    <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
-                  </Tooltip>
-                )
-                : <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
-            }
-
+            <SuperTooltip title={subtitle} hide={!showTooltip}>
+              <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
+            </SuperTooltip>
             <section>
               {
                 myRole

@@ -1,15 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
+import SuperTooltip from 'atoms/SuperTooltip';
 
 import { ZaboType } from 'lib/propTypes';
+import { isElemWidthOverflown } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import { isElemWidthOverflown } from '../../../lib/utils';
 import {
   MetaInfo, OwnerW,
   PosterLW, Title,
@@ -41,10 +43,10 @@ const ZaboCardL = ({ zabo }) => {
   const {
     _id, category, title, owner, createdAt, views, effectiveViews,
   } = zabo;
-
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const titleRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [titleRef.current]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [width, titleRef]);
   const createdAtLabel = moment (createdAt).format ('YYYY-MM-DD');
   return (
     <ZaboCardLW>
@@ -70,15 +72,9 @@ const ZaboCardL = ({ zabo }) => {
               </Tooltip>
             )}
         </CategoryListW>
-        {
-          showTooltip
-            ? (
-              <Tooltip title={title}>
-                <Title ref={titleRef}>{title}</Title>
-              </Tooltip>
-            )
-            : <Title ref={titleRef}>{title}</Title>
-        }
+        <SuperTooltip title={title} hide={!showTooltip}>
+          <Title ref={titleRef}>{title}</Title>
+        </SuperTooltip>
         <Link to={`/${owner.name}`}>
           <OwnerW>
             <OwnerW.Profile src={owner.profilePhoto || groupDefaultProfile} />

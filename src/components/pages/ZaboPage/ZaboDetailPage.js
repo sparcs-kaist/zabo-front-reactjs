@@ -123,70 +123,72 @@ const ZaboDetailPage = (props) => {
   }];
 
   return (
-    <ZaboPageWrapper.Detail>
-      <Helmet>
-        <title>{title} - Zabo</title>
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={photos[0].url} />
-      </Helmet>
-      <ZaboPageWrapper.TwoCol>
-        <ZaboPageWrapper.TitleImage>
-          <Carousel
-            imageUrls={photos.map (({ url }) => url)}
-            ratio={photos[0].width / photos[0].height}
-            overlay
-          />
-        </ZaboPageWrapper.TitleImage>
-        <ZaboPageWrapper.Info>
-          <ZaboPageWrapper.Info.Header>
-            <section>
-              <ul className="keyword-result">
-                {category.map (cat => (
-                  <li key={cat}>#{cat}</li>
-                ))}
-              </ul>
-            </section>
-            <section className="zabo-page-header-title-group">
-              <div className="zabo-page-header-title"><h1>{title}</h1></div>
-              {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
-            </section>
-            <section>
-              <div className="details">
-                {timePast}
-              </div>
-              <div className="specialChar">&middot;</div>
-              <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+    <>
+      <ZaboPageWrapper.Detail>
+        <Helmet>
+          <title>{title} - Zabo</title>
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={photos[0].url} />
+        </Helmet>
+        <ZaboPageWrapper.TwoCol>
+          <ZaboPageWrapper.TitleImage>
+            <Carousel
+              imageUrls={photos.map (({ url }) => url)}
+              ratio={photos[0].width / photos[0].height}
+              overlay
+            />
+          </ZaboPageWrapper.TitleImage>
+          <ZaboPageWrapper.Info>
+            <ZaboPageWrapper.Info.Header>
+              <section>
+                <ul className="keyword-result">
+                  {category.map (cat => (
+                    <li key={cat}>#{cat}</li>
+                  ))}
+                </ul>
+              </section>
+              <section className="zabo-page-header-title-group">
+                <div className="zabo-page-header-title"><h1>{title}</h1></div>
+                {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
+              </section>
+              <section>
                 <div className="details">
-                조회수 {views.toLocaleString ()}
+                  {timePast}
                 </div>
-              </Tooltip>
-            </section>
-            <section className="statSection">
-              {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
-            </section>
-          </ZaboPageWrapper.Info.Header>
-          <ZaboPageWrapper.Info.Body>
-            <section>
-              <div className="borderLine"> </div>
-              <OwnerInfo isMyZabo={isMyZabo} zabo={zabo} />
-              <div className="borderLine"> </div>
-            </section>
-            <section className="contents">
-              <StyledQuill
-                theme="bubble"
-                readOnly
-                value={description}
-              />
-            </section>
-          </ZaboPageWrapper.Info.Body>
-        </ZaboPageWrapper.Info>
-      </ZaboPageWrapper.TwoCol>
+                <div className="specialChar">&middot;</div>
+                <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+                  <div className="details">
+                조회수 {views.toLocaleString ()}
+                  </div>
+                </Tooltip>
+              </section>
+              <section className="statSection">
+                {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
+              </section>
+            </ZaboPageWrapper.Info.Header>
+            <ZaboPageWrapper.Info.Body>
+              <section>
+                <div className="borderLine"> </div>
+                <OwnerInfo isMyZabo={isMyZabo} zabo={zabo} />
+                <div className="borderLine"> </div>
+              </section>
+              <section className="contents">
+                <StyledQuill
+                  theme="bubble"
+                  readOnly
+                  value={description}
+                />
+              </section>
+            </ZaboPageWrapper.Info.Body>
+          </ZaboPageWrapper.Info>
+        </ZaboPageWrapper.TwoCol>
+      </ZaboPageWrapper.Detail>
       <ZaboPageWrapper.Recommend>
         <h1>연관 있는 자보</h1>
         <ZaboList type="related" query={zaboId} key={zaboId} />
       </ZaboPageWrapper.Recommend>
-    </ZaboPageWrapper.Detail>
+    </>
   );
 };
 
