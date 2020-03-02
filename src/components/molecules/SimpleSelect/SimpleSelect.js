@@ -72,6 +72,8 @@ const customStyles = {
   }),
   valueContainer: (provided, state) => ({
     ...provided,
+    height: sizes[state.selectProps.size].height,
+    minHeight: sizes[state.selectProps.size].height,
     paddingLeft: sizes[state.selectProps.size].valuePaddingLeft,
   }),
   singleValue: (provided, state) => ({

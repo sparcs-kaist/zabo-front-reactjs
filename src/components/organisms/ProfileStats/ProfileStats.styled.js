@@ -23,7 +23,7 @@ Stats.elem = styled.div`
   }
 
   ${props => (props.small ? css`
-    padding: 0 16px;
+    padding: 0 14px;
     h3 { 
       font-size: 16px;
       margin-bottom: 4px;
@@ -31,7 +31,7 @@ Stats.elem = styled.div`
     }
     div { font-size: 12px }
     @media (max-width: 640px) {
-      padding: 0 12px;
+      padding: 0 11px;
       h3 {
         font-size: 14px;
         margin-bottom: 3px;
