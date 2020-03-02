@@ -65,7 +65,6 @@ Page.Header.Left.UserInfo = styled.div`
   }
   p {
     display: inline-block;
-    
     margin: 10px 0 15px 0;
     color: #202020;
     text-overflow: ellipsis;

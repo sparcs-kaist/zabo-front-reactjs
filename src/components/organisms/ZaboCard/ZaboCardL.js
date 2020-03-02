@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
@@ -7,6 +7,9 @@ import { CategoryListW, CategoryW } from 'atoms/Category';
 
 import { ZaboType } from 'lib/propTypes';
 
+import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+
+import { isElemWidthOverflown } from '../../../lib/utils';
 import {
   MetaInfo, OwnerW,
   PosterLW, Title,
@@ -36,15 +39,20 @@ PosterL.propTypes = {
 
 const ZaboCardL = ({ zabo }) => {
   const {
-    _id, category, title, owner, createdAt, views,
+    _id, category, title, owner, createdAt, views, effectiveViews,
   } = zabo;
 
+  const titleRef = useRef (null);
+  const [showTooltip, setShowTooltip] = useState (false);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [titleRef.current]);
   const createdAtLabel = moment (createdAt).format ('YYYY-MM-DD');
   return (
     <ZaboCardLW>
-      <Link to={`/zabo/${_id}`} style={{ maxWidth: '50%', overflow: 'hidden' }}>
-        <PosterL zabo={zabo} />
-      </Link>
+      <div>
+        <Link to={`/zabo/${_id}`} style={{ maxWidth: '50%', overflow: 'hidden' }}>
+          <PosterL zabo={zabo} />
+        </Link>
+      </div>
       <WritingsLW>
         <CategoryListW>
           {category.slice (0, 3).map (cat => <CategoryW key={cat}># {cat}</CategoryW>)}
@@ -62,17 +70,29 @@ const ZaboCardL = ({ zabo }) => {
               </Tooltip>
             )}
         </CategoryListW>
-        <Title>{title}</Title>
-        <OwnerW>
-          <OwnerW.Profile src={owner.profilePhoto} />
-          <OwnerW.Name>{owner.name}</OwnerW.Name>
-        </OwnerW>
+        {
+          showTooltip
+            ? (
+              <Tooltip title={title}>
+                <Title ref={titleRef}>{title}</Title>
+              </Tooltip>
+            )
+            : <Title ref={titleRef}>{title}</Title>
+        }
+        <Link to={`/${owner.name}`}>
+          <OwnerW>
+            <OwnerW.Profile src={owner.profilePhoto || groupDefaultProfile} />
+            <OwnerW.Name>{owner.name}</OwnerW.Name>
+          </OwnerW>
+        </Link>
         <MetaInfo>
           {createdAtLabel}
           <MetaInfo.Dot>
             &middot;
           </MetaInfo.Dot>
-          조회수 {views.toLocaleString ()}
+          <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+            <div>조회수 {views.toLocaleString ()}</div>
+          </Tooltip>
         </MetaInfo>
       </WritingsLW>
     </ZaboCardLW>

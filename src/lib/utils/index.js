@@ -129,7 +129,8 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
   );
 };
 
-export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+export const isElemWidthOverflown = (element) => element.scrollWidth > element.clientWidth;
+// export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 
 export const escapeRegExp = string => string.replace (/[.*+?^${}()|[\]\\]/g, '\\$&');
 export const parseQuery = (search) => {
