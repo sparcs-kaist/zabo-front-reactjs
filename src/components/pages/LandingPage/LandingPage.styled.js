@@ -9,24 +9,42 @@ import GroupBox from 'organisms/GroupBox';
 import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';
 
+import allIcon from 'static/icon/category/all.svg';
+import contestIcon from 'static/icon/category/contest.svg';
+import demodayIcon from 'static/icon/category/demoday.svg';
 import educationIcon from 'static/icon/category/education.svg';
 import eventIcon from 'static/icon/category/event.svg';
+import exhibitionIcon from 'static/icon/category/exhibition.svg';
 import festivalIcon from 'static/icon/category/festival.svg';
-import groupIcon from 'static/icon/category/group.svg';
+import hangsaIcon from 'static/icon/category/hangsa.svg';
+import hireIcon from 'static/icon/category/hire.svg';
+import meetingIcon from 'static/icon/category/meeting.svg';
+import noticeIcon from 'static/icon/category/notice.svg';
+import openclubIcon from 'static/icon/category/openclub.svg';
 import performanceIcon from 'static/icon/category/performance.svg';
-import scheduleIcon from 'static/icon/category/schedule.svg';
+import recruitIcon from 'static/icon/category/recruit.svg';
 import seminarIcon from 'static/icon/category/seminar.svg';
+import volunteerIcon from 'static/icon/category/volunteer.svg';
 import rightArrowIcon from 'static/icon/rightArrow.svg';
 import landingBackground from 'static/images/landingBackground.png';
 
 const categoryIcons = {
-  educationIcon,
-  eventIcon,
-  festivalIcon,
-  groupIcon,
+  allIcon,
+  hangsaIcon,
   performanceIcon,
-  scheduleIcon,
+  festivalIcon,
   seminarIcon,
+  educationIcon,
+  meetingIcon,
+  eventIcon,
+  contestIcon,
+  exhibitionIcon,
+  noticeIcon,
+  recruitIcon,
+  hireIcon,
+  volunteerIcon,
+  openclubIcon,
+  demodayIcon,
   rightArrowIcon,
 };
 
