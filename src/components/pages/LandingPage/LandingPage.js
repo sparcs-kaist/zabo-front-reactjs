@@ -1,4 +1,6 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React, {
+  useEffect, useReducer, useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +12,7 @@ import useSWR from 'swr';
 import { CategoryListW, CategoryW } from 'atoms/Category';
 import SVG from 'atoms/SVG';
 import TwoCol from 'atoms/TwoCol';
+import ScrollBtn from 'molecules/ScrollBtn';
 import ZaboCard from 'organisms/ZaboCard';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
@@ -131,12 +134,14 @@ Category.propTypes = {
 
 const CategoryBanner = () => (
   <CategoryBannerW>
-    <Container>
+    <ScrollBtn elemId="categoryList" show scrollSize={1096} right={false} />
+    <Container id="categoryList">
       {categories.map (category => (
         <Category key={category} category={category} />
       ))}
       <Container.Pad />
     </Container>
+    <ScrollBtn elemId="categoryList" show scrollSize={1096} left={false} />
   </CategoryBannerW>
 );
 

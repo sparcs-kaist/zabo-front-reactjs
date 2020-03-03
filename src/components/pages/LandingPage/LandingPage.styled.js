@@ -50,6 +50,7 @@ const categoryIcons = {
 
 export const Container = styled (ContainerAtom)`
   max-width: 1084px;
+  scroll-behavior: smooth;
 `;
 
 const Wrapper = styled.section`
@@ -222,6 +223,7 @@ CategoryNavW.Label = styled.div`
 export const CategoryBannerW = styled.section`
   width: 100%;
   display: flex;
+  align-items: center;
   ${Container} {
     padding: 24px 16px;
   }
