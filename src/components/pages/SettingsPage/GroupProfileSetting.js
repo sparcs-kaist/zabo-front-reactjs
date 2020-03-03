@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
+import SimpleSelect from 'molecules/SimpleSelect';
 import StyledQuill from 'organisms/StyledQuill';
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
@@ -13,33 +14,52 @@ import { updateGroupInfo, updateGroupInfoWithImage } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';
 import { GroupType } from 'lib/propTypes';
 import { cropImage, dataURLToBlob } from 'lib/utils';
+import { GROUP_CATEGORIES, GROUP_CATEGORIES_2, GROUP_CATEGORY_HIERARCHIY } from 'lib/variables';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import {
-  ErrorComponent,
+  AddCategoryW, ErrorComponent,
   FooterStyle, FormGroup, Page, Submit,
 } from './Setting.styled';
 import withGroupProfile from './withGroupProfile';
 
-const ProfileForm = ({ initialValue, newProfilePhoto }) => {
+const categoryOptions = GROUP_CATEGORIES.map (category => (
+  { value: category, label: category }
+));
+
+const selectForm = category => ({ value: category, label: category });
+
+const ProfileForm = ({ initialValue, category, newProfilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
   const [state, setState, onChange] = useSetState (initialValue);
+  const [categoryOption, setCategoryOption] = useState (selectForm (category[0]));
+  const [categoryOption2, setCategoryOption2] = useState (category.length > 1 ? selectForm (category[1]) : '');
   useEffect (() => setState (initialValue), [initialValue]);
   const [error, setError] = useState ();
   const { name, description, subtitle } = state;
 
+  const hasHierarchy = categoryOption.value in GROUP_CATEGORY_HIERARCHIY;
+  const categoryOptions2 = hasHierarchy
+    ? GROUP_CATEGORY_HIERARCHIY[categoryOption.value].map (category => (
+      { value: category, label: category }
+    )) : [];
+
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
+    const category = categoryOption2 ? [categoryOption.value, categoryOption2.value] : [categoryOption.value];
+    console.log ('cateegory: ', category);
     let updateCall = () => dispatch (updateGroupInfo ({
-      curName: initialValue.name, name, description, subtitle,
+      curName: initialValue.name, name, description, subtitle, category: JSON.stringify (category),
     }));
     if (newProfilePhoto) {
+      const category = categoryOption2 ? [categoryOption.value, categoryOption2.value] : [categoryOption.value];
       const formData = new FormData ();
       formData.append ('name', name);
       formData.append ('description', description);
       formData.append ('subtitle', subtitle);
+      formData.append ('category', JSON.stringify (category));
       formData.append ('img', newProfilePhoto);
       updateCall = () => dispatch (updateGroupInfoWithImage ({ curName: initialValue.name, formData }));
     }
@@ -53,7 +73,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
         setError (err);
         alert (err.error);
       });
-  }, [state]);
+  }, [state, categoryOption, categoryOption2]);
 
   const onChangeDescription = e => {
     setState ({ description: e });
@@ -73,6 +93,40 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
           onChange={onChange}
           placeholder="그룹명을 알려주세요."
         />
+      </FormGroup>
+      <FormGroup>
+        <FormGroup.Label>
+          <label htmlFor="group-profile-category">소속</label>
+        </FormGroup.Label>
+        <AddCategoryW>
+          <SimpleSelect
+            value={categoryOption}
+            options={categoryOptions}
+            onChange={newOption => {
+              setCategoryOption (newOption);
+              // newOption.value
+              const hasHierarchy = newOption.value in GROUP_CATEGORY_HIERARCHIY;
+              const categoryOptions2 = hasHierarchy
+                ? GROUP_CATEGORY_HIERARCHIY[newOption.value].map (category => (
+                  { value: category, label: category }
+                )) : [];
+              setCategoryOption2 (categoryOptions2[0]);
+            }}
+            isClearable={false}
+            width="100%"
+          />
+          {
+            hasHierarchy && (
+              <SimpleSelect
+                value={categoryOption2}
+                options={categoryOptions2}
+                onChange={newOption => setCategoryOption2 (newOption)}
+                isClearable={false}
+                width="100%"
+              />
+            )
+          }
+        </AddCategoryW>
       </FormGroup>
       <FormGroup>
         <FormGroup.Label>
@@ -125,7 +179,7 @@ ProfileForm.propTypes = {
 
 const GroupProfileSetting = ({ profile }) => {
   const {
-    name = '', profilePhoto, description = '', subtitle = '',
+    name = '', profilePhoto, description = '', subtitle = '', category = [],
   } = profile;
 
   const [profilePreview, setProfilePreview] = useState (profilePhoto);
@@ -165,7 +219,11 @@ const GroupProfileSetting = ({ profile }) => {
             <div className="button">사진 바꾸기</div>
           </label>
         </Page.Body.ProfileInfo>
-        <ProfileForm initialValue={{ name, description, subtitle }} newProfilePhoto={newProfilePhoto} />
+        <ProfileForm
+          initialValue={{ name, description, subtitle }}
+          category={category}
+          newProfilePhoto={newProfilePhoto}
+        />
       </Page.Body>
     </Page>
   );
