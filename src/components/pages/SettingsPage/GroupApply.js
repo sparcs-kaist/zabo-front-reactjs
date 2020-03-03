@@ -87,7 +87,7 @@ const ApplyForm = ({ profilePhoto }) => {
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-name">그룹명</label>
         </FormGroup.Label>
         <input
@@ -100,7 +100,7 @@ const ApplyForm = ({ profilePhoto }) => {
         />
       </FormGroup>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-category">소속</label>
         </FormGroup.Label>
         <AddCategoryW>
@@ -143,7 +143,7 @@ const ApplyForm = ({ profilePhoto }) => {
         </BusinessW>
       </FormGroup>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-purpose">그룹 생성 목적</label>
         </FormGroup.Label>
         <input
@@ -154,7 +154,7 @@ const ApplyForm = ({ profilePhoto }) => {
         />
       </FormGroup>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-description">그룹 한줄 소개</label>
         </FormGroup.Label>
         <input
@@ -165,7 +165,7 @@ const ApplyForm = ({ profilePhoto }) => {
         />
       </FormGroup>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-description">그룹 설명</label>
         </FormGroup.Label>
         <StyledQuill

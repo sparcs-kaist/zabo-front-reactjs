@@ -99,7 +99,6 @@ const UserProfile = ({ profile }) => {
       <GroupList type="profile" groups={groupsWithPending} hasApplyBox isMyProfile={isMyProfile} />
       <Zabos>
         <h1>저장한 자보</h1>
-        <p>전체 자보</p>
         <ZaboList type="pins" query={username} key={username} />
       </Zabos>
     </Page>

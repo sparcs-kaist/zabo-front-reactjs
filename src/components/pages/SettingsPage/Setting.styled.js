@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Page = styled.section`
   padding: 64px 0 74px 0;
@@ -114,13 +114,15 @@ FormGroup.Label = styled.div`
   font-size: 16px;
   line-height: 20px;
   margin: 0;
-  &::after {
-    display: inline-block;
-    margin-left: 4px;
-    color: #f66;
-    font-weight: 300;
-    content: "*";
-  }
+  ${props => (props.required ? css`
+    &::after {
+      display: inline-block;
+      margin-left: 4px;
+      color: #f66;
+      font-weight: 300;
+      content: "*";
+    }
+  ` : css``)};
 `;
 
 export const FooterStyle = styled.div`

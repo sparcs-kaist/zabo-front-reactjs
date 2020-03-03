@@ -82,7 +82,7 @@ const ProfileForm = ({ initialValue, category, newProfilePhoto }) => {
   return (
     <form onSubmit={handleSubmit}>
       <FormGroup>
-        <FormGroup.Label>
+        <FormGroup.Label required>
           <label htmlFor="group-profile-name">그룹명</label>
         </FormGroup.Label>
         <input
