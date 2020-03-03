@@ -9,15 +9,15 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*IE9*/
-  *::selection 
+  a::selection 
   {
       background-color:transparent;
   } 
-  *::-moz-selection
+  a::-moz-selection
   {
       background-color:transparent;
   }
-  *
+  a
   {        
       -webkit-user-select: none;
       -moz-user-select: -moz-none;

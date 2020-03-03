@@ -70,7 +70,7 @@ const StyledQuill = styled (ReactQuill)`
 
   ${props => (props.groupSetting ? css`
     .ql-container .ql-editor p {
-      font-weight: bold;
+      font-weight: 500;
       color: #363636;
       font-size: 16px;
       @media (max-width: 640px) {
