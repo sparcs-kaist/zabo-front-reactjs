@@ -8,6 +8,7 @@ import { ZaboType } from 'lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
 
 import ZaboCardW, {
+  DDayW,
   DueDateW, OverlayW, PosterW, WritingsW,
 } from './ZaboCard.styled';
 
@@ -18,7 +19,7 @@ const Poster = ({ zabo }) => {
   } = zabo;
   const schedule = schedules[0];
 
-  const daysLeft = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
+  const daysLeft = schedule ? moment (schedule.startAt).diff (moment (), 'days') : -1;
 
   const stats = [{
     type: 'like',
@@ -48,7 +49,7 @@ const Poster = ({ zabo }) => {
         </OverlayW.StatLocator>
       </OverlayW>
       {daysLeft > 0 && <DueDateW>D{to2Digits (-daysLeft, true)}</DueDateW>}
-
+      {daysLeft === 0 && <DDayW>D-Day</DDayW>}
     </PosterW>
   );
 };

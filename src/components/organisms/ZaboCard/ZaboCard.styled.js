@@ -82,10 +82,14 @@ export const DueDateW = styled.div`
   font-size: 11px;
   line-height: 18px;
   border-radius: 2px;
-  background: #143441;
+  background: ${props => props.theme.main};
   font-style: normal;
   font-weight: bold;
-  color: #FFFFFF;
+  color: ${props => props.theme.white};
+`;
+
+export const DDayW = styled (DueDateW)`
+  background: ${props => props.theme.red50};
 `;
 
 export const WritingsW = styled.div`
