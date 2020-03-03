@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
 import useSWR from 'swr';
 
@@ -14,11 +15,14 @@ import ZaboList from 'templates/ZaboList';
 
 import { getHotZaboList as getHotZaboListAction } from 'store/reducers/zabo';
 import { getRecommendedGroups } from 'lib/api/group';
+import { getDeadlineZaboList } from 'lib/api/zabo';
 import { isAuthedSelector } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
 import bannerPoster from 'static/images/banner_poster.png';
 import bannerSparcs from 'static/images/banner_sparcs.png';
+import leftArrow from 'static/images/leftScroll.png';
+import rightArrow from 'static/images/rightScroll.png';
 
 import LandingPageWrapper, {
   BannersW,
@@ -49,6 +53,11 @@ const categoriesK = {
   performance: '공연',
   schedule: '행사',
   seminar: '세미나',
+};
+
+const swrOpts = {
+  revalidateOnFocus: false,
+  revalidateOnReconnect: false,
 };
 
 const TopBanner = () => {
@@ -112,39 +121,74 @@ const CategoryBanner = () => (
   </CategoryBannerW>
 );
 
-const Upcoming = () => (
-  <UpcomingW>
-    <Container>
-      <TwoCol mobileWrap={false}>
-        <TwoCol.Left>
-          <UpcomingW.Title>
-          SPARCS 2019 가을 리크루팅
-          </UpcomingW.Title>
-          <UpcomingW.Description>
-          얼마 남지 않았어요
-          </UpcomingW.Description>
-          <UpcomingW.Timer>
-          07:14:21
-          </UpcomingW.Timer>
-          <UpcomingW.Button>
-            자세히 보기 <SVG icon="arrowRight" />
-          </UpcomingW.Button>
-          <UpcomingW.Count>
-            2/8
-          </UpcomingW.Count>
-        </TwoCol.Left>
-        <TwoCol.Right>
-          <UpcomingW.Carousel />
-        </TwoCol.Right>
-      </TwoCol>
-    </Container>
-  </UpcomingW>
+const ArrowLeft = (props) => (
+  <UpcomingW.Carousel.Button src={leftArrow} {...props} className="slick-btn prev" alt="left arrow image" />
+);
+const ArrowRight = (props) => (
+  <UpcomingW.Carousel.Button src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
 );
 
-const swrOpts = {
-  revalidateOnFocus: false,
-  revalidateOnReconnect: false,
+const SlickItem = ({ zabo }) => (
+  <div style={{ paddingRight: 24 }}>
+    <UpcomingW.Image
+      src={zabo.photos[0].url}
+      alt="Upcoming ZABO"
+    />
+  </div>
+);
+
+const Upcoming = () => {
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 300,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    variableWidth: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    arrows: true,
+    prevArrow: <ArrowLeft />,
+    nextArrow: <ArrowRight />,
+  };
+  return (
+    <UpcomingW>
+      <Container>
+        <TwoCol mobileWrap={false}>
+          <TwoCol.Left>
+            <UpcomingW.Title>
+            SPARCS 2019 가을 리크루팅
+            </UpcomingW.Title>
+            <UpcomingW.Description>
+            얼마 남지 않았어요
+            </UpcomingW.Description>
+            <UpcomingW.Timer>
+            07:14:21
+            </UpcomingW.Timer>
+            <UpcomingW.Button>
+              자세히 보기 <SVG icon="arrowRight" />
+            </UpcomingW.Button>
+            <UpcomingW.Count>
+              2/8
+            </UpcomingW.Count>
+          </TwoCol.Left>
+          <TwoCol.Right>
+            <UpcomingW.Carousel style={{ width: width / 2 }}>
+              <Slider {...settings}>
+                {zabos ? zabos.map (zabo => (
+                  <SlickItem zabo={zabo} key={zabo._id} />
+                )) : <div>none</div>}
+              </Slider>
+            </UpcomingW.Carousel>
+          </TwoCol.Right>
+        </TwoCol>
+      </Container>
+    </UpcomingW>
+  );
 };
+
 const Recommends = () => {
   const dispatch = useDispatch ();
   const getHotZaboList = () => dispatch (getHotZaboListAction ());

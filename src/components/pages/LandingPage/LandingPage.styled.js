@@ -230,15 +230,18 @@ export const UpcomingW = styled.section`
   background: ${props => props.theme.gray90};
   color: ${props => props.theme.gray1};
   width: 100%;
+  height: 200px;
+  padding: 36px 16px;
   ${Container} {
-    padding: 60px 24px 12px 24px;
+    /* padding: 60px 24px 12px 24px; */
+    overflow: visible;
   }
   ${TwoCol.Right} {
     position: relative;
-    overflow: hidden;
   }
   ${media.tablet (css`
-    padding: 72px 16px;
+    padding: 48px 16px;
+    height: 100%;
   `)};
 `;
 UpcomingW.Title = styled.div`
@@ -311,13 +314,49 @@ UpcomingW.Count = styled.div`
   `)};
 `;
 
-// TODO: Absolute not working
 UpcomingW.Carousel = styled.section`
   position: absolute;
-  width: 100%;
-  height: 500px;
-  background: #fff;
+  width: 150%;
+  height: 180px;
+  .slick-btn { opacity: 0 }
+  &:hover {
+    .slick-btn { opacity: 1 }
+  }
+  ${media.tablet (css`
+    height: 400px;
+  `)}
+`;
+
+UpcomingW.Carousel.Button = styled.img`
+  position: absolute;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
   z-index: 1;
+  &.prev {
+    top: 75px;
+    left: 0;
+  }
+  &.next {
+    top: 75px;
+    right: 0;
+  }
+  ${media.tablet (css`
+    width: 40px;
+    height: 40px;
+    &.prev, &.next { top: 190px; }
+  `)}
+`;
+
+UpcomingW.Image = styled.img`
+  height: 180px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), url(image.png);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  ${media.tablet (css`
+    height: 400px;
+  `)}
 `;
 
 export const RecommendsW = styled.section`
