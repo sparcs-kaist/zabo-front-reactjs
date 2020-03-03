@@ -156,11 +156,18 @@ const SlickItem = ({ zabo }) => (
 );
 
 const CountDown = ({ initialValue }) => {
-  const [tick, addTick] = useReducer (state => state + 1, 0);
+  const [tick, dispatch] = useReducer ((state, action) => {
+    if (action.type === 'increase') return state + 1;
+    if (action.type === 'set') return action.payload;
+    return 0;
+  }, 0);
   useEffect (() => {
-    const timer = setInterval (addTick, 1000);
+    const timer = setInterval (() => dispatch ({ type: 'increase' }), 1000);
     return () => clearInterval (timer);
-  }, []);
+  }, [initialValue]);
+  useEffect (() => {
+    dispatch ({ type: 'set', payload: initialValue });
+  }, [initialValue]);
   const timeLeft = initialValue - (tick * 1000);
   return moment (timeLeft).format ('HH:mm:ss');
 };
