@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
 import Tooltip from '@material-ui/core/Tooltip';
+import moment from 'moment';
 
 import Button from 'atoms/Button';
 import DueDate from 'atoms/DueDate';
@@ -24,7 +25,7 @@ import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import { alerts } from '../../../lib/variables';
 import { PosterW } from '../../organisms/ZaboCard/ZaboCard.styled';
-import { ZaboPageWrapper, CategoryW } from './ZaboPage.styled';
+import { CategoryW, ZaboPageWrapper } from './ZaboPage.styled';
 
 const OwnerInfo = ({
   zabo: {
