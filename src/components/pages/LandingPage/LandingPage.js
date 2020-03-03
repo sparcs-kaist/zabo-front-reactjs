@@ -135,6 +135,7 @@ const CategoryBanner = () => (
       {categories.map (category => (
         <Category key={category} category={category} />
       ))}
+      <Container.Pad />
     </Container>
   </CategoryBannerW>
 );
@@ -318,6 +319,7 @@ export const Banners = () => {
           </BannerW.Writings>
           <BannerW.Image src={bannerSparcs} />
         </BannerW>
+        <Container.Pad />
       </Container>
     </BannersW>
   );

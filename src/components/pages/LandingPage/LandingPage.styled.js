@@ -226,17 +226,17 @@ export const CategoryBannerW = styled.section`
     padding: 24px 16px;
   }
   ${CategoryNavW} {
-    margin-right: 20px;
-    &:last-child {
-      margin-right: 0;
-    }
+    margin-left: 20px;
   }
   ${media.tablet (css`
     padding: 72px 16px;
     ${CategoryNavW} {
-      margin-right: 65px;
+      margin-left: 65px;
     }
   `)};
+  ${CategoryNavW}:first-child {
+    margin-left: 0;
+  }
 `;
 
 CategoryNavW.Image.propTypes = {
