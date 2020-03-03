@@ -69,29 +69,6 @@ OverlayW.StatLocator = styled.div`
   }
 `;
 
-export const DueDateW = styled.div`
-  position: absolute;
-  right: 12px;
-  top: 12px;
-  display: flex;
-  flex-shrink: 0;
-  justify-content: center;
-  align-items: center;
-  width: 40px;
-  height: 20px;
-  font-size: 11px;
-  line-height: 18px;
-  border-radius: 2px;
-  background: ${props => props.theme.main};
-  font-style: normal;
-  font-weight: bold;
-  color: ${props => props.theme.white};
-`;
-
-export const DDayW = styled (DueDateW)`
-  background: ${props => props.theme.red50};
-`;
-
 export const WritingsW = styled.div`
   padding: 16px 0 13px;
   color: #143441;

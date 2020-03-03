@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
 import Tooltip from '@material-ui/core/Tooltip';
-import moment from 'moment';
 
 import Button from 'atoms/Button';
+import DueDate from 'atoms/DueDate';
 import StatBox from 'molecules/StatBox';
 import StyledQuill from 'organisms/StyledQuill';
 import ZaboList from 'templates/ZaboList';
@@ -23,6 +23,7 @@ import {
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import { alerts } from '../../../lib/variables';
+import { PosterW } from '../../organisms/ZaboCard/ZaboCard.styled';
 import { ZaboPageWrapper } from './ZaboPage.styled';
 
 const OwnerInfo = ({
@@ -115,7 +116,6 @@ const ZaboDetailPage = (props) => {
   } = zabo;
   const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
-  const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
 
   const stats = [{
     type: 'like',
@@ -157,7 +157,7 @@ const ZaboDetailPage = (props) => {
               </section>
               <section className="zabo-page-header-title-group">
                 <div className="zabo-page-header-title">{title}</div>
-                {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
+                <DueDate schedule={schedule ? schedule.startAt : null} large />
               </section>
               <section>
                 <div className="details">

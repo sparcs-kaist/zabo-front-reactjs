@@ -99,27 +99,6 @@ ZaboPageWrapper.Info.Header = styled.section`
         margin-bottom: 10px;
       }
     }
-    .due-date {
-      margin-top: 4px;
-      display: inline-block;
-      height: 26px;
-      padding: 4px 10px;
-      border-radius: 4px;
-      background: #143441;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      vertical-align: middle;
-    }
-    @media (max-width: 640px) {
-      .due-date {
-        margin-top: 5px;
-        height: 20px;
-        font-size: 12px;
-        padding: 3px 4px;
-        border-radius: 2px;
-      }
-    }
   }
 
   .details{
