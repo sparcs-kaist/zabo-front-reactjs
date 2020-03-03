@@ -155,16 +155,21 @@ const SlickItem = ({ zabo }) => (
   </div>
 );
 
-const Upcoming = () => {
-  const history = useHistory ();
-  const [current, setCurrent] = useState (0);
+const CountDown = ({ initialValue }) => {
   const [tick, addTick] = useReducer (state => state + 1, 0);
-  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
-  const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
   useEffect (() => {
     const timer = setInterval (addTick, 1000);
     return () => clearInterval (timer);
   }, []);
+  const timeLeft = initialValue - (tick * 1000);
+  return moment (timeLeft).format ('HH:mm:ss');
+};
+const Upcoming = () => {
+  const history = useHistory ();
+  const [current, setCurrent] = useState (0);
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
+
   if (!zabos) {
     return (
       <UpcomingW>
@@ -209,13 +214,13 @@ const Upcoming = () => {
               {label}
             </UpcomingW.Description>
             <UpcomingW.Timer>
-              {moment (timeLeft).format ('HH:mm:ss')}
+              <CountDown initialValue={timeLeft} />
             </UpcomingW.Timer>
             <UpcomingW.Button onClick={e => history.push (`/zabo/${_id}`)}>
               자세히 보기 <SVG icon="arrowRight" />
             </UpcomingW.Button>
             <UpcomingW.Count>
-              {current}/8
+              {current + 1}/{zabos.length}
             </UpcomingW.Count>
           </TwoCol.Left>
           <TwoCol.Right>
