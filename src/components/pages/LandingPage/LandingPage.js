@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
+import moment from 'moment';
 import useSWR from 'swr';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
@@ -138,8 +139,24 @@ const SlickItem = ({ zabo }) => (
 );
 
 const Upcoming = () => {
+  const history = useHistory ();
+  const [current, setCurrent] = useState (0);
+  const [tick, addTick] = useReducer (state => state + 1, 0);
   const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
+  useEffect (() => {
+    const timer = setInterval (addTick, 1000);
+    return () => clearInterval (timer);
+  }, []);
+  if (!zabos) {
+    return (
+      <UpcomingW>
+        <Container>
+          Loading...
+        </Container>
+      </UpcomingW>
+    );
+  }
   const settings = {
     dots: true,
     infinite: true,
@@ -148,30 +165,40 @@ const Upcoming = () => {
     slidesToScroll: 1,
     variableWidth: true,
     autoplay: true,
-    autoplaySpeed: 2000,
+    autoplaySpeed: 5000,
     arrows: true,
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
+    afterChange: setCurrent,
   };
+
+  const currentZabo = zabos[current] || {};
+  const { _id, title, schedules } = currentZabo;
+  const schedule = schedules[0];
+  const { type, startAt } = schedule;
+  const label = `${(type === '신청' ? '신청이 ' : '')}얼마 남지 않았어요.`;
+  const startAtMoment = moment (startAt);
+  const timeLeft = startAtMoment.diff (moment ());
+
   return (
     <UpcomingW>
       <Container>
         <TwoCol mobileWrap={false}>
           <TwoCol.Left>
             <UpcomingW.Title>
-            SPARCS 2019 가을 리크루팅
+              {title}
             </UpcomingW.Title>
             <UpcomingW.Description>
-            얼마 남지 않았어요
+              {label}
             </UpcomingW.Description>
             <UpcomingW.Timer>
-            07:14:21
+              {moment (timeLeft).format ('HH:mm:ss')}
             </UpcomingW.Timer>
-            <UpcomingW.Button>
+            <UpcomingW.Button onClick={e => history.push (`/zabo/${_id}`)}>
               자세히 보기 <SVG icon="arrowRight" />
             </UpcomingW.Button>
             <UpcomingW.Count>
-              2/8
+              {current}/8
             </UpcomingW.Count>
           </TwoCol.Left>
           <TwoCol.Right>
