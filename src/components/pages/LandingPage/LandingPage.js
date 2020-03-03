@@ -299,14 +299,16 @@ export const Banners = () => {
         <BannerW>
           <BannerW.Writings>
             <BannerW.Title>
-              자보, 드디어 정식 런칭!
+              자보를 직접 만들고 싶다면?
             </BannerW.Title>
             <BannerW.Description>
-              자보 홍보하고 베스타 받으세요.
+              SPARCS 지원 바로가기
             </BannerW.Description>
-            <BannerW.Button color="main">
-              자세히 보기 <SVG icon="arrowRight" />
-            </BannerW.Button>
+            <a href="https://apply.sparcs.org" target="_blank" rel="noopener noreferrer">
+              <BannerW.Button color="main">
+                지원하기 <SVG icon="arrowRight" />
+              </BannerW.Button>
+            </a>
           </BannerW.Writings>
           <BannerW.Image src={bannerSparcs} />
         </BannerW>

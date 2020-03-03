@@ -459,8 +459,10 @@ export const BannerW = styled.div`
 
 BannerW.Writings = styled.div`
    padding: 24px 0;
+   margin-right: 7px;
    ${media.tablet (css`
     padding: 48px 0;
+    margin-right: 30px;
   `)};
 `;
 
