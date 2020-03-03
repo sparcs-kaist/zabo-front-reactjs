@@ -85,7 +85,7 @@ const ApplyForm = ({ profilePhoto }) => {
     <form onSubmit={handleSubmit}>
       <FormGroup>
         <FormGroup.Label>
-          <label htmlFor="group-profile-name">*그룹명</label>
+          <label htmlFor="group-profile-name">그룹명</label>
         </FormGroup.Label>
         <input
           id="group-profile-name"
@@ -98,7 +98,7 @@ const ApplyForm = ({ profilePhoto }) => {
       </FormGroup>
       <FormGroup>
         <FormGroup.Label>
-          <label htmlFor="group-profile-category">*소속</label>
+          <label htmlFor="group-profile-category">소속</label>
         </FormGroup.Label>
         <AddCategoryW>
           <SimpleSelect
@@ -141,7 +141,7 @@ const ApplyForm = ({ profilePhoto }) => {
       </FormGroup>
       <FormGroup>
         <FormGroup.Label>
-          <label htmlFor="group-profile-purpose">*그룹 생성 목적</label>
+          <label htmlFor="group-profile-purpose">그룹 생성 목적</label>
         </FormGroup.Label>
         <input
           placeholder="그룹 생성 목적을 간략히 알려주세요."
@@ -152,7 +152,7 @@ const ApplyForm = ({ profilePhoto }) => {
       </FormGroup>
       <FormGroup>
         <FormGroup.Label>
-          <label htmlFor="group-profile-description">*그룹 한줄 소개</label>
+          <label htmlFor="group-profile-description">그룹 한줄 소개</label>
         </FormGroup.Label>
         <input
           placeholder="그룹에 대해 한줄로 설명해주세요."
@@ -163,7 +163,7 @@ const ApplyForm = ({ profilePhoto }) => {
       </FormGroup>
       <FormGroup>
         <FormGroup.Label>
-          <label htmlFor="group-profile-description">*그룹 설명</label>
+          <label htmlFor="group-profile-description">그룹 설명</label>
         </FormGroup.Label>
         <StyledQuill
           placeholder="그룹에 대해 자세하게 설명해주세요."
