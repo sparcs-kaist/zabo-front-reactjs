@@ -9,29 +9,48 @@ import GroupBox from 'organisms/GroupBox';
 import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';
 
+import allIcon from 'static/icon/category/all.svg';
+import contestIcon from 'static/icon/category/contest.svg';
+import demodayIcon from 'static/icon/category/demoday.svg';
 import educationIcon from 'static/icon/category/education.svg';
 import eventIcon from 'static/icon/category/event.svg';
+import exhibitionIcon from 'static/icon/category/exhibition.svg';
 import festivalIcon from 'static/icon/category/festival.svg';
-import groupIcon from 'static/icon/category/group.svg';
+import hangsaIcon from 'static/icon/category/hangsa.svg';
+import hireIcon from 'static/icon/category/hire.svg';
+import meetingIcon from 'static/icon/category/meeting.svg';
+import noticeIcon from 'static/icon/category/notice.svg';
+import openclubIcon from 'static/icon/category/openclub.svg';
 import performanceIcon from 'static/icon/category/performance.svg';
-import scheduleIcon from 'static/icon/category/schedule.svg';
+import recruitIcon from 'static/icon/category/recruit.svg';
 import seminarIcon from 'static/icon/category/seminar.svg';
+import volunteerIcon from 'static/icon/category/volunteer.svg';
 import rightArrowIcon from 'static/icon/rightArrow.svg';
 import landingBackground from 'static/images/landingBackground.png';
 
 const categoryIcons = {
-  educationIcon,
-  eventIcon,
-  festivalIcon,
-  groupIcon,
+  allIcon,
+  hangsaIcon,
   performanceIcon,
-  scheduleIcon,
+  festivalIcon,
   seminarIcon,
+  educationIcon,
+  meetingIcon,
+  eventIcon,
+  contestIcon,
+  exhibitionIcon,
+  noticeIcon,
+  recruitIcon,
+  hireIcon,
+  volunteerIcon,
+  openclubIcon,
+  demodayIcon,
   rightArrowIcon,
 };
 
 export const Container = styled (ContainerAtom)`
   max-width: 1084px;
+  scroll-behavior: smooth;
 `;
 
 const Wrapper = styled.section`
@@ -204,21 +223,22 @@ CategoryNavW.Label = styled.div`
 export const CategoryBannerW = styled.section`
   width: 100%;
   display: flex;
+  align-items: center;
   ${Container} {
     padding: 24px 16px;
   }
   ${CategoryNavW} {
-    margin-right: 20px;
-    &:last-child {
-      margin-right: 0;
-    }
+    margin-left: 20px;
   }
   ${media.tablet (css`
     padding: 72px 16px;
     ${CategoryNavW} {
-      margin-right: 65px;
+      margin-left: 65px;
     }
   `)};
+  ${CategoryNavW}:first-child {
+    margin-left: 0;
+  }
 `;
 
 CategoryNavW.Image.propTypes = {
@@ -230,15 +250,18 @@ export const UpcomingW = styled.section`
   background: ${props => props.theme.gray90};
   color: ${props => props.theme.gray1};
   width: 100%;
+  height: 200px;
+  padding: 36px 0;
   ${Container} {
-    padding: 60px 24px 12px 24px;
+    /* padding: 60px 24px 12px 24px; */
+    overflow: visible;
   }
   ${TwoCol.Right} {
     position: relative;
-    overflow: hidden;
   }
   ${media.tablet (css`
-    padding: 72px 16px;
+    padding: 48px 0;
+    height: 100%;
   `)};
 `;
 UpcomingW.Title = styled.div`
@@ -277,7 +300,7 @@ UpcomingW.Timer = styled.div`
 UpcomingW.Button = styled.button`
   margin-top: 32px;
   padding: 14px 16px;
-  width: 141px;
+  width: 146px;
   height: 52px;
   background: ${props => props.theme.gray90};
   border: 1.5px solid rgba(255, 255, 255, 0.2);
@@ -311,13 +334,62 @@ UpcomingW.Count = styled.div`
   `)};
 `;
 
-// TODO: Absolute not working
 UpcomingW.Carousel = styled.section`
   position: absolute;
-  width: 100%;
-  height: 500px;
-  background: #fff;
+  top: -16px;
+  width: 150%;
+  height: 180px;
+  .slick-btn {
+    opacity: 0;
+    display: none;
+  }
+  ${media.tablet (css`
+    height: 400px;
+    .slick-btn { display: inherit }
+    &:hover {
+      .slick-btn { opacity: 1 }
+    }
+  `)}
+`;
+
+UpcomingW.Carousel.Button = styled.img`
+  position: absolute;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
   z-index: 1;
+  &.prev {
+    top: 68px;
+    left: 16px;
+  }
+  &.next {
+    top: 68px;
+    right: 16px;
+  }
+  ${media.tablet (css`
+    width: 40px;
+    height: 40px;
+    &.prev, &.next { top: 164px; }
+  `)}
+`;
+
+UpcomingW.SlickItemW = styled.div`
+  padding-right: 12px;
+  padding-bottom: 10px;
+  ${media.tablet (css`
+    padding-right: 24px;
+  `)}
+`;
+
+UpcomingW.Image = styled.img`
+  height: 180px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), url(image.png);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 4px;
+  ${media.tablet (css`
+    height: 360px;
+  `)}
 `;
 
 export const RecommendsW = styled.section`
@@ -402,8 +474,10 @@ export const BannerW = styled.div`
 
 BannerW.Writings = styled.div`
    padding: 24px 0;
+   margin-right: 7px;
    ${media.tablet (css`
     padding: 48px 0;
+    margin-right: 30px;
   `)};
 `;
 

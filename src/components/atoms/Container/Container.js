@@ -20,6 +20,16 @@ const Container = styled.div`
   background: ${props => (props.background ? props.theme[props.background] : 'transparent')};
 `;
 
+Container.Pad = styled.div`
+  padding-left: ${props => props.width};
+`;
+Container.Pad.propTypes = {
+  width: PropTypes.number.isRequired,
+};
+Container.Pad.defaultProps = {
+  width: '24px',
+};
+
 Container.propTypes = {
   ownStyle: PropTypes.oneOfType ([PropTypes.string, PropTypes.array]),
   background: PropTypes.oneOf (Object.keys (colors)),

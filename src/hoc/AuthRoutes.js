@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 
 import { isAdminOrPendingSelector, isAuthedSelector } from 'lib/utils';
 
+import { alerts } from '../lib/variables';
+
 export const PrivateRoute = (({ component: Component, render, ...rest }) => {
   const isAuthenticated = useSelector (isAuthedSelector);
   // TODO: Return loading while auth info not fetched
@@ -14,7 +16,9 @@ export const PrivateRoute = (({ component: Component, render, ...rest }) => {
         isAuthenticated ? (
           Component ? <Component {...props} /> : render (props)
         ) : (
-          <Redirect to={{ pathname: '/auth/login', state: { referrer: props.location.pathname } }} />
+          (window.confirm (alerts.login))
+            ? <Redirect to={{ pathname: '/auth/login', state: { referrer: props.location.pathname } }} />
+            : <Redirect to="/" />
         ))}
     />
   );

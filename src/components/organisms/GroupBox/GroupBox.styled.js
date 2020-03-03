@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import ProfileStats from 'organisms/ProfileStats';
 
+import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';
 
 export const GroupW = styled (Link)`
@@ -44,10 +45,8 @@ export const GroupW = styled (Link)`
 `;
 
 export const GroupAW = styled (Link)`
-  display: flex;
+  ${mixins.flexCenter};
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   border-radius: 6px;
   min-width: 275px;
   height: 108px;
@@ -61,6 +60,7 @@ export const GroupAW = styled (Link)`
   p {
     font-size: 12px;
     padding: 0;
+    margin: 8px 0 0 0;
     color: ${props => props.theme.gray50};
   }
 

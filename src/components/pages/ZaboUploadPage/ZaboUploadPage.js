@@ -18,6 +18,7 @@ import {
   setGroupSelected, setImagesSeleted, setStep as setReduxStep,
   submit,
 } from 'store/reducers/upload';
+import { alerts } from 'lib/variables';
 
 import rightArrow from 'static/images/rightArrow.png';
 import rightGrayArrow from 'static/images/rightGrayArrow.png';
@@ -83,7 +84,7 @@ const UploadFooter = (props) => {
     } else if (step === 1) {
       dispatch (setImagesSeleted (true));
     } else if (step === 2) {
-      dispatch (submit (true));
+      if (window.confirm (alerts.upload)) dispatch (submit (true));
       return;
     }
     next ();

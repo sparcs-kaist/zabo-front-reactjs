@@ -1,14 +1,23 @@
-/* eslint-disable */
-import { PureComponent } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import queryString from 'query-string';
 
-class AuthCallback extends PureComponent {
-  componentDidMount () {
-    const { location, loginCallback, history } = this.props;
+import { loginCallback } from 'store/reducers/auth';
+import storage from 'lib/storage';
+
+const AuthCallback = ({ location, history }) => {
+  const dispatch = useDispatch ();
+  useEffect (() => {
     const { code, state } = queryString.parse (location.search);
     if (code && state) {
-      loginCallback (code, state)
+      dispatch (loginCallback (code, state))
         .then ((res) => {
+          const referrer = storage.getItem ('referrer');
+          if (referrer) {
+            storage.removeItem ('referrer');
+            history.replace (referrer);
+            return;
+          }
           history.replace (`/${res.user.username}`);
         })
         .catch ((error) => {
@@ -16,15 +25,8 @@ class AuthCallback extends PureComponent {
           history.replace ('/');
         });
     }
-  }
-
-  render () {
-    return null;
-  }
-}
-
-AuthCallback.propTypes = {};
-
-AuthCallback.defaultProps = {};
+  }, []);
+  return null;
+};
 
 export default AuthCallback;

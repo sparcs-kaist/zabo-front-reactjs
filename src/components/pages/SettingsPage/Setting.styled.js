@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Page = styled.section`
   padding: 64px 0 74px 0;
@@ -15,6 +15,7 @@ export const Page = styled.section`
 
 Page.Body = styled.div`
   width: 1032px;
+  margin-bottom: 64px;
   h1 {
     margin: 0;
     padding-bottom: 16px;
@@ -59,7 +60,7 @@ Page.Body.ProfileInfo = styled.div`
     margin: 18px 0 48px 0;
     padding: 8px 12px;
     border-radius: 15px;
-    border: 1.5px solid #143441;
+    border: 1px solid #143441;
     background-color: #F8F8F8;
     cursor: pointer;
     /* &:hover {
@@ -85,15 +86,23 @@ export const FormGroup = styled.div`
     width: 100%;
     height: 38px;
     padding: 10px 16px;
-    margin: 8px 0 18px 0;
+    margin: 8px 0 28px 0;
     border: none;
     outline: none;
     border-radius: 4px;
     background-color: #F4F4F4;
     font-size: 16px;
     line-height: 16px;
-    font-weight: bold;
+    font-weight: 500;
     color: #363636;
+    &::placeholder {
+      font-weight: 300;
+      color: #8f8f8f;
+    }
+    /* &:focus {
+      background-color: #ffffff;
+      border: 1px solid #143441;
+    } */
   }
   @media (max-width: 640px) {
     width: 100%;
@@ -101,10 +110,19 @@ export const FormGroup = styled.div`
 `;
 
 FormGroup.Label = styled.div`
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 20px;
   margin: 0;
+  ${props => (props.required ? css`
+    &::after {
+      display: inline-block;
+      margin-left: 4px;
+      color: #f66;
+      font-weight: 300;
+      content: "*";
+    }
+  ` : css``)};
 `;
 
 export const FooterStyle = styled.div`

@@ -2,8 +2,10 @@ import axios from '../axios';
 
 /* Auth */
 export const updateGroupInfo = ({
-  curName, name, description, subtitle,
-}) => axios.post (`/group/${curName}`, { name, description, subtitle });
+  curName, name, description, subtitle, category,
+}) => axios.post (`/group/${curName}`, {
+  name, description, subtitle, category,
+});
 export const updateGroupInfoWithImage = ({ curName, formData }) => axios.post (`/group/${curName}`, formData);
 
 /* Profile */

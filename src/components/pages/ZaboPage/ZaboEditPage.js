@@ -15,13 +15,20 @@ import { patchZabo } from 'store/reducers/zabo';
 import withZabo from 'hoc/withZabo';
 import useSetState from 'hooks/useSetState';
 import { ZaboType } from 'lib/propTypes';
-import { ZABO_CATEGORIES } from 'lib/variables';
+import { alerts, ZABO_CATEGORIES } from 'lib/variables';
 
 const FooterChild = ({ isValid, submit }) => (
   <FooterStyle>
     <div className="container">
       <div className="slide-action-group">
-        <button type="button" className="next" onClick={submit} disabled={!isValid}>
+        <button
+          type="button"
+          className="next"
+          onClick={e => {
+            if (window.confirm (alerts.edit)) submit ();
+          }}
+          disabled={!isValid}
+        >
            제출하기
         </button>
       </div>

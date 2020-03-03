@@ -1,7 +1,7 @@
 import moment from 'moment';
 import queryString from 'query-string';
 
-import { RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
+import { alerts, RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
 
 export * from './selector';
 
@@ -164,4 +164,25 @@ export const jsonStringify = (json) => {
     }
     return `<span class="${cls}">${match}</span>`;
   });
+};
+
+export const pushWithAuth = (to, history, isAuthed) => {
+  if (!isAuthed) {
+    if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+    }
+  } else {
+    history.push (to);
+  }
+};
+
+export const withAuth = (history, isAuthed) => {
+  if (!isAuthed) {
+    if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+      return true;
+    }
+    return false;
+  }
+  return true;
 };

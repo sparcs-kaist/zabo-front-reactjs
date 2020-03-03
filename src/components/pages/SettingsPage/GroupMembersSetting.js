@@ -13,6 +13,7 @@ import useSetState from 'hooks/useSetState';
 import { searchUsers } from 'lib/api/search';
 import { GroupType } from 'lib/propTypes';
 
+import { alerts } from '../../../lib/variables';
 import { AddMember, Page } from './Setting.styled';
 import withGroupProfile from './withGroupProfile';
 
@@ -45,13 +46,19 @@ const GroupMembersSetting = ({ profile }) => {
 
   const addMember = useCallback (() => {
     const { userOption: { value: userId }, roleOption: { value: role } } = state;
-    dispatch (profileActions.addGroupMember ({ groupName: name, userId, role }));
+    if (!window.confirm (alerts.addMember)) return;
+    dispatch (profileActions.addGroupMember ({ groupName: name, userId, role }))
+      .catch (error => alert (error.error));
   }, [state, dispatch]);
   const updateMember = useCallback ((userId, role) => {
-    dispatch (profileActions.updateGroupMember ({ groupName: name, userId, role }));
+    if (!window.confirm (alerts.updateMember)) return;
+    dispatch (profileActions.updateGroupMember ({ groupName: name, userId, role }))
+      .catch (error => alert (error.error));
   }, [dispatch]);
   const removeMember = useCallback ((userId) => {
-    dispatch (profileActions.removeGroupMember ({ groupName: name, userId }));
+    if (!window.confirm (alerts.deleteMember)) return;
+    dispatch (profileActions.removeGroupMember ({ groupName: name, userId }))
+      .catch (error => alert (error.error));
   }, [dispatch]);
   const { userOption, roleOption } = state;
 

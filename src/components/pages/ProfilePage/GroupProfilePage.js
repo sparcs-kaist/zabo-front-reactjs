@@ -2,7 +2,7 @@ import React, {
   useCallback, useEffect, useMemo,
   useRef, useState,
 } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
 
@@ -14,7 +14,9 @@ import ZaboList from 'templates/ZaboList';
 
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
-import { getLabeledTimeDiff, isElemWidthOverflown } from 'lib/utils';
+import {
+  getLabeledTimeDiff, isAuthedSelector, isElemWidthOverflown, withAuth,
+} from 'lib/utils';
 import { mediaSizes } from 'lib/utils/style';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
@@ -26,13 +28,15 @@ const GroupProfile = ({ profile }) => {
     name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole, following,
   } = profile;
   const dispatch = useDispatch ();
+  const history = useHistory ();
+  const isAuthed = useSelector (isAuthedSelector);
   const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
 
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   const follow = useCallback (() => {
-    dispatch (followProfile ({ name }));
+    if (withAuth (history, isAuthed)) dispatch (followProfile ({ name }));
   }, [name]);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 

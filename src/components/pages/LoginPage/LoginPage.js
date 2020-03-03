@@ -1,18 +1,25 @@
-import React, { PureComponent } from 'react';
+import { useEffect } from 'react';
 
-import LoginPageWrapper from './LoginPage.styled';
+import axios from 'lib/axios';
+import storage from 'lib/storage';
 
-class LoginPage extends PureComponent {
-  render () {
-    return (
-      <LoginPageWrapper>
-        <h1>로그인이 필요한 기능입니다.</h1>
-        <a href="/api/auth/login">로그인</a>
-      </LoginPageWrapper>
-    );
-  }
-}
-
+const LoginPage = ({ history }) => {
+  useEffect (() => {
+    const { state } = history.location;
+    if (state && state.referrer) {
+      storage.setItem ('referrer', state.referrer);
+    }
+    axios.get ('/auth/loginApi')
+      .then (data => {
+        window.location.replace (data.url);
+      })
+      .catch (error => {
+        console.error (error);
+        alert ('로그인에 실패하였습니다.');
+      });
+  }, [history]);
+  return null;
+};
 LoginPage.propTypes = {};
 
 LoginPage.defaultProps = {};

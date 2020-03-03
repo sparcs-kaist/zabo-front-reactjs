@@ -7,7 +7,7 @@ import ChannelService from 'lib/channel_io';
 import { isAuthedSelector } from 'lib/utils';
 
 const ChannelTalk = ({ match }) => {
-  const { search } = useLocation ();
+  const { search, pathname } = useLocation ();
   const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
   const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
@@ -25,6 +25,10 @@ const ChannelTalk = ({ match }) => {
   useEffect (() => {
     // if (process.env.NODE_ENV !== 'production') return;
     if (top === 'settings') {
+      ChannelService.shutdown ();
+      return;
+    }
+    if (pathname === '/zabo/upload') {
       ChannelService.shutdown ();
       return;
     }
@@ -48,7 +52,7 @@ const ChannelTalk = ({ match }) => {
       });
     }
     ChannelService.boot (settings);
-  }, [search, isAuthenticated, infoImmutable, top]);
+  }, [search, isAuthenticated, infoImmutable, top, pathname]);
   return null;
 };
 

@@ -94,6 +94,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.3.0",
     "react-select": "^3.0.8",
+    "react-slick": "^0.25.2",
     "react-spinners": "^0.8.0",
     "react-swipeable-views": "0.13.1",
     "react-transition-group": "^4.2.1",

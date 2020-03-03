@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
@@ -8,6 +8,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import moment from 'moment';
 
 import Button from 'atoms/Button';
+import DueDate from 'atoms/DueDate';
 import StatBox from 'molecules/StatBox';
 import StyledQuill from 'organisms/StyledQuill';
 import ZaboList from 'templates/ZaboList';
@@ -16,11 +17,15 @@ import { followProfile, getProfile } from 'store/reducers/profile';
 import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';
 import withZabo from 'hoc/withZabo';
 import { ZaboType } from 'lib/propTypes';
-import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
+import {
+  getLabeledTimeDiff, isAuthedSelector, to2Digits, withAuth,
+} from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
-import { ZaboPageWrapper } from './ZaboPage.styled';
+import { alerts } from '../../../lib/variables';
+import { PosterW } from '../../organisms/ZaboCard/ZaboCard.styled';
+import { CategoryW, ZaboPageWrapper } from './ZaboPage.styled';
 
 const OwnerInfo = ({
   zabo: {
@@ -28,6 +33,8 @@ const OwnerInfo = ({
   },
 }) => {
   const { url } = useRouteMatch ();
+  const isAuthed = useSelector (isAuthedSelector);
+  const history = useHistory ();
   const { name, profilePhoto } = owner;
   const dispatch = useDispatch ();
   useEffect (() => {
@@ -36,7 +43,7 @@ const OwnerInfo = ({
   }, [name]);
   const follow = useCallback (() => {
     if (!name) return;
-    dispatch (followProfile ({ name }));
+    if (withAuth (history, isAuthed)) dispatch (followProfile ({ name }));
   }, [name]);
   const deleteZabo = useCallback (() => {
     dispatch (deleteZaboAction ({ zaboId: _id }))
@@ -78,13 +85,15 @@ const OwnerInfo = ({
       {isMyZabo
       && (
         <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
-          <Button to={`${url}/edit`} border="main" type="detail">게시물 수정</Button>
+          <Button to={`${url}/edit`} border="main" type="detail">
+            게시물 수정
+          </Button>
           <Button
             background="point"
             border="none"
             color="white"
             onClick={() => {
-              deleteZabo ();
+              if (window.confirm (alerts.del)) deleteZabo ();
             }}
           >게시물 삭제
           </Button>
@@ -109,7 +118,7 @@ const ZaboDetailPage = (props) => {
   const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
   const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
-
+  const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
   const stats = [{
     type: 'like',
     count: likesCount,
@@ -149,8 +158,8 @@ const ZaboDetailPage = (props) => {
                 </ul>
               </section>
               <section className="zabo-page-header-title-group">
-                <div className="zabo-page-header-title"><h1>{title}</h1></div>
-                {due > 0 && <div className="due-date">D{to2Digits (-due, true)}</div>}
+                <div className="zabo-page-header-title">{title}</div>
+                <DueDate schedule={schedule ? schedule.startAt : null} large />
               </section>
               <section>
                 <div className="details">
@@ -173,6 +182,15 @@ const ZaboDetailPage = (props) => {
                 <OwnerInfo isMyZabo={isMyZabo} zabo={zabo} />
                 <div className="borderLine"> </div>
               </section>
+              {schedule && (
+                <CategoryW>
+                  <button>{schedule.eventType}</button>
+                  <h3>{schedule.title}</h3>
+                  <div className="schedule-date">
+                    {dueFormat}
+                  </div>
+                </CategoryW>
+              )}
               <section className="contents">
                 <StyledQuill
                   theme="bubble"
