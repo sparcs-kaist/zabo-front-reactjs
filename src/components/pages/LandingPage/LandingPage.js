@@ -272,6 +272,9 @@ const Recommends = () => {
             <RecommendsTitleW>이 그룹은 어때요?</RecommendsTitleW>
             <CategoryListW>
               {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
+              <Tooltip title="그룹 필터링 기능을 개발 중이에요.">
+                <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
+              </Tooltip>
             </CategoryListW>
             <RecommendsW.GroupList>
               {groups ? groups.map (group => <GroupBoxW group={group} type="simple" key={group.name} />)
