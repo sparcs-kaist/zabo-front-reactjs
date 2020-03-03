@@ -161,6 +161,10 @@ const SlickItem = ({ zabo }) => (
   </UpcomingW.SlickItemW>
 );
 
+const twoDigits = (number) => {
+  if (number > 0 && number < 10) return `0${number}`;
+  return number;
+};
 const CountDown = ({ initialValue }) => {
   const [tick, dispatch] = useReducer ((state, action) => {
     if (action.type === 'increase') return state + 1;
@@ -172,10 +176,14 @@ const CountDown = ({ initialValue }) => {
     return () => clearInterval (timer);
   }, [initialValue]);
   useEffect (() => {
-    dispatch ({ type: 'set', payload: initialValue });
+    dispatch ({ type: 'set', payload: initialValue / 1000 });
   }, [initialValue]);
-  const timeLeft = initialValue - (tick * 1000);
-  return moment (timeLeft).format ('HH:mm:ss');
+  console.log (initialValue, tick);
+  const days = Math.floor (tick / 86400);
+  const hours = Math.floor (tick / 3600) % 24;
+  const mins = Math.floor (tick / 60) % 60;
+  const secs = Math.floor (tick % 60);
+  return <div>{!!days && days}{!!days && <small>일</small>} {`${twoDigits (hours)}:${twoDigits (mins)}:${twoDigits (secs)}`}</div>;
 };
 const Upcoming = () => {
   const history = useHistory ();
@@ -213,7 +221,6 @@ const Upcoming = () => {
   const label = `${(type === '신청' ? '신청이 ' : '')}얼마 남지 않았어요`;
   const startAtMoment = moment (startAt);
   const timeLeft = startAtMoment.diff (moment ());
-
   return (
     <UpcomingW>
       <Container>

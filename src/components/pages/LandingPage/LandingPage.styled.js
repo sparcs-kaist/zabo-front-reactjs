@@ -339,6 +339,7 @@ UpcomingW.Carousel = styled.section`
   top: -16px;
   width: 150%;
   height: 180px;
+  overflow: hidden;
   .slick-btn {
     opacity: 0;
     display: none;
