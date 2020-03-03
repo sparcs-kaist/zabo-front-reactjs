@@ -38,22 +38,41 @@ import LandingPageWrapper, {
 } from './LandingPage.styled';
 
 const categories = [
-  'schedule',
+  'all',
+  'hangsa',
   'performance',
   'festival',
   'seminar',
   'education',
-  'group',
+  'meeting',
   'event',
+  'contest',
+  'exhibition',
+  'notice',
+  'recruit',
+  'hire',
+  'volunteer',
+  'openclub',
+  'demoday',
 ];
+
 const categoriesK = {
-  education: '교육',
-  event: '이벤트',
-  festival: '축제',
-  group: '모임',
+  all: '전체보기',
+  hangsa: '행사',
   performance: '공연',
-  schedule: '행사',
+  festival: '축제',
   seminar: '세미나',
+  education: '교육',
+  meeting: '모임',
+  event: '이벤트',
+  contest: '공모전',
+  exhibition: '전시',
+  notice: '공지',
+  recruit: '모집',
+  hire: '채용',
+  volunteer: '봉사',
+  openclub: '오픈동방',
+  demoday: '데모데이',
 };
 
 const swrOpts = {
@@ -95,7 +114,10 @@ const TopBanner = () => {
 };
 
 const Category = ({ category }) => (
-  <CategoryNavW to={`/search?category=${categoriesK[category]}`}>
+  <CategoryNavW to={categoriesK[category] === '전체보기'
+    ? '/main'
+    : `/search?category=${categoriesK[category]}`}
+  >
     <CategoryNavW.Image category={category} />
     <CategoryNavW.Label>
       {categoriesK[category]}
