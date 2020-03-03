@@ -13,6 +13,10 @@ export const ZaboPageWrapper = styled.div`
 `;
 
 ZaboPageWrapper.Detail = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
   padding: 80px 0;
   @media (max-width: 640px) {
     padding: 0;
