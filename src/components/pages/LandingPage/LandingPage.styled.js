@@ -298,7 +298,7 @@ UpcomingW.Timer = styled.div`
 UpcomingW.Button = styled.button`
   margin-top: 32px;
   padding: 14px 16px;
-  width: 141px;
+  width: 146px;
   height: 52px;
   background: ${props => props.theme.gray90};
   border: 1.5px solid rgba(255, 255, 255, 0.2);
@@ -334,14 +334,19 @@ UpcomingW.Count = styled.div`
 
 UpcomingW.Carousel = styled.section`
   position: absolute;
+  top: -16px;
   width: 150%;
   height: 180px;
-  .slick-btn { opacity: 0 }
-  &:hover {
-    .slick-btn { opacity: 1 }
+  .slick-btn {
+    opacity: 0;
+    display: none;
   }
   ${media.tablet (css`
     height: 400px;
+    .slick-btn { display: inherit }
+    &:hover {
+      .slick-btn { opacity: 1 }
+    }
   `)}
 `;
 
@@ -353,27 +358,35 @@ UpcomingW.Carousel.Button = styled.img`
   cursor: pointer;
   z-index: 1;
   &.prev {
-    top: 75px;
-    left: 0;
+    top: 68px;
+    left: 16px;
   }
   &.next {
-    top: 75px;
-    right: 0;
+    top: 68px;
+    right: 16px;
   }
   ${media.tablet (css`
     width: 40px;
     height: 40px;
-    &.prev, &.next { top: 190px; }
+    &.prev, &.next { top: 164px; }
+  `)}
+`;
+
+UpcomingW.SlickItemW = styled.div`
+  padding-right: 12px;
+  padding-bottom: 10px;
+  ${media.tablet (css`
+    padding-right: 24px;
   `)}
 `;
 
 UpcomingW.Image = styled.img`
   height: 180px;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), url(image.png);
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
   border-radius: 4px;
   ${media.tablet (css`
-    height: 400px;
+    height: 360px;
   `)}
 `;
 

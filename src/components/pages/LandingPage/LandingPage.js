@@ -147,12 +147,12 @@ const ArrowRight = (props) => (
 );
 
 const SlickItem = ({ zabo }) => (
-  <div style={{ paddingRight: 24 }}>
+  <UpcomingW.SlickItemW>
     <UpcomingW.Image
       src={zabo.photos[0].url}
       alt="Upcoming ZABO"
     />
-  </div>
+  </UpcomingW.SlickItemW>
 );
 
 const CountDown = ({ initialValue }) => {
@@ -180,7 +180,6 @@ const Upcoming = () => {
     );
   }
   const settings = {
-    dots: true,
     infinite: true,
     speed: 300,
     slidesToShow: 1,
@@ -197,8 +196,8 @@ const Upcoming = () => {
   const currentZabo = zabos[current] || {};
   const { _id, title, schedules } = currentZabo;
   const schedule = schedules[0];
-  const { type, startAt } = schedule;
-  const label = `${(type === '신청' ? '신청이 ' : '')}얼마 남지 않았어요.`;
+  const { type, title: scheduleTitle, startAt } = schedule;
+  const label = `${(type === '신청' ? '신청이 ' : '')}얼마 남지 않았어요`;
   const startAtMoment = moment (startAt);
   const timeLeft = startAtMoment.diff (moment ());
 
@@ -208,7 +207,7 @@ const Upcoming = () => {
         <TwoCol mobileWrap={false}>
           <TwoCol.Left>
             <UpcomingW.Title>
-              {title}
+              {scheduleTitle}
             </UpcomingW.Title>
             <UpcomingW.Description>
               {label}
