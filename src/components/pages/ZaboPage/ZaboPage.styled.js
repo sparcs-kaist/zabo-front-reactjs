@@ -213,3 +213,48 @@ ZaboPageWrapper.Recommend = styled.section`
     }
   }
 `;
+
+// TODO: temporal code - need to change
+export const CategoryW = styled.section`
+  width: 99%;
+  height: 66px;
+  transition: max-height 0.3s ease-in-out;
+  padding: 0 20px;
+  margin: 24px 0 0;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #143441;
+  border-radius: 2px;
+
+  display: flex;
+  align-items: center;
+  button {
+    height: 20px;
+    font-size: 12px;
+    color: #797979;
+    background: #F4F4F4;
+    border-radius: 3px;
+    border: 0;
+    margin-right: 8px;
+    padding: 3px 8px;
+  }
+  h3 {
+    color: #363636;
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+  }
+  .schedule-date {
+    flex: 1;
+    text-align: right;
+    font-size: 16px;
+    color: #797979;
+  }
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+    padding: 14px 20px;
+    button, h3 { margin-bottom: 5px }
+  }
+`;

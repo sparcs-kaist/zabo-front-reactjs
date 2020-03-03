@@ -251,7 +251,7 @@ export const UpcomingW = styled.section`
   color: ${props => props.theme.gray1};
   width: 100%;
   height: 200px;
-  padding: 36px 16px;
+  padding: 36px 0;
   ${Container} {
     /* padding: 60px 24px 12px 24px; */
     overflow: visible;
@@ -260,7 +260,7 @@ export const UpcomingW = styled.section`
     position: relative;
   }
   ${media.tablet (css`
-    padding: 48px 16px;
+    padding: 48px 0;
     height: 100%;
   `)};
 `;

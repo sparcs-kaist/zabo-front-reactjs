@@ -24,7 +24,7 @@ import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
 import { alerts } from '../../../lib/variables';
 import { PosterW } from '../../organisms/ZaboCard/ZaboCard.styled';
-import { ZaboPageWrapper } from './ZaboPage.styled';
+import { ZaboPageWrapper, CategoryW } from './ZaboPage.styled';
 
 const OwnerInfo = ({
   zabo: {
@@ -116,7 +116,8 @@ const ZaboDetailPage = (props) => {
   } = zabo;
   const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
-
+  const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
+  const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
   const stats = [{
     type: 'like',
     count: likesCount,
@@ -180,6 +181,15 @@ const ZaboDetailPage = (props) => {
                 <OwnerInfo isMyZabo={isMyZabo} zabo={zabo} />
                 <div className="borderLine"> </div>
               </section>
+              {schedule && (
+                <CategoryW>
+                  <button>{schedule.eventType}</button>
+                  <h3>{schedule.title}</h3>
+                  <div className="schedule-date">
+                    {dueFormat}
+                  </div>
+                </CategoryW>
+              )}
               <section className="contents">
                 <StyledQuill
                   theme="bubble"
