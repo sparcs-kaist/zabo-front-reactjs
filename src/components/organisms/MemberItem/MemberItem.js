@@ -20,6 +20,10 @@ const GroupMember = styled.div`
   }
   width: 582px;
   height: 102px;
+  @media (max-width: 640px) {
+    width: 100%;
+    height: 84px;
+  }
 `;
 
 GroupMember.Profile = styled.div`
@@ -97,6 +101,9 @@ GroupMember.Button = styled.button`
   border-radius: 15px;
   height: 30px;
   ${props => themes[props.colorTheme]};
+  &:last-child {
+    margin-right: 0;
+  }
 `;
 
 const roleOptions = [

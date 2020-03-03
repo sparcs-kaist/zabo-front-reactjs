@@ -2,7 +2,7 @@
 <br />
 <br />
 <p align="center">
-  <a href="https://alpha.zabo.sparcs.org">
+  <a href="https://zabo.sparcs.org">
     <img src="src/static/logo/logo.svg" alt="Logo" height="150">
   </a>
   
@@ -14,19 +14,25 @@
   <p align="center">
     ZABO with modern JS, designed and developed by SPARCS
     <br />
-    <a href="https://alpha.zabo.sparcs.org">Go to ZABO</a>
+    <a href="https://zabo.sparcs.org">Go to ZABO</a>
   </p>
 </p>
 
 # About
 
-ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform not only in an analogue way. While this service is open public, **only KAIST members** are allowed to post images on this website and others must manually get permission from SPARCS KAIST's current project manager.
+ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform. While this service is open for public, **only approved groups** are able to post images. Please submit your request in order to create a new group via our website. 
 
-We're expecting anyone satisfying above conditions posting there recruiting announcements, performance schedules, and any other events in much better condition (posting paper posters at each dorms, cafeterias, E11, ...etc) with ease and joy.
+This Project is being maintained by [SPARCS KAIST](https://github.com/sparcs-kaist)
 
-Please contact SPARCS KAIST to get more detailed information.
+We're expecting our users post there recruiting announcements, performance schedules, and any other events advertisments. However, there's no strict restrictions on contents that users upload.
+
+Please contact us to get more detailed information.
 
 If you're looking for backend codes, you can find it in [here](https://github.com/sparcs-kaist/zabo-server-nodejs)
+
+# Previews
+
+![upload](docs/Zabo_Upload_Process.gif)
 
 ## Table of Contents
 
@@ -37,26 +43,17 @@ If you're looking for backend codes, you can find it in [here](https://github.co
         - [Using yarn](#yarn)
     - [Available Scripts](#available-scripts)
         - [Storybook](#storybook)
-        - [Generate Component](#generate-component)
+        - ~~[Generate Component](#generate-component)~~
         - [Post Build](#post-build)
         - [Pre-Commit](#pre-commit)
     - [Get Ready for Production](#get-ready-for-production)
         - [Using npm](#npm)
         - [Using yarn](#yarn)
-- [Redirect API Requests](#redirect-api-requests)
+- [Proxy API Requests](#proxy-api-requests)
+- [Authentication](#authentication)
 - [Built With](#built-with)
 - [Folder Structure](#folder-structure)
 - [Deployment](#deployment)
-- [Commit Message Guidelines](#commit-message-guidlines)
-    - [Commit Message Format](#commit-message-format)
-    - [Revert](#revert)
-    - [Type](#type)
-    - [Scope](#scope)
-    - [Subject](#subject)
-    - [Body](#body)
-    - [Footer](#footer)
-- [Branch Management](#branch-management)
-- [Versioning](#versioning)
 - [Authors](#authors)
 - [Contributing](#contributing)
 - [License](#license)
@@ -107,6 +104,9 @@ yarn storybook
 ![gui](docs/storybook.png)
 
 #### Generate Component
+
+**Using React hook, this script is no longer used.**
+
 ```sh
 yarn generate [% component_architecture %] [% component_name %] "[% options %]"
 ```
@@ -122,7 +122,7 @@ yarn generate [% component_architecture %] [% component_name %] "[% options %]"
 yarn postbuild
 ```
 
-Copy build folder to deploy folder to remove down time caused by rimraf in build process (yarn build)
+Helper script, making Front-end deployment graceful.
 
 Automatically triggered after build command finishes.
 
@@ -160,11 +160,15 @@ server -s deploy // or serve static files located in /deploy with whatever you l
 // I recommend you to set up production server with nginx. Please refer to [Deployment](#deployment) section for more.
 ```
 
-## Redirect API Requests
+## Proxy API Requests
+
+Using http-proxy-middleware, all requests are proxied to localhost:6001 on which our API server is located.
+
+## Authentication
 
 All requests sent from client are intercepted by an axios instance located in [axios.js](src/lib/axios.js).
 
-You can change **baseURL** option to redirect all requests to specific domain or IP.
+Axios request interceptor attaches authentication token into request header.
 
 ## Built with
 
@@ -211,91 +215,11 @@ zabo-front
 First, build static files with webpack regarding to [Get Ready for Production](#get-ready-for-production)
 And then follow [zabo-server-nodejs deployment guide-line](https://github.com/sparcs-kaist/zabo-server-nodejs/tree/develop#running-production-server)
 
-## Commit Message Guidelines
-
-I referred [Google's Angular JS's contributor's commit message guidelines](https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines) to format commit messages. This leads to more **unified** and **readable messages** helping further history lookups and even CI integrations.
-
-By the way, this repository's commit messages format is not exactly same as the one suggested above.
-
-### Commit Message Format
-
-Each commit message consists of a **header**, a **body** and a **footer**.  The header has a special
-format that includes a **type**, a **scope** and a **subject**:
-
-```
-<type>(<scope>): <subject>
-<BLANK LINE>
-<body>
-<BLANK LINE>
-<footer>
-```
-
-The **header** is mandatory and the **scope** of the header is optional.
-
-Any line of the commit message cannot be longer 100 characters! This allows the message to be easier
-to read on GitHub as well as in various git tools.
-
-Samples: (even more [samples](https://github.com/sparcs-kaist/zabo-server-nodejs/commits/master))
-
-```
-docs(README): update README adding instruction on how to start docker on EC2
-```
-```
-build(babel): Add babel preset-env
-
-Add @babel/core, @babel/preset-env and register with @babel/register.
-Entry point of the application is set to be bin/www_es6.js
-Refer to the package.json file to fidn out more.
-```
-
-### Revert
-If the commit reverts a previous commit, it should begin with `revert: `, followed by the header of the reverted commit. In the body it should say: `This reverts commit <hash>.`, where the hash is the SHA of the commit being reverted.
-
-### Type
-Should be one of the following:
-
-* **build**: Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)
-* **ci**: Changes to our CI configuration files and scripts (example scopes: Circle, BrowserStack, SauceLabs)
-* **docs**: Documentation only changes
-* **feat**: A new feature
-* **fix**: A bug fix
-* **perf**: A code change that improves performance
-* **refactor**: A code change that neither fixes a bug nor adds a feature
-* **style**: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-* **test**: Adding missing tests or correcting existing tests
-* **misc**: Adding miscellaneous items
-
-### Scope
-There's no specific recommendations for naming scope yet.
-Feel free to write your own scopes.
-
-### Subject
-The subject contains a succinct description of the change:
-
-* use the **imperative, present tense**: "change" not "changed" nor "changes"
-* **do capitalize** the first letter
-* no dot (.) at the end
-
-### Body
-Just as in the **subject**, use the imperative, present tense: "change" not "changed" nor "changes".
-If the commit derives changes from previous behavior, the body should include the motivation for the change and contrast this with previous behavior.
-
-### Footer
-The footer should contain any information about **Breaking Changes** and is also the place to
-
-
-## Branch Management
-
-I use [git-flow](https://danielkummer.github.io/git-flow-cheatsheet/index.html) to manage branches. For branch history, see the [branches on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/branches).
-
-
 ## Contributing
 
-Member of SPARCS-KAIST can freely contribute on this repository.
+Please checkout [CONTRIBUTING.md](CONTRIBUTING.md) for more.
 
-## Versioning
 
-I use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/sparcs-kaist/zabo-front-reactjs/tags).
 ## Authors
 
 * **Cookie** - [Cookie](https://github.com/jungdj)

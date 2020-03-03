@@ -21,7 +21,7 @@ import defaultProfile from 'static/images/defaultProfile.png';
 
 import {
   ErrorComponent,
-  FormGroup, Page, Submit, Success,
+  FooterStyle, FormGroup, Page, Submit, Success,
 } from './Setting.styled';
 
 
@@ -66,7 +66,10 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
     }
     updateCall ()
       .then (() => history.push (`/${username}`))
-      .catch (error => setState ({ ...update, success: false, error }));
+      .catch (error => {
+        setState ({ ...update, success: false, error });
+        alert (error.error);
+      });
   }, [username, description, newProfilePhoto]);
 
   const onChange = (e) => {
@@ -117,7 +120,9 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       {error && <ErrorComponent>{error.message}</ErrorComponent>}
       {success && <Success>성공</Success>}
       <Footer scrollFooter>
-        <Submit type="submit">수정 완료</Submit>
+        <FooterStyle>
+          <Submit type="submit">수정 완료</Submit>
+        </FooterStyle>
       </Footer>
     </form>
   );

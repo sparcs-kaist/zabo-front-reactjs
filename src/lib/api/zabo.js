@@ -15,6 +15,8 @@ export const patchZabo = ({ zaboId, data }) => axios.patch (`/zabo/${zaboId}`, d
 export const deleteZabo = ({ zaboId }) => axios.delete (`/zabo/${zaboId}`);
 
 export const getZabo = id => axios.get (`/zabo/${id}`);
+export const getHotZaboList = () => axios.get ('/zabo/list/hot');
+export const getDeadlineZaboList = () => axios.get ('/zabo/list/deadline');
 export const getZaboList = ({ lastSeen, relatedTo }) => axios
   .get ('/zabo/list', { params: { lastSeen, relatedTo } })
   .then (data => data.filter (item => item.photos[0] !== undefined));
@@ -27,7 +29,7 @@ export const toggleZaboLike = zaboId => axios.post (`/zabo/${zaboId}/like`);
 
 export const getGroupZaboList = ({ groupName, lastSeen }) => axios.get (`/group/${groupName}/zabo/list`, { params: { lastSeen } });
 export const getSearchZaboList = ({ text, lastSeen }) => {
-  if (!text) return Promise.resolve ({ zabos: [], groups: [], categories: [] });
+  if (!text) return Promise.resolve ({ zabos: [], groups: [] });
   const { query, category } = text;
   return axios.get (`/search/zabo/list?query=${encodeURIComponent (query)}&category=${encodeURIComponent (category)}`, { params: { lastSeen } });
 };

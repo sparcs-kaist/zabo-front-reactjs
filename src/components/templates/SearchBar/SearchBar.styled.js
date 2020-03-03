@@ -1,5 +1,9 @@
 import styled, { css } from 'styled-components';
 
+import leftArrowNavy from 'static/images/leftArrow-navy.png';
+import searchIcon from 'static/images/search-icon-navy.png';
+import searchIconWhite from 'static/images/search-icon-white.png';
+
 export const SearchBarContainer = styled.div`
   max-width: 1032px;
   width: 100%;
@@ -13,14 +17,6 @@ export const SearchBarContainer = styled.div`
 `;
 
 export const SearchBarWrapper = styled.div`
-  @font-face {
-    font-family: "NanumSquareRegular";
-    src: url(../../../lib/fonts/NanumSquareRegular.ttf) format("truetype");
-  }
-  @font-face {
-    font-family: "NanumSquareBold";
-    src: url(../../../lib/fonts/NanumSquareBold.ttf) format("truetype");
-  }
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -36,7 +32,7 @@ export const SearchBarWrapper = styled.div`
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
 
-  background-color: ${props => (props.transparent && !props.searchFocused
+  background-color: ${props => (props.transparent && !props.isFocused
     ? 'transparent' : 'white')};
   /* background-color: white; */
   border-radius: 4px;
@@ -54,7 +50,7 @@ export const SearchBarWrapper = styled.div`
       margin-right: 12px; 
     `)}
   }
-  ${props => (props.searchFocused ? css`
+  ${props => (props.isFocused ? css`
     box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
 
     @media (max-width: 910px) {
@@ -79,23 +75,41 @@ SearchBarWrapper.Header = styled.div`
     position: absolute;
     display: block;
     align-self: center;
-    &.search-icon {
-      top: 12px;
-      left: 16px;
-      height: 16px;
-    }
     &.cancel-icon {
       top: 7px;
       right: 12px;
       height: 24px;
     }
   }
+  div.search-icon {
+    position: absolute;
+    display: block;
+    align-self: center;
+    top: 12px;
+    left: 16px;
+    height: 16px;
+    width: 16px;
+    background: url(${props => (!props.isFocused && props.transparent ? searchIconWhite : searchIcon)}) no-repeat;
+    background-size: contain;
+  }
   @media (max-width: 910px) {
-    img.search-icon {
-      ${props => (props.searchFocused || props.type === 'search' ? css`
-        top: 12px;
+    ${props => (props.isFocused ? css`
+      border-top: 6px solid rgb(27, 50, 65);
+      height: 55px;
+    ` : '')}
+    img.cancel-icon { top: 13px }
+    div.search-icon {
+      ${props => (!props.isFocused && props.type === 'search' ? css`
+        background: url(${props => (!props.isFocused && props.transparent ? searchIconWhite : searchIcon)}) no-repeat;
+        background-size: contain;
+      ` : props.isFocused || props.type === 'search' ? css`
+        background: url(${leftArrowNavy}) no-repeat;
+        background-size: contain;
+        top: 15px;
         left: 16px;
         right: auto;
+        width: 20px;
+        height: 20px;
       ` : css`
       top: 10px;
       right: 12px;
@@ -120,12 +134,13 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     &::placeholder {
       color: #BCBCBC;
     }
-    ${props => (props.transparent && !props.searchFocused ? css`
+    ${props => (props.transparent && !props.isFocused ? css`
       background: rgba(255, 255, 255, 0.15);
       @media (max-width: 910px) { display: none }
-    ` : props.searchFocused ? css`
+    ` : props.isFocused ? css`
       border-radius: 0;
       background-color: white;
+      @media (max-width: 910px) { height: 50px }
     ` : css`
       border-radius: 4px;
       background-color: #F4F4F4;
@@ -139,7 +154,7 @@ SearchBarWrapper.Header.SearchBar = styled.div`
 
 SearchBarWrapper.Body = styled.div`
   position: relative;
-  ${props => (props.searchFocused ? css`` : css`
+  ${props => (props.isFocused ? css`` : css`
     display: none;
   `)}
   ${props => (

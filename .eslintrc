@@ -47,7 +47,7 @@
     "indent": ["warn", 2],
     "semi": ["warn", "always"],
     "simple-import-sort/sort": [
-      2,
+      1,
       {
         "groups": [
           ["^\\u0000"],
@@ -93,5 +93,19 @@
         "moduleDirectory": ["node_modules", "src", "src/components"]
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.js", "*.test.js"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off",
+      }
+    },
+    {
+      "files": ["*.test.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
 }

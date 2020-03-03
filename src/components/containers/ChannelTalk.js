@@ -6,8 +6,9 @@ import queryString from 'query-string';
 import ChannelService from 'lib/channel_io';
 import { isAuthedSelector } from 'lib/utils';
 
-const ChannelTalk = () => {
-  const { search } = useLocation ();
+const ChannelTalk = ({ match }) => {
+  const { search, pathname } = useLocation ();
+  const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
   const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
   const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
@@ -23,6 +24,14 @@ const ChannelTalk = () => {
 
   useEffect (() => {
     // if (process.env.NODE_ENV !== 'production') return;
+    if (top === 'settings') {
+      ChannelService.shutdown ();
+      return;
+    }
+    if (pathname === '/zabo/upload') {
+      ChannelService.shutdown ();
+      return;
+    }
     const { code, state } = queryString.parse (search);
     if (code && state) return;
     const settings = {
@@ -43,7 +52,7 @@ const ChannelTalk = () => {
       });
     }
     ChannelService.boot (settings);
-  }, [search, isAuthenticated, infoImmutable]);
+  }, [search, isAuthenticated, infoImmutable, top, pathname]);
   return null;
 };
 

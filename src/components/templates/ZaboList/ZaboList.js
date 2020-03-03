@@ -4,7 +4,6 @@ import MasonryZaboList from 'react-masonry-infinite';
 import SquareLoader from 'react-spinners/SquareLoader';
 import styled from 'styled-components';
 
-import Feedback from 'organisms/Feedback';
 import ZaboCard from 'organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
@@ -70,7 +69,7 @@ class ZaboList extends React.Component {
   }
 
   render () {
-    const { zaboIdList, type } = this.props;
+    const { zaboIdList, type, width } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
 
@@ -85,12 +84,12 @@ class ZaboList extends React.Component {
           ref={this.masonry}
           sizes={sizes}
           threshold={800}
+          key={[zaboIdList, width]}
         >
           {zaboIdList.map (zaboId => (
             <ZaboCard key={zaboId} zaboId={zaboId} />
           ))}
         </MasonryZaboList>
-        {hasNext || <Feedback />}
       </ZaboListWrapper>
     );
   }

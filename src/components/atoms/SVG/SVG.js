@@ -1,19 +1,34 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { faCoffee, faPlus, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRight, faCoffee, faPlus, faQuestionCircle,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const icons = {
+import arrow from 'static/icon/arrow.svg';
+
+export const faIcons = {
   coffee: faCoffee,
   user: faUser,
   plus: faPlus,
+  arrowRight: faArrowRight,
+  questionCircle: faQuestionCircle,
+};
+const faIconList = Object.keys (faIcons);
+
+const icons = {
+  arrow,
 };
 
-const SVG = props => <FontAwesomeIcon {...props} icon={icons[props.icon] || null} />;
+const SVG = ({ icon, ...props }) => {
+  if (faIconList.some (faIcon => icon === faIcon)) return <FontAwesomeIcon {...props} icon={faIcons[icon] || null} />;
+  return <img src={icons[icon] || ''} alt={icon} />;
+};
 
 SVG.propTypes = {
   ...FontAwesomeIcon.propTypes,
-  icon: PropTypes.oneOf (Object.keys (icons)).isRequired,
+  icon: PropTypes.oneOf (Object.keys (faIcons)).isRequired,
 };
 
 SVG.defaultProps = {};

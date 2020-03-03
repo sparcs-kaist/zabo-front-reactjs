@@ -7,6 +7,7 @@ import * as SearchAPI from 'lib/api/search';
 import * as ZaboAPI from 'lib/api/zabo';
 
 // Action types
+const GET_HOT_ZABO_LIST = 'zabo/GET_HOT_ZABO_LIST';
 const GET_ZABO_LIST = 'zabo/GET_ZABO_LIST';
 const UPLOAD_ZABO = 'zabo/UPLOAD_ZABO';
 const PATCH_ZABO = 'zabo/PATCH_ZABO';
@@ -20,6 +21,7 @@ const GET_SEARCH = 'zabo/GET_SEARCH';
 const DELETE_ZABO = 'zabo/DELETE_ZABO';
 
 // Action creator : action 객체를 만들어주는 함수
+export const getHotZaboList = createAction (GET_HOT_ZABO_LIST, ZaboAPI.getHotZaboList);
 export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
 export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, meta => meta);
 export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
@@ -74,6 +76,17 @@ export default handleActions (
         const error = action.payload;
         const zaboId = action.meta;
         return state.setIn (['zabos', zaboId], fromJS (error));
+      },
+    }),
+    ...pender ({
+      type: GET_HOT_ZABO_LIST,
+      onSuccess: (state, action) => {
+        const zaboList = action.payload;
+        const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+        const zaboIds = zaboList.map (zabo => zabo._id);
+        return state
+          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
+          .setIn (['lists', 'hot'], zaboIds);
       },
     }),
     ...pender ({

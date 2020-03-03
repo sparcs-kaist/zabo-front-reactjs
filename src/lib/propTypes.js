@@ -4,7 +4,10 @@ export const ZaboType = PropTypes.shape ({
   _id: PropTypes.string,
   title: PropTypes.string,
   owner: PropTypes.shape ({
+    _id: PropTypes.string,
     name: PropTypes.string,
+    profilePhoto: PropTypes.string,
+    subtitle: PropTypes.string,
   }),
   description: PropTypes.string,
   category: PropTypes.arrayOf (PropTypes.string),
@@ -14,6 +17,7 @@ export const ZaboType = PropTypes.shape ({
     url: PropTypes.string,
   })),
   views: PropTypes.number,
+  effectiveViews: PropTypes.number,
   createdAt: PropTypes.string,
   schedules: PropTypes.arrayOf (PropTypes.shape ({
     title: PropTypes.string,

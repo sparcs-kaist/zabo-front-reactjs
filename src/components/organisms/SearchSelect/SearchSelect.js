@@ -3,19 +3,21 @@ import { components } from 'react-select';
 
 import Select from 'molecules/Select';
 
+import { media } from '../../../lib/utils/style';
 import defaultProfile from '../../../static/images/defaultProfile.png';
 import searchIcon from '../../../static/images/search-icon-navy.png';
 
 const customStyles = {
   container: (provided, state) => {
-    const focused = state.isFocused ? {
+    const focusStyle = state.isFocused ? {
       boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',
       borderRadius: 4,
     } : {};
     return {
       ...provided,
-      width: 388,
-      ...focused,
+      maxWidth: 388,
+      width: '100%',
+      ...focusStyle,
     };
   },
   option: (provided, state) => ({
@@ -35,7 +37,7 @@ const customStyles = {
     },
   }),
   control: (provided, state) => {
-    const focused = state.isFocused ? {
+    const focusStyle = state.isFocused ? {
       background: '#FFFFFF',
       borderRadius: '4px 4px 0 0',
       boxShadow: 'none',
@@ -43,7 +45,8 @@ const customStyles = {
     } : {};
     return ({
       ...provided,
-      width: 388,
+      maxWidth: 388,
+      width: '100%',
       height: 38,
       borderRadius: 4,
       background: '#F4F4F4',
@@ -54,12 +57,16 @@ const customStyles = {
         marginLeft: 19,
       },
       '&:hover': {},
-      ...focused,
+      ...focusStyle,
     });
   },
   placeholder: (provided, state) => ({
     ...provided,
+    width: '100%',
     fontSize: 16,
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+    whiteSpace: 'nowrap',
     padding: '2px 11px',
     lineHeight: '18px',
     color: '#8F8F8F',
@@ -75,7 +82,8 @@ const customStyles = {
     position: 'absolute',
     zIndex: 1,
     paddingTop: state.options.length ? 12 : 0,
-    width: 388,
+    maxWidth: 388,
+    width: '100%',
     boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.3)',
   }),
 };

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Page = styled.section`
   padding: 64px 0 74px 0;
@@ -15,6 +15,7 @@ export const Page = styled.section`
 
 Page.Body = styled.div`
   width: 1032px;
+  margin-bottom: 64px;
   h1 {
     margin: 0;
     padding-bottom: 16px;
@@ -85,15 +86,23 @@ export const FormGroup = styled.div`
     width: 100%;
     height: 38px;
     padding: 10px 16px;
-    margin: 8px 0 18px 0;
+    margin: 8px 0 28px 0;
     border: none;
     outline: none;
     border-radius: 4px;
     background-color: #F4F4F4;
     font-size: 16px;
     line-height: 16px;
-    font-weight: bold;
+    font-weight: 500;
     color: #363636;
+    &::placeholder {
+      font-weight: 300;
+      color: #8f8f8f;
+    }
+    /* &:focus {
+      background-color: #ffffff;
+      border: 1px solid #143441;
+    } */
   }
   @media (max-width: 640px) {
     width: 100%;
@@ -101,10 +110,26 @@ export const FormGroup = styled.div`
 `;
 
 FormGroup.Label = styled.div`
-  font-weight: bold;
-  font-size: 18px;
+  font-weight: 500;
+  font-size: 16px;
   line-height: 20px;
   margin: 0;
+  ${props => (props.required ? css`
+    &::after {
+      display: inline-block;
+      margin-left: 4px;
+      color: #f66;
+      font-weight: 300;
+      content: "*";
+    }
+  ` : css``)};
+`;
+
+export const FooterStyle = styled.div`
+  width: 100%;
+  max-width: 1080px;
+  display: flex;
+  justify-content: flex-end;
 `;
 
 export const Submit = styled.button`
@@ -115,6 +140,12 @@ export const Submit = styled.button`
   line-height: 18px;
   color: white;
   background-color: #FF5D5D;
+  border: 0;
+  &:disabled {
+    background: #F8F8F8;
+    color: #8F8F8F;
+    cursor: not-allowed;
+  }
 `;
 
 export const Success = styled.div`
@@ -141,5 +172,85 @@ export const AddMember = styled.section`
     font-size: 16px;
     line-height: 18px;
     color: #FFFFFF;
+  }
+`;
+
+export const AddCategoryW = styled.section`
+  display: flex;
+  margin: 8px 0 48px 0;
+
+  >div { max-width: 50% }
+  >div:first-child { margin-right: 14px }
+
+  @media (max-width: 640px) {
+    >div:first-child { margin-right: 15px }
+  }
+`;
+
+// TODO: temporal code - need to change
+export const BusinessW = styled.section`
+  width: 99%;
+  height: 90px;
+  transition: max-height 0.3s ease-in-out;
+  padding: 0 29px;
+  margin: 30px 0 48px;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #143441;
+  border-radius: 2px;
+  .header {
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+    h3 {
+      color: #363636;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 0 8px;
+      padding: 0;
+    }
+    p {
+      color: #8F8F8F;
+      font-size: 12px;
+      padding: 0;
+    }
+    .business-btn {
+      flex: 1;
+      text-align: right;
+      button {
+        cursor: not-allowed;
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+        width: 144px;
+        height: 38px;
+        background-color: #F4F4F4;
+        border-radius: 4px;
+        color: #8F8F8F;
+        font-size: 16px;
+        font-weight: bold;
+        border: 0;
+        img {
+          width: 20px;
+          height: 20px;
+          margin: 0 3px 0 8px;
+        }
+      }
+    }
+  }
+  @media (max-width: 640px) {
+    height: 178px;
+    .header {
+      height: 178px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      p { margin-bottom: 36px }
+      .business-btn { flex: none }
+    }
   }
 `;

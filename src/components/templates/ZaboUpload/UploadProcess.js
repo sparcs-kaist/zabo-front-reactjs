@@ -38,8 +38,7 @@ const UploadProcess = ({ children }) => {
   } = info;
   const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
   const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
-  const [progress, setProgress2] = useState (0);
-  const setProgress = x => { console.log (x); setProgress2 (x); };
+  const [progress, setProgress] = useState (0);
   const [error, setError] = useState (null);
 
   const upload = useCallback (async () => {
@@ -75,6 +74,7 @@ const UploadProcess = ({ children }) => {
         console.error (err);
         setError (err);
         setProgress (0);
+        alert (err.error);
       });
   }, [infoImmutable, imageFilesImmutable]);
 

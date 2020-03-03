@@ -1,6 +1,7 @@
 import moment from 'moment';
+import queryString from 'query-string';
 
-import { RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
+import { alerts, RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
 
 export * from './selector';
 
@@ -128,4 +129,60 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
   );
 };
 
-export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+export const isElemWidthOverflown = (element) => element.scrollWidth > element.clientWidth;
+// export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
+
+export const escapeRegExp = string => string.replace (/[.*+?^${}()|[\]\\]/g, '\\$&');
+export const parseQuery = (search) => {
+  const { query, category } = queryString.parse (search);
+  const safeQuery = (query ? escapeRegExp (query) : '').trim ();
+  const safeCategory = !category ? []
+    : !Array.isArray (category) ? [category]
+      : category;
+  return { safeQuery, safeCategory };
+};
+
+export const jsonStringify = (json) => {
+  let result = json;
+  if (typeof result !== 'string') {
+    result = JSON.stringify (result, undefined, 2);
+  }
+  result = result.replace (/&/g, '&amp;').replace (/</g, '&lt;').replace (/>/g, '&gt;');
+
+  return result.replace (/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, (match) => {
+    let cls = 'number';
+    if (/^"/.test (match)) {
+      if (/:$/.test (match)) {
+        cls = 'key';
+      } else {
+        cls = 'string';
+      }
+    } else if (/true|false/.test (match)) {
+      cls = 'boolean';
+    } else if (/null/.test (match)) {
+      cls = 'null';
+    }
+    return `<span class="${cls}">${match}</span>`;
+  });
+};
+
+export const pushWithAuth = (to, history, isAuthed) => {
+  if (!isAuthed) {
+    if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+    }
+  } else {
+    history.push (to);
+  }
+};
+
+export const withAuth = (history, isAuthed) => {
+  if (!isAuthed) {
+    if (window.confirm (alerts.login)) {
+      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+      return true;
+    }
+    return false;
+  }
+  return true;
+};

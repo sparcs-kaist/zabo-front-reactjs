@@ -1,49 +1,32 @@
 import React from 'react';
-import Tooltip from '@material-ui/core/Tooltip';
+import PropTypes from 'prop-types';
 
 import { GroupType } from 'lib/propTypes';
-import { getLabeledTimeDiff } from 'lib/utils';
 
-import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+import GroupBoxA from './GroupBoxA';
+import GroupBoxP from './GroupBoxP';
+import GroupBoxS from './GroupBoxS';
 
-import ProfileStats from '../ProfileStats';
-import { Group } from './GroupBox.styled';
-
-const GroupBox = ({ group }) => {
-  const {
-    name, profilePhoto, zabosCount, followersCount, recentUpload,
-  } = group;
-  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
-  const stats = [{
-    name: '자보',
-    value: zabosCount,
-  }, {
-    name: '팔로워',
-    value: followersCount,
-  }, {
-    name: '최근 업로드',
-    value: timePast,
-  }];
-
-  return (
-    <Group to={name}>
-      {
-        profilePhoto
-          ? <img src={profilePhoto} alt="group profile photo" />
-          : <img src={groupDefaultProfile} alt="default group profile photo" />
-      }
-      <section>
-        <Tooltip title={name}>
-          <div className="group-name">{name}</div>
-        </Tooltip>
-        <ProfileStats stats={stats} smallV />
-      </section>
-    </Group>
-  );
+const GroupBox = ({ type, ...props }) => {
+  switch (type) {
+  case 'profile':
+    return <GroupBoxP {...props} />;
+  case 'simple':
+    return <GroupBoxS {...props} />;
+  case 'apply':
+    return <GroupBoxA {...props} />;
+  default:
+    return null;
+  }
 };
 
 GroupBox.propTypes = {
   group: GroupType.isRequired,
+  type: PropTypes.oneOf (['profile', 'simple', 'apply']),
+};
+
+GroupBox.defaultProps = {
+  type: 'profile',
 };
 
 export default GroupBox;

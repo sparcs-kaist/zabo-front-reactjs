@@ -1,22 +1,20 @@
 import React, {
-  useCallback,
-  useEffect, useRef, useState,
+  useEffect, useMemo,
+  useRef, useState,
 } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
-import SettingsIcon from '@material-ui/icons/Settings';
 
 import Button from 'atoms/Button';
+import SuperTooltip from 'atoms/SuperTooltip';
 import GroupList from 'organisms/GroupList';
 import ProfileStats from 'organisms/ProfileStats';
 import Header from 'templates/Header';
 import ZaboList from 'templates/ZaboList';
 
 import { logout as logoutAction } from 'store/reducers/auth';
-import { followProfile } from 'store/reducers/profile';
 import { UserType } from 'lib/propTypes';
-import { isAdminSelector, isElementOverflown } from 'lib/utils';
+import { isAdminSelector, isElemWidthOverflown } from 'lib/utils';
+import { mediaSizes } from 'lib/utils/style';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
@@ -28,17 +26,18 @@ const UserProfile = ({ profile }) => {
   const {
     username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {}, following,
   } = profile;
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
   const dispatch = useDispatch ();
   const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
+  const pendingGroupsImmutable = useSelector (state => state.getIn (['auth', 'info', 'pendingGroups']));
+  const pendingGroups = useMemo (() => pendingGroupsImmutable.toJS (), [pendingGroupsImmutable]);
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());
-  const follow = useCallback (() => {
-    dispatch (followProfile ({ name: username }));
-  }, [username]);
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
-  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
+  const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
 
   const pinsCount = boards.reduce ((acc, cur) => acc + cur.pinsCount, 0);
   const stats = [{
@@ -51,6 +50,8 @@ const UserProfile = ({ profile }) => {
     name: '팔로잉',
     value: followingsCount,
   }];
+
+  const groupsWithPending = useMemo (() => [...groups, ...pendingGroups.map (group => ({ ...group, isPending: true }))], [groups, pendingGroups]);
 
   return (
     <Page>
@@ -66,29 +67,24 @@ const UserProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            {
-              showTooltip
-                ? (
-                  <Tooltip title={description}>
-                    <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
-                  </Tooltip>
-                )
-                : <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
-            }
+            <SuperTooltip title={description} hide={!showTooltip}>
+              <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+            </SuperTooltip>
             {isMyProfile ? (
               <section>
                 <Button.Group>
                   <Button onClick={logout}>로그아웃</Button>
-                  <Button to="/settings/profile" border="main">프로필 편집</Button>
-                  {isAdmin && (<Button to="/admin">어드민</Button>)}
+                  <Button to="/settings/profile" border="main">{isMobile ? '편집' : '프로필 편집'}</Button>
+                  {isAdmin && (<Button to="/admin">{isMobile ? '관리' : '관리자'}</Button>)}
                 </Button.Group>
               </section>
             ) : (
-              <sectino>
-                {following
-                  ? <button onClick={follow} type="button">팔로우 취소</button>
-                  : <button onClick={follow} type="button">팔로우</button>}
-              </sectino>
+              // <sectino>
+              //   {following
+              //     ? <button onClick={follow} type="button">팔로우 취소</button>
+              //     : <button onClick={follow} type="button">팔로우</button>}
+              // </sectino>
+              ''
             )}
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
@@ -100,10 +96,9 @@ const UserProfile = ({ profile }) => {
         <Page.Body.User>
         </Page.Body.User>
       </Page.Body>
-      <GroupList type="profile" groups={groups} />
+      <GroupList type="profile" groups={groupsWithPending} hasApplyBox isMyProfile={isMyProfile} />
       <Zabos>
         <h1>저장한 자보</h1>
-        <p>전체 자보</p>
         <ZaboList type="pins" query={username} key={username} />
       </Zabos>
     </Page>

@@ -1,12 +1,10 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
 import { GroupType } from 'lib/propTypes';
 
-import leftScroll from 'static/images/leftScroll.png';
-import rightScroll from 'static/images/rightScroll.png';
-
+import ScrollBtn from '../../molecules/ScrollBtn';
 import GroupBox from '../GroupBox';
 
 export const Groups = styled.section`
@@ -30,9 +28,11 @@ export const Groups = styled.section`
 `;
 
 Groups.List = styled.div`
+  display: flex;
   scroll-behavior: smooth;
   width: 100%;
   padding: 3px;
+  margin-top: 16px;
   overflow-x: scroll;
   /* overflow-y: visible; */
   white-space: nowrap;
@@ -44,26 +44,7 @@ Groups.List = styled.div`
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
-`;
-
-Groups.ScrollBtn = styled.div`
-  ${props => (props.show ? css`` : css`
-    visibility: hidden;
-  `)}
-  @media (max-width: 640px) {
-    visibility: hidden;
-  }
-  float: right;
-  img {
-    width: 30px;
-    height: 30px;
-    margin-left: 3px;
-    border-radius: 50%;
-    cursor: pointer;
-    &:hover {
-      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
-    }
-  }
+  @media (max-width: 640px) { margin-top: 12px }
 `;
 
 const text = {
@@ -71,31 +52,28 @@ const text = {
   search: '그룹 검색 결과',
 };
 
-const GroupList = ({ type, groups }) => {
-  const leftScrollClick = useCallback (() => {
-    document.getElementById ('groupsList').scrollLeft -= 622;
-  }, []);
-  const rightScrollClick = useCallback (() => {
-    document.getElementById ('groupsList').scrollLeft += 622;
-  }, []);
-
-  return (
-    <Groups>
-      <h1>{text[type]}</h1>
-      <Groups.ScrollBtn show={groups.length > 3}>
-        <img onClick={leftScrollClick} src={leftScroll} alt="left scroll button" />
-        <img onClick={rightScrollClick} src={rightScroll} alt="right scroll button" />
-      </Groups.ScrollBtn>
-      <Groups.List id="groupsList">
-        {groups.map (group => <GroupBox group={group} key={group.name} />)}
-      </Groups.List>
-    </Groups>
-  );
-};
+const GroupList = ({
+  type, groups, hasApplyBox, isMyProfile,
+}) => (
+  <Groups>
+    <h1>{text[type]}</h1>
+    <ScrollBtn elemId="groupsList" show={groups.length > 3} />
+    <Groups.List id="groupsList">
+      {groups.map (group => <GroupBox group={group} key={group.name} />)}
+      {isMyProfile && <GroupBox type="apply" group={{}} />}
+      <>&nbsp;</>
+    </Groups.List>
+  </Groups>
+);
 
 GroupList.propTypes = {
   type: PropTypes.string.isRequired,
   groups: PropTypes.arrayOf (GroupType).isRequired,
+  hasApplyBox: PropTypes.bool,
+};
+
+GroupList.defaultProps = {
+  hasApplyBox: false,
 };
 
 export default GroupList;

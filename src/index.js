@@ -1,5 +1,7 @@
 import 'animate.css';
 import './index.scss';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
@@ -8,6 +10,7 @@ import ReactDOM from 'react-dom';
 import { ThemeProvider } from 'styled-components';
 
 import store from 'store';
+import { colors } from 'lib/theme';
 
 import App from './App';
 import boot from './boot';
@@ -17,7 +20,7 @@ boot ();
 
 ReactDOM.render (
   <Provider store={store}>
-    <ThemeProvider theme={{ mode: 'light' }}>
+    <ThemeProvider theme={{ ...colors, mode: 'light' }}>
       <Router>
         <App />
       </Router>

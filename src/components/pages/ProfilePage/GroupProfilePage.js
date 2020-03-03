@@ -1,12 +1,12 @@
 import React, {
-  useCallback, useEffect, useRef, useState,
+  useCallback, useEffect, useMemo,
+  useRef, useState,
 } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import SettingsIcon from '@material-ui/icons/Settings';
 
+import SuperTooltip from 'atoms/SuperTooltip';
 import ProfileStats from 'organisms/ProfileStats';
 import StyledQuill from 'organisms/StyledQuill';
 import Header from 'templates/Header';
@@ -14,7 +14,10 @@ import ZaboList from 'templates/ZaboList';
 
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';
-import { getLabeledTimeDiff, isElementOverflown } from 'lib/utils';
+import {
+  getLabeledTimeDiff, isAuthedSelector, isElemWidthOverflown, withAuth,
+} from 'lib/utils';
+import { mediaSizes } from 'lib/utils/style';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -25,22 +28,27 @@ const GroupProfile = ({ profile }) => {
     name, profilePhoto, members, zabosCount, followersCount, recentUpload, description = '', subtitle = '', myRole, following,
   } = profile;
   const dispatch = useDispatch ();
+  const history = useHistory ();
+  const isAuthed = useSelector (isAuthedSelector);
+  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
+
   const descRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   const follow = useCallback (() => {
-    dispatch (followProfile ({ name }));
+    if (withAuth (history, isAuthed)) dispatch (followProfile ({ name }));
   }, [name]);
-  useEffect (() => { setShowTooltip (isElementOverflown (descRef.current)); }, [descRef]);
+  useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 
   const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
   const stats = [{
-    name: '자보',
+    name: '올린 자보',
     value: zabosCount,
   }, {
     name: '팔로워',
     value: followersCount,
   }, {
-    name: '최근 업로드',
+    name: '최근 활동',
     value: timePast,
   }];
 
@@ -58,39 +66,32 @@ const GroupProfile = ({ profile }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{name}</h1>
-            {
-              showTooltip
-                ? (
-                  <Tooltip title={subtitle}>
-                    <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
-                  </Tooltip>
-                )
-                : <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
-            }
-
+            <SuperTooltip title={subtitle} hide={!showTooltip}>
+              <p ref={descRef}>{subtitle || '아직 소개가 없습니다.'}</p>
+            </SuperTooltip>
             <section>
               {
                 myRole
                   ? (
                     <>
                       <Link to={`/settings/group/${name}/profile`}>
-                        <button className="edit" type="button">프로필 편집</button>
+                        <button type="button">{isMobile ? '편집' : '프로필 편집'}</button>
                       </Link>
                       {myRole === 'admin' && (
                         <Link to={`/settings/group/${name}/members`}>
-                          <button className="edit" type="button">멤버 관리</button>
+                          <button type="button">{isMobile ? '멤버' : '멤버 관리'}</button>
                         </Link>
                       )}
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
                   : (
                     <>
                       {following
-                        ? <button onClick={follow} type="button">팔로우 취소</button>
-                        : <button onClick={follow} type="button">팔로우</button>}
+                        ? <button className="unfollow" onClick={follow} type="button">팔로잉</button>
+                        : <button className="follow" onClick={follow} type="button">팔로우</button>}
                     </>
                   )
               }

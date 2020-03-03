@@ -25,6 +25,7 @@ const containerStyle = css`
   position: absolute;
   justify-content: space-between;
   align-items: center;
+  overflow: visible;
   >div {
     display: flex;
     flex-direction: row;
