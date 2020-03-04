@@ -24,7 +24,9 @@ import { isAuthedSelector, pushWithAuth } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
 import bannerPoster from 'static/images/banner_poster.jpg';
+import bannerPosterWebp from 'static/images/banner_poster.webp';
 import bannerSparcs from 'static/images/banner_sparcs.jpg';
+import bannerSparcsWebp from 'static/images/banner_sparcs.webp';
 import leftArrow from 'static/images/leftScroll.png';
 import rightArrow from 'static/images/rightScroll.png';
 
@@ -187,7 +189,6 @@ const CountDown = ({ initialValue }) => {
   useEffect (() => {
     dispatch ({ type: 'set', payload: initialValue / 1000 });
   }, [initialValue]);
-
   const days = Math.floor (tick / 86400);
   const hours = Math.floor (tick / 3600) % 24;
   const mins = Math.floor (tick / 60) % 60;
@@ -325,7 +326,10 @@ export const Banners = () => {
               신규 그룹 신청 <SVG icon="arrowRight" />
             </BannerW.Button>
           </BannerW.Writings>
-          <BannerW.Image src={bannerPoster} />
+          <picture>
+            <source type="image/webp" srcSet={bannerPosterWebp} />
+            <BannerW.Image src={bannerPoster} />
+          </picture>
         </BannerW>
         <BannerW>
           <BannerW.Writings>
@@ -341,7 +345,10 @@ export const Banners = () => {
               </BannerW.Button>
             </a>
           </BannerW.Writings>
-          <BannerW.Image src={bannerSparcs} />
+          <picture>
+            <source type="image/webp" srcSet={bannerSparcsWebp} />
+            <BannerW.Image src={bannerSparcs} />
+          </picture>
         </BannerW>
         <Container.Pad />
       </Container>

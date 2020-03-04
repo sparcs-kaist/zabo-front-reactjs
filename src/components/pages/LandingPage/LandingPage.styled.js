@@ -26,7 +26,7 @@ import recruitIcon from 'static/icon/category/recruit.svg';
 import seminarIcon from 'static/icon/category/seminar.svg';
 import volunteerIcon from 'static/icon/category/volunteer.svg';
 import rightArrowIcon from 'static/icon/rightArrow.svg';
-import landingBackground from 'static/images/landingBackground.jpg';
+import landingBackground from 'static/images/landing_background.jpg';
 
 const categoryIcons = {
   allIcon,
