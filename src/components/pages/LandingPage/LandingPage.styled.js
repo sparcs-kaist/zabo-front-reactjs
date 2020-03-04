@@ -257,6 +257,7 @@ export const UpcomingW = styled.section`
     overflow: visible;
   }
   ${TwoCol.Right} {
+    margin-left: 12px;
     position: relative;
   }
   ${media.tablet (css`
@@ -338,7 +339,7 @@ UpcomingW.Carousel = styled.section`
   position: absolute;
   top: -16px;
   width: 150%;
-  height: 180px;
+  height: 200px;
   overflow: hidden;
   .slick-btn {
     opacity: 0;
@@ -384,9 +385,9 @@ UpcomingW.SlickItemW = styled.div`
 `;
 
 UpcomingW.Image = styled.img`
-  height: 180px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), url(image.png);
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+  height: 190px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03));
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   ${media.tablet (css`
     height: 360px;
