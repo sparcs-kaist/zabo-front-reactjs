@@ -178,7 +178,7 @@ const CountDown = ({ initialValue }) => {
   useEffect (() => {
     dispatch ({ type: 'set', payload: initialValue / 1000 });
   }, [initialValue]);
-  console.log (initialValue, tick);
+
   const days = Math.floor (tick / 86400);
   const hours = Math.floor (tick / 3600) % 24;
   const mins = Math.floor (tick / 60) % 60;

@@ -19,8 +19,9 @@ export const Groups = styled.section`
 
   @media (max-width: 640px) {
     width: 100%;
-    padding: 0 16px;
+    /* padding: 0 16px; */
     h1 {
+      padding: 0 16px;
       font-size: 18px;
       margin-bottom: 12px;
     }
@@ -44,7 +45,10 @@ Groups.List = styled.div`
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
   -ms-overflow-style: none;
-  @media (max-width: 640px) { margin-top: 12px }
+  @media (max-width: 640px) {
+    margin-top: 12px;
+    padding: 3px 16px;
+  }
 `;
 
 const text = {

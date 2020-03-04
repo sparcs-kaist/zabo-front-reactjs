@@ -78,4 +78,8 @@ export const ZaboResultW = styled.section`
   `)};
 `;
 
-export const GroupResultW = styled.section``;
+export const GroupResultW = styled.section`
+  @media (max-width: 640px) {
+    margin: 0 -16px;
+  }
+`;
