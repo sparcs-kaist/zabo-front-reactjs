@@ -529,7 +529,8 @@ BannerW.Button = styled.button`
 
 BannerW.Image = styled.img`
   height: 100%;
-  width: 90px;
+  width: auto;
+  max-width: 100%;
 `;
 
 export const ZaboListW = styled.section`
