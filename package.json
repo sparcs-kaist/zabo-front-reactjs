@@ -11,7 +11,7 @@
     "eject": "react-scripts eject",
     "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
     "build-storybook": "$npm_execpath run env:path build-storybook -s public",
-    "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./dist && ./tools/moveBuildFolder.sh",
+    "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build && ./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
     "lint:css": "stylelint './src/**/*.js'"
   },
