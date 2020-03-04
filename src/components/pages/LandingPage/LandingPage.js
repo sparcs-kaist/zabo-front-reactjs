@@ -2,7 +2,7 @@ import React, {
   useEffect, useReducer, useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -23,8 +23,10 @@ import { getDeadlineZaboList } from 'lib/api/zabo';
 import { isAuthedSelector, pushWithAuth } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
-import bannerPoster from 'static/images/banner_poster.png';
-import bannerSparcs from 'static/images/banner_sparcs.png';
+import bannerPoster from 'static/images/banner_poster.jpg';
+import bannerPosterWebp from 'static/images/banner_poster.webp';
+import bannerSparcs from 'static/images/banner_sparcs.jpg';
+import bannerSparcsWebp from 'static/images/banner_sparcs.webp';
 import leftArrow from 'static/images/leftScroll.png';
 import rightArrow from 'static/images/rightScroll.png';
 
@@ -152,33 +154,41 @@ const ArrowRight = (props) => (
   <UpcomingW.Carousel.Button src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
 );
 
-const SlickItem = ({ zabo }) => (
+const SlickItem = ({ zabo, width }) => (
   <UpcomingW.SlickItemW>
-    <UpcomingW.Image
-      src={zabo.photos[0].url}
-      alt="Upcoming ZABO"
-    />
+    {width < 640 ? (
+      <Link to={`zabo/${zabo._id}`}>
+        <UpcomingW.Image
+          src={zabo.photos[0].url}
+          alt="Upcoming ZABO"
+        />
+      </Link>
+    ) : (
+      <UpcomingW.Image
+        src={zabo.photos[0].url}
+        alt="Upcoming ZABO"
+      />
+    )}
   </UpcomingW.SlickItemW>
 );
 
 const twoDigits = (number) => {
-  if (number > 0 && number < 10) return `0${number}`;
+  if (number >= 0 && number < 10) return `0${number}`;
   return number;
 };
 const CountDown = ({ initialValue }) => {
   const [tick, dispatch] = useReducer ((state, action) => {
-    if (action.type === 'increase') return state + 1;
+    if (action.type === 'decrease') return state - 1;
     if (action.type === 'set') return action.payload;
     return 0;
   }, 0);
   useEffect (() => {
-    const timer = setInterval (() => dispatch ({ type: 'increase' }), 1000);
+    const timer = setInterval (() => dispatch ({ type: 'decrease' }), 1000);
     return () => clearInterval (timer);
   }, [initialValue]);
   useEffect (() => {
     dispatch ({ type: 'set', payload: initialValue / 1000 });
   }, [initialValue]);
-  console.log (initialValue, tick);
   const days = Math.floor (tick / 86400);
   const hours = Math.floor (tick / 3600) % 24;
   const mins = Math.floor (tick / 60) % 60;
@@ -200,6 +210,17 @@ const Upcoming = () => {
       </UpcomingW>
     );
   }
+
+  if (!zabos.length) {
+    return (
+      <UpcomingW>
+        <Container>
+          <UpcomingW.NoMagamImBak>현재 마감이 임박한 자보가 없습니다.</UpcomingW.NoMagamImBak>
+        </Container>
+      </UpcomingW>
+    );
+  }
+
   const settings = {
     infinite: true,
     speed: 300,
@@ -246,7 +267,7 @@ const Upcoming = () => {
             <UpcomingW.Carousel style={{ width: width / 2 }}>
               <Slider {...settings}>
                 {zabos ? zabos.map (zabo => (
-                  <SlickItem zabo={zabo} key={zabo._id} />
+                  <SlickItem zabo={zabo} key={zabo._id} width={width} />
                 )) : <div>none</div>}
               </Slider>
             </UpcomingW.Carousel>
@@ -269,7 +290,7 @@ const Recommends = () => {
           <RecommendsW.Zabo flex={5}>
             <RecommendsTitleW>
                 인기 있는 자보
-              <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
+              <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다." enterTouchDelay={0}>
                 <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
               </Tooltip>
             </RecommendsTitleW>
@@ -279,7 +300,7 @@ const Recommends = () => {
             <RecommendsTitleW>이 그룹은 어때요?</RecommendsTitleW>
             <CategoryListW>
               {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
-              <Tooltip title="그룹 필터링 기능을 개발 중이에요.">
+              <Tooltip title="그룹 필터링 기능을 개발 중이에요." enterTouchDelay={0}>
                 <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
               </Tooltip>
             </CategoryListW>
@@ -316,7 +337,10 @@ export const Banners = () => {
               신규 그룹 신청 <SVG icon="arrowRight" />
             </BannerW.Button>
           </BannerW.Writings>
-          <BannerW.Image src={bannerPoster} />
+          <picture>
+            <source type="image/webp" srcSet={bannerPosterWebp} />
+            <BannerW.Image src={bannerPoster} />
+          </picture>
         </BannerW>
         <BannerW>
           <BannerW.Writings>
@@ -332,7 +356,10 @@ export const Banners = () => {
               </BannerW.Button>
             </a>
           </BannerW.Writings>
-          <BannerW.Image src={bannerSparcs} />
+          <picture>
+            <source type="image/webp" srcSet={bannerSparcsWebp} />
+            <BannerW.Image src={bannerSparcs} />
+          </picture>
         </BannerW>
         <Container.Pad />
       </Container>
