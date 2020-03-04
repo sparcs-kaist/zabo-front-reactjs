@@ -257,7 +257,6 @@ export const UpcomingW = styled.section`
     overflow: visible;
   }
   ${TwoCol.Right} {
-    margin-left: 12px;
     position: relative;
   }
   ${media.tablet (css`
