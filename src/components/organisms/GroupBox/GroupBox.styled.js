@@ -21,6 +21,7 @@ export const GroupW = styled (Link)`
     height: 70px;
     margin-right: 12px;
     border-radius: 50%;
+    border: 1px solid ${props => props.theme.gray10};
   }
 
   ${media.tablet (css`

@@ -393,6 +393,11 @@ UpcomingW.Image = styled.img`
   `)}
 `;
 
+UpcomingW.NoMagamImBak = styled.div`
+  font-size: 24px;
+  font-weight: 500;
+`;
+
 export const RecommendsW = styled.section`
   width: 100%;
   margin-top: 30px;
