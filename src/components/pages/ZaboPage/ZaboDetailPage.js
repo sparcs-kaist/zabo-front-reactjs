@@ -166,7 +166,7 @@ const ZaboDetailPage = (props) => {
                   {timePast}
                 </div>
                 <div className="specialChar">&middot;</div>
-                <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+                <Tooltip title={`유효 조회수 ${effectiveViews}`} enterTouchDelay={0}>
                   <div className="details">
                 조회수 {views.toLocaleString ()}
                   </div>

@@ -132,7 +132,7 @@ const ApplyForm = ({ profilePhoto }) => {
               <p>* 기업이거나 마케팅 목적의 단체라면 비즈니스 계정버튼을 체크해주세요.</p>
             </div>
             <div className="business-btn">
-              <Tooltip title="현재 지원히지 않습니다. 채널톡으로 문의주세요 :)">
+              <Tooltip title="현재 지원히지 않습니다. 채널톡으로 문의주세요 :)" enterTouchDelay={0}>
                 <button>
                   비즈니스 계정
                   <img src={checkGray} alt="check icon" />

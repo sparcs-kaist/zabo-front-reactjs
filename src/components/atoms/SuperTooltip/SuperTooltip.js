@@ -6,7 +6,7 @@ const SuperTooltip = ({
   title, hide, children, ...props
 }) => (
   hide ? children : (
-    <Tooltip title={title} {...props}>
+    <Tooltip title={title} {...props} enterTouchDelay={0}>
       {children}
     </Tooltip>
   )

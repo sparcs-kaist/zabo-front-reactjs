@@ -62,6 +62,7 @@ export default function Tasks (props) {
                 title="Edit Task"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
+                enterTouchDelay={0}
               >
                 <IconButton
                   aria-label="Edit"
@@ -79,6 +80,7 @@ export default function Tasks (props) {
                 title="Remove"
                 placement="top"
                 classes={{ tooltip: classes.tooltip }}
+                enterTouchDelay={0}
               >
                 <IconButton
                   aria-label="Close"

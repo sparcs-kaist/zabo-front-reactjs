@@ -279,7 +279,7 @@ const Recommends = () => {
           <RecommendsW.Zabo flex={5}>
             <RecommendsTitleW>
                 인기 있는 자보
-              <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다.">
+              <Tooltip title="일정 기간 동안 받은 좋아요 수와 조회수를 기준으로 선정됩니다." enterTouchDelay={0}>
                 <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
               </Tooltip>
             </RecommendsTitleW>
@@ -289,7 +289,7 @@ const Recommends = () => {
             <RecommendsTitleW>이 그룹은 어때요?</RecommendsTitleW>
             <CategoryListW>
               {['동아리', '학생 단체', 'KAIST 부서', '스타트업'].map (cat => <CategoryW>{cat}</CategoryW>)}
-              <Tooltip title="그룹 필터링 기능을 개발 중이에요.">
+              <Tooltip title="그룹 필터링 기능을 개발 중이에요." enterTouchDelay={0}>
                 <img src={helpIcon} alt="recommendation guide" style={{ marginLeft: 6 }} />
               </Tooltip>
             </CategoryListW>

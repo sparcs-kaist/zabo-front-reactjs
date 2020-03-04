@@ -67,6 +67,7 @@ const ZaboCardL = ({ zabo }) => {
                   </CategoryListW>
                 )}
                 placement="top"
+                enterTouchDelay={0}
               >
                 <CategoryW>&middot;&middot;&middot;</CategoryW>
               </Tooltip>
@@ -86,7 +87,7 @@ const ZaboCardL = ({ zabo }) => {
           <MetaInfo.Dot>
             &middot;
           </MetaInfo.Dot>
-          <Tooltip title={`유효 조회수 ${effectiveViews}`}>
+          <Tooltip title={`유효 조회수 ${effectiveViews}`} enterTouchDelay={0}>
             <div>조회수 {views.toLocaleString ()}</div>
           </Tooltip>
         </MetaInfo>
