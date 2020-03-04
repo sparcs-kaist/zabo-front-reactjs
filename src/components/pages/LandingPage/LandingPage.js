@@ -337,10 +337,7 @@ export const Banners = () => {
               신규 그룹 신청 <SVG icon="arrowRight" />
             </BannerW.Button>
           </BannerW.Writings>
-          <picture>
-            <source type="image/webp" srcSet={bannerPosterWebp} />
-            <BannerW.Image src={bannerPoster} />
-          </picture>
+          <BannerW.Image src={bannerPoster} />
         </BannerW>
         <BannerW>
           <BannerW.Writings>
@@ -356,10 +353,7 @@ export const Banners = () => {
               </BannerW.Button>
             </a>
           </BannerW.Writings>
-          <picture>
-            <source type="image/webp" srcSet={bannerSparcsWebp} />
-            <BannerW.Image src={bannerSparcs} />
-          </picture>
+          <BannerW.Image src={bannerSparcs} />
         </BannerW>
         <Container.Pad />
       </Container>
