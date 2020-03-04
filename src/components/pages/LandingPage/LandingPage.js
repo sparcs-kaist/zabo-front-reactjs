@@ -23,8 +23,8 @@ import { getDeadlineZaboList } from 'lib/api/zabo';
 import { isAuthedSelector, pushWithAuth } from 'lib/utils';
 
 import helpIcon from 'static/icon/help.svg';
-import bannerPoster from 'static/images/banner_poster.png';
-import bannerSparcs from 'static/images/banner_sparcs.png';
+import bannerPoster from 'static/images/banner_poster.jpg';
+import bannerSparcs from 'static/images/banner_sparcs.jpg';
 import leftArrow from 'static/images/leftScroll.png';
 import rightArrow from 'static/images/rightScroll.png';
 
