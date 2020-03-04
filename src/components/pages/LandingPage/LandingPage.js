@@ -2,7 +2,7 @@ import React, {
   useEffect, useReducer, useState,
 } from 'react';
 import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -152,27 +152,36 @@ const ArrowRight = (props) => (
   <UpcomingW.Carousel.Button src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
 );
 
-const SlickItem = ({ zabo }) => (
+const SlickItem = ({ zabo, width }) => (
   <UpcomingW.SlickItemW>
-    <UpcomingW.Image
-      src={zabo.photos[0].url}
-      alt="Upcoming ZABO"
-    />
+    {width < 640 ? (
+      <Link to={`zabo/${zabo._id}`}>
+        <UpcomingW.Image
+          src={zabo.photos[0].url}
+          alt="Upcoming ZABO"
+        />
+      </Link>
+    ) : (
+      <UpcomingW.Image
+        src={zabo.photos[0].url}
+        alt="Upcoming ZABO"
+      />
+    )}
   </UpcomingW.SlickItemW>
 );
 
 const twoDigits = (number) => {
-  if (number > 0 && number < 10) return `0${number}`;
+  if (number >= 0 && number < 10) return `0${number}`;
   return number;
 };
 const CountDown = ({ initialValue }) => {
   const [tick, dispatch] = useReducer ((state, action) => {
-    if (action.type === 'increase') return state + 1;
+    if (action.type === 'decrease') return state - 1;
     if (action.type === 'set') return action.payload;
     return 0;
   }, 0);
   useEffect (() => {
-    const timer = setInterval (() => dispatch ({ type: 'increase' }), 1000);
+    const timer = setInterval (() => dispatch ({ type: 'decrease' }), 1000);
     return () => clearInterval (timer);
   }, [initialValue]);
   useEffect (() => {
@@ -246,7 +255,7 @@ const Upcoming = () => {
             <UpcomingW.Carousel style={{ width: width / 2 }}>
               <Slider {...settings}>
                 {zabos ? zabos.map (zabo => (
-                  <SlickItem zabo={zabo} key={zabo._id} />
+                  <SlickItem zabo={zabo} key={zabo._id} width={width} />
                 )) : <div>none</div>}
               </Slider>
             </UpcomingW.Carousel>
