@@ -40,7 +40,7 @@ const GroupBox = ({ group, ...props }) => {
           : <img src={groupDefaultProfile} alt="default group profile photo" />
       }
       <WritingsW>
-        <Tooltip title={isPending ? '요청 진행 중' : name}>
+        <Tooltip title={isPending ? '요청 진행 중' : name} enterTouchDelay={0}>
           <NameW>{name}</NameW>
         </Tooltip>
         <ProfileStatsW stats={stats} smallV />

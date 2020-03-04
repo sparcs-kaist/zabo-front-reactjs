@@ -15,15 +15,13 @@ export const GroupW = styled (Link)`
   margin-right: 14px;
   padding: 24px 12px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
-  &:last-child {
-    margin-right: 0;
-  }
   
   img {
     width: 70px;
     height: 70px;
     margin-right: 12px;
     border-radius: 50%;
+    border: 1px solid ${props => props.theme.gray10};
   }
 
   ${media.tablet (css`
@@ -51,6 +49,7 @@ export const GroupAW = styled (Link)`
   min-width: 275px;
   height: 108px;
   padding: 24px 12px;
+  margin-right: 14px;
   background: ${props => props.theme.gray3};
 
   img {

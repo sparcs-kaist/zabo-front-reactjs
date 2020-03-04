@@ -193,8 +193,11 @@ SearchBarWrapper.Body = styled.div`
         border-radius: 50%;
       }
       a {
+        display: inline-block;
         line-height: 40px;
-        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }

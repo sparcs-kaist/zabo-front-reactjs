@@ -49,7 +49,6 @@ const ProfileForm = ({ initialValue, category, newProfilePhoto }) => {
   const handleSubmit = useCallback (e => {
     e.preventDefault ();
     const category = categoryOption2 ? [categoryOption.value, categoryOption2.value] : [categoryOption.value];
-    console.log ('cateegory: ', category);
     let updateCall = () => dispatch (updateGroupInfo ({
       curName: initialValue.name, name, description, subtitle, category: JSON.stringify (category),
     }));

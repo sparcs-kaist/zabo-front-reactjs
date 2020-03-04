@@ -1,12 +1,9 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
 
-import StyledQuill from 'organisms/StyledQuill';
+import SuperTooltip from 'atoms/SuperTooltip';
 import Header from 'templates/Header';
 import { Page } from 'pages/ProfilePage/Profile.styled';
-
-import { jsonStringify } from 'lib/utils';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
@@ -35,9 +32,9 @@ const UserDetailPage = ({ match }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{username}</h1>
-            <Tooltip title={description}>
+            <SuperTooltip title={description}>
               <p>{description || '아직 소개가 없습니다.'}</p>
-            </Tooltip>
+            </SuperTooltip>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
       </Page.Header>

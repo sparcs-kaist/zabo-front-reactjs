@@ -26,7 +26,7 @@ import recruitIcon from 'static/icon/category/recruit.svg';
 import seminarIcon from 'static/icon/category/seminar.svg';
 import volunteerIcon from 'static/icon/category/volunteer.svg';
 import rightArrowIcon from 'static/icon/rightArrow.svg';
-import landingBackground from 'static/images/landingBackground.png';
+import landingBackground from 'static/images/landing_background.jpg';
 
 const categoryIcons = {
   allIcon,
@@ -338,7 +338,7 @@ UpcomingW.Carousel = styled.section`
   position: absolute;
   top: -16px;
   width: 150%;
-  height: 180px;
+  height: 200px;
   overflow: hidden;
   .slick-btn {
     opacity: 0;
@@ -384,13 +384,18 @@ UpcomingW.SlickItemW = styled.div`
 `;
 
 UpcomingW.Image = styled.img`
-  height: 180px;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03)), url(image.png);
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+  height: 190px;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03));
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   ${media.tablet (css`
     height: 360px;
   `)}
+`;
+
+UpcomingW.NoMagamImBak = styled.div`
+  font-size: 24px;
+  font-weight: 500;
 `;
 
 export const RecommendsW = styled.section`
@@ -530,6 +535,7 @@ BannerW.Button = styled.button`
 BannerW.Image = styled.img`
   height: 100%;
   width: auto;
+  max-width: 100%;
 `;
 
 export const ZaboListW = styled.section`

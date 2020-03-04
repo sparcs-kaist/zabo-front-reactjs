@@ -44,6 +44,7 @@ Page.Header.Left.ProfilePhoto = styled.div`
     width: 120px;
     height: 120px;
     border-radius: 50%;
+    border: 1px solid ${props => props.theme.gray10};
     @media (max-width: 640px) {
       width: 105px;
       height: 105px;
@@ -59,7 +60,7 @@ Page.Header.Left.UserInfo = styled.div`
   max-width: 500px;
   h1 {
     font-size: 28px;
-    color: #143441;
+    color: ${props => props.theme.main};
     margin: 0;
     font-weight: 800;
   }
@@ -80,7 +81,7 @@ Page.Header.Left.UserInfo = styled.div`
     border-radius: 15px;
     margin-right: 8px;
     background-color: #F8F8F8;
-    border: 1px solid #143441;
+    border: 1px solid ${props => props.theme.main};
     color: #143441;
     &.logout {
       border: 1px solid #8f8f8f;

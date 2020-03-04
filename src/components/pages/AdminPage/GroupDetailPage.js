@@ -2,11 +2,9 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 
-import ProfileStats from 'organisms/ProfileStats';
+import SuperTooltip from 'atoms/SuperTooltip';
 import StyledQuill from 'organisms/StyledQuill';
 import { Page } from 'pages/ProfilePage/Profile.styled';
-
-import { getLabeledTimeDiff } from 'lib/utils';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 
@@ -35,9 +33,9 @@ const GroupDetailPage = ({ match }) => {
           </Page.Header.Left.ProfilePhoto>
           <Page.Header.Left.UserInfo>
             <h1>{name}</h1>
-            <Tooltip title={subtitle}>
+            <SuperTooltip title={subtitle}>
               <p>{subtitle || '아직 소개가 없습니다.'}</p>
-            </Tooltip>
+            </SuperTooltip>
           </Page.Header.Left.UserInfo>
         </Page.Header.Left>
       </Page.Header>

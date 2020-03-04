@@ -11,7 +11,7 @@
     "eject": "react-scripts eject",
     "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
     "build-storybook": "$npm_execpath run env:path build-storybook -s public",
-    "postbuild": "./tools/moveBuildFolder.sh",
+    "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./dist && ./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
     "lint:css": "stylelint './src/**/*.js'"
   },
@@ -136,6 +136,7 @@
     "eslint-plugin-react": "^7.17.0",
     "eslint-plugin-react-hooks": "^1.7.0",
     "eslint-plugin-simple-import-sort": "^5.0.1",
+    "gzipper": "^3.5.0",
     "husky": "^4.0.6",
     "jest": "^24.9.0",
     "lint-staged": "^9.5.0",
