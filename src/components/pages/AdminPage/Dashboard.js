@@ -62,9 +62,9 @@ for (let i = 0; i < 7; i++) {
 
 const parseData = (data) => {
   const cnt = [0, 0, 0, 0, 0, 0, 0];
-  data.forEach ((date) => {
+  data.forEach (({ _id, createdAt }) => {
     const pos = new Date ();
-    const temp = new Date (date);
+    const temp = new Date (createdAt);
 
     for (let i = 0; i < 6; i++) {
       if (temp.getDate () === pos.getDate () && temp.getMonth () === pos.getMonth () && temp.getFullYear () === pos.getFullYear ()) {

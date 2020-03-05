@@ -95,6 +95,9 @@ const GroupItem = ({ group, isPending }) => {
           />
         </Link>
         <CardContent>
+          <Typography variant="title" color="text" component="p">
+            {name}
+          </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
             {subtitle}
           </Typography>
