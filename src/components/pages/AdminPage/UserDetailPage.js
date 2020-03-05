@@ -7,6 +7,8 @@ import { Page } from 'pages/ProfilePage/Profile.styled';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 
+import UserInfo from './UserInfo';
+
 const UserDetailPage = ({ match }) => {
   const { username } = match.params;
   const userIm = useSelector (state => state.getIn (['admin', 'usersMap', username]));
@@ -40,7 +42,7 @@ const UserDetailPage = ({ match }) => {
       </Page.Header>
       <Page.Body>
         <Page.Body.User>
-
+          <UserInfo user={user} />
         </Page.Body.User>
       </Page.Body>
     </div>

@@ -14,9 +14,6 @@ const UserAdminPage = () => {
     <div>
       <GridContainer>
         {!!users.length && <UserList users={users} /> }
-        {/* {users.map (user => ( */}
-        {/*  <UserCard user={user} /> */}
-        {/* ))} */}
       </GridContainer>
     </div>
   );

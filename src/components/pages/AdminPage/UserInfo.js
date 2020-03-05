@@ -142,7 +142,7 @@ UserChips.propTypes = {
 const UserOtherInfo = ({ user }) => {
   const {
     _id, createdAt, birthday, email, kaistEmail,
-    gender, facebookId, firstName, lastName,
+    gender, facebookId, firstName, lastName, studentId,
     currentGroup, kaistInfoTime, kaistId, groups, followings,
   } = user;
   // TODO: recommends
@@ -162,6 +162,9 @@ const UserOtherInfo = ({ user }) => {
   }, {
     label: 'Email',
     value: email,
+  }, {
+    label: 'Student ID',
+    value: studentId,
   }, {
     label: 'Gender',
     value: gender,
