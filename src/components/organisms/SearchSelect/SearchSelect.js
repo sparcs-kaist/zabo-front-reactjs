@@ -3,9 +3,10 @@ import { components } from 'react-select';
 
 import Select from 'molecules/Select';
 
-import { media } from '../../../lib/utils/style';
-import defaultProfile from '../../../static/images/defaultProfile.png';
-import searchIcon from '../../../static/images/search-icon-navy.png';
+import { media } from 'lib/utils/style';
+
+import defaultProfile from 'static/images/defaultProfile.png';
+import searchIcon from 'static/images/search-icon-navy.png';
 
 const customStyles = {
   container: (provided, state) => {
