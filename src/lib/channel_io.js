@@ -6,7 +6,7 @@ class ChannelService {
       this.loadScript();
       this.loaded = true;
       this.onloaded ();
-    }, 2000);
+    }, 5000);
   }
 
   loadScript() {
