@@ -1,15 +1,21 @@
 class ChannelService {
   constructor() {
-    this.loadScript();
+    this.loaded = false;
+    this.onloaded = () => {};
+    setTimeout (() => {
+      this.loadScript();
+      this.loaded = true;
+      this.onloaded ();
+    }, 2000);
   }
 
   loadScript() {
-    var w = window;
+    let w = window;
     if (w.ChannelIO) {
       return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
     }
-    var d = window.document;
-    var ch = function() {
+    let d = window.document;
+    let ch = function() {
       ch.c(arguments);
     };
     ch.q = [];
@@ -22,12 +28,12 @@ class ChannelService {
         return;
       }
       w.ChannelIOInitialized = true;
-      var s = document.createElement('script');
+      let s = document.createElement('script');
       s.type = 'text/javascript';
       s.async = true;
       s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
       s.charset = 'UTF-8';
-      var x = document.getElementsByTagName('script')[0];
+      let x = document.getElementsByTagName('script')[0];
       x.parentNode.insertBefore(s, x);
     }
     if (document.readyState === 'complete') {
@@ -41,10 +47,18 @@ class ChannelService {
   }
 
   boot(settings) {
+    if (!this.loaded) {
+      this.onloaded = () => this.boot (settings);
+      return;
+    }
     window.ChannelIO('boot', settings);
   }
 
   shutdown() {
+    if (!this.loaded) {
+      this.onloaded = () => this.shutdown ();
+      return;
+    }
     window.ChannelIO('shutdown');
   }
 }
