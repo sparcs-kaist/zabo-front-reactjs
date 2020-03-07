@@ -345,12 +345,40 @@ UpcomingW.Carousel = styled.section`
     display: none;
   }
   ${media.tablet (css`
-    height: 400px;
+    height: 370px;
     .slick-btn { display: inherit }
     &:hover {
       .slick-btn { opacity: 1 }
     }
   `)}
+
+  > div { border-radius: 4px }
+  .slick-slide {
+    .dimmer {
+      position: absolute;
+      border-radius: 4px;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6));
+      opacity: 1;
+      transition: opacity 0.5s ease-out;
+    }
+    &.slick-current.slick-active {
+      position: relative;
+      top: 0;
+      .dimmer {
+        opacity: 0;
+      }
+    }
+  }
+  .slick-slider {
+    height: 100%;
+    overflow: hidden;
+  }
+  .slick-list { height: 100% }
+  .slick-track { height: 100% }
 `;
 
 UpcomingW.Carousel.Button = styled.img`
@@ -360,19 +388,21 @@ UpcomingW.Carousel.Button = styled.img`
   height: 30px;
   cursor: pointer;
   z-index: 1;
-  &.prev {
-    top: 68px;
-    left: 16px;
-  }
-  &.next {
-    top: 68px;
-    right: 16px;
-  }
   ${media.tablet (css`
     width: 40px;
     height: 40px;
-    &.prev, &.next { top: 164px; }
+    top: 164px;
   `)}
+`;
+
+UpcomingW.Carousel.LeftButton = styled (UpcomingW.Carousel.Button)`
+  top: 68px;
+  left: 16px;
+`;
+
+UpcomingW.Carousel.RightButton = styled (UpcomingW.Carousel.Button)`
+  top: 68px;
+  right: 16px;
 `;
 
 UpcomingW.SlickItemW = styled.div`
@@ -381,6 +411,13 @@ UpcomingW.SlickItemW = styled.div`
   ${media.tablet (css`
     padding-right: 24px;
   `)}
+`;
+
+UpcomingW.ItemW = styled.div`
+  /* for image dimmer */
+  position: relative;
+  width: 100%;
+  height: 100%;
 `;
 
 UpcomingW.Image = styled.img`

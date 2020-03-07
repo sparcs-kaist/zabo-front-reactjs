@@ -148,26 +148,32 @@ const CategoryBanner = () => (
 );
 
 const ArrowLeft = (props) => (
-  <UpcomingW.Carousel.Button src={leftArrow} {...props} className="slick-btn prev" alt="left arrow image" />
+  <UpcomingW.Carousel.LeftButton src={leftArrow} {...props} className="slick-btn prev" alt="left arrow image" />
 );
 const ArrowRight = (props) => (
-  <UpcomingW.Carousel.Button src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
+  <UpcomingW.Carousel.RightButton src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
 );
 
 const SlickItem = ({ zabo, width }) => (
   <UpcomingW.SlickItemW>
     {width < 640 ? (
       <Link to={`zabo/${zabo._id}`}>
+        <UpcomingW.ItemW style={{ maxWidth: width / 2 }}>
+          <UpcomingW.Image
+            src={zabo.photos[0].url}
+            alt="Upcoming ZABO"
+          />
+          <div className="dimmer"> </div>
+        </UpcomingW.ItemW>
+      </Link>
+    ) : (
+      <UpcomingW.ItemW style={{ maxWidth: width / 2 }}>
         <UpcomingW.Image
           src={zabo.photos[0].url}
           alt="Upcoming ZABO"
         />
-      </Link>
-    ) : (
-      <UpcomingW.Image
-        src={zabo.photos[0].url}
-        alt="Upcoming ZABO"
-      />
+        <div className="dimmer"> </div>
+      </UpcomingW.ItemW>
     )}
   </UpcomingW.SlickItemW>
 );
@@ -227,8 +233,8 @@ const Upcoming = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     variableWidth: true,
-    autoplay: true,
-    autoplaySpeed: 5000,
+    // autoplay: true,
+    // autoplaySpeed: 5000,
     arrows: true,
     prevArrow: <ArrowLeft />,
     nextArrow: <ArrowRight />,
