@@ -8,12 +8,11 @@ const NotFound = () => (
   <Page>
     <Page.Header />
     <Page.Body>
-      <Page.Title>
-        <Page.Title.Text>404</Page.Title.Text>
-        <Page.Title.Image src={notFoundImage} />
-      </Page.Title>
+      <Page.Title src={notFoundImage} />
       <Page.Description>
-        <p>요청하신 페이지를 찾을 수 없습니다.</p>
+        요청하신 페이지를 찾을 수 없습니다.<br />
+        <Page.Description.Link href="https://zabo.sparcs.org">메인페이지</Page.Description.Link>
+        로 이동하기
       </Page.Description>
     </Page.Body>
   </Page>

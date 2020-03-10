@@ -1,38 +1,54 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
+import { media } from 'lib/utils/style';
 
 export const Page = styled.section`
-    width: 100%;
-    height: 100%;
-`;
-
-Page.Header = styled.div`
-    background-color: #f8f8f8;
-    width: 100%;
-    height: 55px;
-`;
-
-Page.Body = styled.div`
-    background-color: ${props => props.theme.gray30};
-`;
-
-Page.Title = styled.div`
-    background-color: #ffffff;
-`;
-
-Page.Title.Text = styled.div`
-    font-size: 200px;
-    font-weight: bold;
-    color: ${props => props.theme.main};
-    opacity: 0.5;
-`;
-
-Page.Title.Image = styled.img`
-  width: auto;
+  width: 100%;
   height: 100%;
 `;
 
+Page.Header = styled.div`
+  background-color: ${props => props.theme.main};
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 55px;
+`;
+
+Page.Body = styled.div`
+  width: 90vw;
+  margin: 240px 5vw 0;
+  ${media.tablet (css`
+    width: 34vw;
+    margin: 280px 33vw 0;
+  `)};
+`;
+
+Page.Title = styled.img`  
+  width: 50vw;
+  margin: 0 20vw;
+  ${media.tablet (css`
+    width: 34vw;
+    margin: 0;
+  `)};
+`;
+
 Page.Description = styled.p`
-    font-size: 16px;
+  text-align: center;
+  margin-top: 28px;
+  line-height: 1.6;
+  font-size: 16px;
+  color: ${props => props.theme.gray30};
+  ${media.tablet (css`
+    margin-top: 48px;
+    font-size: 18px;
+  `)};
+`;
+
+Page.Description.Link = styled.a`
+  color: ${props => props.theme.main} !important;
+  font-weight: bold;
+  text-decoration: underline;
 `;
 
 export default Page;
