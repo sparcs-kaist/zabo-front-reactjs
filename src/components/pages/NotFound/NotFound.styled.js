@@ -8,11 +8,12 @@ export const Page = styled.section`
 `;
 
 Page.Header = styled.div`
-  background-color: ${props => props.theme.main};
   position: fixed;
   top: 0;
   width: 100%;
   height: 55px;
+  border-top: 5px solid ${props => props.theme.main};
+  padding: 10px 18px;
 `;
 
 Page.Body = styled.div`
@@ -25,8 +26,8 @@ Page.Body = styled.div`
 `;
 
 Page.Title = styled.img`  
-  width: 50vw;
-  margin: 0 20vw;
+  width: 60vw;
+  margin: 0 15vw;
   ${media.tablet (css`
     width: 34vw;
     margin: 0;
