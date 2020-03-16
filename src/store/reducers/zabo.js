@@ -47,6 +47,23 @@ const initialState = {
   zabos: {},
 };
 
+const zaboListParser = (zaboList) => {
+  const map = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
+  const ids = zaboList.map (zabo => zabo._id);
+  return { map, ids };
+};
+
+const zaboListProducer = (zaboList, key, lastSeen, override = false) => {
+  const { map: zaboMap, ids: zaboIds } = zaboListParser (zaboList);
+  return draft => {
+    const prevIdList = get (draft, ['lists', key], []);
+    const newIdList = override
+      ? zaboIds
+      : lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
+    set (draft, ['lists', key], uniq (newIdList));
+    Object.assign (draft.zabos, zaboMap);
+  };
+};
 
 // Reducer 함수 : state, action 을 받아 다음 상태를 만들어서 반환.
 export default handleActions (
@@ -81,26 +98,13 @@ export default handleActions (
           set (draft, ['zabos', zabo._id], zabo);
         });
       },
-      onFailure: (state, action) => {
-        const error = action.payload;
-        const zaboId = action.meta;
-        return produce (state, draft => {
-          set (draft, ['zabos', zaboId], error);
-        });
-      },
+      onFailure: (state, action) => produce (state, draft => {
+        set (draft, ['zabos', action.meta], action.payload);
+      }),
     }),
     ...pender ({
       type: GET_HOT_ZABO_LIST,
-      onSuccess: (state, action) => {
-        const zaboList = action.payload;
-
-        const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = zaboList.map (zabo => zabo._id);
-        return produce (state, draft => {
-          Object.assign (draft.zabos, zaboMap);
-          set (draft, ['lists', 'hot'], zaboIds);
-        });
-      },
+      onSuccess: (state, action) => produce (state, zaboListProducer (action.payload, 'hot', false, true)),
     }),
     ...pender ({
       type: GET_ZABO_LIST,
@@ -108,33 +112,14 @@ export default handleActions (
         const zaboList = action.payload;
         const { lastSeen, relatedTo } = action.meta;
         const key = relatedTo || 'main';
-
-        const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = zaboList.map (zabo => zabo._id);
-
-        return produce (state, draft => {
-          const prevIdList = get (draft, ['lists', key], []);
-          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
-          set (draft, ['lists', key], uniq (newIdList));
-          Object.assign (draft.zabos, zaboMap);
-        });
+        return produce (state, zaboListProducer (zaboList, key, lastSeen, false));
       },
     }),
     ...pender ({
       type: GET_PINS,
       onSuccess: (state, action) => {
-        const pins = action.payload;
         const { lastSeen } = action.meta;
-
-        const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = pins.map (pin => pin._id);
-
-        return produce (state, draft => {
-          const prevIdList = get (draft, ['lists', 'pins'], []);
-          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
-          set (draft, ['lists', 'pins'], uniq (newIdList));
-          Object.assign (draft.zabos, zaboMap);
-        });
+        return produce (state, zaboListProducer (action.payload, 'pins', lastSeen, false));
       },
     }),
     ...pender ({
@@ -152,32 +137,15 @@ export default handleActions (
     ...pender ({
       type: GET_GROUP_ZABO_LIST,
       onSuccess: (state, action) => {
-        const zabos = action.payload;
         const { groupName, lastSeen } = action.meta;
-        const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = zabos.map (zabo => zabo._id);
-        return produce (state, draft => {
-          const prevIdList = get (draft, ['lists', groupName], []);
-          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
-          set (draft, ['lists', groupName], uniq (newIdList));
-          Object.assign (draft.zabos, zaboMap);
-        });
+        return produce (state, zaboListProducer (action.payload, groupName, lastSeen, false));
       },
     }),
     ...pender ({
       type: GET_SEARCH_ZABO_LIST,
       onSuccess: (state, action) => {
-        const zabos = action.payload;
         const { lastSeen, text } = action.meta;
-        const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = zabos.map (zabo => zabo._id);
-
-        return produce (state, draft => {
-          const prevIdList = get (draft, ['lists', 'search'], []);
-          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : zaboIds;
-          set (draft, ['lists', 'search'], uniq (newIdList));
-          Object.assign (draft.zabos, zaboMap);
-        });
+        return produce (state, zaboListProducer (action.payload, 'search', lastSeen, !lastSeen));
       },
     }),
     ...pender ({
@@ -185,12 +153,7 @@ export default handleActions (
       onSuccess: (state, action) => {
         const data = action.payload;
         const { zabos } = data;
-        const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-        const zaboIds = zabos.map (zabo => zabo._id);
-        return produce (state, draft => {
-          set (draft, ['lists', 'search'], zaboIds);
-          Object.assign (draft.zabos, zaboMap);
-        });
+        return produce (state, zaboListProducer (action.payload, 'search', false, true));
       },
     }),
   },
