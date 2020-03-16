@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 import moment from 'moment';
 import useSWR from 'swr';
 
@@ -198,7 +199,7 @@ const CountDown = ({ initialValue }) => {
 const Upcoming = () => {
   const history = useHistory ();
   const [current, setCurrent] = useState (0);
-  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const width = useSelector (state => get (state.get ('app'), ['windowSize', 'width']));
   const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
 
   if (!zabos) {
