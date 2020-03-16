@@ -17,6 +17,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import clsx from 'clsx';
+import get from 'lodash.get';
 import moment from 'moment';
 
 import StyledQuill from 'organisms/StyledQuill';
@@ -144,10 +145,8 @@ const GroupItem = ({ group, isPending }) => {
 };
 
 const GroupAdminPage = () => {
-  const pendingGroupsImmutable = useSelector (state => state.getIn (['admin', 'pendingGroups']));
-  const pendingGroups = useMemo (() => pendingGroupsImmutable.toJS (), [pendingGroupsImmutable]);
-  const groupsImmutable = useSelector (state => state.getIn (['admin', 'groups']));
-  const groups = useMemo (() => groupsImmutable.toJS (), [groupsImmutable]);
+  const pendingGroups = useSelector (state => get (state.get ('admin'), ['pendingGroups'], []));
+  const groups = useSelector (state => get (state.get ('admin'), ['groups'], []));
 
   return (
     <div>

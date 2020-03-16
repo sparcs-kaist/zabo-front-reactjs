@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import get from 'lodash.get';
 
 import SuperTooltip from 'atoms/SuperTooltip';
 import Header from 'templates/Header';
@@ -11,8 +12,7 @@ import UserInfo from './UserInfo';
 
 const UserDetailPage = ({ match }) => {
   const { username } = match.params;
-  const userIm = useSelector (state => state.getIn (['admin', 'usersMap', username]));
-  const user = useMemo (() => (userIm ? userIm.toJS () : null), [userIm]);
+  const user = useSelector (state => get (state.get ('admin'), ['usersMap', username]));
   if (!user) return null;
   const {
     _id, profilePhoto, createdAt, groups,

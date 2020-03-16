@@ -46,6 +46,7 @@
     "no-trailing-spaces": "warn",
     "indent": ["warn", 2],
     "semi": ["warn", "always"],
+    "no-param-reassign": ["warn", { "props": true, "ignorePropertyModificationsFor": ["draft"] }],
     "simple-import-sort/sort": [
       1,
       {
