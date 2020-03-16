@@ -84,7 +84,7 @@ export default handleActions (
     ...pender ({
       type: CHECK_AUTH,
       onPending: (state, action) => produce (state, (draft : IAuthState) => {
-        const decoded = jwt.decode (action.meta) || {};
+        const decoded = jwt.decode (action.meta);
         if (decoded && typeof decoded === 'object') draft.jwt = decoded as IJwt;
       }),
       onSuccess: (state, action) => {
