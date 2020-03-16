@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 import moment from 'moment';
 
 import Button from 'atoms/Button';
@@ -54,7 +55,7 @@ const OwnerInfo = ({
         alert ('Error');
       });
   });
-  const following = useSelector (state => state.getIn (['profile', 'profiles', name, 'following']));
+  const following = useSelector (state => get (state, ['profile', 'profiles', name, 'following']));
 
   return (
     <div className="owner">

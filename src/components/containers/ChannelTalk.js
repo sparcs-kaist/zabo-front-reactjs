@@ -1,6 +1,7 @@
 import { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import get from 'lodash.get';
 import queryString from 'query-string';
 
 import ChannelService from 'lib/channel_io';
@@ -10,8 +11,7 @@ const ChannelTalk = ({ match }) => {
   const { search, pathname } = useLocation ();
   const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
-  const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+  const info = useSelector (state => get (state, ['auth', 'info']));
   const {
     _id,
     username,
@@ -52,7 +52,7 @@ const ChannelTalk = ({ match }) => {
       });
     }
     ChannelService.boot (settings);
-  }, [search, isAuthenticated, infoImmutable, top, pathname]);
+  }, [search, isAuthenticated, info, top, pathname]);
   return null;
 };
 

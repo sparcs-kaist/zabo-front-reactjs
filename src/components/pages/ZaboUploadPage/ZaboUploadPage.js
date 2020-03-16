@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import SwipeableViews from 'react-swipeable-views';
 import styled from 'styled-components';
+import get from 'lodash.get';
 
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
@@ -72,10 +73,10 @@ Loading.Inactive = styled.div`
 const UploadFooter = (props) => {
   const { prev, next, step } = props;
   const dispatch = useDispatch ();
-  const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
-  const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const submitted = useSelector (state => state.getIn (['upload', 'submitted']));
+  const currentGroup = useSelector (state => get (state, ['auth', 'info', 'currentGroup']));
+  const files = useSelector (state => get (state, ['upload', 'images']));
+  const info = useSelector (state => get (state, ['upload', 'info']));
+  const submitted = useSelector (state => get (state, ['upload', 'submitted']));
 
   const validatedNext = useCallback (() => {
     // xxSelected : Currently Not Being Used
@@ -88,10 +89,9 @@ const UploadFooter = (props) => {
       return;
     }
     next ();
-  }, [step, currentGroup, filesImmutable, infoImmutable]);
+  }, [step, currentGroup, files, info]);
 
   const step2Valid = useMemo (() => {
-    const info = infoImmutable.toJS ();
     const {
       title, description, hasSchedule, schedules,
     } = info;
@@ -101,18 +101,18 @@ const UploadFooter = (props) => {
     const { title: scheduleTitle, startAt, eventType } = schedule;
     const scheduleValid = (scheduleTitle && startAt && eventType);
     return zaboValid && scheduleValid;
-  }, [infoImmutable]);
+  }, [info]);
 
   const isValid = useMemo (() => {
     if (step === 0) {
       return !!currentGroup;
     } if (step === 1) {
-      return !!filesImmutable.size;
+      return !!files.length;
     } if (step === 2) {
       return step2Valid;
     }
     return false;
-  }, [step, currentGroup, filesImmutable, step2Valid]);
+  }, [step, currentGroup, files, step2Valid]);
 
   const isSubmit = step >= 2;
 
@@ -164,7 +164,7 @@ UploadFooter.propTypes = {
 
 const ZaboUploadPage = () => {
   const dispatch = useDispatch ();
-  const step = useSelector (state => state.getIn (['upload', 'step']));
+  const step = useSelector (state => get (state, ['upload', 'step']));
   const setStep = (newStep => dispatch (setReduxStep (newStep)));
   const next = useCallback (() => setStep (step + 1), [step]);
   const prev = useCallback (() => setStep (step - 1), [step]);

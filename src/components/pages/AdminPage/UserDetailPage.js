@@ -12,7 +12,7 @@ import UserInfo from './UserInfo';
 
 const UserDetailPage = ({ match }) => {
   const { username } = match.params;
-  const user = useSelector (state => get (state.get ('admin'), ['usersMap', username]));
+  const user = useSelector (state => get (state, ['admin', 'usersMap', username]));
   if (!user) return null;
   const {
     _id, profilePhoto, createdAt, groups,

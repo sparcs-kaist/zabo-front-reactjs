@@ -6,7 +6,7 @@ import GridContainer from './components/Grid/GridContainer';
 import UserList from './UsersTable';
 
 const UserAdminPage = () => {
-  const users = useSelector (state => get (state.get ('admin'), ['users'], []));
+  const users = useSelector (state => get (state, ['admin', 'users'], []));
   return (
     <div>
       <GridContainer>

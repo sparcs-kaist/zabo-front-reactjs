@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import get from 'lodash.get';
 
 import { reset } from 'store/reducers/upload';
 import { uploadZabo } from 'store/reducers/zabo';
@@ -31,13 +32,11 @@ Loading.Inactive = styled.div`
 const UploadProcess = ({ children }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
-  const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+  const info = useSelector (state => get (state, ['upload', 'info']));
   const {
     title, description, hasSchedule, schedules, category,
   } = info;
-  const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const imageFiles = useMemo (() => imageFilesImmutable.toJS (), [imageFilesImmutable]);
+  const imageFiles = useSelector (state => get (state, ['upload', 'images']));
   const [progress, setProgress] = useState (0);
   const [error, setError] = useState (null);
 
@@ -76,7 +75,7 @@ const UploadProcess = ({ children }) => {
         setProgress (0);
         alert (err.error);
       });
-  }, [infoImmutable, imageFilesImmutable]);
+  }, [info, imageFiles]);
 
   useEffect (() => {
     upload ();

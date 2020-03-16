@@ -5,6 +5,7 @@ import React, {
 import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 
 import SimpleSelect from 'molecules/SimpleSelect';
 import StyledQuill from 'organisms/StyledQuill';
@@ -31,7 +32,7 @@ const categoryOptions = GROUP_CATEGORIES.map (category => (
 const ApplyForm = ({ profilePhoto }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
-  const myName = useSelector (state => state.getIn (['auth', 'info', 'username']));
+  const myName = useSelector (state => get (state, ['auth', 'info', 'username']));
   const [state, setState, onChange] = useSetState ({
     name: '',
     description: '',

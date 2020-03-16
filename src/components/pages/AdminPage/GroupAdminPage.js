@@ -145,8 +145,8 @@ const GroupItem = ({ group, isPending }) => {
 };
 
 const GroupAdminPage = () => {
-  const pendingGroups = useSelector (state => get (state.get ('admin'), ['pendingGroups'], []));
-  const groups = useSelector (state => get (state.get ('admin'), ['groups'], []));
+  const pendingGroups = useSelector (state => get (state, ['admin', 'pendingGroups'], []));
+  const groups = useSelector (state => get (state, ['admin', 'groups'], []));
 
   return (
     <div>

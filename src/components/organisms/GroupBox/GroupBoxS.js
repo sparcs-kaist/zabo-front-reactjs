@@ -17,7 +17,7 @@ const GroupBoxS = ({ group, ...props }) => {
   const {
     name, profilePhoto, subtitle,
   } = group;
-  const width = useSelector (state => get (state.get ('app'), ['windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const nameRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (nameRef.current)); }, [nameRef, width]);

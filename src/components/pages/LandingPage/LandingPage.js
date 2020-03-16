@@ -199,7 +199,7 @@ const CountDown = ({ initialValue }) => {
 const Upcoming = () => {
   const history = useHistory ();
   const [current, setCurrent] = useState (0);
-  const width = useSelector (state => get (state.get ('app'), ['windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
 
   if (!zabos) {

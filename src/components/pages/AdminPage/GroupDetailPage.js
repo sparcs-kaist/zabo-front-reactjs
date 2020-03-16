@@ -13,7 +13,7 @@ import UserCard from './UserCard';
 
 const GroupDetailPage = ({ match }) => {
   const { name } = match.params;
-  const group = useSelector (state => get (state.get ('admin'), ['groupsMap', name]));
+  const group = useSelector (state => get (state, ['admin', 'groupsMap', name]));
   if (!group) return null;
   const {
     profilePhoto, members, recentUpload, description, subtitle,

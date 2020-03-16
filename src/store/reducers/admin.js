@@ -75,7 +75,7 @@ export default handleActions (
         const { name } = action.meta;
         const group = action.payload;
         return produce (state, draft => {
-          draft.pendingGroups = draft.pendingGroups.filter (group => group.name !== name);
+          draft.pendingGroups = draft.pendingGroups.filter (oendingGroup => oendingGroup.name !== name);
           draft.groups.unshift (group);
           Object.assign (draft.groupsMap, { [group.name]: group });
         });

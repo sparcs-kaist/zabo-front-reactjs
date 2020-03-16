@@ -44,7 +44,7 @@ const ZaboCardL = ({ zabo }) => {
   const {
     _id, category, title, owner, createdAt, views, effectiveViews,
   } = zabo;
-  const width = useSelector (state => get (state.get ('app'), ['windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const titleRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [width, titleRef]);

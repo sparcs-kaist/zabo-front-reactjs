@@ -1,1 +1,1 @@
-export { default } from './FloatingNavigator.container';
+export { default } from './FloatingNavigator';
