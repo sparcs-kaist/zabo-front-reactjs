@@ -64,6 +64,10 @@ export interface IGroup {
   myRole : 'admin' | 'editor',
 }
 
+export interface IGroupMap {
+  [key : string] : IGroup;
+}
+
 export interface IUser {
   _id : string,
   email : string,
@@ -86,4 +90,8 @@ export interface IUser {
     likesCount : number,
     followingsCount : number,
   },
+}
+
+export interface IUserMap {
+  [key : string] : IGroup;
 }
