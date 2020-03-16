@@ -2,9 +2,9 @@ import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { NotFound } from 'pages';
-
 import { getZabo } from 'store/reducers/zabo';
+
+const NotFound = () => <h1>Zabo Not Found</h1>;
 
 const withZabo = (WrappedComponent, isPrivate = false, fetch = true) => {
   const Sub = (props) => {
