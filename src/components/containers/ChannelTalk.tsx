@@ -13,15 +13,6 @@ const ChannelTalk = ({ match } : RouteComponentProps<{top : string}>) => {
   const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
   const info = useSelector ((state : IState) => get (state, ['auth', 'info']));
-  const {
-    _id,
-    username,
-    koreanName,
-    groups,
-    flags,
-    email,
-    profilePhoto,
-  } = info;
 
   useEffect (() => {
     if (process.env.NODE_ENV !== 'production') return;
@@ -39,7 +30,16 @@ const ChannelTalk = ({ match } : RouteComponentProps<{top : string}>) => {
       pluginKey: '5fe8c634-bcbd-4499-ba99-967191a2ef77',
     };
     if (isAuthenticated) {
-      if (!_id) return;
+      if (!info) return;
+      const {
+        _id,
+        username,
+        koreanName,
+        groups,
+        flags,
+        email,
+        profilePhoto,
+      } = info;
       Object.assign (settings, {
         userId: _id,
         profile: {
