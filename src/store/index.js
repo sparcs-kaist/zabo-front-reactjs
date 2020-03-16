@@ -6,7 +6,11 @@ import persist from './persist';
 import rootReducer from './reducers';
 
 const composeEnhancers = composeWithDevTools ({
-  actionBlacklist: ['@@redux-pender/SUCCESS', '@@redux-pender/FAILURE', '@@redux-pender/PENDING'],
+  actionBlacklist: [
+    '@@redux-pender/SUCCESS',
+    '@@redux-pender/FAILURE',
+    '@@redux-pender/PENDING',
+  ],
   maxAge: 1000,
 });
 
