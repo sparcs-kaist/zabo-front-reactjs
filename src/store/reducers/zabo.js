@@ -1,4 +1,6 @@
-import { fromJS, List, Map } from 'immutable';
+import produce from 'immer';
+import get from 'lodash.get';
+import set from 'lodash.set';
 import uniq from 'lodash.uniq';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
@@ -35,15 +37,16 @@ export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, meta => 
 export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, meta => meta);
 
 // 초기값 설정
-const initialState = Map ({
-  lists: Map ({
+const initialState = {
+  lists: {
     // Using group name as a key, keys in this map should be RESERVED as name in server side
-    pins: List ([]),
-    main: List ([]),
-    search: List ([]),
-  }),
-  zabos: Map ({}),
-});
+    pins: [],
+    main: [],
+    search: [],
+  },
+  zabos: {},
+};
+
 
 // Reducer 함수 : state, action 을 받아 다음 상태를 만들어서 반환.
 export default handleActions (
@@ -52,14 +55,18 @@ export default handleActions (
       type: UPLOAD_ZABO,
       onSuccess: (state, action) => {
         const zabo = action.payload;
-        return state.setIn (['zabos', zabo._id], fromJS (zabo));
+        return produce (state, draft => {
+          set (draft, ['zabos', zabo._id], zabo);
+        });
       },
     }),
     ...pender ({
       type: PATCH_ZABO,
       onSuccess: (state, action) => {
         const { zaboId } = action.meta;
-        return state.updateIn (['zabos', zaboId], prev => prev.merge (fromJS (action.payload)));
+        return produce (state, draft => {
+          Object.assign (draft.zabos[zaboId], action.payload);
+        });
       },
     }),
     ...pender ({
@@ -70,23 +77,29 @@ export default handleActions (
       type: GET_ZABO,
       onSuccess: (state, action) => {
         const zabo = action.payload;
-        return state.setIn (['zabos', zabo._id], fromJS (zabo));
+        return produce (state, draft => {
+          set (draft, ['zabos', zabo._id], zabo);
+        });
       },
       onFailure: (state, action) => {
         const error = action.payload;
         const zaboId = action.meta;
-        return state.setIn (['zabos', zaboId], fromJS (error));
+        return produce (state, draft => {
+          set (draft, ['zabos', zaboId], error);
+        });
       },
     }),
     ...pender ({
       type: GET_HOT_ZABO_LIST,
       onSuccess: (state, action) => {
         const zaboList = action.payload;
+
         const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zaboList.map (zabo => zabo._id);
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .setIn (['lists', 'hot'], zaboIds);
+        return produce (state, draft => {
+          Object.assign (draft.zabos, zaboMap);
+          set (draft, ['lists', 'hot'], zaboIds);
+        });
       },
     }),
     ...pender ({
@@ -99,14 +112,12 @@ export default handleActions (
         const zaboMap = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zaboList.map (zabo => zabo._id);
 
-        if (!lastSeen) {
-          return state
-            .updateIn (['lists', key], prevList => fromJS (uniq ([...zaboIds, ...(prevList ? prevList.toJS () : [])])))
-            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)));
-        }
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .updateIn (['lists', key], prevList => fromJS (uniq ([...(prevList ? prevList.toJS () : []), ...zaboIds])));
+        return produce (state, draft => {
+          const prevIdList = get (draft, ['lists', key], []);
+          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
+          set (draft, ['lists', key], uniq (newIdList));
+          Object.assign (draft.zabos, zaboMap);
+        });
       },
     }),
     ...pender ({
@@ -118,34 +129,39 @@ export default handleActions (
         const zaboMap = pins.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = pins.map (pin => pin._id);
 
-        if (!lastSeen) {
-          return state
-            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-            .setIn (['lists', 'pins'], fromJS (zaboIds));
-        }
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .updateIn (['lists', 'pins'], prevList => prevList.merge (fromJS (zaboIds)));
+        return produce (state, draft => {
+          const prevIdList = get (draft, ['lists', 'pins'], []);
+          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
+          set (draft, ['lists', 'pins'], uniq (newIdList));
+          Object.assign (draft.zabos, zaboMap);
+        });
       },
     }),
     ...pender ({
       type: TOGGLE_ZABO_PIN,
-      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
+      onSuccess: (state, action) => produce (state, draft => {
+        Object.assign (draft.zabos[action.meta], action.payload);
+      }),
     }),
     ...pender ({
       type: TOGGLE_ZABO_LIKE,
-      onSuccess: (state, action) => state.updateIn (['zabos', action.meta], zabo => zabo.merge (fromJS (action.payload))),
+      onSuccess: (state, action) => produce (state, draft => {
+        Object.assign (draft.zabos[action.meta], action.payload);
+      }),
     }),
     ...pender ({
       type: GET_GROUP_ZABO_LIST,
       onSuccess: (state, action) => {
         const zabos = action.payload;
-        const { groupName } = action.meta;
+        const { groupName, lastSeen } = action.meta;
         const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zabos.map (zabo => zabo._id);
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .setIn (['lists', groupName], fromJS (zaboIds));
+        return produce (state, draft => {
+          const prevIdList = get (draft, ['lists', groupName], []);
+          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : [...zaboIds, ...prevIdList];
+          set (draft, ['lists', groupName], uniq (newIdList));
+          Object.assign (draft.zabos, zaboMap);
+        });
       },
     }),
     ...pender ({
@@ -156,15 +172,12 @@ export default handleActions (
         const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zabos.map (zabo => zabo._id);
 
-        // !lastSeen case don't need -> check this case when zaboList fetch
-        if (!lastSeen) {
-          return state
-            .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-            .setIn (['lists', 'search'], fromJS (zaboIds));
-        }
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .updateIn (['lists', 'search'], prevList => prevList.merge (fromJS (zaboIds)));
+        return produce (state, draft => {
+          const prevIdList = get (draft, ['lists', 'search'], []);
+          const newIdList = lastSeen ? [...prevIdList, ...zaboIds] : zaboIds;
+          set (draft, ['lists', 'search'], uniq (newIdList));
+          Object.assign (draft.zabos, zaboMap);
+        });
       },
     }),
     ...pender ({
@@ -174,9 +187,10 @@ export default handleActions (
         const { zabos } = data;
         const zaboMap = zabos.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
         const zaboIds = zabos.map (zabo => zabo._id);
-        return state
-          .update ('zabos', zabos => zabos.merge (fromJS (zaboMap)))
-          .setIn (['lists', 'search'], fromJS (zaboIds));
+        return produce (state, draft => {
+          set (draft, ['lists', 'search'], zaboIds);
+          Object.assign (draft.zabos, zaboMap);
+        });
       },
     }),
   },
