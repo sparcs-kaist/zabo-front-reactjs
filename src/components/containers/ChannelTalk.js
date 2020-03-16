@@ -23,7 +23,7 @@ const ChannelTalk = ({ match }) => {
   } = info;
 
   useEffect (() => {
-    // if (process.env.NODE_ENV !== 'production') return;
+    if (process.env.NODE_ENV !== 'production') return;
     if (top === 'settings') {
       ChannelService.shutdown ();
       return;
