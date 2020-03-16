@@ -1,8 +1,9 @@
 import { get } from 'lodash';
 import { createSelector, ParametricSelector, Selector } from 'reselect';
 import {
-  IGroup, IJwt, IState, IUser, IZabo, IZaboMap,
+  IGroup, IJwt, IUser, IZabo, IZaboMap,
 } from 'types/index.d';
+import { IState } from 'types/store.d';
 
 import { CHECK_AUTH } from 'store/reducers/auth';
 

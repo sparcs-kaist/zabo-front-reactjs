@@ -1,17 +1,18 @@
-import { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import get from 'lodash.get';
+import { get } from 'lodash';
 import queryString from 'query-string';
+import { IState } from 'types/store.d';
 
 import ChannelService from 'lib/channel_io';
 import { isAuthedSelector } from 'lib/utils';
 
-const ChannelTalk = ({ match }) => {
+const ChannelTalk = ({ match } : RouteComponentProps<{top : string}>) => {
   const { search, pathname } = useLocation ();
   const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
-  const info = useSelector (state => get (state, ['auth', 'info']));
+  const info = useSelector ((state : IState) => get (state, ['auth', 'info']));
   const {
     _id,
     username,
@@ -45,7 +46,7 @@ const ChannelTalk = ({ match }) => {
           name: username,
           koreanName,
           avatarUrl: profilePhoto,
-          groups: groups.map (group => group.name).join (', '),
+          groups: groups.map ((group) => group.name).join (', '),
           flags: flags.join (', '),
           email,
         },

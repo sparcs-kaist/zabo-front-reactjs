@@ -8,16 +8,6 @@ export interface IJwt {
   iss : string;
 }
 
-export interface IState {
-  admin : any;
-  app : any;
-  auth : any;
-  profile : any;
-  upload : any;
-  zabo : any;
-  pender : any;
-}
-
 export interface IZabo {
   _id : string,
   title : string,
@@ -78,7 +68,7 @@ export interface IUser {
   email ?: string,
   kaistPersonType ? : string,
   isAdmin ? : boolean,
-  flags ? : string[],
+  flags : string[],
   pendingGroups : IGroup[],
   username : string,
   description ? : string,
@@ -94,7 +84,7 @@ export interface IUser {
     pins : any[],
   }[],
   currentGroup ? : IGroup | string | null,
-  groups : (IGroup | string)[],
+  groups : IGroup[],
   stats ? : {
     likesCount : number,
     followingsCount : number,
