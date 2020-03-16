@@ -48,14 +48,14 @@ const OwnerInfo = ({
   }, [name]);
   const deleteZabo = useCallback (() => {
     dispatch (deleteZaboAction ({ zaboId: _id }))
-      .then (res => {
+      .then ((res) => {
         window.location.href = `/${owner.name}`;
       })
-      .catch (error => {
+      .catch ((error) => {
         alert ('Error');
       });
   });
-  const following = useSelector (state => get (state, ['profile', 'profiles', name, 'following']));
+  const following = useSelector ((state) => get (state, ['profile', 'profiles', name, 'following']));
 
   return (
     <div className="owner">
@@ -117,7 +117,7 @@ const ZaboDetailPage = (props) => {
     isLiked, likesCount, isPinned, pinsCount, views, effectiveViews, isMyZabo, createdBy,
   } = zabo;
   const schedule = schedules[0];
-  const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
+  const timePast = getLabeledTimeDiff (createdAt, 60, 60, 6, 0);
   const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
   const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
   const stats = [{
@@ -153,7 +153,7 @@ const ZaboDetailPage = (props) => {
             <ZaboPageWrapper.Info.Header>
               <section>
                 <ul className="keyword-result">
-                  {category.map (cat => (
+                  {category.map ((cat) => (
                     <li key={cat}>#{cat}</li>
                   ))}
                 </ul>
@@ -174,7 +174,7 @@ const ZaboDetailPage = (props) => {
                 </Tooltip>
               </section>
               <section className="statSection">
-                {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
+                {stats.map ((stat) => <StatBox key={stat.type} stat={stat} />)}
               </section>
             </ZaboPageWrapper.Info.Header>
             <ZaboPageWrapper.Info.Body>

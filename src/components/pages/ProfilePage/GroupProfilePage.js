@@ -30,7 +30,7 @@ const GroupProfile = ({ profile }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
   const isAuthed = useSelector (isAuthedSelector);
-  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
+  const width = useSelector ((state) => get (state, ['app', 'windowSize', 'width']));
   const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
 
   const descRef = useRef (null);
@@ -40,7 +40,7 @@ const GroupProfile = ({ profile }) => {
   }, [name]);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (descRef.current)); }, [descRef, width]);
 
-  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, true, true, true, true, true, true) : '없음';
+  const timePast = recentUpload ? getLabeledTimeDiff (recentUpload, 60, 60, 24, 7, 5, 12) : '없음';
   const stats = [{
     name: '올린 자보',
     value: zabosCount,
