@@ -1,4 +1,5 @@
 {
+  "baseUrl": "src:src/components",
   "compilerOptions": {
     "target": "es5",
     "lib": [
