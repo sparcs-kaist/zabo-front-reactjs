@@ -1,4 +1,4 @@
-import { fromJS, List, Map } from 'immutable';
+import produce, { setAutoFreeze } from 'immer';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 
@@ -23,13 +23,15 @@ export const getGroupApplyList = createAction (GET_GROUP_APPLY_LIST, AdminAPIs.g
 export const acceptApplyGroup = createAction (ACCEPT_APPLY_GROUP, AdminAPIs.acceptGroup, meta => meta);
 
 // initial state
-const initialState = Map ({
-  pendingGroups: List ([]),
-  groups: List ([]),
-  users: List ([]),
-  groupsMap: Map ({}),
-  usersMap: Map ({}),
-});
+const initialState = {
+  pendingGroups: [],
+  groups: [],
+  users: [],
+  groupsMap: {},
+  usersMap: {},
+};
+
+setAutoFreeze (false);
 
 // reducer
 export default handleActions (
@@ -39,9 +41,10 @@ export default handleActions (
       onSuccess: (state, action) => {
         const users = action.payload;
         const usersMap = users.reduce ((acc, cur) => ({ ...acc, [cur.username]: cur }), {});
-        return state
-          .set ('users', fromJS (action.payload))
-          .set ('usersMap', fromJS (usersMap));
+        return produce (state, draft => {
+          draft.users = action.payload;
+          draft.usersMap = usersMap;
+        });
       },
     }),
     ...pender ({
@@ -49,9 +52,10 @@ export default handleActions (
       onSuccess: (state, action) => {
         const groups = action.payload;
         const groupsMap = groups.reduce ((acc, cur) => ({ ...acc, [cur.name]: cur }), {});
-        return state
-          .set ('groups', fromJS (action.payload))
-          .update ('groupsMap', prev => prev.merge (fromJS (groupsMap)));
+        return produce (state, draft => {
+          draft.groups = action.payload;
+          Object.assign (draft.groupsMap, groupsMap);
+        });
       },
     }),
     ...pender ({
@@ -59,20 +63,22 @@ export default handleActions (
       onSuccess: (state, action) => {
         const groups = action.payload;
         const groupsMap = groups.reduce ((acc, cur) => ({ ...acc, [cur.name]: cur }), {});
-        return state
-          .set ('pendingGroups', fromJS (action.payload))
-          .update ('groupsMap', prev => prev.merge (fromJS (groupsMap)));
+        return produce (state, draft => {
+          draft.pendingGroups = action.payload;
+          Object.assign (draft.groupsMap, groupsMap);
+        });
       },
     }),
     ...pender ({
       type: ACCEPT_APPLY_GROUP,
       onSuccess: (state, action) => {
         const { name } = action.meta;
-        const group = fromJS (action.payload);
-        return state
-          .update ('pendingGroups', prev => prev.filter (group => group.get ('name') !== name))
-          .update ('groups', prev => prev.unshift (group))
-          .update ('groupsMap', prev => prev.merge ({ [group.name]: group }));
+        const group = action.payload;
+        return produce (state, draft => {
+          draft.pendingGroups = draft.pendingGroups.filter (oendingGroup => oendingGroup.name !== name);
+          draft.groups.unshift (group);
+          Object.assign (draft.groupsMap, { [group.name]: group });
+        });
       },
     }),
   },

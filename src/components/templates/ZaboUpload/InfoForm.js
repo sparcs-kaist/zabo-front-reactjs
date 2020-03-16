@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import MomentUtils from '@date-io/moment';
 import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import get from 'lodash.get';
 import moment from 'moment';
 
 import ToggleButton from 'atoms/ToggleButton';
@@ -223,12 +224,10 @@ Form.propTypes = {
 const InfoForm = () => {
   const dispatch = useDispatch ();
   const [preview, setPreview] = useState ();
-  const infoImmutable = useSelector (state => state.getIn (['upload', 'info']));
-  const imageFilesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+  const info = useSelector (state => get (state, ['upload', 'info']));
+  const imageFiles = useSelector (state => get (state, ['upload', 'images']));
 
   useEffect (() => {
-    const imageFiles = imageFilesImmutable.toJS ();
     const sortedImageFiles = imageFiles.slice ();
     sortedImageFiles.sort (gridLayoutCompareFunction);
     const titleImageFile = sortedImageFiles[0];
@@ -240,7 +239,7 @@ const InfoForm = () => {
     return () => {
       URL.revokeObjectURL (url);
     };
-  }, [imageFilesImmutable]);
+  }, [imageFiles]);
 
   const setState = useCallback (updates => {
     dispatch (setInfo ({ ...info, ...updates }));

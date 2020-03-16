@@ -10,6 +10,7 @@ import styled, { css } from 'styled-components';
 import CloseIcon from '@material-ui/icons/Close';
 import { Responsive, WidthProvider } from '@sparcs-kaist/react-grid-layout';
 import debounce from 'lodash.debounce';
+import get from 'lodash.get';
 import throttle from 'lodash.throttle';
 
 import { setImages } from 'store/reducers/upload';
@@ -238,8 +239,7 @@ const alertOnce = (message) => {
 
 const UploadImages = props => {
   const reduxDispatch = useDispatch ();
-  const filesImmutable = useSelector (state => state.getIn (['upload', 'images']));
-  const files = useMemo (() => filesImmutable.toJS (), [filesImmutable]);
+  const files = useSelector (state => get (state, ['upload', 'images']));
   const setFiles = newFiles => reduxDispatch (setImages (newFiles));
   const [widthInfo, setWidthInfo] = useState ({
     width: 0,
@@ -276,7 +276,7 @@ const UploadImages = props => {
         });
       }),
     ]);
-  }, [filesImmutable]);
+  }, [files]);
 
   const removeImage = useCallback ((key) => {
     const clone = files.slice ().map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
@@ -295,7 +295,7 @@ const UploadImages = props => {
       }
     }
     setFiles (clone);
-  }, [filesImmutable]);
+  }, [files]);
 
   const updateImagesInfo = useCallback (async () => {
     const titleInfo = {
@@ -343,7 +343,7 @@ const UploadImages = props => {
 
     newImagesInfo.title = titleInfo;
     setImagesInfo (newImagesInfo);
-  }, [filesImmutable, imagesInfo]);
+  }, [files, imagesInfo]);
 
   const reducer = (state, action) => {
     switch (action.type) {
@@ -397,7 +397,7 @@ const UploadImages = props => {
   useEffect (() => () => dispatch ({ type: 'revokeObjectURL' }), []); // Make sure to revoke the data uris to avoid memory leaks
   useEffect (() => {
     dispatch ({ type: 'updateImagesInfo' });
-  }, [filesImmutable]);
+  }, [files]);
 
   useEffect (() => {
     dispatch ({ type: 'relocate' });
@@ -439,7 +439,7 @@ const UploadImages = props => {
         </ThumbInner>
       </Thumb>
     </GridItem>
-  )), [filesImmutable, imagesInfo, dispatch]);
+  )), [files, imagesInfo, dispatch]);
 
   const style = useMemo (
     () => ({

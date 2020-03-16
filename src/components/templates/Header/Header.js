@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { css } from 'styled-components';
+import get from 'lodash.get';
 
 import Container from 'atoms/Container';
 import SVG from 'atoms/SVG';
@@ -95,7 +96,7 @@ Header.defaultProps = {
 Header.AuthButton = ({ type, groupName, transparent }) => {
   const dispatch = useDispatch ();
   const isAuthenticated = useSelector (isAuthedSelector);
-  const username = useSelector (state => state.getIn (['auth', 'info', 'username']));
+  const username = useSelector (state => get (state, ['auth', 'info', 'username']));
 
   const toUpload = useCallback (() => {
     if (groupName) dispatch (setCurrentGroup (groupName));

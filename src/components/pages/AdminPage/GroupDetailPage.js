@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 
 import SuperTooltip from 'atoms/SuperTooltip';
 import StyledQuill from 'organisms/StyledQuill';
@@ -13,8 +13,7 @@ import UserCard from './UserCard';
 
 const GroupDetailPage = ({ match }) => {
   const { name } = match.params;
-  const groupIm = useSelector (state => state.getIn (['admin', 'groupsMap', name]));
-  const group = useMemo (() => (groupIm ? groupIm.toJS () : null), [groupIm]);
+  const group = useSelector (state => get (state, ['admin', 'groupsMap', name]));
   if (!group) return null;
   const {
     profilePhoto, members, recentUpload, description, subtitle,

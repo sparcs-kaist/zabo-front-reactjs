@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
+import get from 'lodash.get';
 
 import { NotFound } from 'pages';
 
@@ -15,8 +16,7 @@ const withZabo = (WrappedComponent, isPrivate = false, fetch = true) => {
       if (fetch) dispatch (getZabo (zaboId));
     }, [zaboId]);
 
-    const zaboImmutable = useSelector (state => state.getIn (['zabo', 'zabos', zaboId]));
-    const zabo = useMemo (() => (zaboImmutable ? zaboImmutable.toJS () : null), [zaboImmutable]);
+    const zabo = useSelector (state => get (state, ['zabo', 'zabos', zaboId]));
     if (!zabo) return null;
     if (zabo.error) return <NotFound />;
     if (isPrivate && !zabo.isMyZabo) return <NotFound />;

@@ -1,4 +1,4 @@
-import { fromJS, List, Map } from 'immutable';
+import produce from 'immer';
 import { createAction, handleActions } from 'redux-actions';
 
 import storage from 'lib/storage';
@@ -38,47 +38,50 @@ export const defaultSchedule = {
 };
 
 // initial state
-const initialState = Map ({
+const initialState = {
   step: 0,
   groupSelected: false,
   imagesSelected: false,
   submitted: false,
-  images: List ([]),
-  info: Map ({
+  images: [],
+  info: {
     title: '',
     description: '',
     hasSchedule: false,
-    schedules: List ([
-      Map (defaultSchedule),
-    ]),
-    category: List (ZABO_CATEGORIES.map (tag => ({ name: tag, clicked: false }))),
-  }),
-  edit: Map ({}),
+    schedules: [defaultSchedule],
+    category: ZABO_CATEGORIES.map (tag => ({ name: tag, clicked: false })),
+  },
+  edit: {},
   showModal: false,
-});
+};
 
 // reducer
 export default handleActions (
   {
-    [INITIALIZE]: (state, action) => state.merge (
-      action.payload,
-    ),
-    [SET_STEP]: (state, action) => state.set ('step', action.payload),
-    [SET_GROUP_SELECTED]: (state, action) => {
-      const groupSelected = action.payload;
-      return state.set ('groupSelected', groupSelected);
-    },
-    [SET_IMAGES_SELECTED]: (state, action) => state.set ('imagesSelected', action.payload),
-    [SUBMIT]: (state, action) => state.set ('submitted', action.payload),
-    [SET_IMAGES]: (state, action) => {
-      const images = action.payload;
-      return state.set ('images', fromJS (images));
-    },
-    [SET_INFO]: (state, action) => {
-      const info = action.payload;
-      return state.set ('info', fromJS (info));
-    },
-    [SET_MODAL]: (state, action) => state.set ('showModal', action.payload),
+    [INITIALIZE]: (state, action) => produce (state, draft => {
+      Object.assign (draft, action.payload);
+    }),
+    [SET_STEP]: (state, action) => produce (state, draft => {
+      draft.step = action.payload;
+    }),
+    [SET_GROUP_SELECTED]: (state, action) => produce (state, draft => {
+      draft.groupSelected = action.payload;
+    }),
+    [SET_IMAGES_SELECTED]: (state, action) => produce (state, draft => {
+      draft.imagesSelected = action.payload;
+    }),
+    [SUBMIT]: (state, action) => produce (state, draft => {
+      draft.submitted = action.payload;
+    }),
+    [SET_IMAGES]: (state, action) => produce (state, draft => {
+      draft.images = action.payload;
+    }),
+    [SET_INFO]: (state, action) => produce (state, draft => {
+      draft.info = action.payload;
+    }),
+    [SET_MODAL]: (state, action) => produce (state, draft => {
+      draft.showModal = action.payload;
+    }),
     [RESET]: () => {
       storage.removeItem ('uploadPersist');
       return initialState;

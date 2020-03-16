@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { makeStyles } from '@material-ui/core/styles';
+import get from 'lodash.get';
 
 import { setCurrentGroup } from 'store/reducers/auth';
 import { setGroupSelected } from 'store/reducers/upload';
@@ -98,7 +99,7 @@ const useStyles = makeStyles (theme => ({
 
 const InsetDividers = ({ groupsInfo }) => {
   const classes = useStyles ();
-  const currentGroup = useSelector (state => state.getIn (['auth', 'info', 'currentGroup']));
+  const currentGroup = useSelector (state => get (state, ['auth', 'info', 'currentGroup']));
   const dispatch = useDispatch ();
 
   const updateGroup = useCallback ((groupName) => {
@@ -118,7 +119,7 @@ const InsetDividers = ({ groupsInfo }) => {
             <React.Fragment key={_id}>
               <ListItem
                 className={classes.item}
-                selected={currentGroup && _id === currentGroup.get ('_id')}
+                selected={currentGroup && _id === currentGroup._id}
                 onClick={() => updateGroup (name)}
               >
                 {
@@ -155,8 +156,7 @@ InsetDividers.defaultProps = {
 
 
 const SelectGroup = () => {
-  const groupsInfoImmutable = useSelector (state => state.getIn (['auth', 'info', 'groups']));
-  const groupsInfo = useMemo (() => groupsInfoImmutable.toJS (), [groupsInfoImmutable]);
+  const groupsInfo = useSelector (state => get (state, ['auth', 'info', 'groups']));
 
   return (
     <SelectGroupWrapper>

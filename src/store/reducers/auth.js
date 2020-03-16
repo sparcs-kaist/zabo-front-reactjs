@@ -1,5 +1,6 @@
-import { fromJS, List, Map } from 'immutable';
+import produce from 'immer';
 import jwt from 'jsonwebtoken';
+import get from 'lodash.get';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
 
@@ -34,9 +35,9 @@ export const applyNewGroup = createAction (APPLY_NEW_GROUP, GroupAPIs.applyNewGr
  * member: { _id: String, studentId: String, isAdmin: Boolean }
  * board: { _id: String, title: String }
  */
-const initialState = Map ({
-  jwt: Map ({}),
-  info: Map ({
+const initialState = {
+  jwt: {},
+  info: {
     _id: '',
     sso_uid: '',
     sso_sid: '',
@@ -51,12 +52,12 @@ const initialState = Map ({
     studentId: '',
     currentGroup: null,
     isAdmin: false,
-    flags: List ([]),
-    boards: List ([]),
-    groups: List ([]),
-    pendingGroups: List ([]),
-  }),
-});
+    flags: [],
+    boards: [],
+    groups: [],
+    pendingGroups: [],
+  },
+};
 
 export default handleActions (
   {
@@ -69,50 +70,66 @@ export default handleActions (
         axios.updateToken (token);
         const currentGroup = user.groups.find (group => group._id === user.currentGroup);
         if (currentGroup) user.currentGroup = currentGroup;
-        return state
-          .set ('jwt', fromJS (decoded))
-          .set ('info', fromJS (user));
+        return produce (state, draft => {
+          draft.jwt = decoded;
+          draft.info = user;
+        });
       },
     }),
     ...pender ({
       type: CHECK_AUTH,
-      onPending: (state, action) => state.set ('jwt', fromJS (jwt.decode (action.meta))),
+      onPending: (state, action) => produce (state, draft => {
+        draft.jwt = jwt.decode (action.meta);
+      }),
       onSuccess: (state, action) => {
         const user = action.payload;
         const currentGroup = user.groups.find (group => group._id === user.currentGroup);
         if (currentGroup) user.currentGroup = currentGroup;
-        return state.set ('info', fromJS (user));
+        return produce (state, draft => {
+          draft.info = user;
+        });
       },
     }),
     [LOGOUT]: (state) => {
       storage.removeItem ('token');
       axios.updateToken ('');
       window.location.href = '/';
-      return state.set ('jwt', initialState.get ('jwt')).set ('info', initialState.get ('info'));
+      return produce (state, draft => {
+        draft.jwt = initialState.jwt;
+        draft.info = initialState.info;
+      });
     },
     ...pender ({
       type: SET_CURRENT_GROUP,
       onSuccess: (state, action) => {
         const { currentGroup: currentGroupId } = action.payload;
-        const currentGroup = state.getIn (['info', 'groups']).find (group => group.get ('_id') === currentGroupId);
-        return state.setIn (['info', 'currentGroup'], currentGroup);
+        const currentGroup = get (state, ['info', 'groups']).find (group => group._id === currentGroupId);
+        return produce (state, draft => {
+          draft.info.currentGroup = currentGroup;
+        });
       },
     }),
     ...pender ({
       type: UPDATE_USER_INFO,
-      onSuccess: (state, action) => state.update ('info', prev => prev.merge (fromJS (action.payload))),
+      onSuccess: (state, action) => produce (state, draft => {
+        Object.assign (draft.info, action.payload);
+      }),
     }),
     ...pender ({
       type: UPDATE_GROUP_INFO,
       onSuccess: (state, action) => {
         const { name } = action.meta;
-        const groupIndex = state.getIn (['info', 'groups']).findIndex (group => group.get ('name') === name);
-        return state.updateIn (['info', 'groups', groupIndex], prev => prev.merge (fromJS (action.payload)));
+        const groupIndex = get (state, ['info', 'groups']).findIndex (group => group.name === name);
+        return produce (state, draft => {
+          Object.assign (draft.info.groups[groupIndex], action.payload);
+        });
       },
     }),
     ...pender ({
       type: APPLY_NEW_GROUP,
-      onSuccess: (state, action) => state.updateIn (['info', 'pendingGroups'], prev => prev.push (fromJS (action.payload))),
+      onSuccess: (state, action) => produce (state, draft => {
+        draft.info.pendingGroups.push (action.payload);
+      }),
     }),
   },
   initialState,
