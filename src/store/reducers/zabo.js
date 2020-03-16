@@ -153,7 +153,7 @@ export default handleActions (
       onSuccess: (state, action) => {
         const data = action.payload;
         const { zabos } = data;
-        return produce (state, zaboListProducer (action.payload, 'search', false, true));
+        return produce (state, zaboListProducer (zabos, 'search', false, true));
       },
     }),
   },
