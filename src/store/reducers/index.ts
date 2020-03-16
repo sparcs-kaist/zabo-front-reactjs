@@ -6,7 +6,7 @@ import { penderReducer } from 'redux-pender';
 // import { persistReducer } from 'redux-persist';
 
 // import all files except index.js
-const req = require.context ('.', true, /^(?!.\/index).*.js$/);
+const req = require.context ('.', true, /^(?!.\/index).*.ts$/);
 
 const modules : {
   [key : string] : ReturnType<typeof handleActions> | typeof penderReducer
