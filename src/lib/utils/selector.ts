@@ -1,97 +1,10 @@
 import { get } from 'lodash';
 import { createSelector, ParametricSelector, Selector } from 'reselect';
+import {
+  IGroup, IJwt, IState, IUser, IZabo, IZaboMap,
+} from 'types/index.d';
 
 import { CHECK_AUTH } from 'store/reducers/auth';
-
-interface IJwt {
-  _id : string;
-  sid : string;
-  email : string;
-  username : string;
-  iat : number;
-  exp : number;
-  iss : string;
-}
-
-interface IState {
-  admin : any;
-  app : any;
-  auth : any;
-  profile : any;
-  upload : any;
-  zabo : any;
-  pender : any;
-}
-
-interface IZabo {
-  _id : string,
-  title : string,
-  owner : {
-    _id : string,
-    name : string,
-    profilePhoto : string,
-    subtitle : string,
-  },
-  description : string,
-  category : string[],
-  photos : [{
-    height : number,
-    width : number,
-    url : string,
-  }],
-  views : number,
-  effectiveViews : number,
-  createdAt : string,
-  schedules : [{
-    title : string,
-    startAt : string,
-    endAt : string,
-    type : string,
-  }],
-  isLiked : boolean,
-  isPinned : boolean,
-  isMyZabo : boolean,
-}
-
-interface IZaboMap {
-  [key : string] : IZabo;
-}
-
-interface IGroup {
-  _id : string,
-  name : string,
-  profilePhoto : string,
-  stats : {
-    zaboCount : number,
-    followerCount : number,
-    recentUploadDate : string,
-  },
-  myRole : 'admin' | 'editor',
-}
-
-interface IUser {
-  _id : string,
-  email : string,
-  username : string,
-  description : string,
-  profilePhoto : string,
-  backgroundPhoto : string,
-  birthday : string,
-  lastName : string,
-  firstName : string,
-  studentId : string,
-  koreanName : string,
-  boards : {
-    pinsCount : number,
-    pins : any[],
-  }[],
-  currentGroup : IGroup | string,
-  groups : (IGroup | string)[],
-  stats : {
-    likesCount : number,
-    followingsCount : number,
-  },
-}
 
 const decodedTokenSelector : Selector<IState, IJwt> = (state : IState) => get (state, ['auth', 'jwt']);
 const isDecodedTokenAlive = (decoded : IJwt) => {
