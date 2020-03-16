@@ -1,21 +1,21 @@
 import { get } from 'lodash';
 import { createSelector, ParametricSelector, Selector } from 'reselect';
 import {
-  IGroup, IJwt, IUser, IZabo, IZaboMap,
+  IGroup, IJwt, IZabo, IZaboMap,
 } from 'types/index.d';
 import { IState } from 'types/store.d';
 
 import { CHECK_AUTH } from 'store/reducers/auth';
 
-const decodedTokenSelector : Selector<IState, IJwt> = (state : IState) => get (state, ['auth', 'jwt']);
-const isDecodedTokenAlive = (decoded : IJwt) => {
-  if (decoded && decoded.exp) {
+const decodedTokenSelector : Selector<IState, IJwt | undefined> = (state : IState) => get (state, ['auth', 'jwt']);
+const isDecodedTokenAlive = (decoded : IJwt | undefined) => {
+  if (decoded) {
     return 1000 * decoded.exp - new Date ().getTime () >= 5000;
   }
   return false;
 };
-const decodedTokenLifetime = (decoded : IJwt) : number => {
-  if (decoded && decoded.exp) {
+const decodedTokenLifetime = (decoded : IJwt | undefined) : number => {
+  if (decoded) {
     const remain = decoded.exp * 1000 - Date.now ();
     return remain > 0 ? remain : 0;
   }

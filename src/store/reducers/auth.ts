@@ -32,8 +32,8 @@ export const setCurrentGroup = createAction (SET_CURRENT_GROUP, UserAPIs.setCurr
 export const applyNewGroup = createAction (APPLY_NEW_GROUP, GroupAPIs.applyNewGroup);
 
 export interface IAuthState {
-  jwt : IJwt | string | null | {},
-  info : IUser,
+  jwt ? : IJwt,
+  info ? : IUser,
 }
 /*
  * group : { _id: String, name: String, members: [member] }
@@ -41,7 +41,7 @@ export interface IAuthState {
  * board: { _id: String, title: String }
  */
 const initialState : IAuthState = {
-  jwt: {},
+  jwt: undefined,
   info: {
     _id: '',
     sso_uid: '',
@@ -76,7 +76,7 @@ export default handleActions (
         const currentGroup = user.groups.find ((group : IGroup) => group._id === user.currentGroup);
         if (currentGroup) user.currentGroup = currentGroup;
         return produce (state, (draft : IAuthState) => {
-          draft.jwt = decoded;
+          if (decoded && typeof decoded === 'object') draft.jwt = decoded as IJwt;
           draft.info = user;
         });
       },
@@ -84,7 +84,8 @@ export default handleActions (
     ...pender ({
       type: CHECK_AUTH,
       onPending: (state, action) => produce (state, (draft : IAuthState) => {
-        draft.jwt = jwt.decode (action.meta);
+        const decoded = jwt.decode (action.meta) || {};
+        if (decoded && typeof decoded === 'object') draft.jwt = decoded as IJwt;
       }),
       onSuccess: (state, action) => {
         const user = action.payload;
@@ -110,7 +111,7 @@ export default handleActions (
         const { currentGroup: currentGroupId } = action.payload;
         const currentGroup = get (state, ['info', 'groups']).find ((group : IGroup) => group._id === currentGroupId);
         return produce (state, (draft : IAuthState) => {
-          draft.info.currentGroup = currentGroup;
+          if (draft.info) draft.info.currentGroup = currentGroup;
         });
       },
     }),
@@ -126,14 +127,14 @@ export default handleActions (
         const { name } = action.meta;
         const groupIndex = get (state, ['info', 'groups']).findIndex ((group : IGroup) => group.name === name);
         return produce (state, (draft : IAuthState) => {
-          Object.assign (draft.info.groups[groupIndex], action.payload);
+          if (draft.info) Object.assign (draft.info.groups[groupIndex], action.payload);
         });
       },
     }),
     ...pender ({
       type: APPLY_NEW_GROUP,
       onSuccess: (state, action) => produce (state, (draft : IAuthState) => {
-        draft.info.pendingGroups.push (action.payload);
+        if (draft.info) draft.info.pendingGroups.push (action.payload);
       }),
     }),
   },
