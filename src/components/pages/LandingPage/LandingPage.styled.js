@@ -250,7 +250,7 @@ export const UpcomingW = styled.section`
   background: ${props => props.theme.gray90};
   color: ${props => props.theme.gray1};
   width: 100%;
-  height: 200px;
+  /* height: 200px; */
   padding: 36px 0;
   ${Container} {
     /* padding: 60px 24px 12px 24px; */
@@ -394,8 +394,11 @@ UpcomingW.Image = styled.img`
 `;
 
 UpcomingW.NoMagamImBak = styled.div`
-  font-size: 24px;
+  font-size: 16px;
   font-weight: 500;
+  ${media.tablet (css`
+    font-size: 24px;
+  `)};
 `;
 
 export const RecommendsW = styled.section`
