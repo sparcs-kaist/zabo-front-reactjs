@@ -1,9 +1,8 @@
 import produce from 'immer';
-import get from 'lodash.get';
-import set from 'lodash.set';
-import uniq from 'lodash.uniq';
+import { get, set, uniq } from 'lodash';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
+import { IZabo, IZaboMap } from 'types/index.d';
 
 import * as SearchAPI from 'lib/api/search';
 import * as ZaboAPI from 'lib/api/zabo';
@@ -24,20 +23,30 @@ const DELETE_ZABO = 'zabo/DELETE_ZABO';
 
 // Action creator : action 객체를 만들어주는 함수
 export const getHotZaboList = createAction (GET_HOT_ZABO_LIST, ZaboAPI.getHotZaboList);
-export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
-export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, meta => meta);
-export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
-export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
-export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
-export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, meta => meta);
-export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, meta => meta);
-export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, meta => meta);
-export const getSearchZaboList = createAction (GET_SEARCH_ZABO_LIST, ZaboAPI.getSearchZaboList, meta => meta);
-export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, meta => meta);
-export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, meta => meta);
+export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, (meta) => meta);
+export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, (meta) => meta);
+export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, (meta) => meta);
+export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, (meta) => meta);
+export const getPins = createAction (GET_PINS, ZaboAPI.getPins, (meta) => meta);
+export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, (meta) => meta);
+export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, (meta) => meta);
+export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, (meta) => meta);
+export const getSearchZaboList = createAction (GET_SEARCH_ZABO_LIST, ZaboAPI.getSearchZaboList, (meta) => meta);
+export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, (meta) => meta);
+export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, (meta) => meta);
+
+export interface IZaboState {
+  lists : {
+    pins : IZabo[],
+    main : IZabo[],
+    search : IZabo[],
+    [key : string] : IZabo[],
+  },
+  zabos : IZaboMap,
+}
 
 // 초기값 설정
-const initialState = {
+const initialState : IZaboState = {
   lists: {
     // Using group name as a key, keys in this map should be RESERVED as name in server side
     pins: [],
@@ -47,15 +56,15 @@ const initialState = {
   zabos: {},
 };
 
-const zaboListParser = (zaboList) => {
+const zaboListParser = (zaboList : IZabo[]) => {
   const map = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-  const ids = zaboList.map (zabo => zabo._id);
+  const ids = zaboList.map ((zabo) => zabo._id);
   return { map, ids };
 };
 
-const zaboListProducer = (zaboList, key, lastSeen, override = false) => {
+const zaboListProducer = (zaboList : IZabo[], key : string, lastSeen : string | undefined | boolean, override : boolean = false) => {
   const { map: zaboMap, ids: zaboIds } = zaboListParser (zaboList);
-  return draft => {
+  return (draft : IZaboState) => {
     const prevIdList = get (draft, ['lists', key], []);
     const newIdList = override
       ? zaboIds
@@ -72,7 +81,7 @@ export default handleActions (
       type: UPLOAD_ZABO,
       onSuccess: (state, action) => {
         const zabo = action.payload;
-        return produce (state, draft => {
+        return produce (state, (draft : IZaboState) => {
           set (draft, ['zabos', zabo._id], zabo);
         });
       },
@@ -81,7 +90,7 @@ export default handleActions (
       type: PATCH_ZABO,
       onSuccess: (state, action) => {
         const { zaboId } = action.meta;
-        return produce (state, draft => {
+        return produce (state, (draft : IZaboState) => {
           Object.assign (draft.zabos[zaboId], action.payload);
         });
       },
@@ -94,11 +103,11 @@ export default handleActions (
       type: GET_ZABO,
       onSuccess: (state, action) => {
         const zabo = action.payload;
-        return produce (state, draft => {
+        return produce (state, (draft : IZaboState) => {
           set (draft, ['zabos', zabo._id], zabo);
         });
       },
-      onFailure: (state, action) => produce (state, draft => {
+      onFailure: (state, action) => produce (state, (draft : IZaboState) => {
         set (draft, ['zabos', action.meta], action.payload);
       }),
     }),
@@ -124,13 +133,13 @@ export default handleActions (
     }),
     ...pender ({
       type: TOGGLE_ZABO_PIN,
-      onSuccess: (state, action) => produce (state, draft => {
+      onSuccess: (state, action) => produce (state, (draft : IZaboState) => {
         Object.assign (draft.zabos[action.meta], action.payload);
       }),
     }),
     ...pender ({
       type: TOGGLE_ZABO_LIKE,
-      onSuccess: (state, action) => produce (state, draft => {
+      onSuccess: (state, action) => produce (state, (draft : IZaboState) => {
         Object.assign (draft.zabos[action.meta], action.payload);
       }),
     }),

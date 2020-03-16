@@ -104,3 +104,9 @@ export interface IUser {
 export interface IUserMap {
   [key : string] : IGroup;
 }
+
+export type IProfile = IUser | IGroup;
+
+export interface IProfileMap {
+  [key : string] : IProfile
+}
