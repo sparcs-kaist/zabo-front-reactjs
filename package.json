@@ -13,7 +13,7 @@
     "build-storybook": "build-storybook -s public",
     "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build && ./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
-    "lint:css": "stylelint './src/**/*.js'"
+    "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'"
   },
   "husky": {
     "hooks": {
@@ -21,7 +21,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,scss}": [
+    "src/**/*.{js,jsx,ts,tsx,json,scss}": [
       "eslint --fix",
       "stylelint",
       "git add"
