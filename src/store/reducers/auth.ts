@@ -1,8 +1,9 @@
 import produce from 'immer';
 import jwt from 'jsonwebtoken';
-import get from 'lodash.get';
+import { get } from 'lodash';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
+import { IGroup, IJwt, IUser } from 'types/index.d';
 
 import * as AuthAPIs from 'lib/api/auth';
 import * as GroupAPIs from 'lib/api/group';
@@ -21,21 +22,25 @@ const APPLY_NEW_GROUP = 'group/APPLY_NEW_GROUP';
 
 // Action creator
 export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPIs.loginCallback);
-export const checkAuth = createAction (CHECK_AUTH, AuthAPIs.checkAuth, meta => meta);
+export const checkAuth = createAction (CHECK_AUTH, AuthAPIs.checkAuth, (meta) => meta);
 export const logout = createAction (LOGOUT);
-export const updateUserInfo = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfo, meta => meta);
-export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfoWithImage, meta => meta);
-export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfo, meta => meta);
-export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfoWithImage, meta => meta);
+export const updateUserInfo = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfo, (meta) => meta);
+export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfoWithImage, (meta) => meta);
+export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfo, (meta) => meta);
+export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfoWithImage, (meta) => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, UserAPIs.setCurrentGroup);
 export const applyNewGroup = createAction (APPLY_NEW_GROUP, GroupAPIs.applyNewGroup);
 
+export interface IAuthState {
+  jwt : IJwt | string | null | {},
+  info : IUser,
+}
 /*
  * group : { _id: String, name: String, members: [member] }
  * member: { _id: String, studentId: String, isAdmin: Boolean }
  * board: { _id: String, title: String }
  */
-const initialState = {
+const initialState : IAuthState = {
   jwt: {},
   info: {
     _id: '',
@@ -68,9 +73,9 @@ export default handleActions (
         const decoded = jwt.decode (token);
         storage.setItem ('token', token);
         axios.updateToken (token);
-        const currentGroup = user.groups.find (group => group._id === user.currentGroup);
+        const currentGroup = user.groups.find ((group : IGroup) => group._id === user.currentGroup);
         if (currentGroup) user.currentGroup = currentGroup;
-        return produce (state, draft => {
+        return produce (state, (draft : IAuthState) => {
           draft.jwt = decoded;
           draft.info = user;
         });
@@ -78,14 +83,14 @@ export default handleActions (
     }),
     ...pender ({
       type: CHECK_AUTH,
-      onPending: (state, action) => produce (state, draft => {
+      onPending: (state, action) => produce (state, (draft : IAuthState) => {
         draft.jwt = jwt.decode (action.meta);
       }),
       onSuccess: (state, action) => {
         const user = action.payload;
-        const currentGroup = user.groups.find (group => group._id === user.currentGroup);
+        const currentGroup = user.groups.find ((group : IGroup) => group._id === user.currentGroup);
         if (currentGroup) user.currentGroup = currentGroup;
-        return produce (state, draft => {
+        return produce (state, (draft : IAuthState) => {
           draft.info = user;
         });
       },
@@ -94,7 +99,7 @@ export default handleActions (
       storage.removeItem ('token');
       axios.updateToken ('');
       window.location.href = '/';
-      return produce (state, draft => {
+      return produce (state, (draft : IAuthState) => {
         draft.jwt = initialState.jwt;
         draft.info = initialState.info;
       });
@@ -103,15 +108,15 @@ export default handleActions (
       type: SET_CURRENT_GROUP,
       onSuccess: (state, action) => {
         const { currentGroup: currentGroupId } = action.payload;
-        const currentGroup = get (state, ['info', 'groups']).find (group => group._id === currentGroupId);
-        return produce (state, draft => {
+        const currentGroup = get (state, ['info', 'groups']).find ((group : IGroup) => group._id === currentGroupId);
+        return produce (state, (draft : IAuthState) => {
           draft.info.currentGroup = currentGroup;
         });
       },
     }),
     ...pender ({
       type: UPDATE_USER_INFO,
-      onSuccess: (state, action) => produce (state, draft => {
+      onSuccess: (state, action) => produce (state, (draft : IAuthState) => {
         Object.assign (draft.info, action.payload);
       }),
     }),
@@ -119,15 +124,15 @@ export default handleActions (
       type: UPDATE_GROUP_INFO,
       onSuccess: (state, action) => {
         const { name } = action.meta;
-        const groupIndex = get (state, ['info', 'groups']).findIndex (group => group.name === name);
-        return produce (state, draft => {
+        const groupIndex = get (state, ['info', 'groups']).findIndex ((group : IGroup) => group.name === name);
+        return produce (state, (draft : IAuthState) => {
           Object.assign (draft.info.groups[groupIndex], action.payload);
         });
       },
     }),
     ...pender ({
       type: APPLY_NEW_GROUP,
-      onSuccess: (state, action) => produce (state, draft => {
+      onSuccess: (state, action) => produce (state, (draft : IAuthState) => {
         draft.info.pendingGroups.push (action.payload);
       }),
     }),

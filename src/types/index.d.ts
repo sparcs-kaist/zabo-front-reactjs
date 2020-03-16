@@ -70,23 +70,32 @@ export interface IGroupMap {
 
 export interface IUser {
   _id : string,
-  email : string,
+  // eslint-disable-next-line camelcase
+  sso_uid ? : string,
+  // eslint-disable-next-line camelcase
+  sso_sid ? : string,
+  gender ? : string,
+  email ?: string,
+  kaistPersonType ? : string,
+  isAdmin ? : boolean,
+  flags ? : string[],
+  pendingGroups : IGroup[],
   username : string,
-  description : string,
-  profilePhoto : string,
-  backgroundPhoto : string,
-  birthday : string,
-  lastName : string,
-  firstName : string,
-  studentId : string,
-  koreanName : string,
-  boards : {
+  description ? : string,
+  profilePhoto ? : string,
+  backgroundPhoto ? : string,
+  birthday ? : string,
+  lastName ? : string,
+  firstName ? : string,
+  studentId ? : string,
+  koreanName ? : string,
+  boards ? : {
     pinsCount : number,
     pins : any[],
   }[],
-  currentGroup : IGroup | string,
+  currentGroup ? : IGroup | string | null,
   groups : (IGroup | string)[],
-  stats : {
+  stats ? : {
     likesCount : number,
     followingsCount : number,
   },

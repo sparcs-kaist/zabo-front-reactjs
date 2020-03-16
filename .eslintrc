@@ -28,7 +28,7 @@
     "import/prefer-default-export": "warn",
     "import/named": "warn",
     "import/no-named-as-default": "off",
-    "@typescript-eslint/type-annotation-spacing": ["warn", { "before": true, "after": true }],
+    "@typescript-eslint/type-annotation-spacing": ["warn", { "before": false, "after": true, "overrides": { "colon": { "before": true, "after": true }} }],
     "arrow-parens": "warn",
     "no-nested-ternary": "off",
     "no-unused-expressions": "warn",
