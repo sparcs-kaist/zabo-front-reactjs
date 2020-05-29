@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation, useParams } from 'react-router-dom';
 
-const ScrollToTop = ({ updateWithPath }) => {
+const ScrollToTop = ({ updateWithPath } : { updateWithPath : boolean }) => {
   const { route } = useParams ();
   const { pathname } = useLocation ();
   useEffect (() => {

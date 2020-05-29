@@ -1,9 +1,23 @@
+import { useHistory } from 'react-router-dom';
 import moment from 'moment';
-import queryString from 'query-string';
+import queryString, { ParsedQuery } from 'query-string';
 
 import { alerts, RESERVED_ROUTES_USERNAME_EXCEPTIONS } from '../variables';
 
 export * from './selector';
+
+export const parseJSON = (jsonString : string | object, fallback = {}) => {
+  if (typeof jsonString === 'object') {
+    return jsonString;
+  }
+  try {
+    return JSON.parse (jsonString);
+  } catch (error) {
+    console.error (jsonString);
+    console.error (error.message);
+    return fallback;
+  }
+};
 
 export const mediaSizes = {
   xs: 360,
@@ -13,14 +27,14 @@ export const mediaSizes = {
   xl: 1440,
 };
 
-export const gridLayoutCompareFunction = (a, b) => {
+export const gridLayoutCompareFunction = (a : any, b : any) => {
   const { x: ax, y: ay } = a.updatedLayout;
   const { x: bx, y: by } = b.updatedLayout;
   if (ay - by) return ay - by;
   return ax - bx;
 };
 
-export const to2Digits = (number, sign = false) => {
+export const to2Digits = (number : number, sign = false) => {
   let result;
   let pos;
   if (number < 0) {
@@ -37,7 +51,7 @@ export const to2Digits = (number, sign = false) => {
   return result;
 };
 
-export const dataURLToBlob = (dataURL) => {
+export const dataURLToBlob = (dataURL : string) => {
   const blobBin = atob (dataURL.split (',')[1]);
   const array = [];
   for (let i = 0; i < blobBin.length; i += 1) {
@@ -47,7 +61,7 @@ export const dataURLToBlob = (dataURL) => {
   return new Blob ([new Uint8Array (array)]);
 };
 
-export const loadImageFile = (file) => {
+export const loadImageFile = (file : File) : Promise<HTMLImageElement> => {
   const _URL = window.URL || window.webkitURL;
   const img = new Image ();
   const objectUrl = _URL.createObjectURL (file);
@@ -60,13 +74,13 @@ export const loadImageFile = (file) => {
   });
 };
 
-export const imageFileGetWidthHeight = async (file) => {
-  const image = await loadImageFile (file);
+export const imageFileGetWidthHeight = async (file : File) => {
+  const image : HTMLImageElement = await loadImageFile (file);
   const { width, height } = image;
   return { width, height, ratio: width / height };
 };
 
-export const cropImage = async (file, ratio) => {
+export const cropImage = async (file : File, ratio : number) : Promise<String> => {
   const image = await loadImageFile (file);
   const { width, height } = image;
   const ownRatio = width / height;
@@ -83,6 +97,7 @@ export const cropImage = async (file, ratio) => {
   canvas.width = dWidth;
   canvas.height = dHeight;
   const context = canvas.getContext ('2d');
+  if (!context) return '';
   context.fillStyle = 'white';
   context.fillRect (0, 0, canvas.width, canvas.height);
 
@@ -93,7 +108,7 @@ export const cropImage = async (file, ratio) => {
   return canvas.toDataURL ('image/jpeg');
 };
 
-export const validateName = (name) => {
+export const validateName = (name : string) => {
   // 1~25자 제한
   if (name.length === 0 || name.length > 25) return false;
   // 첫 글자로는 _, 알파벳, 한글, 숫자만 입력 가능
@@ -106,7 +121,7 @@ export const validateName = (name) => {
   return !match;
 };
 
-export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showHours = true, showDays = 2, showWeeks = false, showMonths = false) => {
+export const getLabeledTimeDiff = (time : string, showSecs = 60, showMins = 60, showHours = 24, showDays = 2, showWeeks = 0, showMonths = 0) => {
   const curMoment = moment ();
   const momentTime = moment (time);
   const momentLabel = momentTime.format ('YYYY.MM.DD');
@@ -117,7 +132,7 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
   const weeksDiff = curMoment.diff (momentTime, 'weeks');
   const monthsDiff = curMoment.diff (momentTime, 'months');
 
-  const isShow = (showVar, diff) => (typeof showVar === 'number' && diff <= showVar) || (typeof showVar !== 'number' && showVar);
+  const isShow = (showVar : number, diff : number) => (diff < showVar);
 
   return (
     secDiff < 60 ? (isShow (showSecs, secDiff) ? '방금 전' : momentLabel)
@@ -129,44 +144,49 @@ export const getLabeledTimeDiff = (time, showSecs = true, showMins = true, showH
   );
 };
 
-export const isElemWidthOverflown = (element) => element.scrollWidth > element.clientWidth;
+export const isElemWidthOverflown = (element : HTMLElement) => element.scrollWidth > element.clientWidth;
 // export const isElementOverflown = (element) => element.scrollHeight > element.clientHeight || element.scrollWidth > element.clientWidth;
 
-export const escapeRegExp = string => string.replace (/[.*+?^${}()|[\]\\]/g, '\\$&');
-export const parseQuery = (search) => {
+export const escapeRegExp = (str : string) => str.replace (/[.*+?^${}()|[\]\\]/g, '\\$&');
+export const parseQuery = (search : string) : { safeQuery : string, safeCategory : string[] } => {
   const { query, category } = queryString.parse (search);
-  const safeQuery = (query ? escapeRegExp (query) : '').trim ();
+  const safeQuery = (!query ? ''
+    : escapeRegExp ((Array.isArray (query)) ? query[0] : query).trim ()
+  );
   const safeCategory = !category ? []
     : !Array.isArray (category) ? [category]
       : category;
   return { safeQuery, safeCategory };
 };
 
-export const jsonStringify = (json) => {
+export const jsonPrettyStringify = (json : any) => {
   let result = json;
   if (typeof result !== 'string') {
     result = JSON.stringify (result, undefined, 2);
   }
   result = result.replace (/&/g, '&amp;').replace (/</g, '&lt;').replace (/>/g, '&gt;');
 
-  return result.replace (/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, (match) => {
-    let cls = 'number';
-    if (/^"/.test (match)) {
-      if (/:$/.test (match)) {
-        cls = 'key';
-      } else {
-        cls = 'string';
+  return result.replace (
+    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,
+    (match : string) => {
+      let cls = 'number';
+      if (/^"/.test (match)) {
+        if (/:$/.test (match)) {
+          cls = 'key';
+        } else {
+          cls = 'string';
+        }
+      } else if (/true|false/.test (match)) {
+        cls = 'boolean';
+      } else if (/null/.test (match)) {
+        cls = 'null';
       }
-    } else if (/true|false/.test (match)) {
-      cls = 'boolean';
-    } else if (/null/.test (match)) {
-      cls = 'null';
-    }
-    return `<span class="${cls}">${match}</span>`;
-  });
+      return `<span class="${cls}">${match}</span>`;
+    },
+  );
 };
 
-export const pushWithAuth = (to, history, isAuthed) => {
+export const pushWithAuth = (to : string, history : ReturnType<typeof useHistory>, isAuthed : boolean) : void => {
   if (!isAuthed) {
     if (window.confirm (alerts.login)) {
       history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
@@ -176,7 +196,7 @@ export const pushWithAuth = (to, history, isAuthed) => {
   }
 };
 
-export const withAuth = (history, isAuthed) => {
+export const withAuth = (history : ReturnType<typeof useHistory>, isAuthed : boolean) => {
   if (!isAuthed) {
     if (window.confirm (alerts.login)) {
       history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });

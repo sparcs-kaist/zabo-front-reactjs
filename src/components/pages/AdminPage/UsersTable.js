@@ -56,7 +56,6 @@ export default function UserList ({ users }) {
     ],
     data: users,
   });
-
   return (
     <MaterialTable
       title="유저 리스트"

@@ -40,7 +40,7 @@ const Poster = ({ zabo }) => {
       <PosterW.Dimmer className="dimmer" />
       <OverlayW className="hover-show">
         <OverlayW.StatLocator>
-          {stats.map (stat => (
+          {stats.map ((stat) => (
             <StatBox className="stat-box" key={stat.type} type="text" stat={stat} />
           ))}
         </OverlayW.StatLocator>
@@ -60,7 +60,7 @@ const Writing = ({ zabo }) => {
     likesCount, isLiked, pinsCount, isPinned,
   } = zabo;
 
-  const timePast = getLabeledTimeDiff (createdAt, true, true, true, true, false, false);
+  const timePast = getLabeledTimeDiff (createdAt, 60, 60, 24, 7, 5, 0);
 
   return (
     <WritingsW>

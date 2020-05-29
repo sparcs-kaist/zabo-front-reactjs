@@ -1,11 +1,14 @@
 import 'devtools-detect';
 
+import moment from 'moment';
+
 import store from 'store';
 import { checkAuth } from 'store/reducers/auth';
 import { initialize } from 'store/reducers/upload';
 import axios from 'lib/axios';
-import serializer from 'lib/immutable';
 import storage from 'lib/storage';
+
+import { parseJSON } from './lib/utils';
 
 const pwaInstallPromptListener = () => {
   window.addEventListener ('beforeinstallprompt', e => {
@@ -45,11 +48,16 @@ export default () => {
     throttle ('scroll', 'optimizedScroll');
   }) ());
 
+
   pwaInstallPromptListener ();
 
-  const uploadPersist = storage.getItem ('uploadPersist', false);
+  const uploadPersist = storage.getItem ('uploadPersist');
   if (uploadPersist) {
-    store.dispatch (initialize (serializer.parse (uploadPersist)));
+    if (uploadPersist.date) {
+      store.dispatch (initialize (uploadPersist));
+    } else {
+      storage.removeItem ('uploadPersist');
+    }
   }
 
   const token = storage.getItem ('token');
@@ -61,6 +69,7 @@ export default () => {
 };
 
 window.addEventListener ('devtoolschange', () => {
+  if (process.env.NODE_ENV !== 'production') return;
   import ('static/images/recruitAscii').then (asciiArt => {
     // eslint-disable-next-line no-console
     console.log (asciiArt.default);

@@ -1,12 +1,12 @@
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, RouteProps } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { isAdminOrPendingSelector, isAuthedSelector } from 'lib/utils';
 
 import { alerts } from '../lib/variables';
 
-export const PrivateRoute = (({ component: Component, render, ...rest }) => {
+export const PrivateRoute = (({ component: Component, render = () => null, ...rest } : RouteProps) => {
   const isAuthenticated = useSelector (isAuthedSelector);
   // TODO: Return loading while auth info not fetched
   return (
@@ -24,10 +24,7 @@ export const PrivateRoute = (({ component: Component, render, ...rest }) => {
   );
 });
 
-PrivateRoute.propTypes = Route.propTypes;
-PrivateRoute.defaultProps = Route.defaultProps;
-
-export const PublicRoute = ({ component: Component, render, ...rest }) => {
+export const PublicRoute = ({ component: Component, render = () => null, ...rest } : RouteProps) => {
   const isAuthenticated = useSelector (isAuthedSelector);
   return (
     <Route
@@ -36,7 +33,9 @@ export const PublicRoute = ({ component: Component, render, ...rest }) => {
         if (isAuthenticated) {
           const { location, history } = props;
           const { state } = location;
+          // @ts-ignore
           if (state && state.referrer === 'comeback') history.goBack ();
+          // @ts-ignore
           else if (state && state.referrer) history.replace (state.referrer);
           else history.push ('/', { referrer: 'public' });
           return null;
@@ -48,10 +47,7 @@ export const PublicRoute = ({ component: Component, render, ...rest }) => {
   );
 };
 
-PublicRoute.propTypes = Route.propTypes;
-PublicRoute.defaultProps = Route.defaultProps;
-
-export const AdminRoute = ({ component: Component, render, ...rest }) => {
+export const AdminRoute = ({ component: Component, render = () => null, ...rest } : RouteProps) => {
   const [isAdmin, pending] = useSelector (isAdminOrPendingSelector);
   return (
     <Route
@@ -65,6 +61,3 @@ export const AdminRoute = ({ component: Component, render, ...rest }) => {
     />
   );
 };
-
-AdminRoute.propTypes = Route.propTypes;
-AdminRoute.defaultProps = Route.defaultProps;

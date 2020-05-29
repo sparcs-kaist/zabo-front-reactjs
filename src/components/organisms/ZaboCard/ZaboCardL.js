@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 import moment from 'moment';
 
 import { CategoryListW, CategoryW } from 'atoms/Category';
@@ -43,7 +44,7 @@ const ZaboCardL = ({ zabo }) => {
   const {
     _id, category, title, owner, createdAt, views, effectiveViews,
   } = zabo;
-  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const titleRef = useRef (null);
   const [showTooltip, setShowTooltip] = useState (false);
   useEffect (() => { setShowTooltip (isElemWidthOverflown (titleRef.current)); }, [width, titleRef]);
