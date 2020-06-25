@@ -18,6 +18,9 @@
   </p>
 </p>
 
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsparcs-kaist%2Fzabo-front-reactjs.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsparcs-kaist%2Fzabo-front-reactjs?ref=badge_large)
+
 # About
 
 ZABO helps **KAIST students based** individuals or clubs advertising themselves via web based platform. While this service is open for public, **only approved groups** are able to post images. Please submit your request in order to create a new group via our website. 
@@ -33,6 +36,7 @@ If you're looking for backend codes, you can find it in [here](https://github.co
 # Previews
 
 ![upload](docs/Zabo_Upload_Process.gif)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsparcs-kaist%2Fzabo-front-reactjs.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsparcs-kaist%2Fzabo-front-reactjs?ref=badge_shield)
 
 ## Table of Contents
 
