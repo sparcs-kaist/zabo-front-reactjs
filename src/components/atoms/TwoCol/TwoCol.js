@@ -6,10 +6,12 @@ import { media } from 'lib/utils/style';
 const colMixin = css`
   display: flex;
   flex-direction: column;
-  flex: ${props => props.flex} 0 0;
+  flex: ${(props) => props.flex} 0 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   min-width: 0;
   ${media.tablet (css`
-    flex: ${props => props.flex};
+    flex: ${(props) => props.flex};
   `)};
 `;
 
@@ -39,18 +41,19 @@ const TwoCol = styled.section`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  ${props => (props.mobileWrap ? css`
+  flex-shrink: 0;
+  flex-basis: auto;
+  ${(props) => (props.mobileWrap ? css`
     flex-direction: column;
-  ` : css`
-  `)};
+  ` : '')};
  
   ${media.tablet (css`
     flex-direction: row;
     flex-wrap: nowrap;
-    ${props => (props.divider ? css`
+    ${(props) => (props.divider ? css`
       ${Left} {
         padding-right: 24px;
-        border-right: 1px solid ${props => props.theme.gray10};
+        border-right: 1px solid ${(props) => props.theme.gray10};
       }
       ${Right} {
         padding-left: 24px;
