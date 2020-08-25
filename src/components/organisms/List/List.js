@@ -20,7 +20,7 @@ List.propTypes = {
 };
 
 List.defaultProps = {
-  renderItem: (item) => <div key={item}>{item}</div>,
+  renderItem: item => <div key={item}>{item}</div>,
 };
 
 export default List;

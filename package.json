@@ -4,16 +4,16 @@
   "version": "0.1.0",
   "private": false,
   "scripts": {
-    "env:path": "cross-env NODE_PATH=src:src/components",
-    "start": "cross-env NODE_PATH=src:src/components react-scripts start",
-    "build": "$npm_execpath run env:path react-scripts build",
-    "test": "$npm_execpath run env:path react-scripts test",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "storybook": "$npm_execpath run env:path start-storybook -p 9009 -s public",
-    "build-storybook": "$npm_execpath run env:path build-storybook -s public",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
     "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build && ./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
-    "lint:css": "stylelint './src/**/*.js'"
+    "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'"
   },
   "husky": {
     "hooks": {
@@ -21,7 +21,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,json,scss}": [
+    "src/**/*.{js,jsx,ts,tsx,json,scss}": [
       "eslint --fix",
       "stylelint",
       "git add"
@@ -50,6 +50,17 @@
     "@material-ui/icons": "^4.2.1",
     "@material-ui/pickers": "^3.2.9",
     "@sparcs-kaist/react-grid-layout": "^0.18.0",
+    "@types/jest": "^25.1.4",
+    "@types/jsonwebtoken": "^8.3.8",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.9.1",
+    "@types/react": "^16.9.23",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-helmet": "^5.0.15",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/redux-actions": "^2.6.1",
+    "@types/styled-components": "^5.0.1",
     "animate.css": "^3.7.2",
     "awesome-debounce-promise": "^2.1.0",
     "axios": "^0.19.0",
@@ -69,9 +80,11 @@
     "immer": "^5.1.0",
     "immutable": "^4.0.0-rc.12",
     "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "lodash.debounce": "^4.0.8",
     "lodash.get": "^4.4.2",
     "lodash.isequal": "^4.5.0",
+    "lodash.set": "^4.3.2",
     "lodash.throttle": "^4.1.1",
     "lodash.uniq": "^4.5.0",
     "lodash.uniqby": "^4.7.0",
@@ -144,11 +157,12 @@
     "prettier": "^1.19.1",
     "regenerator-runtime": "^0.13.3",
     "require-context.macro": "^1.0.4",
+    "source-map-explorer": "^2.3.1",
     "stylelint": "^12.0.1",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-config-styled-components": "^0.1.1",
     "stylelint-processor-styled-components": "^1.9.0",
-    "typescript": "^3.7.5"
+    "typescript": "^3.8.3"
   },
   "license": "MIT"
 }

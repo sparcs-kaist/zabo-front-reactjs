@@ -95,7 +95,7 @@ const SearchBar = ({
     setFocused (false);
   }, [setFocused]);
 
-  const onTagClick = useCallback ((newCat) => {
+  const onTagClick = useCallback (newCat => {
     setFocused (false);
     history.push (`/search?${queryString.stringify ({ category: newCat })}`);
   }, [setFocused]);
@@ -119,7 +119,7 @@ const SearchBar = ({
         <div>
           <h3>자보</h3>
           <ul>
-            {zabos.map ((zabo) => (
+            {zabos.map (zabo => (
               <li key={zabo._id}>
                 <Link to={`/zabo/${zabo._id}`}>{zabo.title}</Link>
               </li>
@@ -131,7 +131,7 @@ const SearchBar = ({
         <div>
           <h3>그룹</h3>
           <ul>
-            {groups.map ((group) => (
+            {groups.map (group => (
               <li key={group._id}>
                 {
                   group.profilePhoto

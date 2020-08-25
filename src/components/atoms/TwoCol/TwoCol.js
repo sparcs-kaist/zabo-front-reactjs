@@ -7,6 +7,8 @@ const colMixin = css`
   display: flex;
   flex-direction: column;
   flex: ${props => props.flex} 0 0;
+  flex-shrink: 0;
+  flex-basis: auto;
   min-width: 0;
   ${media.tablet (css`
     flex: ${props => props.flex};
@@ -39,10 +41,11 @@ const TwoCol = styled.section`
   display: flex;
   width: 100%;
   flex-wrap: wrap;
+  flex-shrink: 0;
+  flex-basis: auto;
   ${props => (props.mobileWrap ? css`
     flex-direction: column;
-  ` : css`
-  `)};
+  ` : '')};
  
   ${media.tablet (css`
     flex-direction: row;

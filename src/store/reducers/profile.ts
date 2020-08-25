@@ -1,9 +1,11 @@
-import { fromJS, Map } from 'immutable';
+import produce from 'immer';
+import { set } from 'lodash';
 import { createAction, handleActions } from 'redux-actions';
 import { pender } from 'redux-pender';
+import { IProfileMap } from 'types/index.d';
 
-import * as GroupAPIs from '../../lib/api/group';
-import * as ProfileAPIs from '../../lib/api/profile';
+import * as GroupAPIs from 'lib/api/group';
+import * as ProfileAPIs from 'lib/api/profile';
 
 const GET_PROFILE = 'profile/GET_PROFILE';
 const ADD_GROUP_MEMBER = 'profile/ADD_GROUP_MEMBER';
@@ -17,9 +19,12 @@ export const updateGroupMember = createAction (UPDATE_GROUP_MEMBER, GroupAPIs.up
 export const removeGroupMember = createAction (REMOVE_GROUP_MEMBER, GroupAPIs.removeGroupUser, meta => meta);
 export const followProfile = createAction (FOLLOW_PROFILE, ProfileAPIs.followProfile, meta => meta);
 
-const initialState = Map ({
-  profiles: Map ({}),
-});
+export interface IProfileState {
+  profiles : IProfileMap
+}
+const initialState : IProfileState = {
+  profiles: {},
+};
 
 export default handleActions ({
   ...pender ({
@@ -27,12 +32,16 @@ export default handleActions ({
     onSuccess: (state, action) => {
       const profile = action.payload;
       const name = action.meta;
-      return state.setIn (['profiles', name], fromJS (profile));
+      return produce (state, (draft : IProfileState) => {
+        draft.profiles[name] = profile;
+      });
     },
     onFailure: (state, action) => {
       const error = action.payload;
       const name = action.meta;
-      return state.setIn (['profiles', name], fromJS (error));
+      return produce (state, (draft : IProfileState) => {
+        draft.profiles[name] = error;
+      });
     },
   }),
   ...pender ({
@@ -40,7 +49,9 @@ export default handleActions ({
     onSuccess: (state, action) => {
       const { members } = action.payload;
       const { groupName } = action.meta;
-      return state.setIn (['profiles', groupName, 'members'], fromJS (members));
+      return produce (state, (draft : IProfileState) => {
+        set (draft, ['profile', groupName, 'members'], members);
+      });
     },
   }),
   ...pender ({
@@ -48,7 +59,9 @@ export default handleActions ({
     onSuccess: (state, action) => {
       const { members } = action.payload;
       const { groupName } = action.meta;
-      return state.setIn (['profiles', groupName, 'members'], fromJS (members));
+      return produce (state, (draft : IProfileState) => {
+        set (draft, ['profiles', groupName, 'members'], members);
+      });
     },
   }),
   ...pender ({
@@ -56,15 +69,18 @@ export default handleActions ({
     onSuccess: (state, action) => {
       const { members } = action.payload;
       const { groupName } = action.meta;
-      return state.setIn (['profiles', groupName, 'members'], fromJS (members));
+      return produce (state, (draft : IProfileState) => {
+        set (draft, ['profiles', groupName, 'members'], members);
+      });
     },
   }),
   ...pender ({
     type: FOLLOW_PROFILE,
     onSuccess: (state, action) => {
-      const updatedProfile = action.payload;
       const { name } = action.meta;
-      return state.updateIn (['profiles', name], profile => profile.merge (updatedProfile));
+      return produce (state, (draft : IProfileState) => {
+        Object.assign (draft.profiles[name], action.payload);
+      });
     },
   }),
 }, initialState);

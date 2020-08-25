@@ -8,7 +8,7 @@ import PWAPromptWrapper from './PWAPrompt.styled';
 class PWAPrompt extends PureComponent {
   state = { active: false };
 
-  handleScroll = (e) => {
+  handleScroll = e => {
     if (window.scrollY < 10) {
       document.body.classList.add ('pwa-prompt-active');
       this.setState ({ active: true });
@@ -18,7 +18,7 @@ class PWAPrompt extends PureComponent {
     }
   };
 
-  handleScroll = (e) => {
+  handleScroll = e => {
     if (window.scrollY < 10) {
       document.body.classList.add ('pwa-prompt-active');
       this.setState ({ active: true });

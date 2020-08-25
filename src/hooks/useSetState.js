@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 export default function useSetState (initialForm) {
   const [state, setStateInternal] = useState (initialForm);
   const clone = { ...state };
-  const setState = (param) => {
+  const setState = param => {
     if (typeof param === 'function') {
       setStateInternal (prevState => ({ ...prevState, ...param (prevState) }));
       return;

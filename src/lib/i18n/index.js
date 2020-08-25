@@ -7,7 +7,7 @@ import Li from './i18next-react-li-postprocessor';
 import ReactPostProcessor from './i18next-react-react-postprocessor';
 
 
-i18n.on ('languageChanged', (lng) => {
+i18n.on ('languageChanged', lng => {
   if (!lng.split ('-')) return;
   if (lng.split ('-')[0] !== lng) i18n.changeLanguage (lng.split ('-')[0]);
 });

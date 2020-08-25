@@ -11,7 +11,7 @@ const AuthCallback = ({ location, history }) => {
     const { code, state } = queryString.parse (location.search);
     if (code && state) {
       dispatch (loginCallback (code, state))
-        .then ((res) => {
+        .then (res => {
           const referrer = storage.getItem ('referrer');
           if (referrer) {
             storage.removeItem ('referrer');
@@ -20,7 +20,7 @@ const AuthCallback = ({ location, history }) => {
           }
           history.replace (`/${res.user.username}`);
         })
-        .catch ((error) => {
+        .catch (error => {
           alert (error.message);
           history.replace ('/');
         });

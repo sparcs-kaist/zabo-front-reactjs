@@ -9,7 +9,7 @@ const Button = ({
 }) => (
   <StyledButton
     {...props}
-    onClick={(event) => {
+    onClick={event => {
       if (typeof onClick === 'function') onClick (event);
       if (to) history.push (to);
     }}

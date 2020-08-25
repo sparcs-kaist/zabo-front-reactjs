@@ -60,7 +60,7 @@ for (let i = 0; i < 7; i++) {
   today.setDate (today.getDate () - 1);
 }
 
-const parseData = (data) => {
+const parseData = data => {
   const cnt = [0, 0, 0, 0, 0, 0, 0];
   data.forEach (({ _id, createdAt }) => {
     const pos = new Date ();

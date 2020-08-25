@@ -82,7 +82,7 @@ const SearchPage = () => {
       .catch (err => _updateResults (initialState));
   }, [safeQuery, safeCategory.join ('')]);
 
-  const onTagClick = (newCat) => {
+  const onTagClick = newCat => {
     let newCats = safeCategory.slice ();
     if (safeCategory.includes (newCat)) {
       newCats = newCats.filter (c => c !== newCat);

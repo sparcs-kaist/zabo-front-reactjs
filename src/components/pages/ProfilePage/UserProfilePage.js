@@ -3,6 +3,7 @@ import React, {
   useRef, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import get from 'lodash.get';
 
 import Button from 'atoms/Button';
 import SuperTooltip from 'atoms/SuperTooltip';
@@ -26,11 +27,10 @@ const UserProfile = ({ profile }) => {
   const {
     username, profilePhoto, groups, description, boards, stats: { likesCount, followingsCount } = {}, following,
   } = profile;
-  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const dispatch = useDispatch ();
-  const myUsername = useSelector (state => state.getIn (['auth', 'info', 'username']));
-  const pendingGroupsImmutable = useSelector (state => state.getIn (['auth', 'info', 'pendingGroups']));
-  const pendingGroups = useMemo (() => pendingGroupsImmutable.toJS (), [pendingGroupsImmutable]);
+  const myUsername = useSelector (state => get (state, ['auth', 'info', 'username']));
+  const pendingGroups = useSelector (state => get (state, ['auth', 'info', 'pendingGroups']));
   const isMyProfile = (myUsername === username);
   const isAdmin = useSelector (isAdminSelector);
   const logout = () => dispatch (logoutAction ());

@@ -1,18 +1,31 @@
-const createStore = reducer => {
-  let state = {};
-  let listeners = [];
+type State = object;
+interface IAction {
+  type : string;
+  [key : string] : any;
+}
+interface IReducer {
+  (state : State, action : IAction) : State;
+}
+interface IListener {
+  (state : State) : void;
+}
+
+const createStore = (reducer : IReducer) => {
+  let state : State = {};
+  let listeners : IListener[] = [];
+
   const getState = () => state;
-  const dispatch = action => {
+  const dispatch = (action : IAction) => {
     state = reducer (state, action);
     listeners.forEach (listener => listener (state));
   };
-  const subscribe = listener => {
+  const subscribe = (listener : IListener) => {
     listeners.push (listener);
     return () => {
       listeners = listeners.filter (l => l !== listener);
     };
   };
-  dispatch ({});
+  dispatch ({ type: 'Init' });
   return {
     getState,
     dispatch,
@@ -21,13 +34,15 @@ const createStore = reducer => {
 };
 
 const reducer = (
-  state = {
+  state : State = {
     /* Prev State */
   },
-  action,
+  action : IAction,
 ) => ({
   // New State
 });
+
+export default createStore;
 
 /*
 {

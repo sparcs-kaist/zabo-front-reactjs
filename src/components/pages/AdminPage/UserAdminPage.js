@@ -1,15 +1,12 @@
-import React, {
-  useMemo,
-} from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
+import get from 'lodash.get';
 
 import GridContainer from './components/Grid/GridContainer';
-import UserCard from './UserCard';
 import UserList from './UsersTable';
 
 const UserAdminPage = () => {
-  const usersIm = useSelector (state => state.getIn (['admin', 'users']));
-  const users = useMemo (() => usersIm.toJS (), [usersIm]);
+  const users = useSelector (state => get (state, ['admin', 'users'], []));
   return (
     <div>
       <GridContainer>

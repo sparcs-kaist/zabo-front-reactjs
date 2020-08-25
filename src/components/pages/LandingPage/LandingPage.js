@@ -6,6 +6,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Slider from 'react-slick';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 import moment from 'moment';
 import useSWR from 'swr';
 
@@ -147,10 +148,10 @@ const CategoryBanner = () => (
   </CategoryBannerW>
 );
 
-const ArrowLeft = (props) => (
+const ArrowLeft = props => (
   <UpcomingW.Carousel.Button src={leftArrow} {...props} className="slick-btn prev" alt="left arrow image" />
 );
-const ArrowRight = (props) => (
+const ArrowRight = props => (
   <UpcomingW.Carousel.Button src={rightArrow} {...props} className="slick-btn next" alt="right arrow image" />
 );
 
@@ -172,7 +173,7 @@ const SlickItem = ({ zabo, width }) => (
   </UpcomingW.SlickItemW>
 );
 
-const twoDigits = (number) => {
+const twoDigits = number => {
   if (number >= 0 && number < 10) return `0${number}`;
   return number;
 };
@@ -198,7 +199,7 @@ const CountDown = ({ initialValue }) => {
 const Upcoming = () => {
   const history = useHistory ();
   const [current, setCurrent] = useState (0);
-  const width = useSelector (state => state.getIn (['app', 'windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const { data: zabos, zaboError } = useSWR ('/zabo/list/deadline', getDeadlineZaboList, swrOpts);
 
   if (!zabos) {

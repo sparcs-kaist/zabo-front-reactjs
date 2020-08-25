@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 import { List } from 'immutable';
+import get from 'lodash.get';
 
 import {
   getGroupZaboList, getPins, getSearchZaboList,
   getZaboList,
 } from 'store/reducers/zabo';
-import toJS from 'hoc/toJS';
 
 import ZaboList from './ZaboList';
 
@@ -16,14 +16,13 @@ const reduxKey = {
   group: name => ['zabo', 'lists', name],
   search: () => ['zabo', 'lists', 'search'],
 };
-
 const emptyList = List ([]);
 const mapStateToProps = (state, ownProps) => {
   const { type, query } = ownProps;
-  const zaboIdList = state.getIn (reduxKey[type] (query)) || emptyList;
+  const zaboIdList = get (state, reduxKey[type] (query)) || emptyList;
   return {
     zaboIdList,
-    width: state.getIn (['app', 'windowSize', 'width']),
+    width: get (state, ['app', 'windowSize', 'width']),
   };
 };
 
@@ -34,4 +33,4 @@ const mapDispatchToProps = {
   getSearchZaboList,
 };
 
-export default connect (mapStateToProps, mapDispatchToProps) (toJS (ZaboList));
+export default connect (mapStateToProps, mapDispatchToProps) (ZaboList);

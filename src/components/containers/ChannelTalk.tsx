@@ -1,29 +1,21 @@
-import { useEffect, useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
+import { RouteComponentProps, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { get } from 'lodash';
 import queryString from 'query-string';
+import { IState } from 'types/store.d';
 
 import ChannelService from 'lib/channel_io';
 import { isAuthedSelector } from 'lib/utils';
 
-const ChannelTalk = ({ match }) => {
+const ChannelTalk = ({ match } : RouteComponentProps<{top : string}>) => {
   const { search, pathname } = useLocation ();
   const { top } = match.params;
   const isAuthenticated = useSelector (isAuthedSelector);
-  const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
-  const {
-    _id,
-    username,
-    koreanName,
-    groups,
-    flags,
-    email,
-    profilePhoto,
-  } = info;
+  const info = useSelector ((state : IState) => get (state, ['auth', 'info']));
 
   useEffect (() => {
-    // if (process.env.NODE_ENV !== 'production') return;
+    if (process.env.NODE_ENV !== 'production') return;
     if (top === 'settings') {
       ChannelService.shutdown ();
       return;
@@ -38,7 +30,16 @@ const ChannelTalk = ({ match }) => {
       pluginKey: '5fe8c634-bcbd-4499-ba99-967191a2ef77',
     };
     if (isAuthenticated) {
-      if (!_id) return;
+      if (!info) return;
+      const {
+        _id,
+        username,
+        koreanName,
+        groups,
+        flags,
+        email,
+        profilePhoto,
+      } = info;
       Object.assign (settings, {
         userId: _id,
         profile: {
@@ -52,7 +53,7 @@ const ChannelTalk = ({ match }) => {
       });
     }
     ChannelService.boot (settings);
-  }, [search, isAuthenticated, infoImmutable, top, pathname]);
+  }, [search, isAuthenticated, info, top, pathname]);
   return null;
 };
 

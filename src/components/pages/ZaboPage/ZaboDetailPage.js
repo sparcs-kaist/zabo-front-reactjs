@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Carousel from 'react-airbnb-carousel';
 import { Helmet } from 'react-helmet';
 import Tooltip from '@material-ui/core/Tooltip';
+import get from 'lodash.get';
 import moment from 'moment';
 
 import Button from 'atoms/Button';
@@ -54,7 +55,7 @@ const OwnerInfo = ({
         alert ('Error');
       });
   });
-  const following = useSelector (state => state.getIn (['profile', 'profiles', name, 'following']));
+  const following = useSelector (state => get (state, ['profile', 'profiles', name, 'following']));
 
   return (
     <div className="owner">
@@ -109,14 +110,14 @@ OwnerInfo.propTypes = {
 
 OwnerInfo.defaultProps = {};
 
-const ZaboDetailPage = (props) => {
+const ZaboDetailPage = props => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, schedules, createdAt, description, category = [], photos = [{}],
     isLiked, likesCount, isPinned, pinsCount, views, effectiveViews, isMyZabo, createdBy,
   } = zabo;
   const schedule = schedules[0];
-  const timePast = getLabeledTimeDiff (createdAt, true, true, 6, false, false, false);
+  const timePast = getLabeledTimeDiff (createdAt, 60, 60, 6, 0);
   const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
   const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
   const stats = [{

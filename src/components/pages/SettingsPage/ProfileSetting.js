@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import FormControl from '@material-ui/core/FormControl';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
+import get from 'lodash.get';
 
 import Footer from 'templates/Footer';
 import Header from 'templates/Header';
@@ -72,7 +73,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       });
   }, [username, description, newProfilePhoto]);
 
-  const onChange = (e) => {
+  const onChange = e => {
     setState ({ success: false, error: null });
     onChangeHandler (e);
   };
@@ -137,9 +138,8 @@ ProfileForm.propTypes = {
   newProfilePhoto: PropTypes.object,
 };
 
-const UserProfileSetting = (props) => {
-  const infoImmutable = useSelector (state => state.getIn (['auth', 'info']));
-  const info = useMemo (() => infoImmutable.toJS (), [infoImmutable]);
+const UserProfileSetting = props => {
+  const info = useSelector (state => get (state, ['auth', 'info']));
   const { username = '', profilePhoto, description = '' } = info;
 
   const [profilePreview, setProfilePreview] = useState (profilePhoto);
