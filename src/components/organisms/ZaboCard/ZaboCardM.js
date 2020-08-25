@@ -40,7 +40,7 @@ const Poster = ({ zabo }) => {
       <PosterW.Dimmer className="dimmer" />
       <OverlayW className="hover-show">
         <OverlayW.StatLocator>
-          {stats.map ((stat) => (
+          {stats.map (stat => (
             <StatBox className="stat-box" key={stat.type} type="text" stat={stat} />
           ))}
         </OverlayW.StatLocator>

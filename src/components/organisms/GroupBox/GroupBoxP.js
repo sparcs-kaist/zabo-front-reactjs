@@ -31,7 +31,7 @@ const GroupBox = ({ group, ...props }) => {
       to={name}
       isPending={isPending}
       disabled={isPending}
-      onClick={(e) => { if (isPending) e.preventDefault (); }}
+      onClick={e => { if (isPending) e.preventDefault (); }}
       {...props}
     >
       {

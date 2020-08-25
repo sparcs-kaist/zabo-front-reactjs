@@ -30,7 +30,7 @@ const GroupProfile = ({ profile }) => {
   const dispatch = useDispatch ();
   const history = useHistory ();
   const isAuthed = useSelector (isAuthedSelector);
-  const width = useSelector ((state) => get (state, ['app', 'windowSize', 'width']));
+  const width = useSelector (state => get (state, ['app', 'windowSize', 'width']));
   const isMobile = useMemo (() => mediaSizes.tablet > width, [width]);
 
   const descRef = useRef (null);

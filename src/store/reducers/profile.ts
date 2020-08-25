@@ -13,11 +13,11 @@ const UPDATE_GROUP_MEMBER = 'profile/UPDATE_GROUP_MEMBER';
 const REMOVE_GROUP_MEMBER = 'profile/REMOVE_GROUP_MEMBER';
 const FOLLOW_PROFILE = 'profile/FOLLOW_PROFILE';
 
-export const getProfile = createAction (GET_PROFILE, ProfileAPIs.fetchProfile, (meta) => meta);
-export const addGroupMember = createAction (ADD_GROUP_MEMBER, GroupAPIs.addGroupMember, (meta) => meta);
-export const updateGroupMember = createAction (UPDATE_GROUP_MEMBER, GroupAPIs.updateGroupMember, (meta) => meta);
-export const removeGroupMember = createAction (REMOVE_GROUP_MEMBER, GroupAPIs.removeGroupUser, (meta) => meta);
-export const followProfile = createAction (FOLLOW_PROFILE, ProfileAPIs.followProfile, (meta) => meta);
+export const getProfile = createAction (GET_PROFILE, ProfileAPIs.fetchProfile, meta => meta);
+export const addGroupMember = createAction (ADD_GROUP_MEMBER, GroupAPIs.addGroupMember, meta => meta);
+export const updateGroupMember = createAction (UPDATE_GROUP_MEMBER, GroupAPIs.updateGroupMember, meta => meta);
+export const removeGroupMember = createAction (REMOVE_GROUP_MEMBER, GroupAPIs.removeGroupUser, meta => meta);
+export const followProfile = createAction (FOLLOW_PROFILE, ProfileAPIs.followProfile, meta => meta);
 
 export interface IProfileState {
   profiles : IProfileMap

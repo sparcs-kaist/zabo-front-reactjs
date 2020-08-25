@@ -14,7 +14,7 @@ const useStyles = makeStyles ({
   },
 });
 
-const InputBase = (props) => {
+const InputBase = props => {
   const classes = useStyles ();
   return <MInputBase className={classes.root} {...props} />;
 };

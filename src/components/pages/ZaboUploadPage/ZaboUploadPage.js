@@ -70,7 +70,7 @@ Loading.Inactive = styled.div`
   border-top: 10px solid gainsboro;
 `;
 
-const UploadFooter = (props) => {
+const UploadFooter = props => {
   const { prev, next, step } = props;
   const dispatch = useDispatch ();
   const currentGroup = useSelector (state => get (state, ['auth', 'info', 'currentGroup']));

@@ -22,12 +22,12 @@ const APPLY_NEW_GROUP = 'group/APPLY_NEW_GROUP';
 
 // Action creator
 export const loginCallback = createAction (LOGIN_CALLBACK, AuthAPIs.loginCallback);
-export const checkAuth = createAction (CHECK_AUTH, AuthAPIs.checkAuth, (meta) => meta);
+export const checkAuth = createAction (CHECK_AUTH, AuthAPIs.checkAuth, meta => meta);
 export const logout = createAction (LOGOUT);
-export const updateUserInfo = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfo, (meta) => meta);
-export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfoWithImage, (meta) => meta);
-export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfo, (meta) => meta);
-export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfoWithImage, (meta) => meta);
+export const updateUserInfo = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfo, meta => meta);
+export const updateUserInfoWithImage = createAction (UPDATE_USER_INFO, UserAPIs.updateUserInfoWithImage, meta => meta);
+export const updateGroupInfo = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfo, meta => meta);
+export const updateGroupInfoWithImage = createAction (UPDATE_GROUP_INFO, GroupAPIs.updateGroupInfoWithImage, meta => meta);
 export const setCurrentGroup = createAction (SET_CURRENT_GROUP, UserAPIs.setCurrentGroup);
 export const applyNewGroup = createAction (APPLY_NEW_GROUP, GroupAPIs.applyNewGroup);
 
@@ -96,7 +96,7 @@ export default handleActions (
         });
       },
     }),
-    [LOGOUT]: (state) => {
+    [LOGOUT]: state => {
       storage.removeItem ('token');
       axios.updateToken ('');
       window.location.href = '/';

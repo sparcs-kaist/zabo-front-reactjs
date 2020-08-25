@@ -73,7 +73,7 @@ const ProfileForm = ({ initialValue, newProfilePhoto }) => {
       });
   }, [username, description, newProfilePhoto]);
 
-  const onChange = (e) => {
+  const onChange = e => {
     setState ({ success: false, error: null });
     onChangeHandler (e);
   };
@@ -138,7 +138,7 @@ ProfileForm.propTypes = {
   newProfilePhoto: PropTypes.object,
 };
 
-const UserProfileSetting = (props) => {
+const UserProfileSetting = props => {
   const info = useSelector (state => get (state, ['auth', 'info']));
   const { username = '', profilePhoto, description = '' } = info;
 

@@ -23,17 +23,17 @@ const DELETE_ZABO = 'zabo/DELETE_ZABO';
 
 // Action creator : action 객체를 만들어주는 함수
 export const getHotZaboList = createAction (GET_HOT_ZABO_LIST, ZaboAPI.getHotZaboList);
-export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, (meta) => meta);
-export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, (meta) => meta);
-export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, (meta) => meta);
-export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, (meta) => meta);
-export const getPins = createAction (GET_PINS, ZaboAPI.getPins, (meta) => meta);
-export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, (meta) => meta);
-export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, (meta) => meta);
-export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, (meta) => meta);
-export const getSearchZaboList = createAction (GET_SEARCH_ZABO_LIST, ZaboAPI.getSearchZaboList, (meta) => meta);
-export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, (meta) => meta);
-export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, (meta) => meta);
+export const uploadZabo = createAction (UPLOAD_ZABO, ZaboAPI.uploadZabo, meta => meta);
+export const patchZabo = createAction (PATCH_ZABO, ZaboAPI.patchZabo, meta => meta);
+export const getZaboList = createAction (GET_ZABO_LIST, ZaboAPI.getZaboList, meta => meta);
+export const getZabo = createAction (GET_ZABO, ZaboAPI.getZabo, meta => meta);
+export const getPins = createAction (GET_PINS, ZaboAPI.getPins, meta => meta);
+export const toggleZaboPin = createAction (TOGGLE_ZABO_PIN, ZaboAPI.toggleZaboPin, meta => meta);
+export const toggleZaboLike = createAction (TOGGLE_ZABO_LIKE, ZaboAPI.toggleZaboLike, meta => meta);
+export const getGroupZaboList = createAction (GET_GROUP_ZABO_LIST, ZaboAPI.getGroupZaboList, meta => meta);
+export const getSearchZaboList = createAction (GET_SEARCH_ZABO_LIST, ZaboAPI.getSearchZaboList, meta => meta);
+export const getSearch = createAction (GET_SEARCH, SearchAPI.searchAPI, meta => meta);
+export const deleteZabo = createAction (DELETE_ZABO, ZaboAPI.deleteZabo, meta => meta);
 
 export interface IZaboState {
   lists : {
@@ -58,7 +58,7 @@ const initialState : IZaboState = {
 
 const zaboListParser = (zaboList : IZabo[]) => {
   const map = zaboList.reduce ((acc, cur) => ({ ...acc, [cur._id]: cur }), {});
-  const ids = zaboList.map ((zabo) => zabo._id);
+  const ids = zaboList.map (zabo => zabo._id);
   return { map, ids };
 };
 

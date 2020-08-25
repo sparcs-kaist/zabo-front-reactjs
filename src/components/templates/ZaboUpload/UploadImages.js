@@ -231,7 +231,7 @@ Wrapper.Placeholder = styled.div`
 `;
 
 let alerted;
-const alertOnce = (message) => {
+const alertOnce = message => {
   if (alerted) return;
   alerted = true;
   alert (message);
@@ -278,7 +278,7 @@ const UploadImages = props => {
     ]);
   }, [files]);
 
-  const removeImage = useCallback ((key) => {
+  const removeImage = useCallback (key => {
     const clone = files.slice ().map (x => Object.assign (x, { layout: { ...x.updatedLayout } }));
     clone.sort (gridLayoutCompareFunction);
     const deleteIndex = clone.findIndex (l => l.key === key);

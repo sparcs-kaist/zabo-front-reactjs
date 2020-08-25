@@ -46,7 +46,7 @@ const ChannelTalk = ({ match } : RouteComponentProps<{top : string}>) => {
           name: username,
           koreanName,
           avatarUrl: profilePhoto,
-          groups: groups.map ((group) => group.name).join (', '),
+          groups: groups.map (group => group.name).join (', '),
           flags: flags.join (', '),
           email,
         },

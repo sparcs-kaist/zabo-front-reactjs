@@ -55,7 +55,7 @@ const GroupMembersSetting = ({ profile }) => {
     dispatch (profileActions.updateGroupMember ({ groupName: name, userId, role }))
       .catch (error => alert (error.error));
   }, [dispatch]);
-  const removeMember = useCallback ((userId) => {
+  const removeMember = useCallback (userId => {
     if (!window.confirm (alerts.deleteMember)) return;
     dispatch (profileActions.removeGroupMember ({ groupName: name, userId }))
       .catch (error => alert (error.error));

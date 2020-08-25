@@ -48,14 +48,14 @@ const OwnerInfo = ({
   }, [name]);
   const deleteZabo = useCallback (() => {
     dispatch (deleteZaboAction ({ zaboId: _id }))
-      .then ((res) => {
+      .then (res => {
         window.location.href = `/${owner.name}`;
       })
-      .catch ((error) => {
+      .catch (error => {
         alert ('Error');
       });
   });
-  const following = useSelector ((state) => get (state, ['profile', 'profiles', name, 'following']));
+  const following = useSelector (state => get (state, ['profile', 'profiles', name, 'following']));
 
   return (
     <div className="owner">
@@ -110,7 +110,7 @@ OwnerInfo.propTypes = {
 
 OwnerInfo.defaultProps = {};
 
-const ZaboDetailPage = (props) => {
+const ZaboDetailPage = props => {
   const { zabo, zaboId } = props;
   const {
     title, owner = {}, schedules, createdAt, description, category = [], photos = [{}],
@@ -153,7 +153,7 @@ const ZaboDetailPage = (props) => {
             <ZaboPageWrapper.Info.Header>
               <section>
                 <ul className="keyword-result">
-                  {category.map ((cat) => (
+                  {category.map (cat => (
                     <li key={cat}>#{cat}</li>
                   ))}
                 </ul>
@@ -174,7 +174,7 @@ const ZaboDetailPage = (props) => {
                 </Tooltip>
               </section>
               <section className="statSection">
-                {stats.map ((stat) => <StatBox key={stat.type} stat={stat} />)}
+                {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
               </section>
             </ZaboPageWrapper.Info.Header>
             <ZaboPageWrapper.Info.Body>

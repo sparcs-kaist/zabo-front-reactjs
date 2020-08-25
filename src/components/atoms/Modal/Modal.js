@@ -38,7 +38,7 @@ const ModalWrapper = styled.div`
   justify-content: center;
 `;
 
-const Modal = (props) => (
+const Modal = props => (
   <Portal>
     <ModalWrapper>
       {props.children}

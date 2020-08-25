@@ -17,12 +17,12 @@ const createStore = (reducer : IReducer) => {
   const getState = () => state;
   const dispatch = (action : IAction) => {
     state = reducer (state, action);
-    listeners.forEach ((listener) => listener (state));
+    listeners.forEach (listener => listener (state));
   };
   const subscribe = (listener : IListener) => {
     listeners.push (listener);
     return () => {
-      listeners = listeners.filter ((l) => l !== listener);
+      listeners = listeners.filter (l => l !== listener);
     };
   };
   dispatch ({ type: 'Init' });

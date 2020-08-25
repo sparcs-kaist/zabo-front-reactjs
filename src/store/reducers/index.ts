@@ -12,7 +12,7 @@ const modules : {
   [key : string] : ReturnType<typeof handleActions> | typeof penderReducer
 } = {};
 
-req.keys ().forEach ((key) => {
+req.keys ().forEach (key => {
   const regex = /.\/(.*?).ts$/;
   const moduleName = regex.test (key) && (key.match (regex) || [])[1];
   if (!moduleName) return;

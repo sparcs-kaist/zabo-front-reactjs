@@ -102,7 +102,7 @@ const InsetDividers = ({ groupsInfo }) => {
   const currentGroup = useSelector (state => get (state, ['auth', 'info', 'currentGroup']));
   const dispatch = useDispatch ();
 
-  const updateGroup = useCallback ((groupName) => {
+  const updateGroup = useCallback (groupName => {
     dispatch (setCurrentGroup (groupName))
       .then (() => dispatch (setGroupSelected (true)))
       .catch (error => console.error (error));

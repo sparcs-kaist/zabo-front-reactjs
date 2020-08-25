@@ -72,7 +72,7 @@ const initialState : IUploadState = {
     description: '',
     hasSchedule: false,
     schedules: [defaultSchedule],
-    category: ZABO_CATEGORIES.map ((tag) => ({ name: tag, clicked: false })),
+    category: ZABO_CATEGORIES.map (tag => ({ name: tag, clicked: false })),
   },
   showModal: false,
 };

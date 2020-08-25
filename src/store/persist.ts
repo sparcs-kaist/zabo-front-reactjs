@@ -3,7 +3,7 @@ import { Action } from 'redux-actions';
 
 import storage from 'lib/storage';
 
-const persistUpload = (store : Store) => (next : (action : Action<any>)=> any) => (action : Action<any>) => {
+const persistUpload = (store : Store) => (next : (action : Action<any>) => any) => (action : Action<any>) => {
   const result = next (action);
 
   if (action.type.substring (0, 6) === 'upload') {

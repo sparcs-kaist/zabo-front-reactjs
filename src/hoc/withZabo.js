@@ -8,7 +8,7 @@ import { getZabo } from 'store/reducers/zabo';
 const NotFound = () => <h1>Zabo Not Found</h1>;
 
 const withZabo = (WrappedComponent, isPrivate = false, fetch = true) => {
-  const Sub = (props) => {
+  const Sub = props => {
     const dispatch = useDispatch ();
     const { zaboId } = props;
 

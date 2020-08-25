@@ -6,7 +6,7 @@ import { NotFound } from 'pages';
 
 import { getProfile } from 'store/reducers/profile';
 
-const withGroupProfile = (WrappedComponent, isPrivate = false) => (props) => {
+const withGroupProfile = (WrappedComponent, isPrivate = false) => props => {
   const dispatch = useDispatch ();
   const { groupName } = props;
 

@@ -26,7 +26,7 @@ const ACCEPT_APPLY_GROUP = 'admin/ACCEPT_APPLY_GROUP';
 export const getUserList = createAction (GET_USER_LIST, AdminAPIs.getUserList);
 export const getGroupList = createAction (GET_GROUP_LIST, AdminAPIs.getGroupList);
 export const getGroupApplyList = createAction (GET_GROUP_APPLY_LIST, AdminAPIs.getGroupApplyList);
-export const acceptApplyGroup = createAction (ACCEPT_APPLY_GROUP, AdminAPIs.acceptGroup, (meta) => meta);
+export const acceptApplyGroup = createAction (ACCEPT_APPLY_GROUP, AdminAPIs.acceptGroup, meta => meta);
 
 export interface IAdminState {
   pendingGroups : IGroup[];
@@ -89,7 +89,7 @@ export default handleActions (
         const { name } = action.meta;
         const group = action.payload;
         return produce (state, (draft : IAdminState) => {
-          draft.pendingGroups = draft.pendingGroups.filter ((pendingGroup) => pendingGroup.name !== name);
+          draft.pendingGroups = draft.pendingGroups.filter (pendingGroup => pendingGroup.name !== name);
           draft.groups.unshift (group);
           Object.assign (draft.groupsMap, { [group.name]: group });
         });
