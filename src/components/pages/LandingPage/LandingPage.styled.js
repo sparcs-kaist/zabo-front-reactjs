@@ -256,7 +256,7 @@ export const UpcomingW = styled.section`
     /* padding: 60px 24px 12px 24px; */
     overflow: visible;
   }
-  ${TwoCol.Right} {
+  ${TwoCol.DRight} {
     position: relative;
   }
   ${media.tablet (css`
@@ -336,7 +336,7 @@ UpcomingW.Count = styled.div`
 
 UpcomingW.Carousel = styled.section`
   position: absolute;
-  top: -16px;
+  top: 0px;
   width: 150%;
   height: 200px;
   overflow: hidden;
