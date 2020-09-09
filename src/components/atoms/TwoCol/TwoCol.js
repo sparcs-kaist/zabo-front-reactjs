@@ -72,4 +72,13 @@ TwoCol.defaultProps = {
 TwoCol.Left = Left;
 TwoCol.Right = Right;
 
+TwoCol.DLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+`;
+TwoCol.DRight = styled.div`
+  flex: 1;
+`;
+
 export default TwoCol;

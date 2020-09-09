@@ -247,7 +247,7 @@ const Upcoming = () => {
     <UpcomingW>
       <Container>
         <TwoCol mobileWrap={false}>
-          <TwoCol.Left>
+          <TwoCol.DLeft>
             <UpcomingW.Title>
               {scheduleTitle}
             </UpcomingW.Title>
@@ -263,8 +263,8 @@ const Upcoming = () => {
             <UpcomingW.Count>
               {current + 1}/{zabos.length}
             </UpcomingW.Count>
-          </TwoCol.Left>
-          <TwoCol.Right>
+          </TwoCol.DLeft>
+          <TwoCol.DRight>
             <UpcomingW.Carousel style={{ width: width / 2 }}>
               <Slider {...settings}>
                 {zabos ? zabos.map (zabo => (
@@ -272,7 +272,7 @@ const Upcoming = () => {
                 )) : <div>none</div>}
               </Slider>
             </UpcomingW.Carousel>
-          </TwoCol.Right>
+          </TwoCol.DRight>
         </TwoCol>
       </Container>
     </UpcomingW>
