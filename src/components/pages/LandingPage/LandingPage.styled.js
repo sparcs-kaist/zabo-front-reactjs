@@ -396,14 +396,6 @@ UpcomingW.Image = styled.img`
   `)}
 `;
 
-UpcomingW.NoMagamImBak = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  ${media.tablet (css`
-    font-size: 24px;
-  `)};
-`;
-
 export const RecommendsW = styled.section`
   width: 100%;
   padding-bottom: 12px;
