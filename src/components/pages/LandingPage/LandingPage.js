@@ -213,13 +213,7 @@ const Upcoming = () => {
   }
 
   if (!zabos.length) {
-    return (
-      <UpcomingW>
-        <Container>
-          <UpcomingW.NoMagamImBak>현재 마감이 임박한 자보가 없습니다.</UpcomingW.NoMagamImBak>
-        </Container>
-      </UpcomingW>
-    );
+    return '';
   }
 
   const settings = {
