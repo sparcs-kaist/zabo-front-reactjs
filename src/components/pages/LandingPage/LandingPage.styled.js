@@ -250,20 +250,23 @@ export const UpcomingW = styled.section`
   background: ${props => props.theme.gray90};
   color: ${props => props.theme.gray1};
   width: 100%;
-  /* height: 200px; */
+  margin-bottom: 30px;
   padding: 36px 0;
+
   ${Container} {
-    /* padding: 60px 24px 12px 24px; */
     overflow: visible;
   }
   ${TwoCol.DRight} {
     position: relative;
   }
+  
   ${media.tablet (css`
+  margin-bottom: 165px;
     padding: 48px 0;
     height: 100%;
   `)};
 `;
+
 UpcomingW.Title = styled.div`
   font-weight: 800;
   font-size: 16px;
@@ -393,20 +396,8 @@ UpcomingW.Image = styled.img`
   `)}
 `;
 
-UpcomingW.NoMagamImBak = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  ${media.tablet (css`
-    font-size: 24px;
-  `)};
-`;
-
 export const RecommendsW = styled.section`
   width: 100%;
-  margin-top: 30px;
-  ${media.tablet (css`
-    margin-top: 165px;
-  `)};
   padding-bottom: 12px;
 `;
 
