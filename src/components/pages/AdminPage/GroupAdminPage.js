@@ -20,7 +20,7 @@ import clsx from 'clsx';
 import get from 'lodash.get';
 import moment from 'moment';
 
-import StyledQuill from 'organisms/StyledQuill';
+import StyledQuill from 'components/organisms/StyledQuill';
 
 import { acceptApplyGroup } from 'store/reducers/admin';
 

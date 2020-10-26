@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import ProfileStats from 'organisms/ProfileStats';
+import ProfileStats from 'components/organisms/ProfileStats';
 
 import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import { NotFound } from 'pages';
+import { NotFound } from 'components/pages';
 
 import { getProfile } from 'store/reducers/profile';
 

@@ -5,10 +5,10 @@ import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import SimpleSelect from 'molecules/SimpleSelect';
-import StyledQuill from 'organisms/StyledQuill';
-import Footer from 'templates/Footer';
-import Header from 'templates/Header';
+import SimpleSelect from 'components/molecules/SimpleSelect';
+import StyledQuill from 'components/organisms/StyledQuill';
+import Footer from 'components/templates/Footer';
+import Header from 'components/templates/Header';
 
 import { updateGroupInfo, updateGroupInfoWithImage } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';

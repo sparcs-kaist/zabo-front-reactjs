@@ -4,7 +4,7 @@ import MasonryZaboList from 'react-masonry-infinite';
 import SquareLoader from 'react-spinners/SquareLoader';
 import styled from 'styled-components';
 
-import ZaboCard from 'organisms/ZaboCard';
+import ZaboCard from 'components/organisms/ZaboCard';
 
 import withStackMaster from './withStackMaster';
 import ZaboListWrapper from './ZaboList.styled';

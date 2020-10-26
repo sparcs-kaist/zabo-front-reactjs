@@ -2,12 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 
-import ChannelTalk from 'containers/ChannelTalk';
-import ScrollToTop from 'containers/ScrollToTop';
-import WindowResizeListener from 'containers/WindowResizeListener';
+import ChannelTalk from 'components/containers/ChannelTalk';
+import ScrollToTop from 'components/containers/ScrollToTop';
+import WindowResizeListener from 'components/containers/WindowResizeListener';
 import ErrorBoundary from 'components/ErrorBoundary';
-import AuthCallback from 'organisms/AuthCallback';
-import PWAPrompt from 'templates/PWAPrompt';
+import AuthCallback from 'components/organisms/AuthCallback';
 import {
   AdminPage,
   ApiPage,
@@ -20,7 +19,8 @@ import {
   SettingsPage,
   ZaboPage,
   ZaboUploadPage,
-} from 'pages';
+} from 'components/pages';
+import PWAPrompt from 'components/templates/PWAPrompt';
 
 import { AdminRoute, PrivateRoute, PublicRoute } from 'hoc/AuthRoutes';
 import pToP from 'hoc/paramsToProps';

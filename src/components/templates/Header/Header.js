@@ -5,8 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { css } from 'styled-components';
 import get from 'lodash.get';
 
-import Container from 'atoms/Container';
-import SVG from 'atoms/SVG';
+import Container from 'components/atoms/Container';
+import SVG from 'components/atoms/SVG';
 
 import { setCurrentGroup } from 'store/reducers/auth';
 import { isAuthedSelector } from 'lib/utils';

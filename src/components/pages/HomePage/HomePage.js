@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Header from 'templates/Header';
-import ZaboList from 'templates/ZaboList';
+import Header from 'components/templates/Header';
+import ZaboList from 'components/templates/ZaboList';
 
 import HomePageWrapper from './HomePage.styled';
 

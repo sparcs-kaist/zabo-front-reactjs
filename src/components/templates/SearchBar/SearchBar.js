@@ -6,7 +6,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import queryString from 'query-string';
 
-import TagList from 'atoms/TagList';
+import TagList from 'components/atoms/TagList';
 
 import { searchSimpleAPI } from 'lib/api/search';
 import { parseQuery } from 'lib/utils';

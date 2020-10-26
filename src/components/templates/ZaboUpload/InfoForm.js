@@ -8,9 +8,9 @@ import { KeyboardDateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pi
 import get from 'lodash.get';
 import moment from 'moment';
 
-import ToggleButton from 'atoms/ToggleButton';
-import SimpleSelect from 'molecules/SimpleSelect';
-import StyledQuill from 'organisms/StyledQuill';
+import ToggleButton from 'components/atoms/ToggleButton';
+import SimpleSelect from 'components/molecules/SimpleSelect';
+import StyledQuill from 'components/organisms/StyledQuill';
 
 import { setInfo } from 'store/reducers/upload';
 import { gridLayoutCompareFunction } from 'lib/utils';

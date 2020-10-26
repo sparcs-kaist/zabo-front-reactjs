@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { NotFound } from 'pages';
+import { NotFound } from 'components/pages';
 
 import ProfilePage from './ProfilePage';
 

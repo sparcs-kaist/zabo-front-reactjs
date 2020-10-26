@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { NotFound } from 'pages';
+import { NotFound } from 'components/pages';
 
 import pToP from '../../../hoc/paramsToProps';
 import GroupApply from './GroupApply';

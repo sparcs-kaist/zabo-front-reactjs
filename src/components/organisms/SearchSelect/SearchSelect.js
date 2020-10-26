@@ -1,7 +1,7 @@
 import React from 'react';
 import { components } from 'react-select';
 
-import Select from 'molecules/Select';
+import Select from 'components/molecules/Select';
 
 import { media } from 'lib/utils/style';
 

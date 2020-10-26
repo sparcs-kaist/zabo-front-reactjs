@@ -5,10 +5,10 @@ import { useDispatch } from 'react-redux';
 import queryString from 'query-string';
 
 // import { searchAPI } from lib/api/search';
-import TagList from 'atoms/TagList';
-import GroupList from 'organisms/GroupList';
-import Header from 'templates/Header';
-import ZaboList from 'templates/ZaboList';
+import TagList from 'components/atoms/TagList';
+import GroupList from 'components/organisms/GroupList';
+import Header from 'components/templates/Header';
+import ZaboList from 'components/templates/ZaboList';
 
 import { getSearch } from 'store/reducers/zabo';
 import useSetState from 'hooks/useSetState';

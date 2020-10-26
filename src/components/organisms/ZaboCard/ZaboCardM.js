@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import DueDate from 'atoms/DueDate';
-import StatBox from 'molecules/StatBox';
+import DueDate from 'components/atoms/DueDate';
+import StatBox from 'components/molecules/StatBox';
 
 import { ZaboType } from 'lib/propTypes';
 import { getLabeledTimeDiff, to2Digits } from 'lib/utils';

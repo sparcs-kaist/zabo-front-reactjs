@@ -6,11 +6,11 @@ import { Link, useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import SuperTooltip from 'atoms/SuperTooltip';
-import ProfileStats from 'organisms/ProfileStats';
-import StyledQuill from 'organisms/StyledQuill';
-import Header from 'templates/Header';
-import ZaboList from 'templates/ZaboList';
+import SuperTooltip from 'components/atoms/SuperTooltip';
+import ProfileStats from 'components/organisms/ProfileStats';
+import StyledQuill from 'components/organisms/StyledQuill';
+import Header from 'components/templates/Header';
+import ZaboList from 'components/templates/ZaboList';
 
 import { followProfile } from 'store/reducers/profile';
 import { GroupType } from 'lib/propTypes';

@@ -2,11 +2,11 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 
-import SimpleSelect from 'molecules/SimpleSelect';
-import List from 'organisms/List';
-import MemberItem from 'organisms/MemberItem';
-import SearchSelect from 'organisms/SearchSelect';
-import Header from 'templates/Header';
+import SimpleSelect from 'components/molecules/SimpleSelect';
+import List from 'components/organisms/List';
+import MemberItem from 'components/organisms/MemberItem';
+import SearchSelect from 'components/organisms/SearchSelect';
+import Header from 'components/templates/Header';
 
 import * as profileActions from 'store/reducers/profile';
 import useSetState from 'hooks/useSetState';

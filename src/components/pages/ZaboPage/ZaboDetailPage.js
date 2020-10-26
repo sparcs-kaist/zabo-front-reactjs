@@ -8,11 +8,11 @@ import Tooltip from '@material-ui/core/Tooltip';
 import get from 'lodash.get';
 import moment from 'moment';
 
-import Button from 'atoms/Button';
-import DueDate from 'atoms/DueDate';
-import StatBox from 'molecules/StatBox';
-import StyledQuill from 'organisms/StyledQuill';
-import ZaboList from 'templates/ZaboList';
+import Button from 'components/atoms/Button';
+import DueDate from 'components/atoms/DueDate';
+import StatBox from 'components/molecules/StatBox';
+import StyledQuill from 'components/organisms/StyledQuill';
+import ZaboList from 'components/templates/ZaboList';
 
 import { followProfile, getProfile } from 'store/reducers/profile';
 import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';

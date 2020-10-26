@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch, useRouteMatch } from 'react-router-dom';
 
-import Header from 'templates/Header';
-import { NotFound, ZaboDetailPage, ZaboEditPage } from 'pages';
+import { NotFound, ZaboDetailPage, ZaboEditPage } from 'components/pages';
+import Header from 'components/templates/Header';
 
 import paramsToProps from '../../../hoc/paramsToProps';
 import { ZaboPageWrapper } from './ZaboPage.styled';

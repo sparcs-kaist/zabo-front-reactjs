@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import clsx from 'clsx';
 
-import StyledQuill from 'organisms/StyledQuill';
+import StyledQuill from 'components/organisms/StyledQuill';
 
 import defaultProfile from 'static/images/defaultProfile.png';
 

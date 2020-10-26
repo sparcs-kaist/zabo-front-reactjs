@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 
-import SimpleSelect from 'molecules/SimpleSelect';
+import SimpleSelect from 'components/molecules/SimpleSelect';
 
 import useSetState from 'hooks/useSetState';
 import { colors } from 'lib/theme';

@@ -2,9 +2,9 @@ import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import SuperTooltip from 'atoms/SuperTooltip';
-import StyledQuill from 'organisms/StyledQuill';
-import { Page } from 'pages/ProfilePage/Profile.styled';
+import SuperTooltip from 'components/atoms/SuperTooltip';
+import StyledQuill from 'components/organisms/StyledQuill';
+import { Page } from 'components/pages/ProfilePage/Profile.styled';
 
 import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
 

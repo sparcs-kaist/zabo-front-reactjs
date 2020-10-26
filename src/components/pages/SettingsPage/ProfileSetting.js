@@ -10,8 +10,8 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import AwesomeDebouncePromise from 'awesome-debounce-promise';
 import get from 'lodash.get';
 
-import Footer from 'templates/Footer';
-import Header from 'templates/Header';
+import Footer from 'components/templates/Footer';
+import Header from 'components/templates/Header';
 
 import { updateUserInfo, updateUserInfoWithImage } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';

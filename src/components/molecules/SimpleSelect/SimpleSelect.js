@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Select from 'molecules/Select';
+import Select from 'components/molecules/Select';
 
 const sizes = {
   small: {

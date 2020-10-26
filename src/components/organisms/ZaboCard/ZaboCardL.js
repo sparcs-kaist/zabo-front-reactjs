@@ -5,8 +5,8 @@ import Tooltip from '@material-ui/core/Tooltip';
 import get from 'lodash.get';
 import moment from 'moment';
 
-import { CategoryListW, CategoryW } from 'atoms/Category';
-import SuperTooltip from 'atoms/SuperTooltip';
+import { CategoryListW, CategoryW } from 'components/atoms/Category';
+import SuperTooltip from 'components/atoms/SuperTooltip';
 
 import { ZaboType } from 'lib/propTypes';
 import { isElemWidthOverflown } from 'lib/utils';

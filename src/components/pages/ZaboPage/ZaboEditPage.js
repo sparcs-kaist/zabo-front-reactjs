@@ -6,9 +6,9 @@ import { Prompt, useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import isEqual from 'lodash.isequal';
 
-import Footer from 'templates/Footer';
-import ZaboUpload from 'templates/ZaboUpload';
-import { FooterStyle, PageWrapper } from 'pages/ZaboUploadPage/ZaboUploadPage.styled';
+import { FooterStyle, PageWrapper } from 'components/pages/ZaboUploadPage/ZaboUploadPage.styled';
+import Footer from 'components/templates/Footer';
+import ZaboUpload from 'components/templates/ZaboUpload';
 
 import { defaultSchedule } from 'store/reducers/upload';
 import { patchZabo } from 'store/reducers/zabo';

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import SuperTooltip from 'atoms/SuperTooltip';
+import SuperTooltip from 'components/atoms/SuperTooltip';
 
 import { GroupType } from 'lib/propTypes';
 import { isElemWidthOverflown } from 'lib/utils';

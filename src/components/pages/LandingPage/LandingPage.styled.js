@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import ContainerAtom from 'atoms/Container';
-import TwoCol from 'atoms/TwoCol';
-import GroupBox from 'organisms/GroupBox';
+import ContainerAtom from 'components/atoms/Container';
+import TwoCol from 'components/atoms/TwoCol';
+import GroupBox from 'components/organisms/GroupBox';
 
 import * as mixins from 'lib/mixins';
 import { media } from 'lib/utils/style';

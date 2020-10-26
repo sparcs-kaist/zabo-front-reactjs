@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import Tooltip from '@material-ui/core/Tooltip';
 import get from 'lodash.get';
 
-import SimpleSelect from 'molecules/SimpleSelect';
-import StyledQuill from 'organisms/StyledQuill';
-import Footer from 'templates/Footer';
-import Header from 'templates/Header';
+import SimpleSelect from 'components/molecules/SimpleSelect';
+import StyledQuill from 'components/organisms/StyledQuill';
+import Footer from 'components/templates/Footer';
+import Header from 'components/templates/Header';
 
 import { applyNewGroup } from 'store/reducers/auth';
 import useSetState from 'hooks/useSetState';

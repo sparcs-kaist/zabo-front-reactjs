@@ -10,9 +10,9 @@ import SwipeableViews from 'react-swipeable-views';
 import styled from 'styled-components';
 import get from 'lodash.get';
 
-import Footer from 'templates/Footer';
-import Header from 'templates/Header';
-import ZaboUpload from 'templates/ZaboUpload';
+import Footer from 'components/templates/Footer';
+import Header from 'components/templates/Header';
+import ZaboUpload from 'components/templates/ZaboUpload';
 
 import {
   reset,

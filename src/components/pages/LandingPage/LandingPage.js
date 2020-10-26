@@ -10,13 +10,13 @@ import get from 'lodash.get';
 import moment from 'moment';
 import useSWR from 'swr';
 
-import { CategoryListW, CategoryW } from 'atoms/Category';
-import SVG from 'atoms/SVG';
-import TwoCol from 'atoms/TwoCol';
-import ScrollBtn from 'molecules/ScrollBtn';
-import ZaboCard from 'organisms/ZaboCard';
-import Header from 'templates/Header';
-import ZaboList from 'templates/ZaboList';
+import { CategoryListW, CategoryW } from 'components/atoms/Category';
+import SVG from 'components/atoms/SVG';
+import TwoCol from 'components/atoms/TwoCol';
+import ScrollBtn from 'components/molecules/ScrollBtn';
+import ZaboCard from 'components/organisms/ZaboCard';
+import Header from 'components/templates/Header';
+import ZaboList from 'components/templates/ZaboList';
 
 import { getHotZaboList as getHotZaboListAction } from 'store/reducers/zabo';
 import { getRecommendedGroups } from 'lib/api/group';

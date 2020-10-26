@@ -5,12 +5,12 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import get from 'lodash.get';
 
-import Button from 'atoms/Button';
-import SuperTooltip from 'atoms/SuperTooltip';
-import GroupList from 'organisms/GroupList';
-import ProfileStats from 'organisms/ProfileStats';
-import Header from 'templates/Header';
-import ZaboList from 'templates/ZaboList';
+import Button from 'components/atoms/Button';
+import SuperTooltip from 'components/atoms/SuperTooltip';
+import GroupList from 'components/organisms/GroupList';
+import ProfileStats from 'components/organisms/ProfileStats';
+import Header from 'components/templates/Header';
+import ZaboList from 'components/templates/ZaboList';
 
 import { logout as logoutAction } from 'store/reducers/auth';
 import { UserType } from 'lib/propTypes';
