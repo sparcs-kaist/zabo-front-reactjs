@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -52,13 +52,17 @@ Empty.propTypes = {
   category: PropTypes.arrayOf (PropTypes.string).isRequired,
   isZaboEmpty: PropTypes.bool,
 };
-
 const initialState = {
   zabos: [],
   groups: [],
 };
 
 const SearchPage = () => {
+  const [loading, setLoading] = useState (true);
+  useEffect (() => {
+    setTimeout (() => setLoading (false), 0);
+  });
+
   const dispatch = useDispatch ();
   const { search, state: isResearch } = useLocation ();
   const history = useHistory ();
@@ -94,37 +98,43 @@ const SearchPage = () => {
     if (newCats.length) search.category = newCats;
     history.push (`/search?${queryString.stringify (search)}`, { state: true });
   };
-
+  if (loading === false) {
+    return (
+      <Page>
+        <Header type="search" scrollHeader />
+        {isAllEmpty && !isResearch
+          ? (
+            <Empty query={safeQuery} category={safeCategory} />
+          ) : (
+            <Page.Body>
+              <GroupResultW>
+                {!isGroupEmpty && <GroupList type="search" groups={groups} />}
+              </GroupResultW>
+              <ZaboResultW isGroupEmpty={isGroupEmpty}>
+                <h1>자보 검색 결과</h1>
+                <TagList
+                  type="search"
+                  onTagClick={onTagClick}
+                  clickedTags={safeCategory}
+                />
+                <div className="emptySpace"> </div>
+                {!isZaboEmpty
+                  ? <ZaboList type="search" key={safeQuery + safeCategory.join ('')} />
+                  : <Empty query={safeQuery} category={safeCategory} isZaboEmpty={isZaboEmpty} />}
+              </ZaboResultW>
+            </Page.Body>
+          )}
+      </Page>
+    );
+  }
+  // Insert Loading Icon Instead of h1 tag
   return (
     <Page>
-      <Header type="search" scrollHeader />
-      {isAllEmpty && !isResearch
-        ? (
-          <Empty query={safeQuery} category={safeCategory} />
-        ) : (
-          <Page.Body>
-            <GroupResultW>
-              {!isGroupEmpty && <GroupList type="search" groups={groups} />}
-            </GroupResultW>
-            <ZaboResultW isGroupEmpty={isGroupEmpty}>
-              <h1>자보 검색 결과</h1>
-              <TagList
-                type="search"
-                onTagClick={onTagClick}
-                clickedTags={safeCategory}
-              />
-              <div className="emptySpace"> </div>
-              {!isZaboEmpty
-                ? <ZaboList type="search" key={safeQuery + safeCategory.join ('')} />
-                : <Empty query={safeQuery} category={safeCategory} isZaboEmpty={isZaboEmpty} />}
-            </ZaboResultW>
-          </Page.Body>
-        )}
+      <h1>Loading!!!!</h1>
     </Page>
   );
 };
 
 SearchPage.propTypes = {
 };
-
 export default SearchPage;
