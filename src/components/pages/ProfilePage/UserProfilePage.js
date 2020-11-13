@@ -10,6 +10,7 @@ import SuperTooltip from 'components/atoms/SuperTooltip';
 import GroupList from 'components/organisms/GroupList';
 import ProfileStats from 'components/organisms/ProfileStats';
 import Header from 'components/templates/Header';
+import MainFooter from 'components/templates/MainFooter';
 import ZaboList from 'components/templates/ZaboList';
 
 import { logout as logoutAction } from 'store/reducers/auth';
@@ -54,54 +55,57 @@ const UserProfile = ({ profile }) => {
   const groupsWithPending = useMemo (() => [...groups, ...pendingGroups.map (group => ({ ...group, isPending: true }))], [groups, pendingGroups]);
 
   return (
-    <Page>
-      <Header type="upload" scrollHeader />
-      <Page.Header>
-        <Page.Header.Left>
-          <Page.Header.Left.ProfilePhoto>
-            {
-              profilePhoto
-                ? <img src={profilePhoto} alt="profile photo" />
-                : <img src={defaultProfile} alt="default profile img" />
-            }
-          </Page.Header.Left.ProfilePhoto>
-          <Page.Header.Left.UserInfo>
-            <h1>{username}</h1>
-            <SuperTooltip title={description} hide={!showTooltip}>
-              <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
-            </SuperTooltip>
-            {isMyProfile ? (
-              <section>
-                <Button.Group>
-                  <Button onClick={logout}>로그아웃</Button>
-                  <Button to="/settings/profile" border="main">{isMobile ? '편집' : '프로필 편집'}</Button>
-                  {isAdmin && (<Button to="/admin">{isMobile ? '관리' : '관리자'}</Button>)}
-                </Button.Group>
-              </section>
-            ) : (
-              // <sectino>
-              //   {following
-              //     ? <button onClick={follow} type="button">팔로우 취소</button>
-              //     : <button onClick={follow} type="button">팔로우</button>}
-              // </sectino>
-              ''
-            )}
-          </Page.Header.Left.UserInfo>
-        </Page.Header.Left>
-        <Page.Header.Right>
-          <ProfileStats stats={stats} />
-        </Page.Header.Right>
-      </Page.Header>
-      <Page.Body>
-        <Page.Body.User>
-        </Page.Body.User>
-      </Page.Body>
-      <GroupList type="profile" groups={groupsWithPending} hasApplyBox isMyProfile={isMyProfile} />
-      <Zabos>
-        <h1>저장한 자보</h1>
-        <ZaboList type="pins" query={username} key={username} />
-      </Zabos>
-    </Page>
+    <>
+      <Page>
+        <Header type="upload" scrollHeader />
+        <Page.Header>
+          <Page.Header.Left>
+            <Page.Header.Left.ProfilePhoto>
+              {
+                profilePhoto
+                  ? <img src={profilePhoto} alt="profile photo" />
+                  : <img src={defaultProfile} alt="default profile img" />
+              }
+            </Page.Header.Left.ProfilePhoto>
+            <Page.Header.Left.UserInfo>
+              <h1>{username}</h1>
+              <SuperTooltip title={description} hide={!showTooltip}>
+                <p ref={descRef}>{description || '아직 소개가 없습니다.'}</p>
+              </SuperTooltip>
+              {isMyProfile ? (
+                <section>
+                  <Button.Group>
+                    <Button onClick={logout}>로그아웃</Button>
+                    <Button to="/settings/profile" border="main">{isMobile ? '편집' : '프로필 편집'}</Button>
+                    {isAdmin && (<Button to="/admin">{isMobile ? '관리' : '관리자'}</Button>)}
+                  </Button.Group>
+                </section>
+              ) : (
+                // <sectino>
+                //   {following
+                //     ? <button onClick={follow} type="button">팔로우 취소</button>
+                //     : <button onClick={follow} type="button">팔로우</button>}
+                // </sectino>
+                ''
+              )}
+            </Page.Header.Left.UserInfo>
+          </Page.Header.Left>
+          <Page.Header.Right>
+            <ProfileStats stats={stats} />
+          </Page.Header.Right>
+        </Page.Header>
+        <Page.Body>
+          <Page.Body.User>
+          </Page.Body.User>
+        </Page.Body>
+        <GroupList type="profile" groups={groupsWithPending} hasApplyBox isMyProfile={isMyProfile} />
+        <Zabos>
+          <h1>저장한 자보</h1>
+          <ZaboList type="pins" query={username} key={username} />
+        </Zabos>
+      </Page>
+      <MainFooter />
+    </>
   );
 };
 
