@@ -17,6 +17,7 @@ class Axios {
       timeout: 30000,
       baseURL: `${process.env.REACT_APP_API_HOST || ''}/api`,
       withCredentials: true,
+      validateStatus: () => true,
     });
     this._interceptor = null;
     this.token = '';

@@ -17,6 +17,7 @@ export const AuthPage = loadable (/* webpackPrefetch: true */ () => import ('./A
 export const LoginPage = loadable (/* webpackPrefetch: true */ () => import ('./LoginPage'));
 export const ProfilePage = loadable (/* webpackPrefetch: true */ () => import ('./ProfilePage'));
 export const NotFound = loadable (/* webpackPrefetch: true */ () => import ('./NotFound'));
+export const ForbiddenPage = loadable (/* webpackPrefetch: true */ () => import ('./ForbiddenPage'));
 export const AdminPage = loadable (/* webpackPrefetch: true */ () => import ('./AdminPage'));
 export const SearchPage = loadable (/* webpackPrefetch: true */ () => import ('./SearchPage'));
 export const ApiPage = loadable (/* webpackPrefetch: true */ () => import ('./ApiPage'));
