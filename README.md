@@ -65,11 +65,11 @@ If you're looking for backend codes, you can find it in [here](https://github.co
 
 ## Prerequisites
 
-**You’ll need to have Node 8.10.0 or local development and production machine**. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
+**You’ll need to have Node 16.15.1 or local development and production machine**. You can use [nvm](https://github.com/creationix/nvm#installation) (macOS/Linux) or [nvm-windows](https://github.com/coreybutler/nvm-windows#node-version-manager-nvm-for-windows) to easily switch Node versions between different projects.
 Node.js. That's all you need.
 
 ```sh
-node -v // v10.16.3
+node -v // v16.15.1
 ```
 
 ## Getting Started
