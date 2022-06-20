@@ -1,3 +1,5 @@
+import 'moment/locale/ko';
+
 import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
@@ -119,7 +121,7 @@ const ZaboDetailPage = props => {
   const schedule = schedules[0];
   const timePast = getLabeledTimeDiff (createdAt, 60, 60, 6, 0);
   const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
-  const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
+  const dueFormat = schedule && moment (schedule.startAt).format ('MM월 DD일 (ddd) h:mm');
   const stats = [{
     type: 'like',
     count: likesCount,
@@ -186,10 +188,13 @@ const ZaboDetailPage = props => {
               {schedule && (
                 <CategoryW>
                   <button>{schedule.eventType}</button>
-                  <h3>{schedule.title}</h3>
-                  <div className="schedule-date">
-                    {dueFormat}
+                  <div className="container">
+                    <h3 className="title">{schedule.title}</h3>
+                    <div className="schedule-date">
+                      {dueFormat}
+                    </div>
                   </div>
+
                 </CategoryW>
               )}
               <section className="contents">

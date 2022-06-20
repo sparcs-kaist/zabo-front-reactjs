@@ -214,7 +214,6 @@ ZaboPageWrapper.Recommend = styled.section`
   }
 `;
 
-// TODO: temporal code - need to change
 export const CategoryW = styled.section`
   width: 99%;
   height: 66px;
@@ -236,8 +235,13 @@ export const CategoryW = styled.section`
     border: 0;
     margin-right: 8px;
     padding: 3px 8px;
+    white-space: nowrap;
   }
-  h3 {
+  .container{
+    display : flex;
+    flex-direction : row;
+  }
+  .title {
     color: #363636;
     font-size: 16px;
     font-weight: bold;
@@ -251,10 +255,16 @@ export const CategoryW = styled.section`
     color: #797979;
   }
   @media (max-width: 640px) {
-    flex-direction: column;
+    flex-direction: row;
     align-items: flex-start;
     height: 100%;
     padding: 14px 20px;
     button, h3 { margin-bottom: 5px }
+    .container{
+      flex-direction : column;
+    }
+    .schedule-date{
+      text-align: left;
+    }
   }
 `;
