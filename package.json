@@ -11,7 +11,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build && ./tools/moveBuildFolder.sh",
+    "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build",
     "generate": "python tools/generate-component.py",
     "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'"
   },
