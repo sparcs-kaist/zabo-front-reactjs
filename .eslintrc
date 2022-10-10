@@ -3,17 +3,21 @@
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin-jsx-a11y/recommended",
+    "plugin:jsx-a11y/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:import/typescript",
     "plugin:react/jsx-runtime",
     "airbnb",
     "airbnb/hooks",
-    "airbnb-typescript"
+    "airbnb-typescript",
+    "prettier"
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": [
     "@typescript-eslint"
   ],
-  "root": true
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
 }
