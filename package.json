@@ -13,7 +13,8 @@
     "build-storybook": "build-storybook -s public",
     "postbuild": "gzipper --verbose --brotli ./build && gzipper --verbose ./build && ./tools/moveBuildFolder.sh",
     "generate": "python tools/generate-component.py",
-    "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'"
+    "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -143,11 +144,8 @@
     "babel-eslint": "10.x",
     "babel-plugin-macros": "^2.8.0",
     "eslint": "^8.2.0",
-    "eslint-config-airbnb": "19.0.4",
-    "eslint-config-airbnb-typescript": "^17.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.25.3",
-    "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "gzipper": "^3.5.0",
