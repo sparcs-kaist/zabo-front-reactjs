@@ -16,11 +16,6 @@
     "lint:css": "stylelint './src/**/*.js' './src/**/*.ts*'",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "$npm_execpath lint-staged"
-    }
-  },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,scss}": [
       "eslint --fix",
