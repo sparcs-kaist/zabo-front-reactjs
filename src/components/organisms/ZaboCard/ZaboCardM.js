@@ -1,34 +1,44 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Link } from "react-router-dom";
 
-import DueDate from 'components/atoms/DueDate';
-import StatBox from 'components/molecules/StatBox';
+import DueDate from "components/atoms/DueDate";
+import StatBox from "components/molecules/StatBox";
 
-import { ZaboType } from 'lib/propTypes';
-import { getLabeledTimeDiff, to2Digits } from 'lib/utils';
+import { ZaboType } from "lib/propTypes";
+import { getLabeledTimeDiff, to2Digits } from "lib/utils";
 
-import ZaboCardW, {
-  OverlayW, PosterW, WritingsW,
-} from './ZaboCard.styled';
+import ZaboCardW, { OverlayW, PosterW, WritingsW } from "./ZaboCard.styled";
 
 const Poster = ({ zabo }) => {
   const {
-    _id, photos, title, owner, createdAt, schedules, views,
-    likesCount, isLiked, pinsCount, isPinned,
+    _id,
+    photos,
+    title,
+    owner,
+    createdAt,
+    schedules,
+    views,
+    likesCount,
+    isLiked,
+    pinsCount,
+    isPinned,
   } = zabo;
   const schedule = schedules[0];
 
-  const stats = [{
-    type: 'like',
-    count: likesCount,
-    zaboId: _id,
-    active: isLiked,
-  }, {
-    type: 'pin',
-    count: pinsCount,
-    zaboId: _id,
-    active: isPinned,
-  }];
+  const stats = [
+    {
+      type: "like",
+      count: likesCount,
+      zaboId: _id,
+      active: isLiked,
+    },
+    {
+      type: "pin",
+      count: pinsCount,
+      zaboId: _id,
+      active: isPinned,
+    },
+  ];
 
   return (
     <PosterW
@@ -40,7 +50,7 @@ const Poster = ({ zabo }) => {
       <PosterW.Dimmer className="dimmer" />
       <OverlayW className="hover-show">
         <OverlayW.StatLocator>
-          {stats.map (stat => (
+          {stats.map((stat) => (
             <StatBox className="stat-box" key={stat.type} type="text" stat={stat} />
           ))}
         </OverlayW.StatLocator>
@@ -56,11 +66,20 @@ Poster.propTypes = {
 
 const Writing = ({ zabo }) => {
   const {
-    _id, photos, title, owner, createdAt, schedules, views,
-    likesCount, isLiked, pinsCount, isPinned,
+    _id,
+    photos,
+    title,
+    owner,
+    createdAt,
+    schedules,
+    views,
+    likesCount,
+    isLiked,
+    pinsCount,
+    isPinned,
   } = zabo;
 
-  const timePast = getLabeledTimeDiff (createdAt, 60, 60, 24, 7, 5, 0);
+  const timePast = getLabeledTimeDiff(createdAt, 60, 60, 24, 7, 5, 0);
 
   return (
     <WritingsW>
@@ -70,10 +89,12 @@ const Writing = ({ zabo }) => {
         </div>
       </Link>
       <div className="card-meta">
-        {timePast} &middot; {`조회수 ${(views || 0).toLocaleString ()}`}
+        {timePast} &middot; {`조회수 ${(views || 0).toLocaleString()}`}
       </div>
       <div className="author">
-        <span><Link to={owner ? `/${owner.name}` : '#'}>{owner ? owner.name : 'anonymous'}</Link></span>
+        <span>
+          <Link to={owner ? `/${owner.name}` : "#"}>{owner ? owner.name : "anonymous"}</Link>
+        </span>
       </div>
     </WritingsW>
   );

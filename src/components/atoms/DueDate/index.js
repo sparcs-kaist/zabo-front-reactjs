@@ -1,8 +1,8 @@
-import React from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
+import React from "react";
+import styled from "styled-components";
+import moment from "moment";
 
-import { to2Digits } from 'lib/utils';
+import { to2Digits } from "lib/utils";
 
 const DueDateW = styled.div`
   position: absolute;
@@ -17,14 +17,14 @@ const DueDateW = styled.div`
   font-size: 11px;
   line-height: 18px;
   border-radius: 2px;
-  background: ${props => props.theme.main};
+  background: ${(props) => props.theme.main};
   font-style: normal;
   font-weight: bold;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
 `;
 
-const DDayW = styled (DueDateW)`
-  background: ${props => props.theme.red50};
+const DDayW = styled(DueDateW)`
+  background: ${(props) => props.theme.red50};
 `;
 
 const DueDateLW = styled.div`
@@ -47,17 +47,17 @@ const DueDateLW = styled.div`
   }
 `;
 
-const DDayLW = styled (DueDateLW)`
-  background: ${props => props.theme.red50};
+const DDayLW = styled(DueDateLW)`
+  background: ${(props) => props.theme.red50};
 `;
 
 const DueDate = ({ schedule, large }) => {
-  const due = schedule ? moment (schedule).diff (moment (), 'days') : -1;
+  const due = schedule ? moment(schedule).diff(moment(), "days") : -1;
   if (large) {
-    if (due > 0) return <DueDateLW>D{to2Digits (-due, true)}</DueDateLW>;
+    if (due > 0) return <DueDateLW>D{to2Digits(-due, true)}</DueDateLW>;
     if (due === 0) return <DDayLW>D-Day</DDayLW>;
   } else {
-    if (due > 0) return <DueDateW>D{to2Digits (-due, true)}</DueDateW>;
+    if (due > 0) return <DueDateW>D{to2Digits(-due, true)}</DueDateW>;
     if (due === 0) return <DDayW>D-Day</DDayW>;
   }
   return null;

@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 const InfoFormWrapper = styled.div`
   padding-bottom: 40px;
@@ -7,12 +7,16 @@ const InfoFormWrapper = styled.div`
     font-size: 18px;
     font-weight: bold;
     color: #363636;
-    &.label-tag { margin-bottom: 12px }
-    &.small { font-size: 16px }
+    &.label-tag {
+      margin-bottom: 12px;
+    }
+    &.small {
+      font-size: 16px;
+    }
   }
   .semi-label {
     font-size: 16px;
-    color: #8F8F8F;
+    color: #8f8f8f;
   }
 
   /*container for all inputs*/
@@ -83,7 +87,7 @@ const InfoFormWrapper = styled.div`
     margin-bottom: 20px;
     text-align: center;
   }
-  
+
   .submit > button {
     width: 100%;
     height: 40px;
@@ -122,7 +126,9 @@ const InfoFormWrapper = styled.div`
   /* ============ Responsive CSS ============ */
   /* ======================================== */
   @media (min-width: 640px) {
-    .label.label-tag { margin-bottom: 8px }
+    .label.label-tag {
+      margin-bottom: 8px;
+    }
     .headerLow {
       width: 100%;
       display: flex;
@@ -172,7 +178,9 @@ InfoFormWrapper.Header = styled.section`
       margin: 24px 0 12px 0;
       font-size: 24px;
     }
-    p { padding-bottom: 40px }
+    p {
+      padding-bottom: 40px;
+    }
   }
 `;
 
@@ -190,7 +198,7 @@ InfoFormWrapper.TitleImage = styled.section`
   flex: 1;
   height: 100%;
   margin-right: 48px;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   border-radius: 8px;
   padding: 12px;
   img {
@@ -210,19 +218,20 @@ InfoFormWrapper.TitleImage = styled.section`
 InfoFormWrapper.Info = styled.section`
   flex: 1;
   height: 100%;
-  input.title-input, input.schedule-title-input {
+  input.title-input,
+  input.schedule-title-input {
     width: 100%;
     height: 38px;
     margin: 8px 0 18px 0;
     padding: 11px 16px;
     border-radius: 4px;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     color: #202020;
     border: 0;
     outline: none;
     font-size: 14px;
     &::placeholder {
-      color: #8F8F8F;
+      color: #8f8f8f;
     }
   }
   @media (max-width: 640px) {
@@ -237,12 +246,17 @@ InfoFormWrapper.Info = styled.section`
 InfoFormWrapper.Info.Schedule = styled.section`
   width: 99%;
   height: 100%;
-  ${props => (props.hasSchedule ? css`
-    max-height: 542px;
-    @media (max-width: 640px) { max-height: 626px }
-  ` : css`
-    max-height: 72px;
-  `)};
+  ${(props) =>
+    props.hasSchedule
+      ? css`
+          max-height: 542px;
+          @media (max-width: 640px) {
+            max-height: 626px;
+          }
+        `
+      : css`
+          max-height: 72px;
+        `};
   transition: max-height 0.3s ease-in-out;
   padding: 0 29px;
   margin: 30px 0 48px;
@@ -269,13 +283,16 @@ InfoFormWrapper.Info.Schedule = styled.section`
   .body {
     margin-top: 38px;
     padding-bottom: 36px;
-    ${props => (props.hasSchedule ? css`
-      visibility: visible;
-      opacity: 1;
-  ` : css`
-      visibility: hidden;
-      opacity: 0;
-  `)};
+    ${(props) =>
+      props.hasSchedule
+        ? css`
+            visibility: visible;
+            opacity: 1;
+          `
+        : css`
+            visibility: hidden;
+            opacity: 0;
+          `};
     transition: visibility 0s, opacity 0.5s linear;
   }
   .body-container {
@@ -295,9 +312,10 @@ InfoFormWrapper.Info.Schedule = styled.section`
     .schedule-preview-box {
       margin-top: 8px;
       padding: 24px 32px;
-      border: 1px solid #E9E9E9;
+      border: 1px solid #e9e9e9;
       border-radius: 4px;
-      h3, p {
+      h3,
+      p {
         margin: 0;
       }
       h3 {
@@ -307,11 +325,14 @@ InfoFormWrapper.Info.Schedule = styled.section`
         min-width: 50px;
         line-height: 24px;
         display: inline-block;
-        ${props => (props.hasTitle ? css`
-          color: #363636;
-        ` : css`
-          color: #D2D2D2;
-        `)}
+        ${(props) =>
+          props.hasTitle
+            ? css`
+                color: #363636;
+              `
+            : css`
+                color: #d2d2d2;
+              `}
       }
       p {
         font-size: 16px;
@@ -331,6 +352,4 @@ InfoFormWrapper.Info.Schedule = styled.section`
 
 InfoFormWrapper.Editor = styled.section``;
 
-export {
-  InfoFormWrapper,
-};
+export { InfoFormWrapper };

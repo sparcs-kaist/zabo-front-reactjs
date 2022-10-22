@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const FooterWrapper = styled.footer`
   position: fixed;
@@ -8,7 +8,7 @@ const FooterWrapper = styled.footer`
   height: 74px;
   background: white;
   z-index: 1000;
-  
+
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -16,7 +16,7 @@ const FooterWrapper = styled.footer`
   @media (max-width: 640px) {
     height: 60px;
   }
-  ${props => props.ownStyle || ''};
+  ${(props) => props.ownStyle || ""};
 `;
 
 export default FooterWrapper;

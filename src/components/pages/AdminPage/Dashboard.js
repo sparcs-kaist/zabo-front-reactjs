@@ -1,85 +1,83 @@
-import './chartist.min.css';
+import "./chartist.min.css";
 
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect } from "react";
 // react plugin for creating charts
-import ChartistGraph from 'react-chartist';
-import { Bar, Line } from 'react-chartjs-2';
-import { Divider } from '@material-ui/core';
+import ChartistGraph from "react-chartist";
+import { Bar, Line } from "react-chartjs-2";
+import { Divider } from "@material-ui/core";
 // @material-ui/core
-import { makeStyles } from '@material-ui/core/styles';
-import {
-  ArrowDownward, ArrowForward, ArrowUpward, OpenInNew,
-} from '@material-ui/icons';
-import Accessibility from '@material-ui/icons/Accessibility';
-import AccessTime from '@material-ui/icons/AccessTime';
-import BugReport from '@material-ui/icons/BugReport';
-import Cloud from '@material-ui/icons/Cloud';
-import Code from '@material-ui/icons/Code';
-import DateRange from '@material-ui/icons/DateRange';
-import FileCopy from '@material-ui/icons/FileCopy';
-import Info from '@material-ui/icons/Info';
-import LocalOffer from '@material-ui/icons/LocalOffer';
+import { makeStyles } from "@material-ui/core/styles";
+import { ArrowDownward, ArrowForward, ArrowUpward, OpenInNew } from "@material-ui/icons";
+import Accessibility from "@material-ui/icons/Accessibility";
+import AccessTime from "@material-ui/icons/AccessTime";
+import BugReport from "@material-ui/icons/BugReport";
+import Cloud from "@material-ui/icons/Cloud";
+import Code from "@material-ui/icons/Code";
+import DateRange from "@material-ui/icons/DateRange";
+import FileCopy from "@material-ui/icons/FileCopy";
+import Info from "@material-ui/icons/Info";
+import LocalOffer from "@material-ui/icons/LocalOffer";
 // @material-ui/icons
-import Store from '@material-ui/icons/Store';
-import Update from '@material-ui/icons/Update';
-import Warning from '@material-ui/icons/Warning';
+import Store from "@material-ui/icons/Store";
+import Update from "@material-ui/icons/Update";
+import Warning from "@material-ui/icons/Warning";
 
-import useSetState from 'hooks/useSetState';
-import axios from 'lib/axios';
+import useSetState from "hooks/useSetState";
+import axios from "lib/axios";
 
-import styles from './assets/jss/material-dashboard-react/views/dashboardStyle';
-import Card from './components/Card/Card';
-import CardBody from './components/Card/CardBody';
-import CardFooter from './components/Card/CardFooter';
-import CardHeader from './components/Card/CardHeader';
-import CardIcon from './components/Card/CardIcon';
-import CustomTabs from './components/CustomTabs/CustomTabs';
-import GridContainer from './components/Grid/GridContainer';
+import styles from "./assets/jss/material-dashboard-react/views/dashboardStyle";
+import Card from "./components/Card/Card";
+import CardBody from "./components/Card/CardBody";
+import CardFooter from "./components/Card/CardFooter";
+import CardHeader from "./components/Card/CardHeader";
+import CardIcon from "./components/Card/CardIcon";
+import CustomTabs from "./components/CustomTabs/CustomTabs";
+import GridContainer from "./components/Grid/GridContainer";
 // core components
-import GridItem from './components/Grid/GridItem';
-import Table from './components/Table/Table';
-import Tasks from './components/Tasks/Tasks';
-import Danger from './components/Typography/Danger';
-import {
-  completedTasksChart,
-  dailySalesChart,
-  emailsSubscriptionChart,
-} from './variables/charts';
-import { bugs, server, website } from './variables/general';
+import GridItem from "./components/Grid/GridItem";
+import Table from "./components/Table/Table";
+import Tasks from "./components/Tasks/Tasks";
+import Danger from "./components/Typography/Danger";
+import { completedTasksChart, dailySalesChart, emailsSubscriptionChart } from "./variables/charts";
+import { bugs, server, website } from "./variables/general";
 
-const useStyles = makeStyles (styles);
+const useStyles = makeStyles(styles);
 
-const today = new Date ();
+const today = new Date();
 const days = [];
 for (let i = 0; i < 7; i++) {
-  if (i === 6 || today.getDate () === 1) {
-    days[6 - i] = `${today.getMonth () + 1}/${today.getDate ()}`;
+  if (i === 6 || today.getDate() === 1) {
+    days[6 - i] = `${today.getMonth() + 1}/${today.getDate()}`;
   } else {
-    days[6 - i] = today.getDate ();
+    days[6 - i] = today.getDate();
   }
-  today.setDate (today.getDate () - 1);
+  today.setDate(today.getDate() - 1);
 }
 
-const parseData = data => {
+const parseData = (data) => {
   const cnt = [0, 0, 0, 0, 0, 0, 0];
-  data.forEach (({ _id, createdAt }) => {
-    const pos = new Date ();
-    const temp = new Date (createdAt);
+  data.forEach(({ _id, createdAt }) => {
+    const pos = new Date();
+    const temp = new Date(createdAt);
 
     for (let i = 0; i < 6; i++) {
-      if (temp.getDate () === pos.getDate () && temp.getMonth () === pos.getMonth () && temp.getFullYear () === pos.getFullYear ()) {
+      if (
+        temp.getDate() === pos.getDate() &&
+        temp.getMonth() === pos.getMonth() &&
+        temp.getFullYear() === pos.getFullYear()
+      ) {
         cnt[6 - i] += 1;
         break;
       } else {
-        pos.setDate (pos.getDate () - 1);
+        pos.setDate(pos.getDate() - 1);
       }
     }
   });
   return cnt;
 };
 
-export default function Dashboard () {
-  const [state, setState] = useSetState ({
+export default function Dashboard() {
+  const [state, setState] = useSetState({
     totalZaboCounts: 0,
     todayZaboCounts: 0,
     totalUserCounts: 0,
@@ -92,18 +90,23 @@ export default function Dashboard () {
     },
   });
   const {
-    totalZaboCounts, todayZaboCounts, totalUserCounts, todayUserCounts, zaboChartData, userChartData,
+    totalZaboCounts,
+    todayZaboCounts,
+    totalUserCounts,
+    todayUserCounts,
+    zaboChartData,
+    userChartData,
   } = state;
 
-  const fetchChartData = useCallback (() => {
-    Promise.all ([
-      axios.get ('/admin/analytics/zabo/date/created'),
-      axios.get ('/admin/analytics/user/date/created'),
-    ])
-      .then (([zaboList, userList]) => {
-        const zaboCounts = parseData (zaboList);
-        const userCounts = parseData (userList);
-        setState ({
+  const fetchChartData = useCallback(() => {
+    Promise.all([
+      axios.get("/admin/analytics/zabo/date/created"),
+      axios.get("/admin/analytics/user/date/created"),
+    ]).then(
+      ([zaboList, userList]) => {
+        const zaboCounts = parseData(zaboList);
+        const userCounts = parseData(userList);
+        setState({
           totalZaboCounts: zaboList.length,
           todayZaboCounts: zaboCounts[6],
           totalUserCounts: userList.length,
@@ -117,30 +120,32 @@ export default function Dashboard () {
             data: userCounts,
           },
         });
-      }, error => {
-        console.error (error);
-        setState ({
-          totalZaboCounts: 'NaN',
-          todayZaboCounts: 'NaN',
-          totalUserCounts: 'NaN',
-          todayUserCounts: 'NaN',
+      },
+      (error) => {
+        console.error(error);
+        setState({
+          totalZaboCounts: "NaN",
+          todayZaboCounts: "NaN",
+          totalUserCounts: "NaN",
+          todayUserCounts: "NaN",
           zaboChartData: {
-            labels: [''],
+            labels: [""],
             data: [0],
           },
           userChartData: {
-            labels: [''],
+            labels: [""],
             data: [0],
           },
         });
-      });
+      },
+    );
   }, [state, setState]);
 
-  useEffect (() => {
-    fetchChartData ();
+  useEffect(() => {
+    fetchChartData();
   }, []);
 
-  const classes = useStyles ();
+  const classes = useStyles();
   return (
     <div>
       <h1 className={classes.containerTitle}>모아보기</h1>
@@ -154,9 +159,9 @@ export default function Dashboard () {
                   datasets: [
                     {
                       data: zaboChartData.data,
-                      label: ' Zabos',
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                      borderColor: 'rgba(255, 255, 255, 0.7)',
+                      label: " Zabos",
+                      backgroundColor: "rgba(255, 255, 255, 0.9)",
+                      borderColor: "rgba(255, 255, 255, 0.7)",
                       borderWidth: 1,
                     },
                   ],
@@ -166,27 +171,31 @@ export default function Dashboard () {
                     display: false,
                   },
                   scales: {
-                    xAxes: [{
-                      maxBarThickness: 15,
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
+                    xAxes: [
+                      {
+                        maxBarThickness: 15,
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                        },
                       },
-                      ticks: {
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
+                    ],
+                    yAxes: [
+                      {
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                          precision: false,
+                        },
                       },
-                    }],
-                    yAxes: [{
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
-                      },
-                      ticks: {
-                        beginAtZero: true,
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
-                        precision: false,
-                      },
-                    }],
+                    ],
                   },
                 }}
               />
@@ -196,53 +205,35 @@ export default function Dashboard () {
               <p className={classes.cardCategory}>
                 오늘은
                 <>
-                  {
-                    zaboChartData.data[6] > zaboChartData.data[5]
-                      ? (
-                        <span className={classes.cardEmphasizeSuccess}>
-                          <ArrowUpward className={classes.arrowCardCategory} />
-                          { todayZaboCounts }
-                        </span>
-                      )
-                      : zaboChartData.data[6] < zaboChartData.data[5]
-                        ? (
-                          <span className={classes.cardEmphasizeDanger}>
-                            <ArrowDownward className={classes.arrowCardCategory} />
-                            { todayZaboCounts }
-                          </span>
-                        )
-                        : (
-                          <span className={classes.cardEmphasizeNormal}>
-                            <ArrowForward className={classes.arrowCardCategory} />
-                            { todayZaboCounts }
-                          </span>
-                        )
-                  }
+                  {zaboChartData.data[6] > zaboChartData.data[5] ? (
+                    <span className={classes.cardEmphasizeSuccess}>
+                      <ArrowUpward className={classes.arrowCardCategory} />
+                      {todayZaboCounts}
+                    </span>
+                  ) : zaboChartData.data[6] < zaboChartData.data[5] ? (
+                    <span className={classes.cardEmphasizeDanger}>
+                      <ArrowDownward className={classes.arrowCardCategory} />
+                      {todayZaboCounts}
+                    </span>
+                  ) : (
+                    <span className={classes.cardEmphasizeNormal}>
+                      <ArrowForward className={classes.arrowCardCategory} />
+                      {todayZaboCounts}
+                    </span>
+                  )}
                 </>
                 개, 총
-                {
-                  zaboChartData.data[6] > zaboChartData.data[5]
-                    ? (
-                      <span className={classes.cardEmphasizeSuccess}>
-                        { totalZaboCounts }
-                      </span>
-                    )
-                    : zaboChartData.data[6] < zaboChartData.data[5]
-                      ? (
-                        <span className={classes.cardEmphasizeDanger}>
-                          { totalZaboCounts }
-                        </span>
-                      )
-                      : (
-                        <span className={classes.cardEmphasizeNormal}>
-                          { totalZaboCounts }
-                        </span>
-                      )
-                }
+                {zaboChartData.data[6] > zaboChartData.data[5] ? (
+                  <span className={classes.cardEmphasizeSuccess}>{totalZaboCounts}</span>
+                ) : zaboChartData.data[6] < zaboChartData.data[5] ? (
+                  <span className={classes.cardEmphasizeDanger}>{totalZaboCounts}</span>
+                ) : (
+                  <span className={classes.cardEmphasizeNormal}>{totalZaboCounts}</span>
+                )}
                 개의 자보가 등록되었습니다.
               </p>
             </CardBody>
-            <CardFooter chart style={{ justifyContent: 'flex-end' }}>
+            <CardFooter chart style={{ justifyContent: "flex-end" }}>
               <div className={classes.stats}>
                 <OpenInNew /> 자세히 보기
               </div>
@@ -258,9 +249,9 @@ export default function Dashboard () {
                   datasets: [
                     {
                       data: userChartData.data,
-                      label: ' Users',
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                      borderColor: 'rgba(255, 255, 255, 0.7)',
+                      label: " Users",
+                      backgroundColor: "rgba(255, 255, 255, 0.9)",
+                      borderColor: "rgba(255, 255, 255, 0.7)",
                       borderWidth: 1,
                     },
                   ],
@@ -270,27 +261,31 @@ export default function Dashboard () {
                     display: false,
                   },
                   scales: {
-                    xAxes: [{
-                      maxBarThickness: 15,
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
+                    xAxes: [
+                      {
+                        maxBarThickness: 15,
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                        },
                       },
-                      ticks: {
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
+                    ],
+                    yAxes: [
+                      {
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                          precision: false,
+                        },
                       },
-                    }],
-                    yAxes: [{
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
-                      },
-                      ticks: {
-                        beginAtZero: true,
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
-                        precision: false,
-                      },
-                    }],
+                    ],
                   },
                 }}
               />
@@ -300,53 +295,35 @@ export default function Dashboard () {
               <p className={classes.cardCategory}>
                 오늘은
                 <>
-                  {
-                    userChartData.data[6] > userChartData.data[5]
-                      ? (
-                        <span className={classes.cardEmphasizeSuccess}>
-                          <ArrowUpward className={classes.arrowCardCategory} />
-                          { todayUserCounts }
-                        </span>
-                      )
-                      : userChartData.data[6] < userChartData.data[5]
-                        ? (
-                          <span className={classes.cardEmphasizeDanger}>
-                            <ArrowDownward className={classes.arrowCardCategory} />
-                            { todayUserCounts }
-                          </span>
-                        )
-                        : (
-                          <span className={classes.cardEmphasizeNormal}>
-                            <ArrowForward className={classes.arrowCardCategory} />
-                            { todayUserCounts }
-                          </span>
-                        )
-                  }
+                  {userChartData.data[6] > userChartData.data[5] ? (
+                    <span className={classes.cardEmphasizeSuccess}>
+                      <ArrowUpward className={classes.arrowCardCategory} />
+                      {todayUserCounts}
+                    </span>
+                  ) : userChartData.data[6] < userChartData.data[5] ? (
+                    <span className={classes.cardEmphasizeDanger}>
+                      <ArrowDownward className={classes.arrowCardCategory} />
+                      {todayUserCounts}
+                    </span>
+                  ) : (
+                    <span className={classes.cardEmphasizeNormal}>
+                      <ArrowForward className={classes.arrowCardCategory} />
+                      {todayUserCounts}
+                    </span>
+                  )}
                 </>
                 명, 총
-                {
-                  userChartData.data[6] > userChartData.data[5]
-                    ? (
-                      <span className={classes.cardEmphasizeSuccess}>
-                        { totalUserCounts }
-                      </span>
-                    )
-                    : userChartData.data[6] < userChartData.data[5]
-                      ? (
-                        <span className={classes.cardEmphasizeDanger}>
-                          { totalUserCounts }
-                        </span>
-                      )
-                      : (
-                        <span className={classes.cardEmphasizeNormal}>
-                          { totalUserCounts }
-                        </span>
-                      )
-                }
+                {userChartData.data[6] > userChartData.data[5] ? (
+                  <span className={classes.cardEmphasizeSuccess}>{totalUserCounts}</span>
+                ) : userChartData.data[6] < userChartData.data[5] ? (
+                  <span className={classes.cardEmphasizeDanger}>{totalUserCounts}</span>
+                ) : (
+                  <span className={classes.cardEmphasizeNormal}>{totalUserCounts}</span>
+                )}
                 명의 회원이 가입했습니다.
               </p>
             </CardBody>
-            <CardFooter chart style={{ justifyContent: 'flex-end' }}>
+            <CardFooter chart style={{ justifyContent: "flex-end" }}>
               <div className={classes.stats}>
                 <OpenInNew /> 자세히 보기
               </div>
@@ -362,9 +339,9 @@ export default function Dashboard () {
                   datasets: [
                     {
                       data: userChartData.data,
-                      label: ' CCU',
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                      borderColor: 'rgba(255, 255, 255, 0.7)',
+                      label: " CCU",
+                      backgroundColor: "rgba(255, 255, 255, 0.9)",
+                      borderColor: "rgba(255, 255, 255, 0.7)",
                       fill: false,
                       borderWidth: 3.1,
                     },
@@ -375,44 +352,44 @@ export default function Dashboard () {
                     display: false,
                   },
                   scales: {
-                    xAxes: [{
-                      maxBarThickness: 15,
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
+                    xAxes: [
+                      {
+                        maxBarThickness: 15,
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                        },
                       },
-                      ticks: {
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
+                    ],
+                    yAxes: [
+                      {
+                        gridLines: {
+                          color: "rgba(255, 255, 255, 0.2)",
+                          zeroLineColor: "rgba(255, 255, 255, 0.2)",
+                        },
+                        ticks: {
+                          beginAtZero: true,
+                          fontColor: "rgba(255, 255, 255, 0.9)",
+                          precision: false,
+                        },
                       },
-                    }],
-                    yAxes: [{
-                      gridLines: {
-                        color: 'rgba(255, 255, 255, 0.2)',
-                        zeroLineColor: 'rgba(255, 255, 255, 0.2)',
-                      },
-                      ticks: {
-                        beginAtZero: true,
-                        fontColor: 'rgba(255, 255, 255, 0.9)',
-                        precision: false,
-                      },
-                    }],
+                    ],
                   },
                 }}
               />
             </CardHeader>
             <CardBody>
               <h4 className={classes.cardTitle}>사용자 수</h4>
-              <p className={classes.cardCategory}>현재 총
-                <span className={classes.cardEmphasizeSuccess}>
-                  {totalUserCounts}
-                </span>
+              <p className={classes.cardCategory}>
+                현재 총<span className={classes.cardEmphasizeSuccess}>{totalUserCounts}</span>
                 (비회원
-                <span className={classes.cardEmphasizeNormal}>
-                    xx
-                </span>)명이 자보를 이용중입니다.
+                <span className={classes.cardEmphasizeNormal}>xx</span>)명이 자보를 이용중입니다.
               </p>
             </CardBody>
-            <CardFooter chart style={{ justifyContent: 'flex-end' }}>
+            <CardFooter chart style={{ justifyContent: "flex-end" }}>
               <div className={classes.stats}>
                 <OpenInNew /> 자세히 보기
               </div>
@@ -438,7 +415,7 @@ export default function Dashboard () {
                 <Danger>
                   <Warning />
                 </Danger>
-                <a href="#pablo" onClick={e => e.preventDefault ()}>
+                <a href="#pablo" onClick={(e) => e.preventDefault()}>
                   Get more space
                 </a>
               </div>
@@ -514,7 +491,7 @@ export default function Dashboard () {
               <p className={classes.cardCategory}>
                 <span className={classes.successText}>
                   <ArrowUpward className={classes.upArrowCardCategory} /> 55%
-                </span>{' '}
+                </span>{" "}
                 increase in today sales.
               </p>
             </CardBody>
@@ -578,37 +555,21 @@ export default function Dashboard () {
             headerColor="primary"
             tabs={[
               {
-                tabName: 'Bugs',
+                tabName: "Bugs",
                 tabIcon: BugReport,
                 tabContent: (
-                  <Tasks
-                    checkedIndexes={[0, 3]}
-                    tasksIndexes={[0, 1, 2, 3]}
-                    tasks={bugs}
-                  />
+                  <Tasks checkedIndexes={[0, 3]} tasksIndexes={[0, 1, 2, 3]} tasks={bugs} />
                 ),
               },
               {
-                tabName: 'Website',
+                tabName: "Website",
                 tabIcon: Code,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[0]}
-                    tasksIndexes={[0, 1]}
-                    tasks={website}
-                  />
-                ),
+                tabContent: <Tasks checkedIndexes={[0]} tasksIndexes={[0, 1]} tasks={website} />,
               },
               {
-                tabName: 'Server',
+                tabName: "Server",
                 tabIcon: Cloud,
-                tabContent: (
-                  <Tasks
-                    checkedIndexes={[1]}
-                    tasksIndexes={[0, 1, 2]}
-                    tasks={server}
-                  />
-                ),
+                tabContent: <Tasks checkedIndexes={[1]} tasksIndexes={[0, 1, 2]} tasks={server} />,
               },
             ]}
           />
@@ -617,19 +578,17 @@ export default function Dashboard () {
           <Card>
             <CardHeader color="warning">
               <h4 className={classes.cardTitleWhite}>Employees Stats</h4>
-              <p className={classes.cardCategoryWhite}>
-                New employees on 15th September, 2016
-              </p>
+              <p className={classes.cardCategoryWhite}>New employees on 15th September, 2016</p>
             </CardHeader>
             <CardBody>
               <Table
                 tableHeaderColor="warning"
-                tableHead={['ID', 'Name', 'Salary', 'Country']}
+                tableHead={["ID", "Name", "Salary", "Country"]}
                 tableData={[
-                  ['1', 'Dakota Rice', '$36,738', 'Niger'],
-                  ['2', 'Minerva Hooper', '$23,789', 'Curaçao'],
-                  ['3', 'Sage Rodriguez', '$56,142', 'Netherlands'],
-                  ['4', 'Philip Chaney', '$38,735', 'Korea, South'],
+                  ["1", "Dakota Rice", "$36,738", "Niger"],
+                  ["2", "Minerva Hooper", "$23,789", "Curaçao"],
+                  ["3", "Sage Rodriguez", "$56,142", "Netherlands"],
+                  ["4", "Philip Chaney", "$38,735", "Korea, South"],
                 ]}
               />
             </CardBody>

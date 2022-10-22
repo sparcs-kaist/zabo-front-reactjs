@@ -1,1 +1,1 @@
-export { default } from './GroupList';
+export { default } from "./GroupList";

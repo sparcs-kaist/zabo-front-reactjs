@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
 
-import { GroupType } from 'lib/propTypes';
+import { GroupType } from "lib/propTypes";
 
-import ScrollBtn from '../../molecules/ScrollBtn';
-import GroupBox from '../GroupBox';
+import ScrollBtn from "../../molecules/ScrollBtn";
+import GroupBox from "../GroupBox";
 
 export const Groups = styled.section`
   width: 1032px;
@@ -37,10 +37,12 @@ Groups.List = styled.div`
   overflow-x: scroll;
   /* overflow-y: visible; */
   white-space: nowrap;
-  
+
   /* hide scroll bar */
   /* -webkit- (Chrome, Safari, newer versions of Opera) */
-  &::-webkit-scrollbar { width: 0 !important }
+  &::-webkit-scrollbar {
+    width: 0 !important;
+  }
   /* Firefox */
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
@@ -52,18 +54,18 @@ Groups.List = styled.div`
 `;
 
 const text = {
-  profile: '소속 그룹',
-  search: '그룹 검색 결과',
+  profile: "소속 그룹",
+  search: "그룹 검색 결과",
 };
 
-const GroupList = ({
-  type, groups, hasApplyBox, isMyProfile,
-}) => (
+const GroupList = ({ type, groups, hasApplyBox, isMyProfile }) => (
   <Groups>
     <h1>{text[type]}</h1>
     <ScrollBtn elemId="groupsList" show={groups.length > 3} />
     <Groups.List id="groupsList">
-      {groups.map (group => <GroupBox group={group} key={group.name} />)}
+      {groups.map((group) => (
+        <GroupBox group={group} key={group.name} />
+      ))}
       {isMyProfile && <GroupBox type="apply" group={{}} />}
       <>&nbsp;</>
     </Groups.List>
@@ -72,7 +74,7 @@ const GroupList = ({
 
 GroupList.propTypes = {
   type: PropTypes.string.isRequired,
-  groups: PropTypes.arrayOf (GroupType).isRequired,
+  groups: PropTypes.arrayOf(GroupType).isRequired,
   hasApplyBox: PropTypes.bool,
 };
 

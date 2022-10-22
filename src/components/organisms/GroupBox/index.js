@@ -1,1 +1,1 @@
-export { default } from './GroupBox';
+export { default } from "./GroupBox";

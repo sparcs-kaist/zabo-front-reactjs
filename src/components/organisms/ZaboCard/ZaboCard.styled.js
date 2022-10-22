@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import * as mixins from 'lib/mixins';
-import { media } from 'lib/utils/style';
+import * as mixins from "lib/mixins";
+import { media } from "lib/utils/style";
 
 /* ============ Zabo ============ */
 const ZaboCardW = styled.div`
@@ -21,13 +21,14 @@ export const PosterW = styled.div`
   cursor: pointer;
   overflow: hidden;
   border-radius: 4px;
-  ${props => (props.anchor === 'width'
-    ? css`
-      width: 240px;
-    `
-    : css`
-      height: 100%;
-    `)}; 
+  ${(props) =>
+    props.anchor === "width"
+      ? css`
+          width: 240px;
+        `
+      : css`
+          height: 100%;
+        `};
   &:hover {
     .hover-show {
       visibility: visible;
@@ -35,7 +36,10 @@ export const PosterW = styled.div`
   }
   @media (max-width: 640px) {
     &:hover {
-      .dimmer, .hover-show { display: none }
+      .dimmer,
+      .hover-show {
+        display: none;
+      }
     }
   }
 `;
@@ -48,14 +52,20 @@ PosterW.Image = styled.img`
 
 PosterW.Dimmer = styled.div`
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%; 
-  background-color: rgba(0, 0, 0, .03);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
 `;
 
 export const OverlayW = styled.div`
   visibility: hidden;
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35));
 `;
 
@@ -82,7 +92,7 @@ export const WritingsW = styled.div`
     font-size: 14px;
     line-height: 16px;
     color: #143441;
-    overflow : hidden;
+    overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
   }
@@ -90,7 +100,7 @@ export const WritingsW = styled.div`
     margin-top: 2px;
     font-size: 12px;
     line-height: 14px;
-    color: #8F8F8F;
+    color: #8f8f8f;
   }
   .author {
     margin-top: 8px;
@@ -119,7 +129,7 @@ export const PosterLW = styled.div`
   height: 100%;
   border-radius: 4px 0 0 4px;
   width: 114px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     width: 140px;
   `)};
 `;
@@ -134,23 +144,26 @@ PosterLW.Image = styled.img`
 
 PosterLW.Dimmer = styled.div`
   position: absolute;
-  top: 0; left: 0; width: 100%; height: 100%; 
-  background-color: rgba(0, 0, 0, .03);
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.03);
 `;
 
 export const ZaboCardLW = styled.section`
   display: flex;
   width: 100%;
   height: 145px;
-  border: 1px solid #E9E9E9;
+  border: 1px solid #e9e9e9;
   border-radius: 4px;
   overflow: hidden;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
   margin-bottom: 8px;
   ${PosterLW} {
     height: 145px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     height: 178px;
     margin-bottom: 16px;
     ${PosterLW} {
@@ -178,12 +191,12 @@ export const Title = styled.div`
   margin-top: 9px;
   margin-bottom: 11px;
   margin-right: 24px;
-  color: ${props => props.theme.main};
+  color: ${(props) => props.theme.main};
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   min-height: 16px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 18px;
     line-height: 20px;
     min-height: 20px;
@@ -205,9 +218,9 @@ OwnerW.Name = styled.div`
   ${mixins.flexCenter};
   font-size: 14px;
   line-height: 16px;
-  color: ${props => props.theme.gray100};
+  color: ${(props) => props.theme.gray100};
   margin-left: 6px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 14px;
     line-height: 16px;
     margin-left: 8px;
@@ -221,7 +234,7 @@ export const MetaInfo = styled.div`
   line-height: 11px;
   color: #666666;
   margin-top: 24px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 12px;
     line-height: 14px;
     margin-top: 44px;
@@ -233,11 +246,10 @@ export const MetaInfo = styled.div`
 // }
 MetaInfo.Dot = styled.div`
   display: inline-block;
-  color: #8F8F8F;
+  color: #8f8f8f;
   vertical-align: middle;
   text-align: center;
   width: 14px;
 `;
-
 
 export default ZaboCardW;

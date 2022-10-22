@@ -1,54 +1,52 @@
-import React, {
-  useCallback, useMemo, useState,
-} from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { makeStyles } from '@material-ui/core';
-import Avatar from '@material-ui/core/Avatar';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import Collapse from '@material-ui/core/Collapse';
-import { red } from '@material-ui/core/colors';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
-import clsx from 'clsx';
-import get from 'lodash.get';
-import moment from 'moment';
+import React, { useCallback, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { makeStyles } from "@material-ui/core";
+import Avatar from "@material-ui/core/Avatar";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import Collapse from "@material-ui/core/Collapse";
+import { red } from "@material-ui/core/colors";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import clsx from "clsx";
+import get from "lodash.get";
+import moment from "moment";
 
-import StyledQuill from 'components/organisms/StyledQuill';
+import StyledQuill from "components/organisms/StyledQuill";
 
-import { acceptApplyGroup } from 'store/reducers/admin';
+import { acceptApplyGroup } from "store/reducers/admin";
 
-import defaultProfile from 'static/images/defaultProfile.png';
-import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+import defaultProfile from "static/images/defaultProfile.png";
+import groupDefaultProfile from "static/images/groupDefaultProfile.png";
 
-import GridContainer from './components/Grid/GridContainer';
-import GridItem from './components/Grid/GridItem';
+import GridContainer from "./components/Grid/GridContainer";
+import GridItem from "./components/Grid/GridItem";
 
-const useStyles = makeStyles (theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    margin: theme.spacing (2),
+    margin: theme.spacing(2),
   },
   media: {
     height: 0,
     // paddingTop: '56.25%', // 16:9
-    paddingTop: '100%', // 16:9
+    paddingTop: "100%", // 16:9
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create ('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
   avatar: {
     backgroundColor: red[500],
@@ -56,21 +54,20 @@ const useStyles = makeStyles (theme => ({
 }));
 
 const GroupItem = ({ group, isPending }) => {
-  const classes = useStyles ();
-  const [expanded, setExpanded] = useState (false);
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
-    setExpanded (!expanded);
+    setExpanded(!expanded);
   };
 
-  const {
-    name, profilePhoto, createdAt, purpose, subtitle, description, members, category,
-  } = group;
+  const { name, profilePhoto, createdAt, purpose, subtitle, description, members, category } =
+    group;
   const owner = (members[0] || {}).user || {};
   const { username, profilePhoto: userProfilePhoto, ...others } = owner;
 
-  const dispatch = useDispatch ();
-  const accept = useCallback (() => {
-    dispatch (acceptApplyGroup ({ name }));
+  const dispatch = useDispatch();
+  const accept = useCallback(() => {
+    dispatch(acceptApplyGroup({ name }));
   }, [name]);
 
   return (
@@ -78,15 +75,19 @@ const GroupItem = ({ group, isPending }) => {
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            <Avatar aria-label="recipe" className={classes.avatar} src={userProfilePhoto || defaultProfile} />
+            <Avatar
+              aria-label="recipe"
+              className={classes.avatar}
+              src={userProfilePhoto || defaultProfile}
+            />
           }
-          action={(
+          action={
             <IconButton aria-label="settings">
               <MoreVertIcon />
             </IconButton>
-          )}
+          }
           title={username}
-          subheader={moment (createdAt).format ('YYYY-MM-DD HH:mm:ss')}
+          subheader={moment(createdAt).format("YYYY-MM-DD HH:mm:ss")}
         />
         <Link to={`/admin/group/${name}`}>
           <CardMedia
@@ -105,12 +106,12 @@ const GroupItem = ({ group, isPending }) => {
         </CardContent>
         <CardActions disableSpacing>
           {isPending && (
-            <div onClick={accept} style={{ cursor: 'pointer' }}>
-            승인하기
+            <div onClick={accept} style={{ cursor: "pointer" }}>
+              승인하기
             </div>
           )}
           <IconButton
-            className={clsx (classes.expand, {
+            className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
             onClick={handleExpandClick}
@@ -122,18 +123,12 @@ const GroupItem = ({ group, isPending }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
+            <Typography paragraph>{JSON.stringify(category)}</Typography>
             <Typography paragraph>
-              {JSON.stringify (category)}
-            </Typography>
-            <Typography paragraph>
-              <StyledQuill
-                theme="bubble"
-                readOnly
-                value={description}
-              />
+              <StyledQuill theme="bubble" readOnly value={description} />
             </Typography>
             {isPending && (
-              <div style={{ borderTop: '1px dashed #143441' }}>
+              <div style={{ borderTop: "1px dashed #143441" }}>
                 <p>Purpose: {purpose}</p>
               </div>
             )}
@@ -145,20 +140,20 @@ const GroupItem = ({ group, isPending }) => {
 };
 
 const GroupAdminPage = () => {
-  const pendingGroups = useSelector (state => get (state, ['admin', 'pendingGroups'], []));
-  const groups = useSelector (state => get (state, ['admin', 'groups'], []));
+  const pendingGroups = useSelector((state) => get(state, ["admin", "pendingGroups"], []));
+  const groups = useSelector((state) => get(state, ["admin", "groups"], []));
 
   return (
     <div>
       <h2>Pending Groups</h2>
       <GridContainer>
-        {pendingGroups.map (group => (
+        {pendingGroups.map((group) => (
           <GroupItem group={group} isPending />
         ))}
       </GridContainer>
       <h2>Groups</h2>
       <GridContainer>
-        {groups.map (group => (
+        {groups.map((group) => (
           <GroupItem group={group} />
         ))}
       </GridContainer>

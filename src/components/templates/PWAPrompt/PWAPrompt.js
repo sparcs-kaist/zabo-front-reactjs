@@ -1,68 +1,67 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
-import appIcon from 'static/logo/sparcs.svg';
+import appIcon from "static/logo/sparcs.svg";
 
-import PWAPromptWrapper from './PWAPrompt.styled';
-
+import PWAPromptWrapper from "./PWAPrompt.styled";
 
 class PWAPrompt extends PureComponent {
   state = { active: false };
 
-  handleScroll = e => {
+  handleScroll = (e) => {
     if (window.scrollY < 10) {
-      document.body.classList.add ('pwa-prompt-active');
-      this.setState ({ active: true });
+      document.body.classList.add("pwa-prompt-active");
+      this.setState({ active: true });
     } else {
-      document.body.classList.remove ('pwa-prompt-active');
-      setTimeout (() => this.setState ({ active: false }));
+      document.body.classList.remove("pwa-prompt-active");
+      setTimeout(() => this.setState({ active: false }));
     }
   };
 
-  handleScroll = e => {
+  handleScroll = (e) => {
     if (window.scrollY < 10) {
-      document.body.classList.add ('pwa-prompt-active');
-      this.setState ({ active: true });
+      document.body.classList.add("pwa-prompt-active");
+      this.setState({ active: true });
     } else {
-      document.body.classList.remove ('pwa-prompt-active');
-      setTimeout (() => this.setState ({ active: false }));
+      document.body.classList.remove("pwa-prompt-active");
+      setTimeout(() => this.setState({ active: false }));
     }
   };
 
   addListener = () => {
-    this.setState ({ active: true });
-    window.addEventListener ('optimizedScroll', this.handleScroll);
-  }
+    this.setState({ active: true });
+    window.addEventListener("optimizedScroll", this.handleScroll);
+  };
 
   deleteListener = () => {
-    this.setState ({ active: false });
-    window.removeEventListener ('optimizedScroll', this.handleScroll);
-  }
+    this.setState({ active: false });
+    window.removeEventListener("optimizedScroll", this.handleScroll);
+  };
 
-  componentDidMount () {
+  componentDidMount() {
     if (window.pwaPromptActive) {
-      this.addListener ();
+      this.addListener();
     } else {
       window.onPWAPromptActive = this.addListener;
     }
   }
 
   handleOpenClick = () => {
-    this.deleteListener ();
-    document.body.classList.remove ('pwa-prompt-active');
+    this.deleteListener();
+    document.body.classList.remove("pwa-prompt-active");
 
-    window.deferredPrompt.prompt ();
+    window.deferredPrompt.prompt();
     // Wait for the user to respond to the prompt
-    window.deferredPrompt.userChoice.then (choiceResult => {
-      if (choiceResult.outcome === 'accepted') {
-        console.log ('User accepted the A2HS prompt'); // TODO: Statistics
+    window.deferredPrompt.userChoice.then((choiceResult) => {
+      if (choiceResult.outcome === "accepted") {
+        console.log("User accepted the A2HS prompt"); // TODO: Statistics
       } else {
-        console.log ('User dismissed the A2HS prompt');
+        console.log("User dismissed the A2HS prompt");
       }
       window.deferredPrompt = null;
     });
-  }
+  };
 
-  render () {
+  render() {
     const { active } = this.state;
     if (!active) return null;
     return (

@@ -1,8 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import addGray from 'static/images/add_gray.svg';
+import addGray from "static/images/add_gray.svg";
 
-import { GroupAW } from './GroupBox.styled';
+import { GroupAW } from "./GroupBox.styled";
 
 const GroupBox = () => (
   <GroupAW to="/settings/group/apply">

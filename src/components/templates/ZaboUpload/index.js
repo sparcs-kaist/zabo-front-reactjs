@@ -1,7 +1,7 @@
-import InfoForm from './InfoForm';
-import SelectGroup from './SelectGroup';
-import UploadImage from './UploadImages';
-import UploadProcess from './UploadProcess';
+import InfoForm from "./InfoForm";
+import SelectGroup from "./SelectGroup";
+import UploadImage from "./UploadImages";
+import UploadProcess from "./UploadProcess";
 
 const ZaboUpload = {
   SelectGroup,

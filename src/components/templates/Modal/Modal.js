@@ -1,155 +1,153 @@
 /* eslint-disable */
-import React, { PureComponent } from 'react';
-import ReactDOM from 'react-dom';
-import { CSSTransition } from 'react-transition-group';
+import React, { PureComponent } from "react";
+import ReactDOM from "react-dom";
+import { CSSTransition } from "react-transition-group";
 
-import ModalWrapper from './Modal.styled';
+import ModalWrapper from "./Modal.styled";
 
 const { body } = document;
 
 class Modal extends PureComponent {
-  constructor (props) {
-    super (props);
-    this.el = document.createElement ('div');
+  constructor(props) {
+    super(props);
+    this.el = document.createElement("div");
     this.state = {
       isHidden: false,
       isLoading: false,
     };
   }
 
-  componentDidMount () {
-    body.appendChild (this.el);
+  componentDidMount() {
+    body.appendChild(this.el);
   }
 
-  componentWillUnmount () {
-    body.removeChild (this.el);
+  componentWillUnmount() {
+    body.removeChild(this.el);
   }
 
-hide = () => {
-  this.setState ({
-    isHidden: true,
-  });
-}
-
-handleOnExited = () => {
-  this.props.onCanceled ();
-  this.hide ();
-}
-
-handleCancel = () => {
-  this.props.onCancel ();
-}
-
-handleSubmit = () => {
-  const { onOk, onCancel } = this.props;
-  const promise = onOk ();
-  if (promise instanceof Promise) {
-    this.setState ({ isLoading: true });
-    promise.then (() => {
-      this.setState ({ isLoading: false });
-      onCancel ();
+  hide = () => {
+    this.setState({
+      isHidden: true,
     });
-  } else {
-    onCancel ();
-  }
-}
+  };
 
-renderMask () {
-  const { show, mask } = this.props;
-  if (!mask) return null;
+  handleOnExited = () => {
+    this.props.onCanceled();
+    this.hide();
+  };
 
-  return (
-    <CSSTransition
-      in={show}
-      appear
-      timeout={200}
-      classNames={{
-        appear: 'fade-appear',
-        appearActive: 'fade-appear-active',
-        enter: 'fade-enter',
-        enterActive: 'fade-enter-active',
-        exit: 'fade-exit',
-        exitActive: 'fade-exit-active',
-      }}
-    >
-      <div
-        className="mask"
-        style={{
-          display: this.state.isHidden ? 'none' : undefined,
-        }}
-        onClick={this.handleCancel}
-      />
-    </CSSTransition>
-  );
-}
+  handleCancel = () => {
+    this.props.onCancel();
+  };
 
-renderFooter () {
-  const {
-    cancelText, okText, footer, cancelButton, okButton,
-  } = this.props;
+  handleSubmit = () => {
+    const { onOk, onCancel } = this.props;
+    const promise = onOk();
+    if (promise instanceof Promise) {
+      this.setState({ isLoading: true });
+      promise.then(() => {
+        this.setState({ isLoading: false });
+        onCancel();
+      });
+    } else {
+      onCancel();
+    }
+  };
 
-  if (footer === undefined) {
+  renderMask() {
+    const { show, mask } = this.props;
+    if (!mask) return null;
+
     return (
-      <div className="footer">
-        {cancelButton && (
-        <div onClick={this.handleCancel} className="button">
-          {cancelText}
-        </div>
-        )}
-        {okButton && (
-        <div onClick={this.handleSubmit} className="button">
-          {okText}
-        </div>
-        )}
-      </div>
-    );
-  }
-  return footer;
-}
-
-renderContent () {
-  const { show, title, children } = this.props;
-
-  return (
-    <CSSTransition
-      in={show}
-      appear
-      timeout={200}
-      classNames={{
-        appear: 'zoom-appear',
-        appearActive: 'zoom-appear-active',
-        enter: 'zoom-enter',
-        enterActive: 'zoom-enter-active',
-        exit: 'zoom-exit',
-        exitActive: 'zoom-exit-active',
-      }}
-      onExited={this.handleOnExited}
-    >
-      <div
-        className="modal"
-        style={{
-          display: this.state.isHidden ? 'none' : undefined,
+      <CSSTransition
+        in={show}
+        appear
+        timeout={200}
+        classNames={{
+          appear: "fade-appear",
+          appearActive: "fade-appear-active",
+          enter: "fade-enter",
+          enterActive: "fade-enter-active",
+          exit: "fade-exit",
+          exitActive: "fade-exit-active",
         }}
       >
-        <div className="header" />
-        {title && (typeof title === 'string' ? <div className="title">{title}</div> : title)}
-        {children
-&& (typeof children === 'string' ? <div className="content">{children}</div> : children)}
-        {this.renderFooter ()}
-      </div>
-    </CSSTransition>
-  );
-}
+        <div
+          className="mask"
+          style={{
+            display: this.state.isHidden ? "none" : undefined,
+          }}
+          onClick={this.handleCancel}
+        />
+      </CSSTransition>
+    );
+  }
 
-render () {
-  return ReactDOM.createPortal (
-    <ModalWrapper>
-      {this.renderMask ()}
-      {this.renderContent ()}
-    </ModalWrapper>,
-    this.el,
-  );
-}
+  renderFooter() {
+    const { cancelText, okText, footer, cancelButton, okButton } = this.props;
+
+    if (footer === undefined) {
+      return (
+        <div className="footer">
+          {cancelButton && (
+            <div onClick={this.handleCancel} className="button">
+              {cancelText}
+            </div>
+          )}
+          {okButton && (
+            <div onClick={this.handleSubmit} className="button">
+              {okText}
+            </div>
+          )}
+        </div>
+      );
+    }
+    return footer;
+  }
+
+  renderContent() {
+    const { show, title, children } = this.props;
+
+    return (
+      <CSSTransition
+        in={show}
+        appear
+        timeout={200}
+        classNames={{
+          appear: "zoom-appear",
+          appearActive: "zoom-appear-active",
+          enter: "zoom-enter",
+          enterActive: "zoom-enter-active",
+          exit: "zoom-exit",
+          exitActive: "zoom-exit-active",
+        }}
+        onExited={this.handleOnExited}
+      >
+        <div
+          className="modal"
+          style={{
+            display: this.state.isHidden ? "none" : undefined,
+          }}
+        >
+          <div className="header" />
+          {title && (typeof title === "string" ? <div className="title">{title}</div> : title)}
+          {children &&
+            (typeof children === "string" ? <div className="content">{children}</div> : children)}
+          {this.renderFooter()}
+        </div>
+      </CSSTransition>
+    );
+  }
+
+  render() {
+    return ReactDOM.createPortal(
+      <ModalWrapper>
+        {this.renderMask()}
+        {this.renderContent()}
+      </ModalWrapper>,
+      this.el,
+    );
+  }
 }
 
 Modal.propTyes = {};
