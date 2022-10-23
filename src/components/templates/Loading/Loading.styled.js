@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const LoadingWrapper = styled.div`
   margin: 0;
@@ -8,7 +8,7 @@ const LoadingWrapper = styled.div`
   align-items: center;
   font-family: "Just Another Hand", cursive;
 
-  height: ${props => props.height || '100vh'};
+  height: ${(props) => props.height || "100vh"};
 
   ul {
     margin: 0;

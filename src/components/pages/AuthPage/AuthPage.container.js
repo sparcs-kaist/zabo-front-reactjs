@@ -1,16 +1,16 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
 
-import AuthPage from './AuthPage';
+import AuthPage from "./AuthPage";
 
 class AuthPageContainer extends PureComponent {
-  render () {
+  render() {
     return <AuthPage {...this.props} />;
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch) => ({});
 
-export default connect (mapStateToProps, mapDispatchToProps) (AuthPageContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(AuthPageContainer);

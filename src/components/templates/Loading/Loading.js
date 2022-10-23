@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import LoadingWrapper from './Loading.styled';
+import LoadingWrapper from "./Loading.styled";
 
 class Loading extends PureComponent {
-  render () {
+  render() {
     return (
       <LoadingWrapper className="pre-loading" height={this.props.height}>
         <ul>
@@ -20,11 +20,11 @@ class Loading extends PureComponent {
 }
 
 Loading.propTypes = {
-  height: PropTypes.oneOfType ([PropTypes.string, PropTypes.number]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 Loading.defaultProps = {
-  height: '100vh',
+  height: "100vh",
 };
 
 export default Loading;

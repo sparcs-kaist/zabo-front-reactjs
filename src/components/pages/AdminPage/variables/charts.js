@@ -1,7 +1,7 @@
 // ##############################
 // // // javascript library for creating charts
 // #############################
-const Chartist = require ('chartist');
+const Chartist = require("chartist");
 
 // ##############################
 // // // variables used to create animation on charts
@@ -17,11 +17,11 @@ const durations2 = 500;
 
 const dailySalesChart = {
   data: {
-    labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+    labels: ["M", "T", "W", "T", "F", "S", "S"],
     series: [[12, 17, 7, 17, 23, 18, 38]],
   },
   options: {
-    lineSmooth: Chartist.Interpolation.cardinal ({
+    lineSmooth: Chartist.Interpolation.cardinal({
       tension: 0,
     }),
     low: 0,
@@ -35,29 +35,25 @@ const dailySalesChart = {
   },
   // for animation
   animation: {
-    draw (data) {
-      if (data.type === 'line' || data.type === 'area') {
-        data.element.animate ({
+    draw(data) {
+      if (data.type === "line" || data.type === "area") {
+        data.element.animate({
           d: {
             begin: 600,
             dur: 700,
-            from: data.path
-              .clone ()
-              .scale (1, 0)
-              .translate (0, data.chartRect.height ())
-              .stringify (),
-            to: data.path.clone ().stringify (),
+            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+            to: data.path.clone().stringify(),
             easing: Chartist.Svg.Easing.easeOutQuint,
           },
         });
-      } else if (data.type === 'point') {
-        data.element.animate ({
+      } else if (data.type === "point") {
+        data.element.animate({
           opacity: {
             begin: (data.index + 1) * delays,
             dur: durations,
             from: 0,
             to: 1,
-            easing: 'ease',
+            easing: "ease",
           },
         });
       }
@@ -71,20 +67,7 @@ const dailySalesChart = {
 
 const emailsSubscriptionChart = {
   data: {
-    labels: [
-      'Jan',
-      'Feb',
-      'Mar',
-      'Apr',
-      'Mai',
-      'Jun',
-      'Jul',
-      'Aug',
-      'Sep',
-      'Oct',
-      'Nov',
-      'Dec',
-    ],
+    labels: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
     series: [[542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895]],
   },
   options: {
@@ -102,11 +85,11 @@ const emailsSubscriptionChart = {
   },
   responsiveOptions: [
     [
-      'screen and (max-width: 640px)',
+      "screen and (max-width: 640px)",
       {
         seriesBarDistance: 5,
         axisX: {
-          labelInterpolationFnc (value) {
+          labelInterpolationFnc(value) {
             return value[0];
           },
         },
@@ -114,15 +97,15 @@ const emailsSubscriptionChart = {
     ],
   ],
   animation: {
-    draw (data) {
-      if (data.type === 'bar') {
-        data.element.animate ({
+    draw(data) {
+      if (data.type === "bar") {
+        data.element.animate({
           opacity: {
             begin: (data.index + 1) * delays2,
             dur: durations2,
             from: 0,
             to: 1,
-            easing: 'ease',
+            easing: "ease",
           },
         });
       }
@@ -136,11 +119,11 @@ const emailsSubscriptionChart = {
 
 const completedTasksChart = {
   data: {
-    labels: ['12am', '3pm', '6pm', '9pm', '12pm', '3am', '6am', '9am'],
+    labels: ["12am", "3pm", "6pm", "9pm", "12pm", "3am", "6am", "9am"],
     series: [[230, 750, 450, 300, 280, 240, 200, 190]],
   },
   options: {
-    lineSmooth: Chartist.Interpolation.cardinal ({
+    lineSmooth: Chartist.Interpolation.cardinal({
       tension: 0,
     }),
     low: 0,
@@ -153,29 +136,25 @@ const completedTasksChart = {
     },
   },
   animation: {
-    draw (data) {
-      if (data.type === 'line' || data.type === 'area') {
-        data.element.animate ({
+    draw(data) {
+      if (data.type === "line" || data.type === "area") {
+        data.element.animate({
           d: {
             begin: 600,
             dur: 700,
-            from: data.path
-              .clone ()
-              .scale (1, 0)
-              .translate (0, data.chartRect.height ())
-              .stringify (),
-            to: data.path.clone ().stringify (),
+            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+            to: data.path.clone().stringify(),
             easing: Chartist.Svg.Easing.easeOutQuint,
           },
         });
-      } else if (data.type === 'point') {
-        data.element.animate ({
+      } else if (data.type === "point") {
+        data.element.animate({
           opacity: {
             begin: (data.index + 1) * delays,
             dur: durations,
             from: 0,
             to: 1,
-            easing: 'ease',
+            easing: "ease",
           },
         });
       }

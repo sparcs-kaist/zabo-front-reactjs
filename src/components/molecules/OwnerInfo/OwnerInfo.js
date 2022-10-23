@@ -1,11 +1,11 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import styled, { css } from "styled-components";
 
-import { ZaboType } from 'lib/propTypes';
-import { media } from 'lib/utils/style';
+import { ZaboType } from "lib/propTypes";
+import { media } from "lib/utils/style";
 
-import defaultProfile from 'static/images/defaultProfile.png';
+import defaultProfile from "static/images/defaultProfile.png";
 
 export const OwnerInfoW = styled.div`
   display: flex;
@@ -16,12 +16,12 @@ const ProfileW = styled.img`
 `;
 
 const WritingsW = styled.div`
-  color: ${props => props.theme.gray100};
+  color: ${(props) => props.theme.gray100};
 `;
 WritingsW.Name = styled.div`
   font-size: 14px;
   line-height: 16px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 14px;
     line-height: 16px;
   `)};
@@ -31,24 +31,15 @@ WritingsW.Sub = styled.div`
   line-height: 14px;
 `;
 
-const OwnerInfo = ({
-  info, showProfile, showSub, styles, style,
-}) => {
+const OwnerInfo = ({ info, showProfile, showSub, styles, style }) => {
   const { name, profilePhoto, subtitle } = info;
   const safeUrl = profilePhoto || defaultProfile;
   return (
     <OwnerInfoW style={style}>
       {showProfile && <ProfileW src={safeUrl} />}
       <WritingsW style={styles.writings}>
-        <WritingsW.Name style={styles.name}>
-          {name || ''}
-        </WritingsW.Name>
-        {showSub
-          && (
-            <WritingsW.Sub style={styles.subtitle}>
-              {subtitle || ''}
-            </WritingsW.Sub>
-          )}
+        <WritingsW.Name style={styles.name}>{name || ""}</WritingsW.Name>
+        {showSub && <WritingsW.Sub style={styles.subtitle}>{subtitle || ""}</WritingsW.Sub>}
       </WritingsW>
     </OwnerInfoW>
   );
@@ -56,11 +47,11 @@ const OwnerInfo = ({
 
 OwnerInfo.propTypes = {
   info: ZaboType.owner,
-  style: PropTypes.shape ({}),
-  styles: PropTypes.shape ({
-    writings: PropTypes.shape (),
-    name: PropTypes.shape (),
-    subtitle: PropTypes.shape (),
+  style: PropTypes.shape({}),
+  styles: PropTypes.shape({
+    writings: PropTypes.shape(),
+    name: PropTypes.shape(),
+    subtitle: PropTypes.shape(),
   }),
   showProfile: PropTypes.bool,
   showSub: PropTypes.bool,

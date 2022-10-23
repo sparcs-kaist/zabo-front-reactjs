@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import SavedPostersWrapper from './SavedPosters.styled';
+import SavedPostersWrapper from "./SavedPosters.styled";
 
 class SavedPosters extends PureComponent {
-  render () {
+  render() {
     return (
       <SavedPostersWrapper>
         {this.props.children}

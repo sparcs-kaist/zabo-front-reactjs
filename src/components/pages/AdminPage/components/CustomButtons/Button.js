@@ -1,18 +1,18 @@
-import React from 'react';
+import React from "react";
 // nodejs library to set properties for components
-import PropTypes from 'prop-types';
-import Button from '@material-ui/core/Button';
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
 // material-ui components
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 // nodejs library that concatenates classes
-import classNames from 'classnames';
+import classNames from "classnames";
 
-import styles from '../../assets/jss/material-dashboard-react/components/buttonStyle';
+import styles from "../../assets/jss/material-dashboard-react/components/buttonStyle";
 
-const useStyles = makeStyles (styles);
+const useStyles = makeStyles(styles);
 
-export default function RegularButton (props) {
-  const classes = useStyles ();
+export default function RegularButton(props) {
+  const classes = useStyles();
   const {
     color,
     round,
@@ -27,7 +27,7 @@ export default function RegularButton (props) {
     muiClasses,
     ...rest
   } = props;
-  const btnClasses = classNames ({
+  const btnClasses = classNames({
     [classes.button]: true,
     [classes[size]]: size,
     [classes[color]]: color,
@@ -47,17 +47,17 @@ export default function RegularButton (props) {
 }
 
 RegularButton.propTypes = {
-  color: PropTypes.oneOf ([
-    'primary',
-    'info',
-    'success',
-    'warning',
-    'danger',
-    'rose',
-    'white',
-    'transparent',
+  color: PropTypes.oneOf([
+    "primary",
+    "info",
+    "success",
+    "warning",
+    "danger",
+    "rose",
+    "white",
+    "transparent",
   ]),
-  size: PropTypes.oneOf (['sm', 'lg']),
+  size: PropTypes.oneOf(["sm", "lg"]),
   simple: PropTypes.bool,
   round: PropTypes.bool,
   disabled: PropTypes.bool,

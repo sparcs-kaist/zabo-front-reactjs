@@ -1,32 +1,32 @@
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-import ContainerAtom from 'components/atoms/Container';
-import TwoCol from 'components/atoms/TwoCol';
-import GroupBox from 'components/organisms/GroupBox';
+import ContainerAtom from "components/atoms/Container";
+import TwoCol from "components/atoms/TwoCol";
+import GroupBox from "components/organisms/GroupBox";
 
-import * as mixins from 'lib/mixins';
-import { media } from 'lib/utils/style';
+import * as mixins from "lib/mixins";
+import { media } from "lib/utils/style";
 
-import allIcon from 'static/icon/category/all.svg';
-import contestIcon from 'static/icon/category/contest.svg';
-import demodayIcon from 'static/icon/category/demoday.svg';
-import educationIcon from 'static/icon/category/education.svg';
-import eventIcon from 'static/icon/category/event.svg';
-import exhibitionIcon from 'static/icon/category/exhibition.svg';
-import festivalIcon from 'static/icon/category/festival.svg';
-import hangsaIcon from 'static/icon/category/hangsa.svg';
-import hireIcon from 'static/icon/category/hire.svg';
-import meetingIcon from 'static/icon/category/meeting.svg';
-import noticeIcon from 'static/icon/category/notice.svg';
-import openclubIcon from 'static/icon/category/openclub.svg';
-import performanceIcon from 'static/icon/category/performance.svg';
-import recruitIcon from 'static/icon/category/recruit.svg';
-import seminarIcon from 'static/icon/category/seminar.svg';
-import volunteerIcon from 'static/icon/category/volunteer.svg';
-import rightArrowIcon from 'static/icon/rightArrow.svg';
-import landingBackground from 'static/images/landing_background.jpg';
+import allIcon from "static/icon/category/all.svg";
+import contestIcon from "static/icon/category/contest.svg";
+import demodayIcon from "static/icon/category/demoday.svg";
+import educationIcon from "static/icon/category/education.svg";
+import eventIcon from "static/icon/category/event.svg";
+import exhibitionIcon from "static/icon/category/exhibition.svg";
+import festivalIcon from "static/icon/category/festival.svg";
+import hangsaIcon from "static/icon/category/hangsa.svg";
+import hireIcon from "static/icon/category/hire.svg";
+import meetingIcon from "static/icon/category/meeting.svg";
+import noticeIcon from "static/icon/category/notice.svg";
+import openclubIcon from "static/icon/category/openclub.svg";
+import performanceIcon from "static/icon/category/performance.svg";
+import recruitIcon from "static/icon/category/recruit.svg";
+import seminarIcon from "static/icon/category/seminar.svg";
+import volunteerIcon from "static/icon/category/volunteer.svg";
+import rightArrowIcon from "static/icon/rightArrow.svg";
+import landingBackground from "static/images/landing_background.jpg";
 
 const categoryIcons = {
   allIcon,
@@ -48,7 +48,7 @@ const categoryIcons = {
   rightArrowIcon,
 };
 
-export const Container = styled (ContainerAtom)`
+export const Container = styled(ContainerAtom)`
   max-width: 1084px;
   scroll-behavior: smooth;
 `;
@@ -64,8 +64,8 @@ export const TitleW = styled.div`
   font-weight: 800;
   font-size: 20px;
   line-height: 23px;
-  color: ${props => props.theme.gray90};
-  ${media.tablet (css`
+  color: ${(props) => props.theme.gray90};
+  ${media.tablet(css`
     margin-top: 0;
     font-size: 24px;
     line-height: 27px;
@@ -77,21 +77,21 @@ export const TopBannerW = styled.div`
   margin: -55px 0 0;
   width: 100%;
   height: 349px;
-  background-color: rgb(13,26,31);
-  background-image
-  : url(${landingBackground});
+  background-color: rgb(13, 26, 31);
+  background-image: url(${landingBackground});
   background-repeat: no-repeat;
   background-size: cover;
-  
+
   display: flex;
   flex-direction: column;
   ${Container} {
     flex-direction: column;
   }
-  
-  h1, h3 { 
+
+  h1,
+  h3 {
     font-size: 20px;
-    color: white; 
+    color: white;
   }
   h1 {
     margin: 105px 0 0;
@@ -104,7 +104,7 @@ export const TopBannerW = styled.div`
   a {
     width: 120px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     height: 520px;
     padding: 50px 0 0;
     h1 {
@@ -132,15 +132,15 @@ export const TopBannerW = styled.div`
 `;
 
 const whiteBtn = css`
-  color: ${props => props.theme.white};
-  border: 1px solid ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
+  border: 1px solid ${(props) => props.theme.white};
   background: rgba(255, 255, 255, 0.15);
 `;
 
 const mainBtn = css`
-  color: ${props => props.theme.main};
-  border: 1px solid ${props => props.theme.main};
-  background: ${props => props.theme.white};
+  color: ${(props) => props.theme.main};
+  border: 1px solid ${(props) => props.theme.main};
+  background: ${(props) => props.theme.white};
 `;
 
 const btnMixins = {
@@ -155,11 +155,11 @@ export const ButtonW = styled.button`
   border-radius: 4px;
   color: white;
   ${mixins.flexCenter};
-  ${props => btnMixins[props.color]};
+  ${(props) => btnMixins[props.color]};
   svg {
     margin-left: 4px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     height: 52px;
     font-size: 16px;
     padding: 0 16px;
@@ -169,7 +169,7 @@ export const ButtonW = styled.button`
   `)};
 `;
 ButtonW.propTypes = {
-  color: PropTypes.oneOf (['white', 'main']).isRequired,
+  color: PropTypes.oneOf(["white", "main"]).isRequired,
 };
 
 TopBannerW.Buttons = styled.section`
@@ -177,42 +177,42 @@ TopBannerW.Buttons = styled.section`
   ${ButtonW} {
     margin-left: 12px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     ${ButtonW} {
       margin-left: 20px;
-    }    
+    }
   `)};
-  
+
   ${ButtonW}:first-child {
     margin-left: 0;
   }
 `;
 
-export const CategoryNavW = styled (Link)`
+export const CategoryNavW = styled(Link)`
   cursor: pointer;
 `;
 
 CategoryNavW.Image = styled.div`
-  background-image: ${props => css`
+  background-image: ${(props) => css`
     url(${categoryIcons[`${props.category}Icon`]});
   `};
   width: 48px;
   height: 48px;
   background-size: 48px 48px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     width: 72px;
     height: 72px;
-    background-size: 72px 72px;    
+    background-size: 72px 72px;
   `)};
 `;
 
 CategoryNavW.Label = styled.div`
-  color: ${props => props.theme.gray90};
+  color: ${(props) => props.theme.gray90};
   font-size: 12px;
   line-height: 14px;
   margin-top: 8px;
   text-align: center;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 18px;
     line-height: 20px;
     font-weight: bold;
@@ -230,7 +230,7 @@ export const CategoryBannerW = styled.section`
   ${CategoryNavW} {
     margin-left: 20px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     padding: 72px 16px;
     ${CategoryNavW} {
       margin-left: 65px;
@@ -247,8 +247,8 @@ CategoryNavW.Image.propTypes = {
 };
 
 export const UpcomingW = styled.section`
-  background: ${props => props.theme.gray90};
-  color: ${props => props.theme.gray1};
+  background: ${(props) => props.theme.gray90};
+  color: ${(props) => props.theme.gray1};
   width: 100%;
   margin-bottom: 30px;
   padding: 36px 0;
@@ -259,9 +259,9 @@ export const UpcomingW = styled.section`
   ${TwoCol.DRight} {
     position: relative;
   }
-  
-  ${media.tablet (css`
-  margin-bottom: 165px;
+
+  ${media.tablet(css`
+    margin-bottom: 165px;
     padding: 48px 0;
     height: 100%;
   `)};
@@ -272,7 +272,7 @@ UpcomingW.Title = styled.div`
   font-size: 16px;
   line-height: 18px;
 
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 28px;
     line-height: 32px;
   `)};
@@ -282,7 +282,7 @@ UpcomingW.Description = styled.div`
   font-size: 12px;
   line-height: 14px;
 
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 12px;
     font-size: 24px;
     line-height: 27px;
@@ -292,12 +292,12 @@ UpcomingW.Timer = styled.div`
   margin-top: 21px;
   font-size: 20px;
   line-height: 23px;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
 
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 44px;
     font-size: 40px;
-    line-height: 45px; 
+    line-height: 45px;
   `)};
 `;
 UpcomingW.Button = styled.button`
@@ -305,16 +305,16 @@ UpcomingW.Button = styled.button`
   padding: 14px 16px;
   width: 146px;
   height: 52px;
-  background: ${props => props.theme.gray90};
+  background: ${(props) => props.theme.gray90};
   border: 1.5px solid rgba(255, 255, 255, 0.2);
   border-radius: 4px;
   display: none;
   font-weight: bold;
   font-size: 16px;
   line-height: 18px;
-  color: ${props => props.theme.white};
-  
-  ${media.tablet (css`
+  color: ${(props) => props.theme.white};
+
+  ${media.tablet(css`
     margin-top: 44px;
     display: inherit;
     svg {
@@ -331,8 +331,8 @@ UpcomingW.Count = styled.div`
   border-radius: 20.5px;
   font-size: 10px;
   line-height: 11px;
-  color: ${props => props.theme.gray30};
-  ${media.tablet (css`
+  color: ${(props) => props.theme.gray30};
+  ${media.tablet(css`
     display: none;
   `)};
 `;
@@ -347,11 +347,15 @@ UpcomingW.Carousel = styled.section`
     opacity: 0;
     display: none;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     height: 400px;
-    .slick-btn { display: inherit }
+    .slick-btn {
+      display: inherit;
+    }
     &:hover {
-      .slick-btn { opacity: 1 }
+      .slick-btn {
+        opacity: 1;
+      }
     }
   `)}
 `;
@@ -371,17 +375,20 @@ UpcomingW.Carousel.Button = styled.img`
     top: 68px;
     right: 16px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     width: 40px;
     height: 40px;
-    &.prev, &.next { top: 164px; }
+    &.prev,
+    &.next {
+      top: 164px;
+    }
   `)}
 `;
 
 UpcomingW.SlickItemW = styled.div`
   padding-right: 12px;
   padding-bottom: 10px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     padding-right: 24px;
   `)}
 `;
@@ -391,7 +398,7 @@ UpcomingW.Image = styled.img`
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.03));
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     height: 360px;
   `)}
 `;
@@ -401,45 +408,45 @@ export const RecommendsW = styled.section`
   padding-bottom: 12px;
 `;
 
-export const RecommendsTitleW = styled (TitleW)`
+export const RecommendsTitleW = styled(TitleW)`
   margin-bottom: 20px;
   margin-top: 53px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 0;
     margin-bottom: 32px;
   `)};
 `;
 
-RecommendsW.Zabo = styled (TwoCol.Left)`
+RecommendsW.Zabo = styled(TwoCol.Left)`
   width: 100%;
   max-width: 100%;
-  ${media.tablet (css`
+  ${media.tablet(css`
     max-width: inherit;
   `)};
 `;
 
-RecommendsW.Group = styled (TwoCol.Right)`
+RecommendsW.Group = styled(TwoCol.Right)`
   width: 100%;
   padding-bottom: 2px;
   max-width: 100%;
-  ${media.tablet (css`
+  ${media.tablet(css`
     max-width: inherit;
   `)};
 `;
 
 RecommendsW.GroupList = styled.div`
   margin-top: 8px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 20px;
   `)};
 `;
 
-export const GroupBoxW = styled (GroupBox)`
+export const GroupBoxW = styled(GroupBox)`
   margin-top: 8px;
   &:first-child {
     margin-top: 0;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 16px;
   `)};
 `;
@@ -447,7 +454,7 @@ export const GroupBoxW = styled (GroupBox)`
 export const BannersW = styled.section`
   width: 100%;
   margin-top: 36px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 80px;
   `)};
 `;
@@ -455,13 +462,13 @@ export const BannersW = styled.section`
 export const BannerW = styled.div`
   min-width: 312px;
   height: 136px;
-  border: 1px solid ${props => props.theme.gray10};
+  border: 1px solid ${(props) => props.theme.gray10};
   border-radius: 6px;
   padding: 0 24px;
   display: flex;
   margin-left: 12px;
-  
-  ${media.tablet (css`
+
+  ${media.tablet(css`
     min-width: 500px;
     height: 200px;
     padding: 0 48px;
@@ -473,9 +480,9 @@ export const BannerW = styled.div`
 `;
 
 BannerW.Writings = styled.div`
-   padding: 24px 0;
-   margin-right: 7px;
-   ${media.tablet (css`
+  padding: 24px 0;
+  margin-right: 7px;
+  ${media.tablet(css`
     padding: 48px 0;
     margin-right: 30px;
   `)};
@@ -485,8 +492,8 @@ BannerW.Title = styled.div`
   font-weight: 800;
   font-size: 14px;
   line-height: 16px;
-  color: ${props => props.theme.gray90};
-  ${media.tablet (css`
+  color: ${(props) => props.theme.gray90};
+  ${media.tablet(css`
     font-size: 20px;
     line-height: 23px;
   `)};
@@ -495,9 +502,9 @@ BannerW.Title = styled.div`
 BannerW.Description = styled.div`
   font-size: 14px;
   line-height: 16px;
-  color: ${props => props.theme.gray90};
+  color: ${(props) => props.theme.gray90};
   margin-top: 2px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 4px;
     font-size: 20px;
     line-height: 23px;
@@ -508,18 +515,18 @@ BannerW.Button = styled.button`
   font-weight: bold;
   font-size: 12px;
   line-height: 14px;
-  color: ${props => props.theme.white};
+  color: ${(props) => props.theme.white};
   width: 120px;
   height: 32px;
   ${mixins.flexCenter};
-  border: 1px solid ${props => props.theme[props.color]};
-  background: ${props => props.theme[props.color]};
+  border: 1px solid ${(props) => props.theme[props.color]};
+  background: ${(props) => props.theme[props.color]};
   border-radius: 4px;
   margin-top: 20px;
   svg {
     margin-left: 10px;
   }
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 14px;
     width: 136px;
     height: 40px;
@@ -536,17 +543,15 @@ export const ZaboListW = styled.section`
   width: 100%;
 `;
 
-export const ZaboListTitleW = styled (TitleW)`
+export const ZaboListTitleW = styled(TitleW)`
   margin-top: 48px;
   margin-bottom: 16px;
-  ${media.tablet (css`
+  ${media.tablet(css`
     margin-top: 100px;
     margin-bottom: 24px;
   `)};
 `;
 
-export const Help = styled.div`
-
-`;
+export const Help = styled.div``;
 
 export default Wrapper;

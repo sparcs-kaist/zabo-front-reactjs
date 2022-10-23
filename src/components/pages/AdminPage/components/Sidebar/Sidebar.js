@@ -1,21 +1,21 @@
 /*eslint-disable*/
-import React from 'react';
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import React from "react";
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 // @material-ui/core components
-import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Icon from '@material-ui/core/Icon';
+import { makeStyles } from "@material-ui/core/styles";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import Icon from "@material-ui/core/Icon";
 // core components
-import AdminNavbarLinks from '../Navbars/AdminNavbarLinks';
-import RTLNavbarLinks from '../Navbars/RTLNavbarLinks';
+import AdminNavbarLinks from "../Navbars/AdminNavbarLinks";
+import RTLNavbarLinks from "../Navbars/RTLNavbarLinks";
 
-import styles from '../../assets/jss/material-dashboard-react/components/sidebarStyle';
+import styles from "../../assets/jss/material-dashboard-react/components/sidebarStyle";
 
 const useStyles = makeStyles(styles);
 
@@ -31,13 +31,13 @@ export default function Sidebar(props) {
   var links = (
     <List className={classes.list}>
       {routes.map((prop, key) => {
-        var activePro = ' ';
+        var activePro = " ";
         var listItemClasses;
         listItemClasses = classNames({
-          [' ' + classes[color]]: activeRoute(prop.layout + prop.path),
+          [" " + classes[color]]: activeRoute(prop.layout + prop.path),
         });
         const whiteFontClasses = classNames({
-          [' ' + classes.whiteFont]: activeRoute(prop.layout + prop.path),
+          [" " + classes.whiteFont]: activeRoute(prop.layout + prop.path),
         });
         return (
           <NavLink
@@ -47,7 +47,7 @@ export default function Sidebar(props) {
             key={key}
           >
             <ListItem button className={classes.itemLink + listItemClasses}>
-              {typeof prop.icon === 'string' ? (
+              {typeof prop.icon === "string" ? (
                 <Icon
                   className={classNames(classes.itemIcon, whiteFontClasses, {
                     [classes.itemIconRTL]: props.rtlActive,
@@ -78,7 +78,7 @@ export default function Sidebar(props) {
   var brand = (
     <div className={classes.logo}>
       <NavLink to="/">
-        <img alt="logo" src={logo} style={{ width: 'auto', height: '100%' }} />
+        <img alt="logo" src={logo} style={{ width: "auto", height: "100%" }} />
       </NavLink>
     </div>
   );
@@ -87,7 +87,7 @@ export default function Sidebar(props) {
       <Hidden mdUp implementation="css">
         <Drawer
           variant="temporary"
-          anchor={props.rtlActive ? 'left' : 'right'}
+          anchor={props.rtlActive ? "left" : "right"}
           open={props.open}
           classes={{
             paper: classNames(classes.drawerPaper, {
@@ -101,20 +101,17 @@ export default function Sidebar(props) {
         >
           {brand}
           <div className={classes.sidebarWrapper}>
-            {props.rtlActive ? <RTLNavbarLinks/> : <AdminNavbarLinks/>}
+            {props.rtlActive ? <RTLNavbarLinks /> : <AdminNavbarLinks />}
             {links}
           </div>
           {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: 'url(' + image + ')' }}
-            />
+            <div className={classes.background} style={{ backgroundImage: "url(" + image + ")" }} />
           ) : null}
         </Drawer>
       </Hidden>
       <Hidden smDown implementation="css">
         <Drawer
-          anchor={props.rtlActive ? 'right' : 'left'}
+          anchor={props.rtlActive ? "right" : "left"}
           variant="permanent"
           open
           classes={{
@@ -126,10 +123,7 @@ export default function Sidebar(props) {
           {brand}
           <div className={classes.sidebarWrapper}>{links}</div>
           {image !== undefined ? (
-            <div
-              className={classes.background}
-              style={{ backgroundImage: 'url(' + image + ')' }}
-            />
+            <div className={classes.background} style={{ backgroundImage: "url(" + image + ")" }} />
           ) : null}
         </Drawer>
       </Hidden>
@@ -140,7 +134,7 @@ export default function Sidebar(props) {
 Sidebar.propTypes = {
   rtlActive: PropTypes.bool,
   handleDrawerToggle: PropTypes.func,
-  bgColor: PropTypes.oneOf(['purple', 'blue', 'green', 'orange', 'red']),
+  bgColor: PropTypes.oneOf(["purple", "blue", "green", "orange", "red"]),
   logo: PropTypes.string,
   image: PropTypes.string,
   logoText: PropTypes.string,

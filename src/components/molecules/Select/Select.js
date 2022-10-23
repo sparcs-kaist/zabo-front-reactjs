@@ -1,14 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ReactSelect from 'react-select';
-import ReactAsyncSelect from 'react-select/async';
+import React from "react";
+import PropTypes from "prop-types";
+import ReactSelect from "react-select";
+import ReactAsyncSelect from "react-select/async";
 
 const Select = ({ async, ...props }) => {
   let Component = ReactSelect;
   if (async) Component = ReactAsyncSelect;
-  return (
-    <Component {...props} />
-  );
+  return <Component {...props} />;
 };
 
 Select.propTypes = {

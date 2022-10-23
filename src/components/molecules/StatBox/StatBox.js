@@ -1,23 +1,23 @@
-import React, { useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
-import throttle from 'lodash.throttle';
+import React, { useMemo } from "react";
+import PropTypes from "prop-types";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import styled from "styled-components";
+import throttle from "lodash.throttle";
 
-import { toggleZaboLike, toggleZaboPin } from 'store/reducers/zabo';
-import { isAuthedSelector } from 'lib/utils';
+import { toggleZaboLike, toggleZaboPin } from "store/reducers/zabo";
+import { isAuthedSelector } from "lib/utils";
 
-import bookmarkImg from 'static/images/bookmark.svg';
-import emptyBookmarkImg from 'static/images/bookmarkEmpty.svg';
-import likeImg from 'static/images/like.svg';
-import emptyLikeImg from 'static/images/likeEmpty.svg';
-import whiteEmptyBookmarkImg from 'static/images/whiteBookmakrEmpty.svg';
-import whiteBookmarkImg from 'static/images/whiteBookmark.svg';
-import whiteLikeImg from 'static/images/whiteLike.svg';
-import whiteEmptyLikeImg from 'static/images/whiteLikeEmpty.svg';
+import bookmarkImg from "static/images/bookmark.svg";
+import emptyBookmarkImg from "static/images/bookmarkEmpty.svg";
+import likeImg from "static/images/like.svg";
+import emptyLikeImg from "static/images/likeEmpty.svg";
+import whiteEmptyBookmarkImg from "static/images/whiteBookmakrEmpty.svg";
+import whiteBookmarkImg from "static/images/whiteBookmark.svg";
+import whiteLikeImg from "static/images/whiteLike.svg";
+import whiteEmptyLikeImg from "static/images/whiteLikeEmpty.svg";
 
-import { alerts } from '../../../lib/variables';
+import { alerts } from "../../../lib/variables";
 
 const icons = {
   colored: {
@@ -106,32 +106,34 @@ const Text = styled.div`
     font-weight: 800;
     font-size: 14px;
     line-height: 16px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `;
 
 const StatBox = ({ stat, type, ...props }) => {
-  const {
-    type: statType, count, zaboId, active,
-  } = stat;
-  const dispatch = useDispatch ();
-  const isAuthed = useSelector (isAuthedSelector);
-  const history = useHistory ();
-  const colored = (type === 'button');
-  const src = icons[colored ? 'colored' : 'white'][statType][active ? 'filled' : 'empty'];
-  const throttledAction = useMemo (() => throttle (() => {
-    dispatch (toggleActions[statType] (zaboId));
-  }, 200), [zaboId]);
+  const { type: statType, count, zaboId, active } = stat;
+  const dispatch = useDispatch();
+  const isAuthed = useSelector(isAuthedSelector);
+  const history = useHistory();
+  const colored = type === "button";
+  const src = icons[colored ? "colored" : "white"][statType][active ? "filled" : "empty"];
+  const throttledAction = useMemo(
+    () =>
+      throttle(() => {
+        dispatch(toggleActions[statType](zaboId));
+      }, 200),
+    [zaboId],
+  );
 
-  const onClick = e => {
-    e.preventDefault ();
-    if (isAuthed) throttledAction ();
-    else if (window.confirm (alerts.login)) {
-      history.replace ({ pathname: '/auth/login', state: { referrer: history.location.pathname } });
+  const onClick = (e) => {
+    e.preventDefault();
+    if (isAuthed) throttledAction();
+    else if (window.confirm(alerts.login)) {
+      history.replace({ pathname: "/auth/login", state: { referrer: history.location.pathname } });
     }
   };
 
-  if (type === 'text') {
+  if (type === "text") {
     return (
       <Text onClick={onClick} {...props}>
         <Icon src={src} alt="icon image" />
@@ -148,17 +150,17 @@ const StatBox = ({ stat, type, ...props }) => {
 };
 
 StatBox.propTypes = {
-  stat: PropTypes.shape ({
-    type: PropTypes.oneOf (['pin', 'like']).isRequired,
+  stat: PropTypes.shape({
+    type: PropTypes.oneOf(["pin", "like"]).isRequired,
     count: PropTypes.number,
     zaboId: PropTypes.string.isRequired,
     active: PropTypes.bool,
   }).isRequired,
-  type: PropTypes.oneOf (['button', 'text']),
+  type: PropTypes.oneOf(["button", "text"]),
 };
 
 StatBox.defaultProps = {
-  type: 'button',
+  type: "button",
 };
 
 export default StatBox;

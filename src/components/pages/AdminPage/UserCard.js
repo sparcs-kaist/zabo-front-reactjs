@@ -1,58 +1,71 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core';
-import Button from '@material-ui/core/Button';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Collapse from '@material-ui/core/Collapse';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import clsx from 'clsx';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import Card from "@material-ui/core/Card";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import CardMedia from "@material-ui/core/CardMedia";
+import Collapse from "@material-ui/core/Collapse";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import clsx from "clsx";
 
-import StyledQuill from 'components/organisms/StyledQuill';
+import StyledQuill from "components/organisms/StyledQuill";
 
-import defaultProfile from 'static/images/defaultProfile.png';
+import defaultProfile from "static/images/defaultProfile.png";
 
-import { UserType } from '../../../lib/propTypes';
-import GridItem from './components/Grid/GridItem';
-import UserInfo from './UserInfo';
+import { UserType } from "../../../lib/propTypes";
+import GridItem from "./components/Grid/GridItem";
+import UserInfo from "./UserInfo";
 
-const useStyles = makeStyles (theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 600,
-    margin: theme.spacing (2),
+    margin: theme.spacing(2),
   },
   media: {
-    paddingTop: '100%',
+    paddingTop: "100%",
     // minHeight: 300,
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create ('transform', {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)",
   },
 }));
 
 const UserCard = ({ user }) => {
-  const classes = useStyles ();
-  const [expanded, setExpanded] = useState (false);
+  const classes = useStyles();
+  const [expanded, setExpanded] = useState(false);
   const handleExpandClick = () => {
-    setExpanded (!expanded);
+    setExpanded(!expanded);
   };
 
   const {
-    _id, profilePhoto, username, createdAt,
-    birthday, email, name, kaistEmail, kaistPersonType, kaistStatus, koreanName,
-    flags, description, kaistId, facebookId, tweeterId,
+    _id,
+    profilePhoto,
+    username,
+    createdAt,
+    birthday,
+    email,
+    name,
+    kaistEmail,
+    kaistPersonType,
+    kaistStatus,
+    koreanName,
+    flags,
+    description,
+    kaistId,
+    facebookId,
+    tweeterId,
   } = user;
 
   return (
@@ -68,23 +81,19 @@ const UserCard = ({ user }) => {
           </Link>
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
-              {username} - {name || ''}
+              {username} - {name || ""}
             </Typography>
             <Typography variant="body2" color="textSecondary" component="p">
-              <StyledQuill
-                theme="bubble"
-                readOnly
-                value={description || ''}
-              />
+              <StyledQuill theme="bubble" readOnly value={description || ""} />
             </Typography>
           </CardContent>
         </CardActionArea>
         <CardActions disableSpacing>
           <Button size="small" color="primary">
-            {kaistPersonType || 'Not KAIST'}
+            {kaistPersonType || "Not KAIST"}
           </Button>
           <IconButton
-            className={clsx (classes.expand, {
+            className={clsx(classes.expand, {
               [classes.expandOpen]: expanded,
             })}
             onClick={handleExpandClick}

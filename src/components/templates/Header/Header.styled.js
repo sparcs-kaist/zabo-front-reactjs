@@ -1,13 +1,16 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const HeaderWrapper = styled.header`
-  ${props => (props.transparent ? css`
-    position: absolute;
-    border-top: 0;
-  ` : css`
-    position: fixed;
-    border-top: 6px solid rgb(27, 50, 65);
-  `)}
+  ${(props) =>
+    props.transparent
+      ? css`
+          position: absolute;
+          border-top: 0;
+        `
+      : css`
+          position: fixed;
+          border-top: 6px solid rgb(27, 50, 65);
+        `}
   top: 0;
   left: 0;
   width: 100%;
@@ -17,7 +20,7 @@ export const HeaderWrapper = styled.header`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-bottom: 1px solid #E9E9E9;
+  border-bottom: 1px solid #e9e9e9;
 
   a {
     display: flex;
@@ -28,20 +31,25 @@ export const HeaderWrapper = styled.header`
       margin-right: 24px;
     }
   }
-  
-  ${props => (props.transparent ? css`
-    background: transparent;
-    border-bottom: 0;
-  ` : css`
-    background: #fff;
-  `)};
+
+  ${(props) =>
+    props.transparent
+      ? css`
+          background: transparent;
+          border-bottom: 0;
+        `
+      : css`
+          background: #fff;
+        `};
 `;
 
 HeaderWrapper.Auth = styled.section`
-  color: ${props => (props.transparent ? 'white' : '#363636')};
-  a { 
+  color: ${(props) => (props.transparent ? "white" : "#363636")};
+  a {
     display: inline-block;
-    &.upload { margin-left: 6px }
+    &.upload {
+      margin-left: 6px;
+    }
   }
   p {
     display: inline-block;
@@ -59,27 +67,34 @@ HeaderWrapper.Auth = styled.section`
     border-radius: 4px;
     margin-left: 24px;
 
-    ${props => (props.transparent ? css`
-      background: rgba(255, 255, 255, 0.15);
-      border: 1px solid #FFFFFF;
-      color: white;
-      &:hover {
-        background-color: white;
-        color: #143441;
-      }
-    ` : css`
-      background: white;
-      border: 1px solid #143441;
-      color: #143441;
-      &:hover {
-        background-color: #143441;
-        color: white;
-      }
-    `)}
+    ${(props) =>
+      props.transparent
+        ? css`
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid #ffffff;
+            color: white;
+            &:hover {
+              background-color: white;
+              color: #143441;
+            }
+          `
+        : css`
+            background: white;
+            border: 1px solid #143441;
+            color: #143441;
+            &:hover {
+              background-color: #143441;
+              color: white;
+            }
+          `}
   }
-  
+
   @media (max-width: 910px) {
-    p { display: none }
-    button { margin-left: 12px }
+    p {
+      display: none;
+    }
+    button {
+      margin-left: 12px;
+    }
   }
 `;
