@@ -4,7 +4,7 @@ import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
-import MaterialTable from "material-table";
+// import MaterialTable from "material-table";
 import moment from "moment";
 
 import defaultProfile from "static/images/defaultProfile.png";
@@ -58,27 +58,26 @@ export default function UserList({ users }) {
     ],
     data: users,
   });
-  return (
-    <MaterialTable
-      title="유저 리스트"
-      columns={state.columns}
-      data={state.data}
-      options={{
-        grouping: true,
-      }}
-      style={{ maxWidth: "100%" }}
-      detailPanel={(user) => (
-        <div
-          style={{
-            width: "100%",
-            height: "315",
-            padding: 12,
-          }}
-        >
-          <UserInfo user={user} />
-        </div>
-      )}
-      icons={tableIcons}
-    />
-  );
+  return null;
+  // <MaterialTable
+  //   title="유저 리스트"
+  //   columns={state.columns}
+  //   data={state.data}
+  //   options={{
+  //     grouping: true,
+  //   }}
+  //   style={{ maxWidth: "100%" }}
+  //   detailPanel={(user) => (
+  //     <div
+  //       style={{
+  //         width: "100%",
+  //         height: "315",
+  //         padding: 12,
+  //       }}
+  //     >
+  //       <UserInfo user={user} />
+  //     </div>
+  //   )}
+  //   icons={tableIcons}
+  // />
 }

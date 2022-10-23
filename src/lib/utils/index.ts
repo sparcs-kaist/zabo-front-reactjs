@@ -1,6 +1,6 @@
 import { useHistory } from "react-router-dom";
 import moment from "moment";
-import queryString, { ParsedQuery } from "query-string";
+import queryString from "query-string";
 
 import { alerts, RESERVED_ROUTES_USERNAME_EXCEPTIONS } from "../variables";
 
@@ -14,7 +14,7 @@ export const parseJSON = (jsonString: string | object, fallback = {}) => {
     return JSON.parse(jsonString);
   } catch (error) {
     console.error(jsonString);
-    console.error(error.message);
+    console.error(error);
     return fallback;
   }
 };
@@ -65,7 +65,7 @@ export const loadImageFile = (file: File): Promise<HTMLImageElement> => {
   const _URL = window.URL || window.webkitURL;
   const img = new Image();
   const objectUrl = _URL.createObjectURL(file);
-  return new Promise((res, rej) => {
+  return new Promise((res) => {
     img.onload = () => {
       _URL.revokeObjectURL(objectUrl);
       res(img);
@@ -181,12 +181,11 @@ export const parseQuery = (search: string): { safeQuery: string; safeCategory: s
   return { safeQuery, safeCategory };
 };
 
-export const jsonPrettyStringify = (json: any) => {
-  let result = json;
-  if (typeof result !== "string") {
-    result = JSON.stringify(result, undefined, 2);
-  }
-  result = result.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+export const jsonPrettyStringify = (json: unknown) => {
+  const result = (typeof json !== "string" ? JSON.stringify(json, undefined, 2) : json)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
 
   return result.replace(
     /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g,

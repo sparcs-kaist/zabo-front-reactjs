@@ -1,25 +1,25 @@
 import { combineReducers } from "redux";
-import { handleActions } from "redux-actions";
 import { penderReducer } from "redux-pender";
 // import immutableTransform from 'redux-persist-transform-immutable';
 // import storage from 'redux-persist/lib/storage';
 // import { persistReducer } from 'redux-persist';
 
-// import all files except index.js
-const req = require.context(".", true, /^(?!.\/index).*.ts$/);
+import admin from "./admin";
+import app from "./app";
+import auth from "./auth";
+import profile from "./profile";
+import upload from "./upload";
+import zabo from "./zabo";
 
-const modules: {
-  [key: string]: ReturnType<typeof handleActions> | typeof penderReducer;
-} = {};
-
-req.keys().forEach((key) => {
-  const regex = /.\/(.*?).ts$/;
-  const moduleName = regex.test(key) && (key.match(regex) || [])[1];
-  if (!moduleName) return;
-  modules[moduleName] = req(key).default;
-});
-
-modules.pender = penderReducer;
+const modules = {
+  admin,
+  app,
+  auth,
+  profile,
+  upload,
+  zabo,
+  pender: penderReducer,
+};
 
 // const persistConfig = {
 //  transforms: [immutableTransform ({

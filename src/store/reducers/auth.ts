@@ -3,7 +3,7 @@ import jwtDecode from "jwt-decode";
 import { get } from "lodash";
 import { createAction, handleActions } from "redux-actions";
 import { pender } from "redux-pender";
-import { IGroup, IJwt, IUser } from "types/index.d";
+import type { IGroup, IJwt, IUser } from "types/index.d";
 
 import * as AuthAPIs from "lib/api/auth";
 import * as GroupAPIs from "lib/api/group";
@@ -138,7 +138,7 @@ export default handleActions(
       type: UPDATE_USER_INFO,
       onSuccess: (state, action) =>
         produce(state, (draft: IAuthState) => {
-          Object.assign(draft.info, action.payload);
+          Object.assign(draft.info ?? {}, action.payload);
         }),
     }),
     ...pender({
