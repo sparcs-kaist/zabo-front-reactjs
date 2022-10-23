@@ -1,5 +1,5 @@
 import produce from "immer";
-import jwt from "jsonwebtoken";
+import jwtDecode from "jwt-decode";
 import { get } from "lodash";
 import { createAction, handleActions } from "redux-actions";
 import { pender } from "redux-pender";
@@ -86,7 +86,7 @@ export default handleActions(
       type: LOGIN_CALLBACK,
       onSuccess: (state, action) => {
         const { token, user } = action.payload;
-        const decoded = jwt.decode(token);
+        const decoded = jwtDecode(token);
         storage.setItem("token", token);
         axios.updateToken(token);
         const currentGroup = user.groups.find((group: IGroup) => group._id === user.currentGroup);
@@ -101,7 +101,7 @@ export default handleActions(
       type: CHECK_AUTH,
       onPending: (state, action) =>
         produce(state, (draft: IAuthState) => {
-          const decoded = jwt.decode(action.meta);
+          const decoded = jwtDecode(action.meta);
           if (decoded && typeof decoded === "object") draft.jwt = decoded as IJwt;
         }),
       onSuccess: (state, action) => {
