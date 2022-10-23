@@ -1,13 +1,16 @@
-import React, { useCallback } from 'react';
-import styled, { css } from 'styled-components';
+import React, { useCallback } from "react";
+import styled, { css } from "styled-components";
 
-import leftScroll from 'static/images/leftScroll.png';
-import rightScroll from 'static/images/rightScroll.png';
+import leftScroll from "static/images/leftScroll.png";
+import rightScroll from "static/images/rightScroll.png";
 
 const ScrollBtnW = styled.div`
-  ${props => (props.show ? css`` : css`
-    display: none;
-  `)};
+  ${(props) =>
+    props.show
+      ? css``
+      : css`
+          display: none;
+        `};
   @media (max-width: 640px) {
     display: none;
   }
@@ -25,14 +28,12 @@ const ScrollBtnW = styled.div`
   margin: 0 auto;
 `;
 
-const ScrollBtn = ({
-  elemId, show, scrollSize = 622, left = true, right = true,
-}) => {
-  const leftScrollClick = useCallback (() => {
-    document.getElementById (elemId).scrollLeft -= scrollSize;
+const ScrollBtn = ({ elemId, show, scrollSize = 622, left = true, right = true }) => {
+  const leftScrollClick = useCallback(() => {
+    document.getElementById(elemId).scrollLeft -= scrollSize;
   }, []);
-  const rightScrollClick = useCallback (() => {
-    document.getElementById (elemId).scrollLeft += scrollSize;
+  const rightScrollClick = useCallback(() => {
+    document.getElementById(elemId).scrollLeft += scrollSize;
   }, []);
   return (
     <ScrollBtnW show={show}>

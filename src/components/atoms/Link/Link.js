@@ -1,10 +1,10 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 
-import LinkWrapper from './Link.styled';
+import LinkWrapper from "./Link.styled";
 
 class Link extends PureComponent {
-  render () {
+  render() {
     return (
       <LinkWrapper>
         {this.props.children}

@@ -2,24 +2,26 @@ class ChannelService {
   constructor() {
     this.loaded = false;
     this.onloaded = () => {};
-    setTimeout (() => {
+    setTimeout(() => {
       this.loadScript();
       this.loaded = true;
-      this.onloaded ();
+      this.onloaded();
     }, 5000);
   }
 
   loadScript() {
     let w = window;
     if (w.ChannelIO) {
-      return (window.console.error || window.console.log || function(){})('ChannelIO script included twice.');
+      return (window.console.error || window.console.log || function () {})(
+        "ChannelIO script included twice.",
+      );
     }
     let d = window.document;
-    let ch = function() {
+    let ch = function () {
       ch.c(arguments);
     };
     ch.q = [];
-    ch.c = function(args) {
+    ch.c = function (args) {
       ch.q.push(args);
     };
     w.ChannelIO = ch;
@@ -28,38 +30,38 @@ class ChannelService {
         return;
       }
       w.ChannelIOInitialized = true;
-      let s = document.createElement('script');
-      s.type = 'text/javascript';
+      let s = document.createElement("script");
+      s.type = "text/javascript";
       s.async = true;
-      s.src = 'https://cdn.channel.io/plugin/ch-plugin-web.js';
-      s.charset = 'UTF-8';
-      let x = document.getElementsByTagName('script')[0];
+      s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+      s.charset = "UTF-8";
+      let x = document.getElementsByTagName("script")[0];
       x.parentNode.insertBefore(s, x);
     }
-    if (document.readyState === 'complete') {
+    if (document.readyState === "complete") {
       l();
     } else if (window.attachEvent) {
-      window.attachEvent('onload', l);
+      window.attachEvent("onload", l);
     } else {
-      window.addEventListener('DOMContentLoaded', l, false);
-      window.addEventListener('load', l, false);
+      window.addEventListener("DOMContentLoaded", l, false);
+      window.addEventListener("load", l, false);
     }
   }
 
   boot(settings) {
     if (!this.loaded) {
-      this.onloaded = () => this.boot (settings);
+      this.onloaded = () => this.boot(settings);
       return;
     }
-    window.ChannelIO('boot', settings);
+    window.ChannelIO("boot", settings);
   }
 
   shutdown() {
     if (!this.loaded) {
-      this.onloaded = () => this.shutdown ();
+      this.onloaded = () => this.shutdown();
       return;
     }
-    window.ChannelIO('shutdown');
+    window.ChannelIO("shutdown");
   }
 }
 

@@ -1,7 +1,7 @@
-import { NavLink } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import { NavLink } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-export const NavItem = styled (NavLink)`
+export const NavItem = styled(NavLink)`
   flex: 1 0 20%;
   margin: 0 2.5%;
   display: flex;
@@ -30,24 +30,25 @@ const FloatingNavigatorWrapper = styled.div`
   left: 0;
   width: 100%;
   height: 60px;
-  max-height: ${props => (props.show ? '60px' : 0)};
+  max-height: ${(props) => (props.show ? "60px" : 0)};
   overflow: hidden;
   border-top: 1px solid black;
   background-color: white;
   z-index: 1000;
   display: flex;
   justify-content: space-between;
-  
+
   ${NavItem} {
-    ${props => (props.show
-    ? css``
-    : css`
+    ${(props) =>
+      props.show
+        ? css``
+        : css`
             img {
               width: 0;
               height: 0;
             }
             font-size: 0;
-          `)};
+          `};
     @media (min-width: 560px) {
       display: none;
     }

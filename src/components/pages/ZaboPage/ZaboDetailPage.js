@@ -1,91 +1,85 @@
-import React, { useCallback, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { Link, useHistory, useRouteMatch } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Carousel from 'react-airbnb-carousel';
-import { Helmet } from 'react-helmet';
-import Tooltip from '@material-ui/core/Tooltip';
-import get from 'lodash.get';
-import moment from 'moment';
+import React, { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
+import { Link, useHistory, useRouteMatch } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Carousel from "react-airbnb-carousel";
+import { Helmet } from "react-helmet";
+import Tooltip from "@material-ui/core/Tooltip";
+import get from "lodash.get";
+import moment from "moment";
 
-import Button from 'components/atoms/Button';
-import DueDate from 'components/atoms/DueDate';
-import StatBox from 'components/molecules/StatBox';
-import StyledQuill from 'components/organisms/StyledQuill';
-import ZaboList from 'components/templates/ZaboList';
+import Button from "components/atoms/Button";
+import DueDate from "components/atoms/DueDate";
+import StatBox from "components/molecules/StatBox";
+import StyledQuill from "components/organisms/StyledQuill";
+import ZaboList from "components/templates/ZaboList";
 
-import { followProfile, getProfile } from 'store/reducers/profile';
-import { deleteZabo as deleteZaboAction } from 'store/reducers/zabo';
-import withZabo from 'hoc/withZabo';
-import { ZaboType } from 'lib/propTypes';
-import {
-  getLabeledTimeDiff, isAuthedSelector, to2Digits, withAuth,
-} from 'lib/utils';
+import { followProfile, getProfile } from "store/reducers/profile";
+import { deleteZabo as deleteZaboAction } from "store/reducers/zabo";
+import withZabo from "hoc/withZabo";
+import { ZaboType } from "lib/propTypes";
+import { getLabeledTimeDiff, isAuthedSelector, to2Digits, withAuth } from "lib/utils";
 
-import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+import groupDefaultProfile from "static/images/groupDefaultProfile.png";
 
-import { alerts } from '../../../lib/variables';
-import { PosterW } from '../../organisms/ZaboCard/ZaboCard.styled';
-import { CategoryW, ZaboPageWrapper } from './ZaboPage.styled';
+import { alerts } from "../../../lib/variables";
+import { PosterW } from "../../organisms/ZaboCard/ZaboCard.styled";
+import { CategoryW, ZaboPageWrapper } from "./ZaboPage.styled";
 
-const OwnerInfo = ({
-  zabo: {
-    owner, isMyZabo, createdBy = {}, _id,
-  },
-}) => {
-  const { url } = useRouteMatch ();
-  const isAuthed = useSelector (isAuthedSelector);
-  const history = useHistory ();
+const OwnerInfo = ({ zabo: { owner, isMyZabo, createdBy = {}, _id } }) => {
+  const { url } = useRouteMatch();
+  const isAuthed = useSelector(isAuthedSelector);
+  const history = useHistory();
   const { name, profilePhoto } = owner;
-  const dispatch = useDispatch ();
-  useEffect (() => {
+  const dispatch = useDispatch();
+  useEffect(() => {
     if (!name) return;
-    dispatch (getProfile (name));
+    dispatch(getProfile(name));
   }, [name]);
-  const follow = useCallback (() => {
+  const follow = useCallback(() => {
     if (!name) return;
-    if (withAuth (history, isAuthed)) dispatch (followProfile ({ name }));
+    if (withAuth(history, isAuthed)) dispatch(followProfile({ name }));
   }, [name]);
-  const deleteZabo = useCallback (() => {
-    dispatch (deleteZaboAction ({ zaboId: _id }))
-      .then (res => {
+  const deleteZabo = useCallback(() => {
+    dispatch(deleteZaboAction({ zaboId: _id }))
+      .then((res) => {
         window.location.href = `/${owner.name}`;
       })
-      .catch (error => {
-        alert ('Error');
+      .catch((error) => {
+        alert("Error");
       });
   });
-  const following = useSelector (state => get (state, ['profile', 'profiles', name, 'following']));
+  const following = useSelector((state) => get(state, ["profile", "profiles", name, "following"]));
 
   return (
     <div className="owner">
       <Link to={`/${name}`} className="owner-link">
-        {
-          ('profilePhoto' in owner)
-            ? <img src={profilePhoto} alt="group profile photo" />
-            : <img src={groupDefaultProfile} alt="default profile img" />
-        }
+        {"profilePhoto" in owner ? (
+          <img src={profilePhoto} alt="group profile photo" />
+        ) : (
+          <img src={groupDefaultProfile} alt="default profile img" />
+        )}
         <div className="owner-label">
-          <div className="owner-group">{name || 'anonymous'}</div>
+          <div className="owner-group">{name || "anonymous"}</div>
           {isMyZabo && <div className="owner-creator">게시자 {createdBy.username}</div>}
         </div>
       </Link>
-      {
-        typeof following !== 'undefined'
-          && (
-            <>
-              <div className="specialChar">&middot;</div>
-              {
-                following
-                  ? <p className="unfollow" onClick={follow}>팔로우 취소</p>
-                  : <p className="follow" onClick={follow}>팔로우</p>
-              }
-            </>
-          )
-      }
-      {isMyZabo
-      && (
-        <Button.Group style={{ marginLeft: 'auto' }} gutter={8}>
+      {typeof following !== "undefined" && (
+        <>
+          <div className="specialChar">&middot;</div>
+          {following ? (
+            <p className="unfollow" onClick={follow}>
+              팔로우 취소
+            </p>
+          ) : (
+            <p className="follow" onClick={follow}>
+              팔로우
+            </p>
+          )}
+        </>
+      )}
+      {isMyZabo && (
+        <Button.Group style={{ marginLeft: "auto" }} gutter={8}>
           <Button to={`${url}/edit`} border="main" type="detail">
             게시물 수정
           </Button>
@@ -94,9 +88,10 @@ const OwnerInfo = ({
             border="none"
             color="white"
             onClick={() => {
-              if (window.confirm (alerts.del)) deleteZabo ();
+              if (window.confirm(alerts.del)) deleteZabo();
             }}
-          >게시물 삭제
+          >
+            게시물 삭제
           </Button>
         </Button.Group>
       )}
@@ -110,27 +105,43 @@ OwnerInfo.propTypes = {
 
 OwnerInfo.defaultProps = {};
 
-const ZaboDetailPage = props => {
+const ZaboDetailPage = (props) => {
   const { zabo, zaboId } = props;
   const {
-    title, owner = {}, schedules, createdAt, description, category = [], photos = [{}],
-    isLiked, likesCount, isPinned, pinsCount, views, effectiveViews, isMyZabo, createdBy,
+    title,
+    owner = {},
+    schedules,
+    createdAt,
+    description,
+    category = [],
+    photos = [{}],
+    isLiked,
+    likesCount,
+    isPinned,
+    pinsCount,
+    views,
+    effectiveViews,
+    isMyZabo,
+    createdBy,
   } = zabo;
   const schedule = schedules[0];
-  const timePast = getLabeledTimeDiff (createdAt, 60, 60, 6, 0);
-  const due = schedule ? moment (schedule.startAt).diff (moment (), 'days') : 0;
-  const dueFormat = schedule && moment (schedule.startAt).format ('MM/DD h:mm');
-  const stats = [{
-    type: 'like',
-    count: likesCount,
-    zaboId,
-    active: isLiked,
-  }, {
-    type: 'pin',
-    count: pinsCount,
-    zaboId,
-    active: isPinned,
-  }];
+  const timePast = getLabeledTimeDiff(createdAt, 60, 60, 6, 0);
+  const due = schedule ? moment(schedule.startAt).diff(moment(), "days") : 0;
+  const dueFormat = schedule && moment(schedule.startAt).format("MM/DD h:mm");
+  const stats = [
+    {
+      type: "like",
+      count: likesCount,
+      zaboId,
+      active: isLiked,
+    },
+    {
+      type: "pin",
+      count: pinsCount,
+      zaboId,
+      active: isPinned,
+    },
+  ];
 
   return (
     <>
@@ -144,7 +155,7 @@ const ZaboDetailPage = props => {
         <ZaboPageWrapper.TwoCol>
           <ZaboPageWrapper.TitleImage>
             <Carousel
-              imageUrls={photos.map (({ url }) => url)}
+              imageUrls={photos.map(({ url }) => url)}
               ratio={photos[0].width / photos[0].height}
               overlay
             />
@@ -153,7 +164,7 @@ const ZaboDetailPage = props => {
             <ZaboPageWrapper.Info.Header>
               <section>
                 <ul className="keyword-result">
-                  {category.map (cat => (
+                  {category.map((cat) => (
                     <li key={cat}>#{cat}</li>
                   ))}
                 </ul>
@@ -163,18 +174,16 @@ const ZaboDetailPage = props => {
                 <DueDate schedule={schedule ? schedule.startAt : null} large />
               </section>
               <section>
-                <div className="details">
-                  {timePast}
-                </div>
+                <div className="details">{timePast}</div>
                 <div className="specialChar">&middot;</div>
                 <Tooltip title={`유효 조회수 ${effectiveViews}`} enterTouchDelay={0}>
-                  <div className="details">
-                조회수 {views.toLocaleString ()}
-                  </div>
+                  <div className="details">조회수 {views.toLocaleString()}</div>
                 </Tooltip>
               </section>
               <section className="statSection">
-                {stats.map (stat => <StatBox key={stat.type} stat={stat} />)}
+                {stats.map((stat) => (
+                  <StatBox key={stat.type} stat={stat} />
+                ))}
               </section>
             </ZaboPageWrapper.Info.Header>
             <ZaboPageWrapper.Info.Body>
@@ -187,17 +196,11 @@ const ZaboDetailPage = props => {
                 <CategoryW>
                   <button>{schedule.eventType}</button>
                   <h3>{schedule.title}</h3>
-                  <div className="schedule-date">
-                    {dueFormat}
-                  </div>
+                  <div className="schedule-date">{dueFormat}</div>
                 </CategoryW>
               )}
               <section className="contents">
-                <StyledQuill
-                  theme="bubble"
-                  readOnly
-                  value={description}
-                />
+                <StyledQuill theme="bubble" readOnly value={description} />
               </section>
             </ZaboPageWrapper.Info.Body>
           </ZaboPageWrapper.Info>
@@ -216,4 +219,4 @@ ZaboDetailPage.propTypes = {
   zaboId: PropTypes.string.isRequired,
 };
 
-export default withZabo (ZaboDetailPage);
+export default withZabo(ZaboDetailPage);

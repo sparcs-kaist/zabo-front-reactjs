@@ -3,7 +3,7 @@ export default (function () {
     const st = localStorage || {};
     return {
       setItem: (key, object) => {
-        st[key] = typeof object === 'string' ? object : JSON.stringify (object);
+        st[key] = typeof object === "string" ? object : JSON.stringify(object);
       },
       getItem: (key, parse = true) => {
         if (!st[key]) {
@@ -12,26 +12,26 @@ export default (function () {
         const value = st[key];
 
         try {
-          const parsed = parse ? JSON.parse (value) : value;
+          const parsed = parse ? JSON.parse(value) : value;
           return parsed;
         } catch (e) {
           return value;
         }
       },
-      removeItem: key => {
+      removeItem: (key) => {
         if (localStorage) {
-          return localStorage.removeItem (key);
+          return localStorage.removeItem(key);
         }
         return delete st[key];
       },
     };
   } catch (err) {
-    console.warn (err);
-    setTimeout (() => alert ('Cookie disabled'), 1000);
+    console.warn(err);
+    setTimeout(() => alert("Cookie disabled"), 1000);
     return {
-      setItem: (key, object) => '',
-      getItem: key => '',
-      removeItem: key => '',
+      setItem: (key, object) => "",
+      getItem: (key) => "",
+      removeItem: (key) => "",
     };
   }
-} ());
+})();

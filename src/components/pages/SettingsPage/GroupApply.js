@@ -1,89 +1,94 @@
-import React, {
-  useCallback, useEffect, useMemo,
-  useState,
-} from 'react';
-import { useHistory } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Tooltip from '@material-ui/core/Tooltip';
-import get from 'lodash.get';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import Tooltip from "@material-ui/core/Tooltip";
+import get from "lodash.get";
 
-import SimpleSelect from 'components/molecules/SimpleSelect';
-import StyledQuill from 'components/organisms/StyledQuill';
-import Footer from 'components/templates/Footer';
-import Header from 'components/templates/Header';
+import SimpleSelect from "components/molecules/SimpleSelect";
+import StyledQuill from "components/organisms/StyledQuill";
+import Footer from "components/templates/Footer";
+import Header from "components/templates/Header";
 
-import { applyNewGroup } from 'store/reducers/auth';
-import useSetState from 'hooks/useSetState';
-import { cropImage, dataURLToBlob } from 'lib/utils';
-import { GROUP_CATEGORIES, GROUP_CATEGORIES_2, GROUP_CATEGORY_HIERARCHIY } from 'lib/variables';
+import { applyNewGroup } from "store/reducers/auth";
+import useSetState from "hooks/useSetState";
+import { cropImage, dataURLToBlob } from "lib/utils";
+import { GROUP_CATEGORIES, GROUP_CATEGORIES_2, GROUP_CATEGORY_HIERARCHIY } from "lib/variables";
 
-import checkGray from 'static/images/check_gray.png';
-import groupDefaultProfile from 'static/images/groupDefaultProfile.png';
+import checkGray from "static/images/check_gray.png";
+import groupDefaultProfile from "static/images/groupDefaultProfile.png";
 
 import {
-  AddCategoryW, BusinessW,
-  ErrorComponent, FooterStyle, FormGroup, Page, Submit,
-} from './Setting.styled';
+  AddCategoryW,
+  BusinessW,
+  ErrorComponent,
+  FooterStyle,
+  FormGroup,
+  Page,
+  Submit,
+} from "./Setting.styled";
 
-const categoryOptions = GROUP_CATEGORIES.map (category => (
-  { value: category, label: category }
-));
+const categoryOptions = GROUP_CATEGORIES.map((category) => ({ value: category, label: category }));
 
 const ApplyForm = ({ profilePhoto }) => {
-  const dispatch = useDispatch ();
-  const history = useHistory ();
-  const myName = useSelector (state => get (state, ['auth', 'info', 'username']));
-  const [state, setState, onChange] = useSetState ({
-    name: '',
-    description: '',
-    subtitle: '',
-    purpose: '',
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const myName = useSelector((state) => get(state, ["auth", "info", "username"]));
+  const [state, setState, onChange] = useSetState({
+    name: "",
+    description: "",
+    subtitle: "",
+    purpose: "",
     categoryOption: categoryOptions[0],
-    categoryOption2: '',
+    categoryOption2: "",
   });
 
-  const [error, setError] = useState ();
-  const {
-    name, purpose, description, subtitle, categoryOption, categoryOption2,
-  } = state;
+  const [error, setError] = useState();
+  const { name, purpose, description, subtitle, categoryOption, categoryOption2 } = state;
 
   const hasHierarchy = categoryOption.value in GROUP_CATEGORY_HIERARCHIY;
   const categoryOptions2 = hasHierarchy
-    ? GROUP_CATEGORY_HIERARCHIY[categoryOption.value].map (category => (
-      { value: category, label: category }
-    )) : [];
+    ? GROUP_CATEGORY_HIERARCHIY[categoryOption.value].map((category) => ({
+        value: category,
+        label: category,
+      }))
+    : [];
 
-  useEffect (() => {
-    setState ({ categoryOption2: categoryOptions2[0] });
+  useEffect(() => {
+    setState({ categoryOption2: categoryOptions2[0] });
   }, [categoryOption]);
 
-  const isValid = useMemo (() => !!name && !!purpose && !!description && !!subtitle);
+  const isValid = useMemo(() => !!name && !!purpose && !!description && !!subtitle);
 
-  const onChangeDescription = e => {
-    setState ({ description: e });
+  const onChangeDescription = (e) => {
+    setState({ description: e });
   };
 
-  const handleSubmit = useCallback (e => {
-    e.preventDefault ();
-    const category = categoryOption2 ? [categoryOption.value, categoryOption2.value] : [categoryOption.value];
-    const formData = new FormData ();
-    formData.append ('name', name);
-    formData.append ('purpose', purpose);
-    formData.append ('description', description);
-    formData.append ('subtitle', subtitle);
-    formData.append ('category', JSON.stringify (category));
-    if (profilePhoto) {
-      formData.append ('img', profilePhoto);
-    }
-    dispatch (applyNewGroup (formData))
-      .then (() => {
-        history.push (`/${myName}`);
-      })
-      .catch (err => {
-        setError (err);
-        alert (err.error);
-      });
-  }, [state, profilePhoto]);
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      const category = categoryOption2
+        ? [categoryOption.value, categoryOption2.value]
+        : [categoryOption.value];
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("purpose", purpose);
+      formData.append("description", description);
+      formData.append("subtitle", subtitle);
+      formData.append("category", JSON.stringify(category));
+      if (profilePhoto) {
+        formData.append("img", profilePhoto);
+      }
+      dispatch(applyNewGroup(formData))
+        .then(() => {
+          history.push(`/${myName}`);
+        })
+        .catch((err) => {
+          setError(err);
+          alert(err.error);
+        });
+    },
+    [state, profilePhoto],
+  );
 
   return (
     <form onSubmit={handleSubmit}>
@@ -108,21 +113,19 @@ const ApplyForm = ({ profilePhoto }) => {
           <SimpleSelect
             value={categoryOption}
             options={categoryOptions}
-            onChange={newOption => setState ({ categoryOption: newOption })}
+            onChange={(newOption) => setState({ categoryOption: newOption })}
             isClearable={false}
             width="100%"
           />
-          {
-            hasHierarchy && (
-              <SimpleSelect
-                value={categoryOption2}
-                options={categoryOptions2}
-                onChange={newOption => setState ({ categoryOption2: newOption })}
-                isClearable={false}
-                width="100%"
-              />
-            )
-          }
+          {hasHierarchy && (
+            <SimpleSelect
+              value={categoryOption2}
+              options={categoryOptions2}
+              onChange={(newOption) => setState({ categoryOption2: newOption })}
+              isClearable={false}
+              width="100%"
+            />
+          )}
         </AddCategoryW>
       </FormGroup>
       <FormGroup>
@@ -176,9 +179,9 @@ const ApplyForm = ({ profilePhoto }) => {
           theme="bubble"
           modules={{
             toolbar: [
-              ['bold', 'underline', 'strike'],
-              [{ list: 'ordered' }, { list: 'bullet' }, { indent: '+1' }, { indent: '-1' }],
-              ['link'],
+              ["bold", "underline", "strike"],
+              [{ list: "ordered" }, { list: "bullet" }, { indent: "+1" }, { indent: "-1" }],
+              ["link"],
             ],
           }}
           groupSetting
@@ -187,7 +190,9 @@ const ApplyForm = ({ profilePhoto }) => {
       {error && <ErrorComponent>{error.message}</ErrorComponent>}
       <Footer scrollFooter>
         <FooterStyle>
-          <Submit type="submit" disabled={!isValid}>신청하기</Submit>
+          <Submit type="submit" disabled={!isValid}>
+            신청하기
+          </Submit>
         </FooterStyle>
       </Footer>
     </form>
@@ -195,15 +200,15 @@ const ApplyForm = ({ profilePhoto }) => {
 };
 
 const GroupApply = () => {
-  const [profilePreview, setProfilePreview] = useState ('');
-  const [profilePhoto, setProfilePhoto] = useState (null);
+  const [profilePreview, setProfilePreview] = useState("");
+  const [profilePhoto, setProfilePhoto] = useState(null);
 
-  const handlePhotoChange = async e => {
+  const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
-    const imageSrc = await cropImage (file, 1);
-    const blob = dataURLToBlob (imageSrc);
-    setProfilePhoto (blob);
-    setProfilePreview (imageSrc);
+    const imageSrc = await cropImage(file, 1);
+    const blob = dataURLToBlob(imageSrc);
+    setProfilePhoto(blob);
+    setProfilePreview(imageSrc);
   };
 
   return (
@@ -213,22 +218,20 @@ const GroupApply = () => {
         <h1>그룹 신청</h1>
         <p>자보에 새 그룹을 등록해보세요.</p>
         <Page.Body.ProfileInfo>
-          {
-            profilePreview
-              ? <img src={profilePreview} alt="profile photo" />
-              : <img src={groupDefaultProfile} alt="default profile img" />
-          }
+          {profilePreview ? (
+            <img src={profilePreview} alt="profile photo" />
+          ) : (
+            <img src={groupDefaultProfile} alt="default profile img" />
+          )}
           <input
             id="profile-photo"
             type="file"
             name="profilePhoto"
             accept="image/*"
             onChange={handlePhotoChange}
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
           />
-          <label
-            htmlFor="profile-photo"
-          >
+          <label htmlFor="profile-photo">
             <div className="button">사진 올리기</div>
           </label>
         </Page.Body.ProfileInfo>

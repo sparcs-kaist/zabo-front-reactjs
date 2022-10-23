@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Page = styled.section`
   padding: 64px 0 74px 0;
@@ -36,7 +36,9 @@ Page.Body = styled.div`
       font-size: 24px;
       line-height: 27px;
     }
-    p { padding-bottom: 32px }
+    p {
+      padding-bottom: 32px;
+    }
   }
 `;
 
@@ -52,7 +54,8 @@ Page.Body.ProfileInfo = styled.div`
   label {
     display: inline-block;
   }
-  button, .button {
+  button,
+  .button {
     height: 30px;
     font-size: 12px;
     font-weight: bold;
@@ -61,7 +64,7 @@ Page.Body.ProfileInfo = styled.div`
     padding: 8px 12px;
     border-radius: 15px;
     border: 1px solid #143441;
-    background-color: #F8F8F8;
+    background-color: #f8f8f8;
     cursor: pointer;
     /* &:hover {
       background-color: #143441;
@@ -73,7 +76,8 @@ Page.Body.ProfileInfo = styled.div`
       width: 105px;
       height: 105px;
     }
-    button, .button {
+    button,
+    .button {
       margin: 12px 0 32px 0;
     }
   }
@@ -90,7 +94,7 @@ export const FormGroup = styled.div`
     border: none;
     outline: none;
     border-radius: 4px;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     font-size: 16px;
     line-height: 16px;
     font-weight: 500;
@@ -114,15 +118,18 @@ FormGroup.Label = styled.div`
   font-size: 16px;
   line-height: 20px;
   margin: 0;
-  ${props => (props.required ? css`
-    &::after {
-      display: inline-block;
-      margin-left: 4px;
-      color: #f66;
-      font-weight: 300;
-      content: "*";
-    }
-  ` : css``)};
+  ${(props) =>
+    props.required
+      ? css`
+          &::after {
+            display: inline-block;
+            margin-left: 4px;
+            color: #f66;
+            font-weight: 300;
+            content: "*";
+          }
+        `
+      : css``};
 `;
 
 export const FooterStyle = styled.div`
@@ -139,11 +146,11 @@ export const Submit = styled.button`
   font-size: 16px;
   line-height: 18px;
   color: white;
-  background-color: #FF5D5D;
+  background-color: #ff5d5d;
   border: 0;
   &:disabled {
-    background: #F8F8F8;
-    color: #8F8F8F;
+    background: #f8f8f8;
+    color: #8f8f8f;
     cursor: not-allowed;
   }
 `;
@@ -157,21 +164,21 @@ export const ErrorComponent = styled.div`
 
 export const AddMember = styled.section`
   display: flex;
-  >div {
+  > div {
     margin-right: 8px;
   }
-  >button {
+  > button {
     width: 78px;
     height: 38px;
     background: #143441;
     border: 1px solid #143441;
     box-sizing: border-box;
     border-radius: 4px;
-    
+
     font-weight: bold;
     font-size: 16px;
     line-height: 18px;
-    color: #FFFFFF;
+    color: #ffffff;
   }
 `;
 
@@ -179,11 +186,17 @@ export const AddCategoryW = styled.section`
   display: flex;
   margin: 8px 0 48px 0;
 
-  >div { max-width: 50% }
-  >div:first-child { margin-right: 14px }
+  > div {
+    max-width: 50%;
+  }
+  > div:first-child {
+    margin-right: 14px;
+  }
 
   @media (max-width: 640px) {
-    >div:first-child { margin-right: 15px }
+    > div:first-child {
+      margin-right: 15px;
+    }
   }
 `;
 
@@ -214,7 +227,7 @@ export const BusinessW = styled.section`
       padding: 0;
     }
     p {
-      color: #8F8F8F;
+      color: #8f8f8f;
       font-size: 12px;
       padding: 0;
     }
@@ -228,9 +241,9 @@ export const BusinessW = styled.section`
         justify-content: flex-end;
         width: 144px;
         height: 38px;
-        background-color: #F4F4F4;
+        background-color: #f4f4f4;
         border-radius: 4px;
-        color: #8F8F8F;
+        color: #8f8f8f;
         font-size: 16px;
         font-weight: bold;
         border: 0;
@@ -249,8 +262,12 @@ export const BusinessW = styled.section`
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      p { margin-bottom: 36px }
-      .business-btn { flex: none }
+      p {
+        margin-bottom: 36px;
+      }
+      .business-btn {
+        flex: none;
+      }
     }
   }
 `;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const ZaboPageWrapper = styled.div`
   width: 100%;
@@ -22,7 +22,6 @@ ZaboPageWrapper.Detail = styled.div`
     padding: 0;
   }
 `;
-
 
 ZaboPageWrapper.TwoCol = styled.section`
   display: flex;
@@ -75,13 +74,13 @@ ZaboPageWrapper.Info.Header = styled.section`
       border-radius: 2px;
       padding: 4px 5px;
       margin: 0 8px 12px 0;
-      background: #EEEEEE;
-      color: #5C5C5C;
+      background: #eeeeee;
+      color: #5c5c5c;
       font-size: 14px;
       line-height: 16px;
     }
   }
-  
+
   .zabo-page-header-title-group {
     display: flex;
     width: 100%;
@@ -101,20 +100,24 @@ ZaboPageWrapper.Info.Header = styled.section`
     }
   }
 
-  .details{
+  .details {
     display: inline-block;
     font-size: 14px;
     line-height: 14px;
     color: #666666;
-    &:nth-child(1) { padding-right: 8px }
-    &:nth-child(3) { padding-left: 8px }
+    &:nth-child(1) {
+      padding-right: 8px;
+    }
+    &:nth-child(3) {
+      padding-left: 8px;
+    }
     @media (max-width: 640px) {
       font-size: 12px;
     }
   }
   .specialChar {
     display: inline-block;
-    color: #8F8F8F;
+    color: #8f8f8f;
     vertical-align: middle;
   }
 
@@ -126,9 +129,9 @@ ZaboPageWrapper.Info.Header = styled.section`
 ZaboPageWrapper.Info.Body = styled.section`
   color: #202020;
   .borderLine {
-    border: 0.5px solid #E9E9E9;
+    border: 0.5px solid #e9e9e9;
   }
-  
+
   .owner {
     display: flex;
     align-items: center;
@@ -148,16 +151,18 @@ ZaboPageWrapper.Info.Body = styled.section`
       border-radius: 50%;
       margin-right: 10px;
     }
-    
+
     .owner-label {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      .owner-group { 
+      .owner-group {
         font-size: 16px;
         line-height: 18px;
         color: #202020;
-        &.follow { font-size: 14px; }
+        &.follow {
+          font-size: 14px;
+        }
       }
       .owner-creator {
         margin-top: 2px;
@@ -169,7 +174,7 @@ ZaboPageWrapper.Info.Body = styled.section`
   }
   .specialChar {
     display: inline-block;
-    color: #8F8F8F;
+    color: #8f8f8f;
     vertical-align: middle;
     margin: 0 8px;
   }
@@ -182,7 +187,7 @@ ZaboPageWrapper.Info.Body = styled.section`
   .unfollow {
     font-size: 14px;
     line-height: 16px;
-    color: #BCBCBC;
+    color: #bcbcbc;
     cursor: pointer;
   }
   .contents {
@@ -231,7 +236,7 @@ export const CategoryW = styled.section`
     height: 20px;
     font-size: 12px;
     color: #797979;
-    background: #F4F4F4;
+    background: #f4f4f4;
     border-radius: 3px;
     border: 0;
     margin-right: 8px;
@@ -255,6 +260,9 @@ export const CategoryW = styled.section`
     align-items: flex-start;
     height: 100%;
     padding: 14px 20px;
-    button, h3 { margin-bottom: 5px }
+    button,
+    h3 {
+      margin-bottom: 5px;
+    }
   }
 `;

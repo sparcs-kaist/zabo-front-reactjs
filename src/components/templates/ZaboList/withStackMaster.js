@@ -1,46 +1,46 @@
 /* eslint-disable */
-import React from 'react';
-import PropTypes from 'prop-types';
-import storage from 'lib/storage';
+import React from "react";
+import PropTypes from "prop-types";
+import storage from "lib/storage";
 
-export default Component => {
+export default (Component) => {
   class StackMaster extends React.Component {
-    state = { stack: [] }
+    state = { stack: [] };
 
-    componentDidMount () {
+    componentDidMount() {
       const { zaboId } = this.props;
       if (!zaboId) {
-        storage.setItem ('zaboStack', []);
+        storage.setItem("zaboStack", []);
       } else {
-        let zaboStack = storage.getItem ('zaboStack') || [];
-        zaboStack = Array.isArray (zaboStack) ? zaboStack : [];
-        const prev = zaboStack.pop ();
-        if (!!prev && prev !== zaboId) zaboStack.push (prev);
-        zaboStack.push (zaboId);
-        storage.setItem ('zaboStack', zaboStack);
-        this.setState ({ stack: zaboStack });
+        let zaboStack = storage.getItem("zaboStack") || [];
+        zaboStack = Array.isArray(zaboStack) ? zaboStack : [];
+        const prev = zaboStack.pop();
+        if (!!prev && prev !== zaboId) zaboStack.push(prev);
+        zaboStack.push(zaboId);
+        storage.setItem("zaboStack", zaboStack);
+        this.setState({ stack: zaboStack });
       }
     }
 
-    componentDidUpdate (prevProps, prevState, snapshot) {
+    componentDidUpdate(prevProps, prevState, snapshot) {
       const { zaboId } = this.props;
       if (prevProps.zaboId === zaboId) return;
 
       if (!zaboId) {
-        this.setState ({ stack: [] });
-        storage.setItem ('zaboStack');
+        this.setState({ stack: [] });
+        storage.setItem("zaboStack");
         return;
       }
 
-      this.setState (prevState => {
+      this.setState((prevState) => {
         const { stack } = prevState;
-        stack.push (zaboId);
-        storage.setItem ('zaboStack', stack);
+        stack.push(zaboId);
+        storage.setItem("zaboStack", stack);
         return { stack };
       });
     }
 
-    render () {
+    render() {
       const { stack } = this.state;
       const { zaboId, ...props } = this.props;
 

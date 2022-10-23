@@ -1,19 +1,19 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import * as mixins from 'lib/mixins';
-import { media } from 'lib/utils/style';
+import * as mixins from "lib/mixins";
+import { media } from "lib/utils/style";
 
 export const CategoryW = styled.div`
   ${mixins.flexCenter};
   height: 19px;
   padding: 3px 6px;
-  background: ${props => props.theme.gray5};
+  background: ${(props) => props.theme.gray5};
   border-radius: 2px;
   font-size: 10px;
   line-height: 11px;
-  color: ${props => props.theme.gray60};
+  color: ${(props) => props.theme.gray60};
   cursor: default;
-  ${media.tablet (css`
+  ${media.tablet(css`
     font-size: 12px;
     line-height: 14px;
     height: 20px;

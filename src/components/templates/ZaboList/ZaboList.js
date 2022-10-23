@@ -1,13 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import MasonryZaboList from 'react-masonry-infinite';
-import SquareLoader from 'react-spinners/SquareLoader';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import MasonryZaboList from "react-masonry-infinite";
+import SquareLoader from "react-spinners/SquareLoader";
+import styled from "styled-components";
 
-import ZaboCard from 'components/organisms/ZaboCard';
+import ZaboCard from "components/organisms/ZaboCard";
 
-import withStackMaster from './withStackMaster';
-import ZaboListWrapper from './ZaboList.styled';
+import withStackMaster from "./withStackMaster";
+import ZaboListWrapper from "./ZaboList.styled";
 
 const sizes = [
   { columns: 2, gutter: 16 },
@@ -30,45 +30,43 @@ const loader = (
 );
 
 class ZaboList extends React.Component {
-  masonry = React.createRef ()
+  masonry = React.createRef();
 
-  state = { hasNext: true }
+  state = { hasNext: true };
 
-  componentDidMount () {
-    this.fetch ();
+  componentDidMount() {
+    this.fetch();
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     const { query } = this.props;
     if (query !== prevProps.query) {
-      this.fetch ();
+      this.fetch();
     }
   }
 
-  fetch = next => {
-    const {
-      type, getZaboList, getPins, query, zaboIdList, getGroupZaboList, getSearchZaboList,
-    } = this.props;
+  fetch = (next) => {
+    const { type, getZaboList, getPins, query, zaboIdList, getGroupZaboList, getSearchZaboList } =
+      this.props;
     const lastSeen = next ? zaboIdList[zaboIdList.length - 1] : undefined;
     const fetches = {
-      main: () => getZaboList ({ lastSeen }),
-      related: () => getZaboList ({ lastSeen, relatedTo: query }),
-      pins: () => getPins ({ username: query, lastSeen }),
-      group: () => getGroupZaboList ({ groupName: query, lastSeen }),
+      main: () => getZaboList({ lastSeen }),
+      related: () => getZaboList({ lastSeen, relatedTo: query }),
+      pins: () => getPins({ username: query, lastSeen }),
+      group: () => getGroupZaboList({ groupName: query, lastSeen }),
       // search: () => (!lastSeen ? Promise.resolve (zaboIdList) : getSearchZaboList ({ text: query, lastSeen })),
-      search: () => Promise.resolve ([]),
+      search: () => Promise.resolve([]),
     };
-    return fetches[type] ()
-      .then (zaboList => {
-        if (zaboList.length === 0) this.setState ({ hasNext: false });
-      });
-  }
+    return fetches[type]().then((zaboList) => {
+      if (zaboList.length === 0) this.setState({ hasNext: false });
+    });
+  };
 
   fetchNext = () => {
-    this.fetch (true);
-  }
+    this.fetch(true);
+  };
 
-  render () {
+  render() {
     const { zaboIdList, type, width } = this.props;
     const { hasNext } = this.state;
     const { fetchNext } = this;
@@ -86,7 +84,7 @@ class ZaboList extends React.Component {
           threshold={800}
           key={[zaboIdList, width]}
         >
-          {zaboIdList.map (zaboId => (
+          {zaboIdList.map((zaboId) => (
             <ZaboCard key={zaboId} zaboId={zaboId} />
           ))}
         </MasonryZaboList>
@@ -96,8 +94,8 @@ class ZaboList extends React.Component {
 }
 
 ZaboList.propTypes = {
-  zaboIdList: PropTypes.arrayOf (PropTypes.string).isRequired,
-  type: PropTypes.oneOf (['main', 'related', 'pins', 'group', 'search']).isRequired,
+  zaboIdList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  type: PropTypes.oneOf(["main", "related", "pins", "group", "search"]).isRequired,
   getZaboList: PropTypes.func.isRequired,
   getPins: PropTypes.func.isRequired,
   getGroupZaboList: PropTypes.func.isRequired,
@@ -106,7 +104,7 @@ ZaboList.propTypes = {
 };
 
 ZaboList.defaultProps = {
-  query: '',
+  query: "",
 };
 
-export default withStackMaster (ZaboList);
+export default withStackMaster(ZaboList);

@@ -3,37 +3,35 @@
 body {
   margin: 50px 0 0 0;
   padding: 0;
-  font-family: 'NanumSquare', -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: "NanumSquare", -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   transition: margin-top 0.4s;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /*IE9*/
-  a::selection 
-  {
-      background-color:transparent;
-  } 
-  a::-moz-selection
-  {
-      background-color:transparent;
+  a::selection {
+    background-color: transparent;
   }
-  a
-  {        
-      -webkit-user-select: none;
-      -moz-user-select: -moz-none;
-      /*IE10*/
-      -ms-user-select: none;
-      user-select: none;
+  a::-moz-selection {
+    background-color: transparent;
+  }
+  a {
+    -webkit-user-select: none;
+    -moz-user-select: -moz-none;
+    /*IE10*/
+    -ms-user-select: none;
+    user-select: none;
 
-      /*You just need this if you are only concerned with android and not desktop browsers.*/
-      -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }    
-  input[type="text"], textarea, [contenteditable]
-  {
-      -webkit-user-select: text;
-      -moz-user-select: text;
-      -ms-user-select: text;
-      user-select: text;
+    /*You just need this if you are only concerned with android and not desktop browsers.*/
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  input[type="text"],
+  textarea,
+  [contenteditable] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
   }
   .pwa-prompt {
     z-index: -1;
@@ -63,7 +61,10 @@ code {
   background: rgba(184, 203, 236, 0.41);
 }
 
-a, a:hover, a:visited, a:focus {
+a,
+a:hover,
+a:visited,
+a:focus {
   border: none;
   outline: none;
   text-decoration: none;
@@ -71,13 +72,14 @@ a, a:hover, a:visited, a:focus {
   cursor: pointer;
 }
 
-button, button:focus, button:active {
+button,
+button:focus,
+button:active {
   outline: none;
   cursor: pointer;
 }
 
 #root {
-
 }
 
 .container {

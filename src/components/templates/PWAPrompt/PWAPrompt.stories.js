@@ -1,8 +1,8 @@
-import React from 'react';
-import { storiesOf } from '@storybook/react';
+import React from "react";
+import { storiesOf } from "@storybook/react";
 
-import PWAPrompt from './index';
+import PWAPrompt from "./index";
 
-storiesOf ('templates/PWAPrompt', module).add ('Default', () => <PWAPrompt />, {
-  notes: '',
+storiesOf("templates/PWAPrompt", module).add("Default", () => <PWAPrompt />, {
+  notes: "",
 });

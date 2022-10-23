@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const PageWrapper = styled.div`
   padding-top: 48px;
@@ -35,12 +35,15 @@ TitleStyle.elem = styled.div`
     vertical-align: middle;
     font-size: 16px;
     transition: color 0.3s;
-    ${props => (props.step ? css`
-        color: #143441;
-        font-weight: bold;
-    ` : css`
-        color: #BCBCBC;
-    `)}
+    ${(props) =>
+      props.step
+        ? css`
+            color: #143441;
+            font-weight: bold;
+          `
+        : css`
+            color: #bcbcbc;
+          `}
   }
   img {
     width: 24px;
@@ -49,7 +52,7 @@ TitleStyle.elem = styled.div`
     margin: 0 8px;
   }
   @media (max-width: 640px) {
-    p { 
+    p {
       font-size: 14px;
       margin: 0;
     }
@@ -66,7 +69,7 @@ export const FooterStyle = styled.div`
   width: 100%;
   align-items: center;
   background: white;
-  
+
   .container {
     width: 100%;
     max-width: 1080px;
@@ -74,21 +77,21 @@ export const FooterStyle = styled.div`
     flex-direction: row;
     justify-content: flex-end;
   }
-  
+
   .slide-action-group {
     flex: auto 0 0;
   }
-  
+
   button {
     width: 140px;
     height: 44px;
     border-radius: 4px;
     font-size: 16px;
     line-height: 18px;
-    
+
     &.prev {
       border: none;
-      color: #9C9C9C;
+      color: #9c9c9c;
       margin-right: 24px;
     }
     &.next {
@@ -97,8 +100,8 @@ export const FooterStyle = styled.div`
       background: #143441;
       color: white;
       &:disabled {
-        background: #F8F8F8;
-        color: #8F8F8F;
+        background: #f8f8f8;
+        color: #8f8f8f;
         cursor: not-allowed;
       }
     }
@@ -106,11 +109,11 @@ export const FooterStyle = styled.div`
       cursor: progress;
     }
     &.submit {
-      background: #FF5D5D;
+      background: #ff5d5d;
     }
     &.submit:disabled {
       background: #cccccc;
-      color: #8F8F8F;
+      color: #8f8f8f;
     }
   }
 

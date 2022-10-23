@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
 export const Stats = styled.section`
   display: inline-block;
@@ -6,7 +6,7 @@ export const Stats = styled.section`
 
 Stats.elem = styled.div`
   display: inline-block;
-  border-right: 1px solid #E9E9E9;
+  border-right: 1px solid #e9e9e9;
   padding: 0 18px;
 
   h3 {
@@ -18,28 +18,35 @@ Stats.elem = styled.div`
   }
   div {
     font-size: 14px;
-    color: #8F8F8F;
+    color: #8f8f8f;
     text-align: center;
   }
 
-  ${props => (props.small ? css`
-    padding: 0 14px;
-    h3 { 
-      font-size: 16px;
-      margin-bottom: 4px;
-      font-weight: bold;
-    }
-    div { font-size: 12px }
-    @media (max-width: 640px) {
-      padding: 0 11px;
-      h3 {
-        font-size: 14px;
-        margin-bottom: 3px;
-      }
-      div { font-size: 10px }
-    }
-  ` : css``)};
-  
+  ${(props) =>
+    props.small
+      ? css`
+          padding: 0 14px;
+          h3 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            font-weight: bold;
+          }
+          div {
+            font-size: 12px;
+          }
+          @media (max-width: 640px) {
+            padding: 0 11px;
+            h3 {
+              font-size: 14px;
+              margin-bottom: 3px;
+            }
+            div {
+              font-size: 10px;
+            }
+          }
+        `
+      : css``};
+
   &:nth-child(1) {
     padding-left: 0;
   }

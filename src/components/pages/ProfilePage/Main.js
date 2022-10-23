@@ -1,15 +1,15 @@
-import React from 'react';
-import { Route, Switch, useRouteMatch } from 'react-router-dom';
-import styled from 'styled-components';
+import React from "react";
+import { Route, Switch, useRouteMatch } from "react-router-dom";
+import styled from "styled-components";
 
-import { NotFound } from 'components/pages';
+import { NotFound } from "components/pages";
 
-import ProfilePage from './ProfilePage';
+import ProfilePage from "./ProfilePage";
 
 const ProfilePageWrapper = styled.section``;
 
 const Main = () => {
-  const match = useRouteMatch ();
+  const match = useRouteMatch();
 
   return (
     <ProfilePageWrapper>
@@ -21,9 +21,6 @@ const Main = () => {
   );
 };
 
-
-Main.propTypes = {
-
-};
+Main.propTypes = {};
 
 export default Main;

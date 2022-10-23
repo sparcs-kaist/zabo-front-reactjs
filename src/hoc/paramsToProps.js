@@ -1,8 +1,8 @@
-import React from 'react';
-import get from 'lodash.get';
+import React from "react";
+import get from "lodash.get";
 
-export default WrappedComponent => props => {
-  const params = get (props, ['match', 'params']) || {};
+export default (WrappedComponent) => (props) => {
+  const params = get(props, ["match", "params"]) || {};
   const downProps = {
     ...props,
     ...params,

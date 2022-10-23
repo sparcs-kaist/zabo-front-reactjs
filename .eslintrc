@@ -1,132 +1,23 @@
 {
-  "extends": [
-    "airbnb-base",
-    "airbnb/rules/react",
-  ],
-  "plugins": [
-    "@typescript-eslint",
-    "simple-import-sort"
-  ],
-  "parser": "@typescript-eslint/parser",
-  "parserOptions": {
-    "ecmaVersion": 2018,
-    "sourceType": "module"
-  },
-  "rules": {
-    "react/prefer-stateless-function": 0,
-    "react/jsx-filename-extension": 0,
-    "react/jsx-one-expression-per-line": 0,
-    "react/jsx-props-no-spreading": 0,
-    "react/state-in-constructor": "off",
-    "react/destructuring-assignment": "warn",
-    "react/no-unused-state": "warn",
-    "react/button-has-type": "warn",
-    "react/no-array-index-key": "warn",
-    "react/sort-comp": "off",
-    "react/prop-types": "warn",
-    "react/require-default-props": "warn",
-    "import/prefer-default-export": "warn",
-    "import/named": "warn",
-    "import/no-named-as-default": "off",
-    "import/extensions": [
-      "error",
-      "ignorePackages",
-      {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
-    ],
-    "@typescript-eslint/type-annotation-spacing": ["warn", { "before": false, "after": true, "overrides": { "colon": { "before": true, "after": true }, "arrow": { "before": true, "after": true }  } }],
-    "arrow-parens": ["warn", "as-needed"],
-    "no-nested-ternary": "off",
-    "no-unused-expressions": "off",
-    "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "off",
-    "no-useless-constructor": "off",
-    "@typescript-eslint/no-useless-constructor": "warn",
-    "space-before-function-paren": ["warn", "always"],
-    "no-spaced-func": "off",
-    "func-call-spacing": ["warn", "always"],
-    "no-underscore-dangle": "off",
-    "no-mixed-spaces-and-tabs": "error",
-    "no-shadow": "warn",
-    "max-len": ["warn", 150],
-    "no-console": ["warn", { "allow": ["warn", "error"] }],
-    "func-names": "off",
-    "no-plusplus": ["warn", {
-      "allowForLoopAfterthoughts": true
-    }],
-    "no-trailing-spaces": "warn",
-    "indent": ["warn", 2],
-    "semi": ["warn", "always"],
-    "no-param-reassign": ["warn", { "props": true, "ignorePropertyModificationsFor": ["draft"] }],
-    "simple-import-sort/sort": [
-      1,
-      {
-        "groups": [
-          ["^\\u0000"],
-          [
-            "^react$",
-            "^prop-types$",
-            "^react-router-dom$",
-            "^react-redux$",
-            "^react",
-            "^styled-components$",
-            "^[^.]"
-          ],
-          [
-            "^containers",
-            "^components",
-            "^atoms",
-            "^molecules",
-            "^organisms",
-            "^templates",
-            "^pages"
-          ],
-          [
-            "^store",
-            "^hoc",
-            "^hooks",
-            "^lib"
-          ],
-          [
-            "^(static)",
-            "^(?!(assets|static)($|/))\\w"
-          ],
-          ["^\\."]
-        ]
-      }
-    ]
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   },
   "env": {
     "browser": true
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "moduleDirectory": ["node_modules", "src", "src/components"],
-        "extensions": [".js",".jsx",".ts",".tsx"]
-      }
-    },
-    "import/extensions": [".js",".jsx",".ts",".tsx"],
-    "import/parsers": {
-      "@typescript-eslint/parser": [".ts",".tsx"]
-    }
-  },
-  "overrides": [
-    {
-      "files": ["*.stories.js", "*.test.js"],
-      "rules": {
-        "import/no-extraneous-dependencies": "off",
-      }
-    },
-    {
-      "files": ["*.test.js"],
-      "env": {
-        "jest": true
-      }
-    }
-  ]
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/typescript",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "root": true,
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  }
 }
