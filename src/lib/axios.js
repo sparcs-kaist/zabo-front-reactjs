@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import { env } from "../env";
+
 const singleton = Symbol("singleton");
 const singletonEnforcer = Symbol("singletonEnforcer");
 
@@ -15,7 +17,7 @@ class Axios {
         },
       },
       timeout: 30000,
-      baseURL: `${process.env.REACT_APP_API_HOST || ""}/api`,
+      baseURL: `${env.REACT_APP_API_HOST || ""}/api`,
       withCredentials: true,
     });
     this._interceptor = null;

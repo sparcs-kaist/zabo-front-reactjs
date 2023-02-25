@@ -10,6 +10,8 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
+import { env } from "./env";
+
 interface Config {
   onUpdate: (registration: ServiceWorkerRegistration) => any;
   onSuccess: (registration: ServiceWorkerRegistration) => any;
@@ -95,9 +97,9 @@ function checkValidServiceWorker(swUrl: string, config?: Config) {
 }
 
 export function register(config?: Config) {
-  if ((process.env.NODE_ENV === "production" && "serviceWorker" in navigator) || true) {
+  if (env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL(env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -106,7 +108,7 @@ export function register(config?: Config) {
     }
 
     window.addEventListener("load", () => {
-      const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
+      const swUrl = `${env.PUBLIC_URL}/service-worker.js`;
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { env } from "../../env";
 import { RouteComponentProps, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { get } from "lodash";
@@ -15,7 +16,7 @@ const ChannelTalk = ({ match }: RouteComponentProps<{ top: string }>) => {
   const info = useSelector((state: IState) => get(state, ["auth", "info"]));
 
   useEffect(() => {
-    if (process.env.NODE_ENV !== "production") return;
+    if (env.NODE_ENV !== "production") return;
     if (top === "settings") {
       ChannelService.shutdown();
       return;

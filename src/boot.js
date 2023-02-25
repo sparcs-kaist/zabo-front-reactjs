@@ -1,5 +1,7 @@
 import "devtools-detect";
 
+import { env } from "./env";
+
 import moment from "moment";
 
 import store from "store";
@@ -68,7 +70,7 @@ export default () => {
 };
 
 window.addEventListener("devtoolschange", () => {
-  if (process.env.NODE_ENV !== "production") return;
+  if (env.NODE_ENV !== "production") return;
   import("static/images/recruitAscii").then((asciiArt) => {
     // eslint-disable-next-line no-console
     console.log(asciiArt.default);
