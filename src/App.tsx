@@ -22,7 +22,7 @@ import {
 } from "components/pages";
 import PWAPrompt from "components/templates/PWAPrompt";
 
-import { AdminRoute, PrivateRoute, PublicRoute } from "hoc/AuthRoutes";
+import { PrivateRoute, PublicRoute } from "hoc/AuthRoutes";
 import pToP from "hoc/paramsToProps";
 
 import AppWrapper from "./App.styled";

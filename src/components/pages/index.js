@@ -23,6 +23,6 @@ export const AuthPage = loadable(/* webpackPrefetch: true */ () => import("./Aut
 export const LoginPage = loadable(/* webpackPrefetch: true */ () => import("./LoginPage"));
 export const ProfilePage = loadable(/* webpackPrefetch: true */ () => import("./ProfilePage"));
 export const NotFound = loadable(/* webpackPrefetch: true */ () => import("./NotFound"));
-export const AdminPage = loadable(/* webpackPrefetch: true */ () => import("./AdminPage"));
+// export const AdminPage = loadable(/* webpackPrefetch: true */ () => import("./AdminPage"));
 export const SearchPage = loadable(/* webpackPrefetch: true */ () => import("./SearchPage"));
 export const ApiPage = loadable(/* webpackPrefetch: true */ () => import("./ApiPage"));
