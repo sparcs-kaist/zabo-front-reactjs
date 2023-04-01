@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 import leftScroll from "static/images/leftScroll.png";
 import rightScroll from "static/images/rightScroll.png";
 
-const ScrollBtnW = styled.div`
+const ScrollBtnW = styled.div<{ show?: boolean }>`
   ${(props) =>
     props.show
       ? css``
@@ -15,26 +15,47 @@ const ScrollBtnW = styled.div`
     display: none;
   }
   float: right;
+
   img {
     width: 30px;
     height: 30px;
     margin-left: 3px;
     border-radius: 50%;
     cursor: pointer;
+
     &:hover {
-      box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
     }
   }
+
   margin: 0 auto;
 `;
 
-const ScrollBtn = ({ elemId, show, scrollSize = 622, left = true, right = true }) => {
-  const leftScrollClick = useCallback(() => {
-    document.getElementById(elemId).scrollLeft -= scrollSize;
-  }, []);
-  const rightScrollClick = useCallback(() => {
-    document.getElementById(elemId).scrollLeft += scrollSize;
-  }, []);
+interface Props {
+  elemId: string;
+  show?: boolean;
+  scrollSize?: number;
+  left?: boolean;
+  right?: boolean;
+}
+
+const ScrollBtn: React.FC<Props> = ({
+  elemId,
+  show,
+  scrollSize = 622,
+  left = true,
+  right = true,
+}) => {
+  const scroll = useCallback(
+    (offset: number) => {
+      const elem = document.getElementById(elemId);
+      if (elem) elem.scrollLeft += offset;
+    },
+    [elemId],
+  );
+
+  const leftScrollClick = useCallback(() => scroll(-scrollSize), [scroll, scrollSize]);
+  const rightScrollClick = useCallback(() => scroll(scrollSize), [scroll, scrollSize]);
   return (
     <ScrollBtnW show={show}>
       {left && <img onClick={leftScrollClick} src={leftScroll} alt="left scroll button" />}
