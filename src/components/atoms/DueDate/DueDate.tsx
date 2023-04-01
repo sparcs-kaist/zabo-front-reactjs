@@ -51,7 +51,12 @@ const DDayLW = styled(DueDateLW)`
   background: ${(props) => props.theme.red50};
 `;
 
-const DueDate = ({ schedule, large }) => {
+interface Props {
+  schedule: string;
+  large?: boolean;
+}
+
+const DueDate: React.FC<Props> = ({ schedule, large }) => {
   const due = schedule ? moment(schedule).diff(moment(), "days") : -1;
   if (large) {
     if (due > 0) return <DueDateLW>D{to2Digits(-due, true)}</DueDateLW>;
