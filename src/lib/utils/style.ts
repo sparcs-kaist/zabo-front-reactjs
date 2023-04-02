@@ -11,7 +11,7 @@ const wrapMedia =
   (...args: ReturnType<typeof css> | Parameters<typeof css>) =>
     css`
       @media (min-width: ${size / 16}em) {
-        ${Array.isArray(args) ? css(...args) : args};
+        ${Array.isArray(args) && args.length > 1 ? css(...args) : args};
       }
     `;
 
