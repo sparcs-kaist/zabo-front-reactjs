@@ -1,5 +1,5 @@
-import type { MongoSchema } from "./utils/mongo";
-import type { User, Group, Board } from ".";
+import type { MongoSchema } from "../utils/mongo";
+import type { User, Group, Board } from "./index";
 
 export interface Zabo extends MongoSchema {
   createdBy?: User | string;

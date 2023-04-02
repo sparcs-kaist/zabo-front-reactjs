@@ -1,4 +1,4 @@
-import type { MongoSchema } from "./utils/mongo";
+import type { MongoSchema } from "../utils/mongo";
 
 export interface Board extends MongoSchema {
   title: string;
