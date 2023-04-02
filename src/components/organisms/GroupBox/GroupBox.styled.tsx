@@ -6,7 +6,7 @@ import ProfileStats from "components/organisms/ProfileStats";
 import * as mixins from "lib/mixins";
 import { media } from "lib/utils/style";
 
-export const GroupW = styled(Link)`
+export const GroupW = styled(Link)<{ isPending?: boolean }>`
   display: flex;
   align-items: center;
   min-width: 275px;
@@ -14,7 +14,7 @@ export const GroupW = styled(Link)`
   border-radius: 6px;
   margin-right: 14px;
   padding: 24px 12px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
 
   img {
     width: 70px;

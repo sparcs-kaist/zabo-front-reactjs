@@ -1,24 +1,29 @@
 import React from "react";
 import Tooltip from "@material-ui/core/Tooltip";
 
-import { GroupType } from "lib/propTypes";
 import { getLabeledTimeDiff } from "lib/utils";
 
 import groupDefaultProfile from "static/images/groupDefaultProfile.png";
 
 import { GroupW, NameW, ProfileStatsW, WritingsW } from "./GroupBox.styled";
+import type { Group } from "lib/interface";
 
-const GroupBox = ({ group, ...props }) => {
-  const { name, profilePhoto, zabosCount, followersCount, recentUpload, isPending } = group;
-  const timePast = recentUpload ? getLabeledTimeDiff(recentUpload, 60, 60, 24, 7, 5, 12) : "없음";
+interface Props {
+  group: Group;
+}
+
+const GroupBox: React.FC<Props> = ({ group, ...props }) => {
+  const timePast = group.recentUpload
+    ? getLabeledTimeDiff(group.recentUpload, 60, 60, 24, 7, 5, 12)
+    : "없음";
   const stats = [
     {
       name: "올린 자보",
-      value: zabosCount,
+      value: group.zabosCount,
     },
     {
       name: "팔로워",
-      value: followersCount,
+      value: group.followersCount,
     },
     {
       name: "최근 업로드",
@@ -28,31 +33,27 @@ const GroupBox = ({ group, ...props }) => {
 
   return (
     <GroupW
-      to={name}
-      isPending={isPending}
-      disabled={isPending}
+      to={group.name}
+      isPending={group.isPending}
+      aria-disabled={group.isPending}
       onClick={(e) => {
-        if (isPending) e.preventDefault();
+        if (group.isPending) e.preventDefault();
       }}
       {...props}
     >
-      {profilePhoto ? (
-        <img src={profilePhoto} alt="group profile photo" />
+      {group.profilePhoto ? (
+        <img src={group.profilePhoto} alt="group profile photo" />
       ) : (
         <img src={groupDefaultProfile} alt="default group profile photo" />
       )}
       <WritingsW>
-        <Tooltip title={isPending ? "요청 진행 중" : name} enterTouchDelay={0}>
-          <NameW>{name}</NameW>
+        <Tooltip title={group.isPending ? "요청 진행 중" : group.name} enterTouchDelay={0}>
+          <NameW>{group.name}</NameW>
         </Tooltip>
         <ProfileStatsW stats={stats} smallV />
       </WritingsW>
     </GroupW>
   );
-};
-
-GroupBox.propTypes = {
-  group: GroupType.isRequired,
 };
 
 export default GroupBox;

@@ -1,14 +1,13 @@
 import React from "react";
-import PropTypes from "prop-types";
-import styled, { css } from "styled-components";
-
-import { GroupType } from "lib/propTypes";
+import styled from "styled-components";
 
 import ScrollBtn from "../../molecules/ScrollBtn";
 import GroupBox from "../GroupBox";
+import type { Group } from "lib/interface/schemas";
 
-export const Groups = styled.section`
+const GroupsComponent = styled.section`
   width: 1032px;
+
   h1 {
     display: inline-block;
     font-size: 22px;
@@ -28,7 +27,7 @@ export const Groups = styled.section`
   }
 `;
 
-Groups.List = styled.div`
+const GroupsListComponent = styled.div`
   display: flex;
   scroll-behavior: smooth;
   width: 100%;
@@ -40,9 +39,11 @@ Groups.List = styled.div`
 
   /* hide scroll bar */
   /* -webkit- (Chrome, Safari, newer versions of Opera) */
+
   &::-webkit-scrollbar {
     width: 0 !important;
   }
+
   /* Firefox */
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
@@ -53,12 +54,21 @@ Groups.List = styled.div`
   }
 `;
 
+export const Groups = Object.assign(GroupsComponent, { List: GroupsListComponent });
+
 const text = {
   profile: "소속 그룹",
   search: "그룹 검색 결과",
-};
+} as const;
 
-const GroupList = ({ type, groups, hasApplyBox, isMyProfile }) => (
+interface Props {
+  type: keyof typeof text;
+  groups: Group[];
+  hasApplyBox?: boolean;
+  isMyProfile?: boolean;
+}
+
+const GroupList: React.FC<Props> = ({ type, groups, isMyProfile }) => (
   <Groups>
     <h1>{text[type]}</h1>
     <ScrollBtn elemId="groupsList" show={groups.length > 3} />
@@ -66,20 +76,10 @@ const GroupList = ({ type, groups, hasApplyBox, isMyProfile }) => (
       {groups.map((group) => (
         <GroupBox group={group} key={group.name} />
       ))}
-      {isMyProfile && <GroupBox type="apply" group={{}} />}
+      {isMyProfile && <GroupBox type="apply" />}
       <>&nbsp;</>
     </Groups.List>
   </Groups>
 );
-
-GroupList.propTypes = {
-  type: PropTypes.string.isRequired,
-  groups: PropTypes.arrayOf(GroupType).isRequired,
-  hasApplyBox: PropTypes.bool,
-};
-
-GroupList.defaultProps = {
-  hasApplyBox: false,
-};
 
 export default GroupList;
