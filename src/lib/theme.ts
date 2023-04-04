@@ -35,4 +35,4 @@ export const colors = {
   warmGrey: "#999999",
   veryLightBlue: "#dee7f2",
   none: "rgba(0,0,0,0)",
-};
+} as const;
