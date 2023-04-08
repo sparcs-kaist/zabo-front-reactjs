@@ -1,12 +1,3 @@
----
-name: Issue template
-about: Suggest an idea for this project
-title: Issue
-labels: enhancement
-assignees: ''
-
----
-
 # Summary <!-- 이슈에 대한 간단한 요약. -->
 
 It implements ...
