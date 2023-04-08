@@ -14,7 +14,7 @@ const ProfilePage = () => {
   const { name } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getProfile(name)).catch((error) => {});
+    dispatch(getProfile(name)).catch((error) => undefined);
   }, [name]);
   const profile = useSelector((state) => get(state, ["profile", "profiles", name]));
   if (!profile) return null;
