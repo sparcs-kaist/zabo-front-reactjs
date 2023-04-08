@@ -4,7 +4,7 @@ import { colors } from "lib/theme";
 import { media } from "lib/utils/style";
 
 const ContainerComponent = styled.div<{
-  ownStyle?: string | string[];
+  ownStyle?: ReturnType<typeof css>;
   background?: keyof typeof colors;
 }>`
   width: 100%;
