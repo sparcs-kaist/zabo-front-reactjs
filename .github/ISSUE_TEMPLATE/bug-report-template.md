@@ -1,11 +1,3 @@
----
-name: Bug report Template
-about: Create a report to help us improve
-title: "[Bug] bug-report title"
-labels: "\U0001F631 bug"
-assignees: ""
----
-
 # Describe the bug
 
 <!-- 버그가 발생한 상황을 간결하고 명확하게 설명해주세요. 버그가 발생한 원인을 추측하실 수 있다면, 같이 써주셔도 좋습니다. -->

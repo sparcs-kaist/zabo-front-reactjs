@@ -1,10 +1,4 @@
----
-name: Issue Template
-about: Suggest an idea for this project
-title: issue title
-labels: ""
-assignees: ""
----# Summary <!-- 이슈에 대한 간단한 요약. -->
+# Summary <!-- 이슈에 대한 간단한 요약. -->
 
 It implements ...
 
