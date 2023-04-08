@@ -1,6 +1,8 @@
-import styled from "styled-components";
+import styled, { type css } from "styled-components";
 
-const FooterWrapper = styled.footer`
+const FooterWrapper = styled.footer<{
+  ownStyle?: ReturnType<typeof css>;
+}>`
   position: fixed;
   bottom: 0;
   left: 0;
@@ -12,7 +14,7 @@ const FooterWrapper = styled.footer`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.4);
   @media (max-width: 640px) {
     height: 60px;
   }

@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { type PropsWithChildren, useEffect, useState } from "react";
 import { css } from "styled-components";
 
 import Container from "components/atoms/Container";
 
 import FooterWrapper from "./Footer.styled";
 
-const containerStyle = css`
+const containerStyle = (props: { horizontalScroll?: boolean }) => css`
   position: absolute;
   justify-content: space-between;
   align-items: center;
 
-  ${(props) =>
-    props.horizontalScroll
-      ? css`
-          @media (min-width: 640px) {
-            min-width: 1072px;
-          }
-        `
-      : css``}
+  ${props.horizontalScroll &&
+  css`
+    @media (min-width: 640px) {
+      min-width: 1072px;
+    }
+  `}
 `;
 
-const Footer = ({ ownStyle, scrollFooter, children }) => {
+interface Props extends PropsWithChildren {
+  ownStyle?: ReturnType<typeof css>;
+  scrollFooter?: boolean;
+}
+
+const Footer: React.FC<Props> = ({ ownStyle, scrollFooter, children }) => {
   const [left, setLeft] = useState(0);
   useEffect(() => {
     const listener = () => setLeft(-window.pageXOffset);
@@ -32,16 +34,11 @@ const Footer = ({ ownStyle, scrollFooter, children }) => {
 
   return (
     <FooterWrapper ownStyle={ownStyle}>
-      <Container ownStyle={containerStyle} style={style} horizontalScroll={scrollFooter}>
+      <Container ownStyle={containerStyle({ horizontalScroll: scrollFooter })} style={style}>
         {children}
       </Container>
     </FooterWrapper>
   );
-};
-
-Footer.propTypes = {
-  scrollFooter: PropTypes.bool,
-  children: PropTypes.element,
 };
 
 export default Footer;
