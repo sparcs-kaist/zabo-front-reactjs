@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 
-export const HeaderWrapper = styled.header`
+const HeaderWrapperComponent = styled.header<{ transparent?: boolean }>`
   ${(props) =>
     props.transparent
       ? css`
@@ -27,6 +27,7 @@ export const HeaderWrapper = styled.header`
     flex-direction: column;
     justify-content: center;
     font-size: 14px;
+
     img {
       margin-right: 24px;
     }
@@ -43,20 +44,24 @@ export const HeaderWrapper = styled.header`
         `};
 `;
 
-HeaderWrapper.Auth = styled.section`
+const AuthComponent = styled.section<{ transparent?: boolean }>`
   color: ${(props) => (props.transparent ? "white" : "#363636")};
+
   a {
     display: inline-block;
+
     &.upload {
       margin-left: 6px;
     }
   }
+
   p {
     display: inline-block;
     margin: 0;
     padding-left: 6px;
     font-size: 14px;
   }
+
   button {
     font-family: "NanumSquare", sans-serif;
     height: 32px;
@@ -73,6 +78,7 @@ HeaderWrapper.Auth = styled.section`
             background: rgba(255, 255, 255, 0.15);
             border: 1px solid #ffffff;
             color: white;
+
             &:hover {
               background-color: white;
               color: #143441;
@@ -82,6 +88,7 @@ HeaderWrapper.Auth = styled.section`
             background: white;
             border: 1px solid #143441;
             color: #143441;
+
             &:hover {
               background-color: #143441;
               color: white;
@@ -93,8 +100,11 @@ HeaderWrapper.Auth = styled.section`
     p {
       display: none;
     }
+
     button {
       margin-left: 12px;
     }
   }
 `;
+
+export const HeaderWrapper = Object.assign(HeaderWrapperComponent, { Auth: AuthComponent });

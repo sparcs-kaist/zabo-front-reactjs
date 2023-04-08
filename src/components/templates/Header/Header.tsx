@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { css } from "styled-components";
 import get from "lodash.get";
@@ -22,28 +21,41 @@ const logos = {
   white: whiteLogo,
 };
 
-const containerStyle = css`
+const containerStyle = (props: { horizontalScroll?: boolean }) => css`
   position: absolute;
   justify-content: space-between;
   align-items: center;
   overflow: visible;
+
   > div {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  ${(props) =>
-    props.horizontalScroll
-      ? css`
-          @media (min-width: 640px) {
-            min-width: 1072px;
-          }
-        `
-      : css``}
+
+  ${props.horizontalScroll &&
+  css`
+    @media (min-width: 640px) {
+      min-width: 1072px;
+    }
+  `}
 `;
 
-const Header = ({ scrollHeader, transparent, logoColor, type, groupName }) => {
-  const history = useHistory();
+interface Props {
+  type?: "upload" | "search";
+  groupName?: string;
+  transparent?: boolean;
+  scrollHeader?: boolean;
+  logoColor?: "white" | "primary";
+}
+
+const Header: React.FC<Props> = ({
+  scrollHeader = false,
+  transparent = false,
+  logoColor = "primary",
+  type,
+  groupName = "",
+}) => {
   const [left, setLeft] = useState(0);
   useEffect(() => {
     const listener = () => setLeft(-window.pageXOffset);
@@ -54,10 +66,17 @@ const Header = ({ scrollHeader, transparent, logoColor, type, groupName }) => {
 
   return (
     <HeaderWrapper transparent={transparent}>
-      <Container ownStyle={containerStyle} style={style} horizontalScroll={scrollHeader}>
+      <Container ownStyle={containerStyle({ horizontalScroll: scrollHeader })} style={style}>
         <div>
           <NavLink to="/">
-            <img alt="logo" src={logos[logoColor]} style={{ width: "68px", height: "32px" }} />
+            <img
+              alt="logo"
+              src={logos[logoColor]}
+              style={{
+                width: "68px",
+                height: "32px",
+              }}
+            />
           </NavLink>
         </div>
         <div
@@ -72,34 +91,27 @@ const Header = ({ scrollHeader, transparent, logoColor, type, groupName }) => {
         >
           <SearchBar isOpen type={type} transparent={transparent} iconColor={logoColor} />
         </div>
-        <Header.AuthButton type={type} groupName={groupName} transparent={transparent} />
+        <AuthButton type={type} groupName={groupName} transparent={transparent} />
       </Container>
     </HeaderWrapper>
   );
 };
 
-Header.propTypes = {
-  type: PropTypes.string,
-  groupName: PropTypes.string,
-  transparent: PropTypes.bool,
-  scrollHeader: PropTypes.bool,
-  logoColor: PropTypes.oneOf(["white", "primary"]),
-};
+interface AuthButtonProps {
+  type?: "upload" | "search";
+  groupName?: string;
+  transparent?: boolean;
+}
 
-Header.defaultProps = {
-  type: "",
-  groupName: "",
-  transparent: false,
-  scrollHeader: false,
-  logoColor: "primary",
-};
-
-Header.AuthButton = ({ type, groupName, transparent }) => {
+const AuthButton: React.FC<AuthButtonProps> = ({ type, groupName, transparent }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthedSelector);
   const username = useSelector((state) => get(state, ["auth", "info", "username"]));
 
   const toUpload = useCallback(() => {
+    // TODO: Fix when redux is fixed
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     if (groupName) dispatch(setCurrentGroup(groupName));
   }, [groupName, dispatch]);
 
@@ -108,7 +120,7 @@ Header.AuthButton = ({ type, groupName, transparent }) => {
       {isAuthenticated ? (
         !username ? null : (
           <div>
-            <NavLink to={`/${username}`} size="md" className="user-icon">
+            <NavLink to={`/${username}`} className="user-icon">
               <SVG icon="user" />
               <p>{username}</p>
             </NavLink>
