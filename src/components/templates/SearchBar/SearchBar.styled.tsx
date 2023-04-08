@@ -7,6 +7,7 @@ import searchIconWhite from "static/images/search-icon-white.png";
 export const SearchBarContainer = styled.div`
   max-width: 1032px;
   width: 100%;
+
   #dimmer {
     position: fixed;
     top: 0;
@@ -16,7 +17,11 @@ export const SearchBarContainer = styled.div`
   }
 `;
 
-export const SearchBarWrapper = styled.div`
+const WrapperComponent = styled.div<{
+  type?: "search" | "upload";
+  transparent?: boolean;
+  isFocused?: boolean;
+}>`
   display: flex;
   flex-direction: column;
   z-index: 1;
@@ -26,9 +31,11 @@ export const SearchBarWrapper = styled.div`
 
   /* hide scroll bar */
   /* -webkit- (Chrome, Safari, newer versions of Opera) */
+
   &::-webkit-scrollbar {
     width: 0 !important;
   }
+
   /* Firefox */
   scrollbar-width: none;
   /* -ms- (Internet Explorer +10) */
@@ -43,6 +50,7 @@ export const SearchBarWrapper = styled.div`
     position: relative;
     border: 0.5px solid #e9e9e9;
   }
+
   @media (max-width: 910px) {
     width: 100%;
     ${(props) =>
@@ -56,7 +64,7 @@ export const SearchBarWrapper = styled.div`
   ${(props) =>
     props.isFocused
       ? css`
-          box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.3);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
           @media (max-width: 910px) {
             position: fixed;
@@ -71,7 +79,11 @@ export const SearchBarWrapper = styled.div`
       : css``}
 `;
 
-SearchBarWrapper.Header = styled.div`
+const HeaderComponent = styled.div<{
+  type?: "search" | "upload";
+  transparent?: boolean;
+  isFocused?: boolean;
+}>`
   height: 38px;
   position: relative;
   top: 0;
@@ -80,12 +92,14 @@ SearchBarWrapper.Header = styled.div`
     position: absolute;
     display: block;
     align-self: center;
+
     &.cancel-icon {
       top: 7px;
       right: 12px;
       height: 24px;
     }
   }
+
   div.search-icon {
     position: absolute;
     display: block;
@@ -99,6 +113,7 @@ SearchBarWrapper.Header = styled.div`
       no-repeat;
     background-size: contain;
   }
+
   @media (max-width: 910px) {
     ${(props) =>
       props.isFocused
@@ -110,12 +125,14 @@ SearchBarWrapper.Header = styled.div`
     img.cancel-icon {
       top: 13px;
     }
+
     div.search-icon {
       ${(props) =>
         !props.isFocused && props.type === "search"
           ? css`
-              background: url(${(props) =>
-                  !props.isFocused && props.transparent ? searchIconWhite : searchIcon})
+              background: url(${!props.isFocused && props.transparent
+                  ? searchIconWhite
+                  : searchIcon})
                 no-repeat;
               background-size: contain;
             `
@@ -138,7 +155,11 @@ SearchBarWrapper.Header = styled.div`
   }
 `;
 
-SearchBarWrapper.Header.SearchBar = styled.div`
+const HeaderSearchBar = styled.div<{
+  type?: "search" | "upload";
+  transparent?: boolean;
+  isFocused?: boolean;
+}>`
   input {
     display: inline-block;
     width: 100%;
@@ -147,12 +168,15 @@ SearchBarWrapper.Header.SearchBar = styled.div`
     line-height: 18px;
     color: #202020;
     border: 0;
+
     &:focus {
       outline: none;
     }
+
     &::placeholder {
       color: #bcbcbc;
     }
+
     ${(props) =>
       props.transparent && !props.isFocused
         ? css`
@@ -186,8 +210,13 @@ SearchBarWrapper.Header.SearchBar = styled.div`
   }
 `;
 
-SearchBarWrapper.Body = styled.div`
+const BodyComponent = styled.div<{
+  isFocused?: boolean;
+  search?: boolean;
+  isResultsEmpty?: boolean;
+}>`
   position: relative;
+
   ${(props) =>
     props.isFocused
       ? css``
@@ -206,16 +235,17 @@ SearchBarWrapper.Body = styled.div`
       : css`
           padding: 24px 16px;
         `}
-
   h3 {
     margin: 0 0 8px 0;
     font-size: 16px;
     color: #8f8f8f;
   }
+
   ul {
     list-style-type: none;
     margin: 0;
     padding: 0 0 24px 0;
+
     li {
       display: flex;
       flex-direction: row;
@@ -223,16 +253,19 @@ SearchBarWrapper.Body = styled.div`
       height: 40px;
       margin: 0 -16px;
       padding: 0 16px;
+
       &:hover,
       &:focus {
         background-color: #f4f4f4;
       }
+
       img {
         width: 32px;
         height: 32px;
         margin-right: 10px;
         border-radius: 50%;
       }
+
       a {
         display: inline-block;
         line-height: 40px;
@@ -243,3 +276,8 @@ SearchBarWrapper.Body = styled.div`
     }
   }
 `;
+
+export const SearchBarWrapper = Object.assign(WrapperComponent, {
+  Header: Object.assign(HeaderComponent, { SearchBar: HeaderSearchBar }),
+  Body: BodyComponent,
+});

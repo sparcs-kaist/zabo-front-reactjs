@@ -1,5 +1,16 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, {
+  type InputHTMLAttributes,
+  type ChangeEvent,
+  type KeyboardEvent,
+  type MouseEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+
+import type { Group, Zabo } from "lib/interface";
+
 import { Link, useHistory, useLocation } from "react-router-dom";
 import AwesomeDebouncePromise from "awesome-debounce-promise";
 import queryString from "query-string";
@@ -17,11 +28,19 @@ import { SearchBarContainer, SearchBarWrapper } from "./SearchBar.styled";
 /* ==== search bar debounce ==== */
 const searchAPIDebounced = AwesomeDebouncePromise(searchSimpleAPI, 500);
 
-const searchResults = {};
+const searchResults: Record<string, any> = {};
 
-const SearchBar = ({ options, type, transparent, iconColor }) => {
+interface Props {
+  isOpen: boolean;
+  options?: InputHTMLAttributes<HTMLInputElement>;
+  type?: "upload" | "search";
+  transparent?: boolean;
+  iconColor?: "white" | "primary";
+}
+
+const SearchBar: React.FC<Props> = ({ options, type, transparent, iconColor = "primary" }) => {
   const isMounted = useRef(true);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   useEffect(
     () => () => {
       isMounted.current = false;
@@ -33,7 +52,10 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   const { safeQuery, safeCategory } = parseQuery(search);
   const [query, setQuery] = useState(safeQuery);
   const [category, setCategory] = useState(safeCategory);
-  const [result, setResult] = useState({
+  const [result, setResult] = useState<{
+    groups: Group[];
+    zabos: Zabo[];
+  }>({
     zabos: [],
     groups: [],
   });
@@ -43,22 +65,28 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   const { zabos, groups } = result;
 
   const _handleChange = useCallback(
-    (e) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       const { value: newQuery } = e.target;
       setQuery(newQuery);
-      const key = `${newQuery}#`.concat(category);
-      if (searchResults[key]) {
+      const key = `${newQuery}#`.concat(category.join("#"));
+      if (key in searchResults) {
         setResult(searchResults[key]);
       }
       if (newQuery.trim().length > 0) {
-        searchAPIDebounced({ query: newQuery, category: [] })
+        searchAPIDebounced({
+          query: newQuery,
+          category: [],
+        })
           .then((data) => {
             if (!isMounted.current) return;
             searchResults[key] = data;
             setResult(data);
           })
           .catch((error) => {
-            setResult({ zabos: [], groups: [] });
+            setResult({
+              zabos: [],
+              groups: [],
+            });
             setError(error);
           });
       }
@@ -67,16 +95,19 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   );
 
   const _handleKeyPress = useCallback(
-    (e) => {
+    (e: KeyboardEvent<HTMLInputElement>) => {
       // onKeyDown, onKeyUp : korean word call event twice...
       // searchBar input can only accept 'query text'
       // category search can be done only by clicking tag button
       if (e.key === "Enter") {
         setFocused(false);
-        inputRef.current.blur();
+        inputRef?.current?.blur();
         isMounted.current = false;
         if (query.trim().length > 0) {
-          const stringified = queryString.stringify({ query, category: [] });
+          const stringified = queryString.stringify({
+            query,
+            category: [],
+          });
           history.push(`/search?${stringified}`);
         }
       }
@@ -85,7 +116,7 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   );
 
   const _handleFocusChange = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
       setFocused((prev) => !prev);
@@ -94,7 +125,7 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   );
 
   const _handleInputFocusChange = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLInputElement>) => {
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
       setFocused(true);
@@ -103,7 +134,7 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   );
 
   const _handleBlur = useCallback(
-    (e) => {
+    (e: MouseEvent<HTMLDivElement>) => {
       e.stopPropagation();
       e.nativeEvent.stopImmediatePropagation();
       setFocused(false);
@@ -112,19 +143,16 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
   );
 
   const onTagClick = useCallback(
-    (newCat) => {
+    (newCat: string) => {
       setFocused(false);
       history.push(`/search?${queryString.stringify({ category: newCat })}`);
     },
     [setFocused],
   );
 
-  const onCancelClick = useCallback(
-    (e) => {
-      setQuery("");
-    },
-    [setQuery],
-  );
+  const onCancelClick = useCallback(() => {
+    setQuery("");
+  }, [setQuery]);
 
   const isResultsEmpty = !zabos.length && !groups.length;
 
@@ -212,26 +240,17 @@ const SearchBar = ({ options, type, transparent, iconColor }) => {
             ""
           )}
         </SearchBarWrapper.Header>
-        {isFocused ? <div className="divider"> </div> : ""}
-        <SearchBarWrapper.Body search={query} isFocused={isFocused} isResultsEmpty={isResultsEmpty}>
+        {isFocused ? <div className="divider"></div> : ""}
+        <SearchBarWrapper.Body
+          search={!!query}
+          isFocused={isFocused}
+          isResultsEmpty={isResultsEmpty}
+        >
           {!query ? searchWithTagComponent : searchResultComponent}
         </SearchBarWrapper.Body>
       </SearchBarWrapper>
     </SearchBarContainer>
   );
-};
-
-SearchBar.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  type: PropTypes.string,
-  transparent: PropTypes.bool,
-  iconColor: PropTypes.oneOf(["white", "primary"]),
-};
-
-SearchBar.defaultProps = {
-  type: "",
-  transparent: false,
-  iconColor: "primary",
 };
 
 export default SearchBar;
