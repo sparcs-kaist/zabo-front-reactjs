@@ -5,7 +5,9 @@
     }
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
@@ -15,6 +17,9 @@
     "plugin:import/typescript",
     "prettier"
   ],
+  "rules": {
+    "react/prop-types": "warn"
+  },
   "parser": "@typescript-eslint/parser",
   "root": true,
   "parserOptions": {

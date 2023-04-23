@@ -1,6 +1,6 @@
 import axios from "../axios";
 
-export const uploadZabo = (formData, onUploadProgress = () => {}) =>
+export const uploadZabo = (formData, onUploadProgress = () => undefined) =>
   axios.post("/zabo", formData, {
     headers: {
       "Content-Type": "multipart/form-data",
