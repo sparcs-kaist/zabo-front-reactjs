@@ -16,7 +16,6 @@ WORKDIR '/usr/src/app'
 COPY --from=builder /app/build .
 
 # Install requirements
-RUN npm install
 RUN npm install serve -g
 
 # Run container
