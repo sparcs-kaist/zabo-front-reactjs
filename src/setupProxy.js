@@ -1,8 +1,9 @@
-import proxy from "http-proxy-middleware";
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const proxy = require("http-proxy-middleware");
 
-export default (app) => {
+module.exports = function (app) {
   app.use(
-    "/admin",
+    "/api",
     proxy({
       target: "http://localhost:6001",
       changeOrigin: true,
@@ -10,7 +11,7 @@ export default (app) => {
   );
 
   app.use(
-    "/api",
+    "/admin",
     proxy({
       target: "http://localhost:6001",
       changeOrigin: true,
