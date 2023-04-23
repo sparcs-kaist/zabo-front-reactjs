@@ -87,7 +87,15 @@ const UserProfile = ({ profile }) => {
                   <Button to="/settings/profile" border="main">
                     {isMobile ? "편집" : "프로필 편집"}
                   </Button>
-                  {isAdmin && <Button to="/admin">{isMobile ? "관리" : "관리자"}</Button>}
+                  {isAdmin && (
+                    <Button
+                      onClick={() => {
+                        window.location.assign("/admin");
+                      }}
+                    >
+                      {isMobile ? "관리" : "관리자"}
+                    </Button>
+                  )}
                 </Button.Group>
               </section>
             ) : (
