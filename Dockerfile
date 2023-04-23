@@ -9,7 +9,16 @@ RUN yarn
 COPY . .
 RUN yarn build
 
-FROM nginx:1.22.0-alpine
-COPY --from=builder /app/build /usr/share/nginx/html
+FROM node:16-alpine
+
+WORKDIR '/usr/src/app'
+
+COPY --from=builder /app/build .
+
+# Install requirements
+RUN npm install
+RUN npm install serve -g
+
+# Run container
 EXPOSE 80
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "serve -s build -l 80"]
