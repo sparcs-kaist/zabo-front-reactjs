@@ -8,7 +8,6 @@ import WindowResizeListener from "components/containers/WindowResizeListener";
 import ErrorBoundary from "components/ErrorBoundary";
 import AuthCallback from "components/organisms/AuthCallback";
 import {
-  // AdminPage,
   ApiPage,
   AuthPage,
   HomePage,
@@ -20,6 +19,7 @@ import {
   ZaboPage,
   ZaboUploadPage,
 } from "components/pages";
+
 import PWAPrompt from "components/templates/PWAPrompt";
 
 import { PrivateRoute, PublicRoute } from "hoc/AuthRoutes";
@@ -53,7 +53,6 @@ const App = () => (
         <PrivateRoute path="/zabo/upload" component={ZaboUploadPage} />
         <Route path="/zabo/:zaboId" component={pToP(ZaboPage)} />
         <PrivateRoute path="/settings" component={SettingsPage} />
-        {/* <AdminRoute path="/admin" component={AdminPage} /> */}
         <PublicRoute path="/auth" component={AuthPage} />
         <Route path="/api" component={ApiPage} />
         <Route path="/" exact component={LandingPage} />
