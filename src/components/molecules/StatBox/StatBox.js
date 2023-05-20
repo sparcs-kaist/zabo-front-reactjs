@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { useHistory } from "react-router-dom";
+import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import throttle from "lodash.throttle";
 
-import { toggleZaboLike, toggleZaboPin } from "store/reducers/zabo";
+import { toggleZaboLike, toggleZaboPin, toggleZaboShare } from "store/reducers/zabo";
 import { isAuthedSelector } from "lib/utils";
 
 import bookmarkImg from "static/images/bookmark.svg";
@@ -16,6 +16,7 @@ import whiteEmptyBookmarkImg from "static/images/whiteBookmakrEmpty.svg";
 import whiteBookmarkImg from "static/images/whiteBookmark.svg";
 import whiteLikeImg from "static/images/whiteLike.svg";
 import whiteEmptyLikeImg from "static/images/whiteLikeEmpty.svg";
+import shareImg from "static/images/whiteShare.svg";
 
 import { alerts } from "../../../lib/variables";
 
@@ -29,6 +30,10 @@ const icons = {
       filled: likeImg,
       empty: emptyLikeImg,
     },
+    share: {
+      filled: shareImg,
+      empty: shareImg,
+    },
   },
   white: {
     pin: {
@@ -39,11 +44,16 @@ const icons = {
       filled: whiteLikeImg,
       empty: whiteEmptyLikeImg,
     },
+    share: {
+      filled: shareImg,
+      empty: shareImg,
+    },
   },
 };
 const toggleActions = {
   pin: toggleZaboPin,
   like: toggleZaboLike,
+  share: toggleZaboShare,
 };
 
 const Icon = styled.img`
@@ -113,6 +123,7 @@ const Text = styled.div`
 const StatBox = ({ stat, type, ...props }) => {
   const { type: statType, count, zaboId, active } = stat;
   const dispatch = useDispatch();
+  const location = useLocation();
   const isAuthed = useSelector(isAuthedSelector);
   const history = useHistory();
   const colored = type === "button";
@@ -127,9 +138,19 @@ const StatBox = ({ stat, type, ...props }) => {
 
   const onClick = (e) => {
     e.preventDefault();
-    if (isAuthed) throttledAction();
+    if (stat.type === "share") clipBoardCopy();
+    else if (isAuthed) throttledAction();
     else if (window.confirm(alerts.login)) {
       history.replace({ pathname: "/auth/login", state: { referrer: history.location.pathname } });
+    }
+  };
+
+  const clipBoardCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      alert("클립보드에 링크가 복사되었습니다.");
+    } catch (e) {
+      alert("복사에 실패하였습니다");
     }
   };
 
@@ -151,7 +172,7 @@ const StatBox = ({ stat, type, ...props }) => {
 
 StatBox.propTypes = {
   stat: PropTypes.shape({
-    type: PropTypes.oneOf(["pin", "like"]).isRequired,
+    type: PropTypes.oneOf(["pin", "like", "share"]).isRequired,
     count: PropTypes.number,
     zaboId: PropTypes.string.isRequired,
     active: PropTypes.bool,
