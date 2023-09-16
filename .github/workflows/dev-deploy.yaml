@@ -29,4 +29,4 @@ jobs:
           script: |
             docker pull ghcr.io/sparcs-kaist/zabo-front:dev
             docker rm -f zabo-front
-            docker run --restart always -d -p 15081:80 --name zabo-front ghcr.io/sparcs-kaist/zabo-front:dev
+            docker run --restart always -d -p ${{ secrets.DEV_CONTAINER_PORT }}:80 --name zabo-front ghcr.io/sparcs-kaist/zabo-front:dev
