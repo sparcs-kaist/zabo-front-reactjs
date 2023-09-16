@@ -1,0 +1,17 @@
+name: Build docker image on push to develop
+
+on:
+  push:
+    branches: ["develop"]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . -f Dockerfile -t ghcr.io/sparcs-kaist/zabo-front:dev
+      - name: Log in to DockerHub
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+      - name: Push the Docker image
+        run: docker push ghcr.io/sparcs-kaist/zabo-front:dev
