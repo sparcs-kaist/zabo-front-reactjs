@@ -14,17 +14,18 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
-      - name: executing remote ssh commands using password
+      - name: pull the image and restart the container
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ secrets.HOST }}
-          port: ${{ secrets.PORT }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          proxy_host: ${{ secrets.PROXY_HOST }}
-          proxy_port: ${{ secrets.PROXY_PORT }}
-          proxy_username: ${{ secrets.PROXY_USERNAME }}
-          proxy_password: ${{ secrets.PROXY_PASSWORD }}
+          host: ${{ secrets.DEV_HOST }}
+          port: ${{ secrets.DEV_PORT }}
+          username: ${{ secrets.DEV_USERNAME }}
+          password: ${{ secrets.DEV_PASSWORD }}
+          proxy_host: ${{ secrets.DEV_PROXY_HOST }}
+          proxy_port: ${{ secrets.DEV_PROXY_PORT }}
+          proxy_username: ${{ secrets.DEV_PROXY_USERNAME }}
+          proxy_password: ${{ secrets.DEV_PROXY_PASSWORD }}
+          script_stop: true # stop script if any command has failed
           script: |
             docker pull ghcr.io/sparcs-kaist/zabo-front:dev
             docker rm -f zabo-front
