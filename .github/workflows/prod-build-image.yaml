@@ -1,11 +1,13 @@
-name: Build docker image on push to develop
+name: Build docker image on release tag created
 
 on:
   push:
-    branches: ["develop"]
+    tags:
+      - v**
 
 jobs:
   build:
+    name: Build and push Image to GitHub Container Registry
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -24,10 +26,12 @@ jobs:
         id: docker-build
         uses: docker/build-push-action@v5
         env:
-          IMAGE_TAG: dev
+          IMAGE_TAG: ${{github.ref_name}}
         with:
           push: true
-          tags: "ghcr.io/sparcs-kaist/zabo-front:${{ env.IMAGE_TAG }}"
+          tags: |
+            "ghcr.io/sparcs-kaist/zabo-front:${{ env.IMAGE_TAG }}"
+            "ghcr.io/sparcs-kaist/zabo-front:latest"
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Remove old cache
