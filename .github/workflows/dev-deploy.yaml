@@ -1,0 +1,32 @@
+name: Deploy to dev server
+
+# when dev image build action is completed, run this action
+on:
+  workflow_run:
+    workflows: ["Build docker image on push to develop"]
+    types:
+      - completed
+
+jobs:
+  if_workflow_success:
+    name: Deploy to dev server
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - name: pull the image and restart the container
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          port: ${{ secrets.DEV_PORT }}
+          username: ${{ secrets.DEV_USERNAME }}
+          password: ${{ secrets.DEV_PASSWORD }}
+          proxy_host: ${{ secrets.DEV_PROXY_HOST }}
+          proxy_port: ${{ secrets.DEV_PROXY_PORT }}
+          proxy_username: ${{ secrets.DEV_PROXY_USERNAME }}
+          proxy_password: ${{ secrets.DEV_PROXY_PASSWORD }}
+          script_stop: true # stop script if any command has failed
+          script: |
+            docker pull ghcr.io/sparcs-kaist/zabo-front:dev
+            docker rm -f zabo-front
+            docker run --restart always -d -p ${{ secrets.DEV_CONTAINER_PORT }}:80 --name zabo-front ghcr.io/sparcs-kaist/zabo-front:dev

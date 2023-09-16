@@ -1,48 +1,41 @@
-import React, {
-  useCallback, useEffect, useMemo,
-} from 'react';
-import PropTypes from 'prop-types';
-import {
-  Prompt,
-} from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import SwipeableViews from 'react-swipeable-views';
-import styled from 'styled-components';
-import get from 'lodash.get';
+import React, { useCallback, useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { Prompt } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import SwipeableViews from "react-swipeable-views";
+import styled from "styled-components";
+import get from "lodash.get";
 
-import Footer from 'templates/Footer';
-import Header from 'templates/Header';
-import ZaboUpload from 'templates/ZaboUpload';
+import Footer from "components/templates/Footer";
+import Header from "components/templates/Header";
+import ZaboUpload from "components/templates/ZaboUpload";
 
 import {
   reset,
-  setGroupSelected, setImagesSeleted, setStep as setReduxStep,
+  setGroupSelected,
+  setImagesSeleted,
+  setStep as setReduxStep,
   submit,
-} from 'store/reducers/upload';
-import { alerts } from 'lib/variables';
+} from "store/reducers/upload";
+import { alerts } from "lib/variables";
 
-import rightArrow from 'static/images/rightArrow.png';
-import rightGrayArrow from 'static/images/rightGrayArrow.png';
+import rightArrow from "static/images/rightArrow.png";
+import rightGrayArrow from "static/images/rightGrayArrow.png";
 
-import {
-  FooterStyle,
-  PageWrapper, TitleStyle,
-} from './ZaboUploadPage.styled';
+import { FooterStyle, PageWrapper, TitleStyle } from "./ZaboUploadPage.styled";
 
 const SlideTitle = ({ step }) => {
-  const titleList = ['그룹 선택하기', '자보올리기', '정보 입력하기'];
+  const titleList = ["그룹 선택하기", "자보올리기", "정보 입력하기"];
 
-  const titleTemplate = titleList.map ((elem, idx) => (
+  const titleTemplate = titleList.map((elem, idx) => (
     <TitleStyle.elem key={elem} step={idx <= step}>
-      <p>{ idx + 1 }. { elem }</p>
-      { idx !== 2 ? <img src={idx < step ? rightArrow : rightGrayArrow} alt="right arrow" /> : '' }
+      <p>
+        {idx + 1}. {elem}
+      </p>
+      {idx !== 2 ? <img src={idx < step ? rightArrow : rightGrayArrow} alt="right arrow" /> : ""}
     </TitleStyle.elem>
   ));
-  return (
-    <TitleStyle>
-      { titleTemplate }
-    </TitleStyle>
-  );
+  return <TitleStyle>{titleTemplate}</TitleStyle>;
 };
 
 const SlideView = ({ step }) => (
@@ -70,45 +63,45 @@ Loading.Inactive = styled.div`
   border-top: 10px solid gainsboro;
 `;
 
-const UploadFooter = props => {
+const UploadFooter = (props) => {
   const { prev, next, step } = props;
-  const dispatch = useDispatch ();
-  const currentGroup = useSelector (state => get (state, ['auth', 'info', 'currentGroup']));
-  const files = useSelector (state => get (state, ['upload', 'images']));
-  const info = useSelector (state => get (state, ['upload', 'info']));
-  const submitted = useSelector (state => get (state, ['upload', 'submitted']));
+  const dispatch = useDispatch();
+  const currentGroup = useSelector((state) => get(state, ["auth", "info", "currentGroup"]));
+  const files = useSelector((state) => get(state, ["upload", "images"]));
+  const info = useSelector((state) => get(state, ["upload", "info"]));
+  const submitted = useSelector((state) => get(state, ["upload", "submitted"]));
 
-  const validatedNext = useCallback (() => {
+  const validatedNext = useCallback(() => {
     // xxSelected : Currently Not Being Used
     if (step === 0) {
-      dispatch (setGroupSelected (true));
+      dispatch(setGroupSelected(true));
     } else if (step === 1) {
-      dispatch (setImagesSeleted (true));
+      dispatch(setImagesSeleted(true));
     } else if (step === 2) {
-      if (window.confirm (alerts.upload)) dispatch (submit (true));
+      if (window.confirm(alerts.upload)) dispatch(submit(true));
       return;
     }
-    next ();
+    next();
   }, [step, currentGroup, files, info]);
 
-  const step2Valid = useMemo (() => {
-    const {
-      title, description, hasSchedule, schedules,
-    } = info;
-    const zaboValid = (title && description);
+  const step2Valid = useMemo(() => {
+    const { title, description, hasSchedule, schedules } = info;
+    const zaboValid = title && description;
     if (!hasSchedule) return zaboValid;
     const schedule = schedules[0];
     const { title: scheduleTitle, startAt, eventType } = schedule;
-    const scheduleValid = (scheduleTitle && startAt && eventType);
+    const scheduleValid = scheduleTitle && startAt && eventType;
     return zaboValid && scheduleValid;
   }, [info]);
 
-  const isValid = useMemo (() => {
+  const isValid = useMemo(() => {
     if (step === 0) {
       return !!currentGroup;
-    } if (step === 1) {
+    }
+    if (step === 1) {
       return !!files.length;
-    } if (step === 2) {
+    }
+    if (step === 2) {
       return step2Valid;
     }
     return false;
@@ -131,7 +124,7 @@ const UploadFooter = props => {
           <div className="container">
             <div className="slide-action-group">
               <button type="button" className="processing">
-              업로드 중...
+                업로드 중...
               </button>
             </div>
           </div>
@@ -145,9 +138,18 @@ const UploadFooter = props => {
       <FooterStyle>
         <div className="container">
           <div className="slide-action-group">
-            {step > 0 && <button type="button" className="prev" onClick={prev}>{'<'} 이전</button>}
-            <button type="button" className={`next ${isSubmit ? 'submit' : ''}`} onClick={validatedNext} disabled={!isValid}>
-              { isSubmit ? '제출하기' : '다음' }
+            {step > 0 && (
+              <button type="button" className="prev" onClick={prev}>
+                {"<"} 이전
+              </button>
+            )}
+            <button
+              type="button"
+              className={`next ${isSubmit ? "submit" : ""}`}
+              onClick={validatedNext}
+              disabled={!isValid}
+            >
+              {isSubmit ? "제출하기" : "다음"}
             </button>
           </div>
         </div>
@@ -163,11 +165,11 @@ UploadFooter.propTypes = {
 };
 
 const ZaboUploadPage = () => {
-  const dispatch = useDispatch ();
-  const step = useSelector (state => get (state, ['upload', 'step']));
-  const setStep = (newStep => dispatch (setReduxStep (newStep)));
-  const next = useCallback (() => setStep (step + 1), [step]);
-  const prev = useCallback (() => setStep (step - 1), [step]);
+  const dispatch = useDispatch();
+  const step = useSelector((state) => get(state, ["upload", "step"]));
+  const setStep = (newStep) => dispatch(setReduxStep(newStep));
+  const next = useCallback(() => setStep(step + 1), [step]);
+  const prev = useCallback(() => setStep(step - 1), [step]);
   const slideActions = { next, prev };
 
   // useEffect (() => {

@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Tooltip from '@material-ui/core/Tooltip';
+import React from "react";
+import PropTypes from "prop-types";
+import Tooltip from "@material-ui/core/Tooltip";
 
-const SuperTooltip = ({
-  title, hide, children, ...props
-}) => (
-  hide ? children : (
+const SuperTooltip = ({ title, hide, children, ...props }) =>
+  hide ? (
+    children
+  ) : (
     <Tooltip title={title} {...props} enterTouchDelay={0}>
       {children}
     </Tooltip>
-  )
-);
+  );
 
 SuperTooltip.propTypes = {
   ...Tooltip.propTypes,

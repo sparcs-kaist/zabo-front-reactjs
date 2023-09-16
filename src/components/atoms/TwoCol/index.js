@@ -1,1 +1,1 @@
-export { default } from './TwoCol';
+export { default } from "./TwoCol";

@@ -1,22 +1,22 @@
-import React, { useEffect, useMemo } from 'react';
-import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import get from 'lodash.get';
+import React, { useEffect, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useDispatch, useSelector } from "react-redux";
+import get from "lodash.get";
 
-import { getZabo } from 'store/reducers/zabo';
+import { getZabo } from "store/reducers/zabo";
 
 const NotFound = () => <h1>Zabo Not Found</h1>;
 
 const withZabo = (WrappedComponent, isPrivate = false, fetch = true) => {
-  const Sub = props => {
-    const dispatch = useDispatch ();
+  const Sub = (props) => {
+    const dispatch = useDispatch();
     const { zaboId } = props;
 
-    useEffect (() => {
-      if (fetch) dispatch (getZabo (zaboId));
+    useEffect(() => {
+      if (fetch) dispatch(getZabo(zaboId));
     }, [zaboId]);
 
-    const zabo = useSelector (state => get (state, ['zabo', 'zabos', zaboId]));
+    const zabo = useSelector((state) => get(state, ["zabo", "zabos", zaboId]));
     if (!zabo) return null;
     if (zabo.error) return <NotFound />;
     if (isPrivate && !zabo.isMyZabo) return <NotFound />;

@@ -1,1 +1,1 @@
-export { default, OwnerInfoW } from './OwnerInfo';
+export { default, OwnerInfoW } from "./OwnerInfo";

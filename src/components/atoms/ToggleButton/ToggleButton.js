@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
 
 const ToggleButtonWrapper = styled.div`
   display: inline-block;
@@ -27,8 +27,8 @@ const ToggleButtonWrapper = styled.div`
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #BCBCBC;
-    transition: .4s;
+    background-color: #bcbcbc;
+    transition: 0.4s;
   }
 
   .slider:before {
@@ -39,7 +39,7 @@ const ToggleButtonWrapper = styled.div`
     left: 4px;
     bottom: 4px;
     background-color: white;
-    transition: .4s;
+    transition: 0.4s;
   }
 
   input:checked + .slider {

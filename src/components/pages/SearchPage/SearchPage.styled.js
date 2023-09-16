@@ -1,6 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled, { css } from "styled-components";
 
-import { media } from 'lib/utils/style';
+import { media } from "lib/utils/style";
 
 export const Page = styled.div`
   min-width: 1072px;
@@ -24,8 +24,10 @@ Page.Body = styled.div`
     color: #363636;
     margin: 0;
   }
-  .emptySpace { margin-top: 8px }
- 
+  .emptySpace {
+    margin-top: 8px;
+  }
+
   @media (max-width: 640px) {
     width: 100%;
     margin-top: 12px;
@@ -33,14 +35,16 @@ Page.Body = styled.div`
     h1 {
       font-size: 18px;
     }
-    .emptySpace { margin-top: 0 }
+    .emptySpace {
+      margin-top: 0;
+    }
   }
 `;
 
 export const EmptyResultW = styled.section`
   text-align: center;
   font-size: 16px;
-  margin-top: ${props => (props.isZaboEmpty ? '90px' : '225px')};
+  margin-top: ${(props) => (props.isZaboEmpty ? "90px" : "225px")};
   img {
     width: 29.15px;
     height: 29.15px;
@@ -53,16 +57,22 @@ export const EmptyResultW = styled.section`
       font-weight: 800;
     }
   }
-  .search-icon { margin-bottom: 22px }
-  .empty-text { margin-bottom: 44px }
+  .search-icon {
+    margin-bottom: 22px;
+  }
+  .empty-text {
+    margin-bottom: 44px;
+  }
   p {
-    color: #BCBCBC;
+    color: #bcbcbc;
     line-height: 28px;
-    margin: 0
+    margin: 0;
   }
 
-  @media (max-width: 640px) { margin-top: 97px }
-  ${media.tablet (css`
+  @media (max-width: 640px) {
+    margin-top: 97px;
+  }
+  ${media.tablet(css`
     img {
       margin-bottom: 34px;
     }
@@ -70,10 +80,10 @@ export const EmptyResultW = styled.section`
 `;
 
 // TODO: Refactor dups
-export const ZaboResultW = styled.section` 
+export const ZaboResultW = styled.section`
   width: 100%;
-  margin-top: ${props => (props.isGroupEmpty ? '0' : '68px')};
-  ${media.tablet (css`
+  margin-top: ${(props) => (props.isGroupEmpty ? "0" : "68px")};
+  ${media.tablet(css`
     width: 1032px;
   `)};
 `;

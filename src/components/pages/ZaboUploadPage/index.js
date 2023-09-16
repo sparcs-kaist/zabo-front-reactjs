@@ -1,1 +1,1 @@
-export { default } from './ZaboUploadPage';
+export { default } from "./ZaboUploadPage";

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Page = styled.section`
   padding: 120px 0 80px 0;
@@ -44,7 +44,7 @@ Page.Header.Left.ProfilePhoto = styled.div`
     width: 120px;
     height: 120px;
     border-radius: 50%;
-    border: 1px solid ${props => props.theme.gray10};
+    border: 1px solid ${(props) => props.theme.gray10};
     @media (max-width: 640px) {
       width: 105px;
       height: 105px;
@@ -60,7 +60,7 @@ Page.Header.Left.UserInfo = styled.div`
   max-width: 500px;
   h1 {
     font-size: 28px;
-    color: ${props => props.theme.main};
+    color: ${(props) => props.theme.main};
     margin: 0;
     font-weight: 800;
   }
@@ -80,8 +80,8 @@ Page.Header.Left.UserInfo = styled.div`
     padding: 8px 14px;
     border-radius: 15px;
     margin-right: 8px;
-    background-color: #F8F8F8;
-    border: 1px solid ${props => props.theme.main};
+    background-color: #f8f8f8;
+    border: 1px solid ${(props) => props.theme.main};
     color: #143441;
     &.logout {
       border: 1px solid #8f8f8f;
@@ -100,12 +100,16 @@ Page.Header.Left.UserInfo = styled.div`
   }
   @media (max-width: 640px) {
     min-width: 158px;
-    h1 { font-size: 24px }
-    p { font-size: 14px }
+    h1 {
+      font-size: 24px;
+    }
+    p {
+      font-size: 14px;
+    }
     button {
       margin-right: 6px;
-      }
     }
+  }
 `;
 
 Page.Header.Right = styled.section`
@@ -133,7 +137,7 @@ Page.Body.User = styled.div`
 
 Page.Body.Group = styled.div`
   margin-bottom: 59px;
-  border-top: 1px solid #E9E9E9;
+  border-top: 1px solid #e9e9e9;
   padding-top: 16px;
   @media (max-width: 640px) {
     margin-bottom: 0;
@@ -141,7 +145,7 @@ Page.Body.Group = styled.div`
 `;
 
 // TODO: Refactor dups
-export const Zabos = styled.section` 
+export const Zabos = styled.section`
   width: 1032px;
   margin-top: 72px;
   @media (max-width: 640px) {
@@ -159,5 +163,7 @@ export const Zabos = styled.section`
 `;
 
 Zabos.ZaboList = styled.div`
-  .masonry { margin: 0 }
+  .masonry {
+    margin: 0;
+  }
 `;
