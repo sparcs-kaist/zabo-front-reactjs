@@ -3,8 +3,6 @@ name: Build docker image on push to develop
 on:
   push:
     branches: ["develop"]
-  pull_request: # for debug
-    branches: ["develop"]
 
 jobs:
   build:
