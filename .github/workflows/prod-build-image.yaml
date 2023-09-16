@@ -3,7 +3,7 @@ name: Build docker image on release tag created
 on:
   push:
     tags:
-      - v**
+      - "**"
 
 jobs:
   build:
