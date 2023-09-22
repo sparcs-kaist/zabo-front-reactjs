@@ -147,7 +147,10 @@ const StatBox = ({ stat, type, ...props }) => {
 
   const clipBoardCopy = async () => {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const location = window.location;
+      await navigator.clipboard.writeText(
+        "https://" + location.host + "/s/" + zaboId.substr(-6, 6),
+      );
       alert("클립보드에 링크가 복사되었습니다.");
     } catch (e) {
       alert("복사에 실패하였습니다");
