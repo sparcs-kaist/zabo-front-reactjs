@@ -112,6 +112,11 @@ export default handleActions(
           draft.info = user;
         });
       },
+      onError: () => {
+        storage.removeItem("token");
+        axios.updateToken("");
+        return initialState;
+      },
     }),
     [LOGOUT]: (state) => {
       storage.removeItem("token");

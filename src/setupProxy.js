@@ -17,4 +17,14 @@ module.exports = function (app) {
       changeOrigin: true,
     }),
   );
+
+  app.use(
+    "/s",
+    proxy({
+      target: "http://localhost:6001",
+      pathRewrite: {
+        "^/s": "/api/s",
+      },
+    }),
+  );
 };

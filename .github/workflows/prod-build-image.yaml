@@ -1,0 +1,40 @@
+name: Build docker image on release tag created
+
+on:
+  push:
+    tags:
+      - "**"
+
+jobs:
+  build:
+    name: Build and push Image to GitHub Container Registry
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Cache Docker layers
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      - name: Log in to GitHub Container Registry
+        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u USERNAME --password-stdin
+      - name: Build and push Image
+        id: docker-build
+        uses: docker/build-push-action@v5
+        env:
+          IMAGE_TAG: ${{github.ref_name}}
+        with:
+          push: true
+          tags: |
+            "ghcr.io/sparcs-kaist/zabo-front:${{ env.IMAGE_TAG }}"
+            "ghcr.io/sparcs-kaist/zabo-front:latest"
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
+      - name: Remove old cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
