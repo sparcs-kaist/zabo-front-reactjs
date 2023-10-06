@@ -16,6 +16,7 @@ const GET_ZABO = "zabo/GET_ZABO";
 const GET_PINS = "zabo/GET_PINS";
 const TOGGLE_ZABO_PIN = "zabo/TOGGLE_ZABO_PIN";
 const TOGGLE_ZABO_LIKE = "zabo/TOGGLE_ZABO_LIKE";
+const TOGGLE_ZABO_SHARE = "zabo/TOGGLE_ZABO_SHARE";
 const GET_GROUP_ZABO_LIST = "zabo/GET_GROUP_ZABO_LIST";
 const GET_SEARCH_ZABO_LIST = "zabo/GET_SEARCH_ZABO_LIST";
 const GET_SEARCH = "zabo/GET_SEARCH";
@@ -34,6 +35,12 @@ export const toggleZaboLike = createAction(
   ZaboAPI.toggleZaboLike,
   (meta) => meta,
 );
+export const toggleZaboShare = createAction(
+  TOGGLE_ZABO_SHARE,
+  ZaboAPI.toggleZaboShare,
+  (meta) => meta,
+);
+
 export const getGroupZaboList = createAction(
   GET_GROUP_ZABO_LIST,
   ZaboAPI.getGroupZaboList,
@@ -161,6 +168,13 @@ export default handleActions(
     }),
     ...pender({
       type: TOGGLE_ZABO_LIKE,
+      onSuccess: (state, action) =>
+        produce(state, (draft: IZaboState) => {
+          Object.assign(draft.zabos[action.meta], action.payload);
+        }),
+    }),
+    ...pender({
+      type: TOGGLE_ZABO_SHARE,
       onSuccess: (state, action) =>
         produce(state, (draft: IZaboState) => {
           Object.assign(draft.zabos[action.meta], action.payload);

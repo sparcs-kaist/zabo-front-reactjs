@@ -29,6 +29,7 @@ export const getPins = ({ username, lastSeen }) =>
 
 export const toggleZaboPin = (zaboId) => axios.post(`/zabo/${zaboId}/pin`);
 export const toggleZaboLike = (zaboId) => axios.post(`/zabo/${zaboId}/like`);
+export const toggleZaboShare = (zaboId) => axios.post(`/zabo/${zaboId}/share`);
 
 export const getGroupZaboList = ({ groupName, lastSeen }) =>
   axios.get(`/group/${groupName}/zabo/list`, { params: { lastSeen } });

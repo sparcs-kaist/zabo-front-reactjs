@@ -119,6 +119,8 @@ const ZaboDetailPage = (props) => {
     likesCount,
     isPinned,
     pinsCount,
+    isShared,
+    sharesCount,
     views,
     effectiveViews,
     isMyZabo,
@@ -137,6 +139,12 @@ const ZaboDetailPage = (props) => {
     },
     {
       type: "pin",
+      count: pinsCount,
+      zaboId,
+      active: isPinned,
+    },
+    {
+      type: "share",
       count: pinsCount,
       zaboId,
       active: isPinned,
