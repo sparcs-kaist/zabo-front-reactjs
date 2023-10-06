@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link, useHistory, useRouteMatch } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import Carousel from "react-airbnb-carousel";
+import Carousel from "sparcs-react-airbnb-carousel";
 import { Helmet } from "react-helmet";
 import Tooltip from "@material-ui/core/Tooltip";
 import get from "lodash.get";
@@ -119,6 +119,8 @@ const ZaboDetailPage = (props) => {
     likesCount,
     isPinned,
     pinsCount,
+    isShared,
+    sharesCount,
     views,
     effectiveViews,
     isMyZabo,
@@ -137,6 +139,12 @@ const ZaboDetailPage = (props) => {
     },
     {
       type: "pin",
+      count: pinsCount,
+      zaboId,
+      active: isPinned,
+    },
+    {
+      type: "share",
       count: pinsCount,
       zaboId,
       active: isPinned,
