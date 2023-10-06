@@ -4,6 +4,7 @@ import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import throttle from "lodash.throttle";
+import copy from "copy-to-clipboard";
 
 import { toggleZaboLike, toggleZaboPin, toggleZaboShare } from "store/reducers/zabo";
 import { isAuthedSelector } from "lib/utils";
@@ -145,15 +146,14 @@ const StatBox = ({ stat, type, ...props }) => {
     }
   };
 
-  const clipBoardCopy = async () => {
+  const clipBoardCopy = () => {
     try {
       const location = window.location;
-      await navigator.clipboard.writeText(
-        `${location.protocol}//${location.host}/s/${zaboId.slice(-6)}`,
-        // https://zabo.sparcs.org/s/2j412h
-      );
+      // 미리보기가 가능한 url을 생성합니다(예시: https://zabo.sparcs.org/s/2j412h).
+      const shareUrl = `${location.protocol}//${location.host}/s/${zaboId.slice(-6)}`;
+      copy(shareUrl);
       alert("클립보드에 링크가 복사되었습니다.");
-    } catch (e) {
+    } catch (_) {
       alert("복사에 실패하였습니다");
     }
   };
