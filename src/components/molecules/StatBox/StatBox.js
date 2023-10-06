@@ -149,7 +149,8 @@ const StatBox = ({ stat, type, ...props }) => {
     try {
       const location = window.location;
       await navigator.clipboard.writeText(
-        "https://" + location.host + "/s/" + zaboId.substr(-6, 6),
+        `${location.protocol}//${location.host}/s/${zaboId.slice(-6)}`,
+        // https://zabo.sparcs.org/s/2j412h
       );
       alert("클립보드에 링크가 복사되었습니다.");
     } catch (e) {
