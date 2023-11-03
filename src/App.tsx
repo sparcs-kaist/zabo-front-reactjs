@@ -26,6 +26,7 @@ import { PrivateRoute, PublicRoute } from "hoc/AuthRoutes";
 import pToP from "hoc/paramsToProps";
 
 import AppWrapper from "./App.styled";
+import Reload from "./components/pages/Reload";
 
 const App = () => (
   <AppWrapper>
@@ -55,6 +56,7 @@ const App = () => (
         <PrivateRoute path="/settings" component={SettingsPage} />
         <PublicRoute path="/auth" component={AuthPage} />
         <Route path="/api" component={ApiPage} />
+        <Route path="/s" component={Reload} />
         <Route path="/" exact component={LandingPage} />
         <Route path="/main" exact component={HomePage} />
         <Route path="/:name" component={ProfilePage} />
