@@ -26,3 +26,4 @@ export const NotFound = loadable(/* webpackPrefetch: true */ () => import("./Not
 // export const AdminPage = loadable(/* webpackPrefetch: true */ () => import("./AdminPage"));
 export const SearchPage = loadable(/* webpackPrefetch: true */ () => import("./SearchPage"));
 export const ApiPage = loadable(/* webpackPrefetch: true */ () => import("./ApiPage"));
+export const ReloadPage = loadable(/* webpackPrefetch: true */ () => import("./Reload"));
