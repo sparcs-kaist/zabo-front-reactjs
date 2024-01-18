@@ -136,7 +136,7 @@ const AuthButton: React.FC<AuthButtonProps> = ({ type, groupName, transparent })
       ) : (
         <div>
           <SVG icon="user" />
-          <a className="upload" href="/api/auth/login">
+          <a className="upload" href={`${process.env.REACT_APP_API_HOST || ""}/api/auth/login`}>
             로그인
           </a>
         </div>

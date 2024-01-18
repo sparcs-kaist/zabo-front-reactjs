@@ -32,7 +32,7 @@ jobs:
         run: yarn
       
       - name: Build
-        run: yarn build
+        run: CI=false yarn build
 
       - name: Deploy
         env:
