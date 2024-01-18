@@ -1,0 +1,45 @@
+name: Build src on release tag created and deploy to s3(cloudfront)
+
+on:
+  # push:
+  #   tags:
+  #     - "**"
+  push:
+    branches:
+      - "develop"
+
+jobs:
+  build:
+    name: Build and push static to s3 cloudfront
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Cache node modules  # node modules 캐싱
+        uses: actions/cache@v1
+        id: yarn-cache
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-master-build-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+      - if: steps.yarn-cache.outputs.cache-hit == 'true'
+        run: echo 'yarn cache hit!'
+      - if: steps.yarn-cache.outputs.cache-hit != 'true'
+        run: echo 'yarn cache missed!'
+  
+      - name: Install Dependencies
+        run: yarn
+      
+      - name: Build
+        run: yarn build
+
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp \
+            --recursive \
+            --region ap-northeast-2 \
+            build s3://zabo.staging.sparcs.org
