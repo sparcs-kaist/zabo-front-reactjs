@@ -33,7 +33,7 @@ const UploadProcess = ({ children }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const info = useSelector((state) => get(state, ["upload", "info"]));
-  const { title, description, hasSchedule, schedules, category } = info;
+  const { title, description, hasSchedule, schedules, showBoard, category } = info;
   const imageFiles = useSelector((state) => get(state, ["upload", "images"]));
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState(null);
@@ -55,6 +55,7 @@ const UploadProcess = ({ children }) => {
     formData.append("title", title);
     formData.append("description", description);
     if (hasSchedule) formData.append("schedules", JSON.stringify(schedules));
+    formData.append("showBoard", showBoard);
     const uCats = category
       .filter((c) => c.clicked)
       .map((t) => t.name)

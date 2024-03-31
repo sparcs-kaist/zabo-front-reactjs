@@ -111,6 +111,7 @@ const ZaboDetailPage = (props) => {
     title,
     owner = {},
     schedules,
+    showBoard,
     createdAt,
     description,
     category = [],

@@ -49,6 +49,7 @@ export interface IUploadState {
     description: string;
     hasSchedule: boolean;
     schedules: ISchedule[];
+    showBoard: boolean;
     category: { name: string; clicked: boolean }[];
   };
   showModal: boolean;
@@ -72,6 +73,7 @@ const initialState: IUploadState = {
     description: "",
     hasSchedule: false,
     schedules: [defaultSchedule],
+    showBoard: false,
     category: ZABO_CATEGORIES.map((tag) => ({ name: tag, clicked: false })),
   },
   showModal: false,
