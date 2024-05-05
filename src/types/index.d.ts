@@ -37,6 +37,7 @@ export interface IZabo {
       type: string;
     },
   ];
+  showBoard: boolean;
   isLiked: boolean;
   isPinned: boolean;
   isMyZabo: boolean;

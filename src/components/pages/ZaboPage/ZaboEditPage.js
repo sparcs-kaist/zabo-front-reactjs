@@ -61,10 +61,11 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
     title: zabo.title,
     description: zabo.description,
     schedules: prevSchedules,
+    showBoard: zabo.showBoard,
     category: newCat,
     hasSchedule: prevHasSchedule,
   });
-  const { title, description, schedules, hasSchedule } = state;
+  const { title, description, schedules, hasSchedule, showBoard } = state;
 
   useEffect(() => {
     if (!submit) return;
@@ -96,7 +97,8 @@ const ZaboEditPage = ({ zaboId, zabo }) => {
     if (
       zabo.title !== title ||
       zabo.description !== description ||
-      !isEqual(prevSchedules, schedules)
+      !isEqual(prevSchedules, schedules) ||
+      zabo.showBoard !== showBoard
     ) {
       setChanged(true);
     } else {

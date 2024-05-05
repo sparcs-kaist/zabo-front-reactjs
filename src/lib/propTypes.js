@@ -29,6 +29,7 @@ export const ZaboType = PropTypes.shape({
       type: PropTypes.string,
     }),
   ),
+  showBoard: PropTypes.bool,
   isLiked: PropTypes.bool,
   isPinned: PropTypes.bool,
   isMyZabo: PropTypes.bool,

@@ -24,6 +24,7 @@ export interface Zabo extends MongoSchema {
     endAt?: string;
     eventType?: "행사" | "신청";
   }[];
+  showBoard: boolean;
 
   pins?: Board[] | string[];
   likes?: ZaboLike[];

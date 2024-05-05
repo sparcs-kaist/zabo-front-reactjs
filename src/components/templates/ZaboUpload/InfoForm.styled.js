@@ -243,6 +243,33 @@ InfoFormWrapper.Info = styled.section`
   }
 `;
 
+InfoFormWrapper.Info.Board = styled.section`
+  width: 99%;
+  height: 100%;
+  transition: max-height 0.3s ease-in-out;
+  padding: 0 29px;
+  margin: 0 0 28px 0;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
+  border-left: 5px solid #143441;
+  border-radius: 2px;
+  .head {
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    p {
+      color: #363636;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+    }
+    .toggle-btn {
+      flex: 1;
+      text-align: right;
+    }
+  }
+`;
+
 InfoFormWrapper.Info.Schedule = styled.section`
   width: 99%;
   height: 100%;
@@ -259,7 +286,7 @@ InfoFormWrapper.Info.Schedule = styled.section`
         `};
   transition: max-height 0.3s ease-in-out;
   padding: 0 29px;
-  margin: 30px 0 48px;
+  margin: 30px 0 18px;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.3);
   border-left: 5px solid #143441;
   border-radius: 2px;

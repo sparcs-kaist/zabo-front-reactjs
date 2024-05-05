@@ -14,6 +14,7 @@ import { setInfo } from "store/reducers/upload";
 import { gridLayoutCompareFunction } from "lib/utils";
 
 import { InfoFormWrapper } from "./InfoForm.styled";
+import I18nextBrowserLanguageDetector from "i18next-browser-languagedetector";
 
 const scheduleTypeOptions = [
   { value: "행사", label: "행사" },
@@ -29,7 +30,7 @@ const scheduleTypeOptionsH = scheduleTypeOptions.reduce(
 );
 
 const Form = ({ state, setState, preview }) => {
-  const { title, description, hasSchedule, schedules, category } = state;
+  const { title, description, hasSchedule, schedules, showBoard, category } = state;
   const schedule = schedules[0];
   const { title: scheduleTitle, startAt, eventType } = schedule;
 
@@ -81,6 +82,13 @@ const Form = ({ state, setState, preview }) => {
     (e) => {
       const { checked } = e.target;
       setState({ hasSchedule: checked });
+    },
+    [setState],
+  );
+  const handleBoardToggle = useCallback(
+    (e) => {
+      const { checked } = e.target;
+      setState({ showBoard: checked });
     },
     [setState],
   );
@@ -136,6 +144,7 @@ const Form = ({ state, setState, preview }) => {
                 <ToggleButton onChange={handleToggle} checked={hasSchedule} />
               </div>
             </div>
+
             <div className="body">
               <div className="body-container">
                 <div className="schedule-title">
@@ -200,6 +209,16 @@ const Form = ({ state, setState, preview }) => {
               </div>
             </div>
           </InfoFormWrapper.Info.Schedule>
+
+          <InfoFormWrapper.Info.Board className="zabo-boardcheck" showBoard={showBoard}>
+            <div className="head">
+              <p>ZABO BOARD 게시를 희망하시나요?</p>
+              <div className="toggle-btn">
+                <ToggleButton onChange={handleBoardToggle} checked={showBoard} />
+              </div>
+            </div>
+          </InfoFormWrapper.Info.Board>
+
           <section className="zabo-keywords">
             <div className="label label-tag">태그</div>
             <div className="tags">
@@ -233,6 +252,7 @@ Form.propTypes = {
         eventType: PropTypes.string,
       }),
     ),
+    showBoard: PropTypes.bool,
     category: PropTypes.arrayOf(
       PropTypes.shape({
         name: PropTypes.string,
