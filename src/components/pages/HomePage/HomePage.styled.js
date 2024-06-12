@@ -1,42 +1,25 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { media } from "lib/utils/style";
+
+import ContainerAtom from "components/atoms/Container";
 
 /* ============ Wrapper ============ */
 const HomePageWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 20px;
+
   transition: 0.4s;
   animation-duration: 0.3s;
-
-  /* 
-   * Poster Layout
-   * poster = 240px, column space = 10px
-   * .container padding = 0px 20px
-   * num of posters: total width
-   * 1: 240px
-   * 2: 490px   => 530 ~
-   * 3: 760px    => 800 ~ 
-   * 4: 1020px    => 1060 ~
-   */
-
-  /*  @media (min-width: 0px) and (max-width: 530px) {
-    !* .container width auto with padding *!
-  }
-  @media (min-width: 530px) and (max-width: 800px) {
-    .container {
-      width: 530px;
-    }
-  }
-  @media (min-width: 800px) and (max-width: 1060px) {
-    .container {
-      width: 800px;
-    }
-  }
-  @media (min-width: 1060px) {
-    .container {
-      width: 1060px;
-    }
-  }*/
 `;
 
 export default HomePageWrapper;
+
+export const Container = styled(ContainerAtom)`
+  max-width: 1084px;
+`;
 
 /* ============ Header ============ */
 export const Header = styled.div`
@@ -68,4 +51,44 @@ Header.AddButton = styled.button`
   width: 60px;
   height: 40px;
   background-color: rgb(27, 50, 65);
+`;
+
+export const TopBannerW = styled.div`
+  width: 100%;
+  margin-top: -40px;
+
+  display: flex;
+  flex-direction: column;
+  ${Container} {
+    flex-direction: column;
+  }
+
+  h1,
+  h3 {
+    font-size: 20px;
+    color: #143441;
+  }
+  h1 {
+    margin: 105px 0 12px;
+    font-weight: 800;
+  }
+  h3 {
+    margin: 12px 0 24px;
+    font-weight: 300;
+  }
+  ${media.tablet(css`
+    h1 {
+      margin: 105px 0 12px;
+      font-size: 32px;
+    }
+    h3 {
+      margin: 12px 0 24px;
+      font-size: 32px;
+    }
+  `)};
+`;
+
+export const TagListW = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
